@@ -1,0 +1,33 @@
+# --- Android/Kotlin ---
+/build/
+.gradle/
+.kotlin/
+local.properties
+build_error.txt
+.cxx/
+.externalNativeBuild/
+captures/
+
+# --- IntelliJ/Android Studio (.idea) ---
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+*.iml
+
+# --- Firebase ---
+.firebase/
+firebase.exe
+
+# --- Sistema/Otros ---
+.DS_Store
+*.log
+
+# Google Services configuration file (contiene API Keys)
+app/google-services.json
+
+# Otros archivos sensibles que podrías tener
+.env
+local.properties

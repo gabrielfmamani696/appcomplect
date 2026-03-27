@@ -1,0 +1,686 @@
+extend type Query {
+  """
+  ✨ Look up a single `Archivo` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  archivo(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Archivo_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Archivo_FirstRow
+  ): Archivo @fdc_generated(from: "Archivo", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Cuestionario` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  cuestionario(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Cuestionario_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Cuestionario_FirstRow
+  ): Cuestionario @fdc_generated(from: "Cuestionario", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `EspacioAprendizaje` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  espacioAprendizaje(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: EspacioAprendizaje_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: EspacioAprendizaje_FirstRow
+  ): EspacioAprendizaje @fdc_generated(from: "EspacioAprendizaje", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Insignia` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  insignia(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Insignia_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Insignia_FirstRow
+  ): Insignia @fdc_generated(from: "Insignia", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Intento` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  intento(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Intento_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Intento_FirstRow
+  ): Intento @fdc_generated(from: "Intento", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `LogroNotificado` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  logroNotificado(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: LogroNotificado_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: LogroNotificado_FirstRow
+  ): LogroNotificado @fdc_generated(from: "LogroNotificado", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `MiembroEspacio` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  miembroEspacio(
+    """
+    The key used to identify the object.
+    """
+    key: MiembroEspacio_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: MiembroEspacio_FirstRow
+  ): MiembroEspacio @fdc_generated(from: "MiembroEspacio", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Nivel` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  nivel(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Nivel_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Nivel_FirstRow
+  ): Nivel @fdc_generated(from: "Nivel", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `OpcionAvatar` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  opcionAvatar(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: OpcionAvatar_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: OpcionAvatar_FirstRow
+  ): OpcionAvatar @fdc_generated(from: "OpcionAvatar", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Pregunta` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  pregunta(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Pregunta_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Pregunta_FirstRow
+  ): Pregunta @fdc_generated(from: "Pregunta", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Respuesta` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  respuesta(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Respuesta_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Respuesta_FirstRow
+  ): Respuesta @fdc_generated(from: "Respuesta", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Tarjeta` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  tarjeta(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Tarjeta_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Tarjeta_FirstRow
+  ): Tarjeta @fdc_generated(from: "Tarjeta", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Usuario` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  usuario(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Usuario_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Usuario_FirstRow
+  ): Usuario @fdc_generated(from: "Usuario", purpose: QUERY_SINGLE)
+  """
+  ✨ List `Archivo` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  archivos(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Archivo_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Archivo_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Archivo_Having
+  ): [Archivo!]! @fdc_generated(from: "Archivo", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Cuestionario` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  cuestionarios(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Cuestionario_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Cuestionario_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Cuestionario_Having
+  ): [Cuestionario!]! @fdc_generated(from: "Cuestionario", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `EspacioAprendizaje` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  espacioAprendizajes(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: EspacioAprendizaje_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [EspacioAprendizaje_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: EspacioAprendizaje_Having
+  ): [EspacioAprendizaje!]! @fdc_generated(from: "EspacioAprendizaje", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Insignia` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  insignias(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Insignia_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Insignia_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Insignia_Having
+  ): [Insignia!]! @fdc_generated(from: "Insignia", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Intento` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  intentos(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Intento_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Intento_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Intento_Having
+  ): [Intento!]! @fdc_generated(from: "Intento", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `LogroNotificado` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  logroNotificados(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: LogroNotificado_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [LogroNotificado_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: LogroNotificado_Having
+  ): [LogroNotificado!]! @fdc_generated(from: "LogroNotificado", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `MiembroEspacio` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  miembroEspacios(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: MiembroEspacio_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [MiembroEspacio_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: MiembroEspacio_Having
+  ): [MiembroEspacio!]! @fdc_generated(from: "MiembroEspacio", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Nivel` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  nivels(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Nivel_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Nivel_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Nivel_Having
+  ): [Nivel!]! @fdc_generated(from: "Nivel", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `OpcionAvatar` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  opcionAvatars(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: OpcionAvatar_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [OpcionAvatar_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: OpcionAvatar_Having
+  ): [OpcionAvatar!]! @fdc_generated(from: "OpcionAvatar", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Pregunta` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  preguntas(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Pregunta_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Pregunta_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Pregunta_Having
+  ): [Pregunta!]! @fdc_generated(from: "Pregunta", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Respuesta` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  respuestas(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Respuesta_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Respuesta_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Respuesta_Having
+  ): [Respuesta!]! @fdc_generated(from: "Respuesta", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Tarjeta` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  tarjetas(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Tarjeta_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Tarjeta_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Tarjeta_Having
+  ): [Tarjeta!]! @fdc_generated(from: "Tarjeta", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Usuario` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  usuarios(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Usuario_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Usuario_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Usuario_Having
+  ): [Usuario!]! @fdc_generated(from: "Usuario", purpose: QUERY_MULTIPLE)
+}

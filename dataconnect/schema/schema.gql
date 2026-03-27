@@ -1,0 +1,93 @@
+type Usuario @table {
+  alias: String!
+  estrellasPrestigio: Int!
+  rachaActualDias: Int!
+  ultimaActividad: Timestamp!
+  tipoUsuario: Int!
+  estadoValidacion: Boolean!
+  nombre: String!
+  apellidoPaterno: String!
+  apellidoMaterno: String!
+  nivel: Nivel
+  avatar: OpcionAvatar
+}
+
+type Nivel @table {
+  nombreRango: String!
+  estrellasRequeridas: Int!
+  limitePalabrasTarjeta: Int!
+}
+
+type OpcionAvatar @table {
+  imagenUrl: String!
+  descripcion: String!
+}
+
+type EspacioAprendizaje @table {
+  creador: Usuario
+  nombreEspacio: String!
+  tokenAcceso: Int!
+}
+
+type MiembroEspacio @table(key: ["espacio", "usuario"]) {
+  espacio: EspacioAprendizaje!
+  usuario: Usuario!
+}
+
+type Archivo @table {
+  titulo: String!
+  tema: String!
+  descripcion: String!
+  fechaCreacion: Timestamp!
+  tipoCreador: Int!
+  imagenUrl: String
+  nivel: Nivel
+  espacio: EspacioAprendizaje
+  creador: Usuario
+}
+
+type Cuestionario @table {
+  archivo: Archivo
+  tituloQuiz: String!
+}
+
+type Pregunta @table {
+  cuestionario: Cuestionario
+  enunciado: String!
+}
+
+type Respuesta @table {
+  pregunta: Pregunta
+  textoOpcion: String!
+  esCorrecta: Boolean!
+}
+
+type Tarjeta @table {
+  archivo: Archivo
+  ordenSecuencia: Int!
+  contenidoTexto: String!
+  tipoFondo: String!
+  dataFondo: String!
+}
+
+type Intento @table {
+  usuario: Usuario
+  archivo: Archivo
+  calificacionObtenida: Int!
+  fechaIntento: Timestamp!
+  completadoExitosamente: Boolean!
+}
+
+type Insignia @table {
+  tipoLogro: String!
+  nombreVisible: String!
+  descripcion: String!
+  iconoRef: String!
+  condicionDesbloqueo: String!
+}
+
+type LogroNotificado @table {
+  usuario: Usuario
+  insignia: Insignia
+  fechaNotificacion: Timestamp!
+}

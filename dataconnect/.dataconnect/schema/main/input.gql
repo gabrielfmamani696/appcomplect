@@ -1,0 +1,3613 @@
+"""
+✨ `Archivo_KeyOutput` returns the primary key fields of table type `Archivo`.
+
+It has the same format as `Archivo_Key`, but is only used as mutation return value.
+"""
+scalar Archivo_KeyOutput
+"""
+✨ `Cuestionario_KeyOutput` returns the primary key fields of table type `Cuestionario`.
+
+It has the same format as `Cuestionario_Key`, but is only used as mutation return value.
+"""
+scalar Cuestionario_KeyOutput
+"""
+✨ `EspacioAprendizaje_KeyOutput` returns the primary key fields of table type `EspacioAprendizaje`.
+
+It has the same format as `EspacioAprendizaje_Key`, but is only used as mutation return value.
+"""
+scalar EspacioAprendizaje_KeyOutput
+"""
+✨ `Insignia_KeyOutput` returns the primary key fields of table type `Insignia`.
+
+It has the same format as `Insignia_Key`, but is only used as mutation return value.
+"""
+scalar Insignia_KeyOutput
+"""
+✨ `Intento_KeyOutput` returns the primary key fields of table type `Intento`.
+
+It has the same format as `Intento_Key`, but is only used as mutation return value.
+"""
+scalar Intento_KeyOutput
+"""
+✨ `LogroNotificado_KeyOutput` returns the primary key fields of table type `LogroNotificado`.
+
+It has the same format as `LogroNotificado_Key`, but is only used as mutation return value.
+"""
+scalar LogroNotificado_KeyOutput
+"""
+✨ `MiembroEspacio_KeyOutput` returns the primary key fields of table type `MiembroEspacio`.
+
+It has the same format as `MiembroEspacio_Key`, but is only used as mutation return value.
+"""
+scalar MiembroEspacio_KeyOutput
+"""
+✨ `Nivel_KeyOutput` returns the primary key fields of table type `Nivel`.
+
+It has the same format as `Nivel_Key`, but is only used as mutation return value.
+"""
+scalar Nivel_KeyOutput
+"""
+✨ `OpcionAvatar_KeyOutput` returns the primary key fields of table type `OpcionAvatar`.
+
+It has the same format as `OpcionAvatar_Key`, but is only used as mutation return value.
+"""
+scalar OpcionAvatar_KeyOutput
+"""
+✨ `Pregunta_KeyOutput` returns the primary key fields of table type `Pregunta`.
+
+It has the same format as `Pregunta_Key`, but is only used as mutation return value.
+"""
+scalar Pregunta_KeyOutput
+"""
+✨ `Respuesta_KeyOutput` returns the primary key fields of table type `Respuesta`.
+
+It has the same format as `Respuesta_Key`, but is only used as mutation return value.
+"""
+scalar Respuesta_KeyOutput
+"""
+✨ `Tarjeta_KeyOutput` returns the primary key fields of table type `Tarjeta`.
+
+It has the same format as `Tarjeta_Key`, but is only used as mutation return value.
+"""
+scalar Tarjeta_KeyOutput
+"""
+✨ `Usuario_KeyOutput` returns the primary key fields of table type `Usuario`.
+
+It has the same format as `Usuario_Key`, but is only used as mutation return value.
+"""
+scalar Usuario_KeyOutput
+"""
+✨ Generated data input type for table 'Archivo'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Archivo_Data {
+  """
+  ✨ Generated from Field `Archivo`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Archivo`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Archivo`.`creadorId` of type `UUID`
+  """
+  creadorId: UUID
+  """
+  ✨ `_expr` server value variant of `creadorId` (✨ Generated from Field `Archivo`.`creadorId` of type `UUID`)
+  """
+  creadorId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Archivo`.`espacioId` of type `UUID`
+  """
+  espacioId: UUID
+  """
+  ✨ `_expr` server value variant of `espacioId` (✨ Generated from Field `Archivo`.`espacioId` of type `UUID`)
+  """
+  espacioId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Archivo`.`nivelId` of type `UUID`
+  """
+  nivelId: UUID
+  """
+  ✨ `_expr` server value variant of `nivelId` (✨ Generated from Field `Archivo`.`nivelId` of type `UUID`)
+  """
+  nivelId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Archivo`.`creador` of type `Usuario`
+  """
+  creador: Usuario_Key
+  """
+  ✨ Generated from Field `Archivo`.`espacio` of type `EspacioAprendizaje`
+  """
+  espacio: EspacioAprendizaje_Key
+  """
+  ✨ Generated from Field `Archivo`.`nivel` of type `Nivel`
+  """
+  nivel: Nivel_Key
+  """
+  ✨ Generated from Field `Archivo`.`descripcion` of type `String!`
+  """
+  descripcion: String
+  """
+  ✨ `_expr` server value variant of `descripcion` (✨ Generated from Field `Archivo`.`descripcion` of type `String!`)
+  """
+  descripcion_expr: String_Expr
+  """
+  ✨ Generated from Field `Archivo`.`fechaCreacion` of type `Timestamp!`
+  """
+  fechaCreacion: Timestamp
+  """
+  ✨ `_expr` server value variant of `fechaCreacion` (✨ Generated from Field `Archivo`.`fechaCreacion` of type `Timestamp!`)
+  """
+  fechaCreacion_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `fechaCreacion` (✨ Generated from Field `Archivo`.`fechaCreacion` of type `Timestamp!`)
+  """
+  fechaCreacion_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `fechaCreacion` (✨ Generated from Field `Archivo`.`fechaCreacion` of type `Timestamp!`)
+  """
+  fechaCreacion_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `Archivo`.`imagenUrl` of type `String`
+  """
+  imagenUrl: String
+  """
+  ✨ `_expr` server value variant of `imagenUrl` (✨ Generated from Field `Archivo`.`imagenUrl` of type `String`)
+  """
+  imagenUrl_expr: String_Expr
+  """
+  ✨ Generated from Field `Archivo`.`tema` of type `String!`
+  """
+  tema: String
+  """
+  ✨ `_expr` server value variant of `tema` (✨ Generated from Field `Archivo`.`tema` of type `String!`)
+  """
+  tema_expr: String_Expr
+  """
+  ✨ Generated from Field `Archivo`.`tipoCreador` of type `Int!`
+  """
+  tipoCreador: Int
+  """
+  ✨ `_expr` server value variant of `tipoCreador` (✨ Generated from Field `Archivo`.`tipoCreador` of type `Int!`)
+  """
+  tipoCreador_expr: Int_Expr
+  """
+  ✨ `_update` server value variant of `tipoCreador` (✨ Generated from Field `Archivo`.`tipoCreador` of type `Int!`)
+  """
+  tipoCreador_update: [Int_Update!]
+  """
+  ✨ Generated from Field `Archivo`.`titulo` of type `String!`
+  """
+  titulo: String
+  """
+  ✨ `_expr` server value variant of `titulo` (✨ Generated from Field `Archivo`.`titulo` of type `String!`)
+  """
+  titulo_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'Archivo'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Archivo_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Archivo_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Archivo_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Archivo_Filter!]
+  """
+  ✨ Generated from Field `Archivo`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Archivo`.`creadorId` of type `UUID`
+  """
+  creadorId: UUID_Filter
+  """
+  ✨ Generated from Field `Archivo`.`espacioId` of type `UUID`
+  """
+  espacioId: UUID_Filter
+  """
+  ✨ Generated from Field `Archivo`.`nivelId` of type `UUID`
+  """
+  nivelId: UUID_Filter
+  """
+  ✨ Generated from Field `Archivo`.`creador` of type `Usuario`
+  """
+  creador: Usuario_Filter
+  """
+  ✨ Generated from Field `Archivo`.`espacio` of type `EspacioAprendizaje`
+  """
+  espacio: EspacioAprendizaje_Filter
+  """
+  ✨ Generated from Field `Archivo`.`nivel` of type `Nivel`
+  """
+  nivel: Nivel_Filter
+  """
+  ✨ Generated from Field `Archivo`.`descripcion` of type `String!`
+  """
+  descripcion: String_Filter
+  """
+  ✨ Generated from Field `Archivo`.`fechaCreacion` of type `Timestamp!`
+  """
+  fechaCreacion: Timestamp_Filter
+  """
+  ✨ Generated from Field `Archivo`.`imagenUrl` of type `String`
+  """
+  imagenUrl: String_Filter
+  """
+  ✨ Generated from Field `Archivo`.`tema` of type `String!`
+  """
+  tema: String_Filter
+  """
+  ✨ Generated from Field `Archivo`.`tipoCreador` of type `Int!`
+  """
+  tipoCreador: Int_Filter
+  """
+  ✨ Generated from Field `Archivo`.`titulo` of type `String!`
+  """
+  titulo: String_Filter
+  """
+  ✨ Generated from Field `Archivo`.`cuestionarios_on_archivo` of type `[Cuestionario!]!`
+  """
+  cuestionarios_on_archivo: Cuestionario_ListFilter
+  """
+  ✨ Generated from Field `Archivo`.`intentos_on_archivo` of type `[Intento!]!`
+  """
+  intentos_on_archivo: Intento_ListFilter
+  """
+  ✨ Generated from Field `Archivo`.`tarjetas_on_archivo` of type `[Tarjeta!]!`
+  """
+  tarjetas_on_archivo: Tarjeta_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'Archivo'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Archivo_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Archivo_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Archivo_Filter
+}
+"""
+✨ Generated having input type for table 'Archivo'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Archivo_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [Archivo_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: Archivo_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [Archivo_Having!]
+  """
+  ✨ Generated from Field `Archivo`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `Archivo`.`creadorId_count` of type `Int!`
+  """
+  creadorId_count: Int_Filter
+  """
+  ✨ Generated from Field `Archivo`.`descripcion_count` of type `Int!`
+  """
+  descripcion_count: Int_Filter
+  """
+  ✨ Generated from Field `Archivo`.`espacioId_count` of type `Int!`
+  """
+  espacioId_count: Int_Filter
+  """
+  ✨ Generated from Field `Archivo`.`fechaCreacion_count` of type `Int!`
+  """
+  fechaCreacion_count: Int_Filter
+  """
+  ✨ Generated from Field `Archivo`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `Archivo`.`imagenUrl_count` of type `Int!`
+  """
+  imagenUrl_count: Int_Filter
+  """
+  ✨ Generated from Field `Archivo`.`nivelId_count` of type `Int!`
+  """
+  nivelId_count: Int_Filter
+  """
+  ✨ Generated from Field `Archivo`.`tema_count` of type `Int!`
+  """
+  tema_count: Int_Filter
+  """
+  ✨ Generated from Field `Archivo`.`tipoCreador_count` of type `Int!`
+  """
+  tipoCreador_count: Int_Filter
+  """
+  ✨ Generated from Field `Archivo`.`titulo_count` of type `Int!`
+  """
+  titulo_count: Int_Filter
+  """
+  ✨ Generated from Field `Archivo`.`tipoCreador_sum` of type `Int`
+  """
+  tipoCreador_sum: Int_Filter
+  """
+  ✨ Generated from Field `Archivo`.`tipoCreador_avg` of type `Float`
+  """
+  tipoCreador_avg: Float_Filter
+  """
+  ✨ Generated from Field `Archivo`.`fechaCreacion_min` of type `Timestamp`
+  """
+  fechaCreacion_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `Archivo`.`tipoCreador_min` of type `Int`
+  """
+  tipoCreador_min: Int_Filter
+  """
+  ✨ Generated from Field `Archivo`.`fechaCreacion_max` of type `Timestamp`
+  """
+  fechaCreacion_max: Timestamp_Filter
+  """
+  ✨ Generated from Field `Archivo`.`tipoCreador_max` of type `Int`
+  """
+  tipoCreador_max: Int_Filter
+}
+"""
+✨ Generated key input type for table 'Archivo'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Archivo_Key {
+  """
+  ✨ Generated from Field `Archivo`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Archivo`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Archivo'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Archivo_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Archivo_Filter
+}
+"""
+✨ Generated order input type for table 'Archivo'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Archivo_Order {
+  """
+  ✨ Generated from Field `Archivo`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`creadorId` of type `UUID`
+  """
+  creadorId: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`espacioId` of type `UUID`
+  """
+  espacioId: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`nivelId` of type `UUID`
+  """
+  nivelId: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`creador` of type `Usuario`
+  """
+  creador: Usuario_Order
+  """
+  ✨ Generated from Field `Archivo`.`espacio` of type `EspacioAprendizaje`
+  """
+  espacio: EspacioAprendizaje_Order
+  """
+  ✨ Generated from Field `Archivo`.`nivel` of type `Nivel`
+  """
+  nivel: Nivel_Order
+  """
+  ✨ Generated from Field `Archivo`.`descripcion` of type `String!`
+  """
+  descripcion: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`fechaCreacion` of type `Timestamp!`
+  """
+  fechaCreacion: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`imagenUrl` of type `String`
+  """
+  imagenUrl: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`tema` of type `String!`
+  """
+  tema: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`tipoCreador` of type `Int!`
+  """
+  tipoCreador: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`titulo` of type `String!`
+  """
+  titulo: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`creadorId_count` of type `Int!`
+  """
+  creadorId_count: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`descripcion_count` of type `Int!`
+  """
+  descripcion_count: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`espacioId_count` of type `Int!`
+  """
+  espacioId_count: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`fechaCreacion_count` of type `Int!`
+  """
+  fechaCreacion_count: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`imagenUrl_count` of type `Int!`
+  """
+  imagenUrl_count: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`nivelId_count` of type `Int!`
+  """
+  nivelId_count: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`tema_count` of type `Int!`
+  """
+  tema_count: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`tipoCreador_count` of type `Int!`
+  """
+  tipoCreador_count: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`titulo_count` of type `Int!`
+  """
+  titulo_count: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`tipoCreador_sum` of type `Int`
+  """
+  tipoCreador_sum: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`tipoCreador_avg` of type `Float`
+  """
+  tipoCreador_avg: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`fechaCreacion_min` of type `Timestamp`
+  """
+  fechaCreacion_min: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`tipoCreador_min` of type `Int`
+  """
+  tipoCreador_min: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`fechaCreacion_max` of type `Timestamp`
+  """
+  fechaCreacion_max: OrderDirection
+  """
+  ✨ Generated from Field `Archivo`.`tipoCreador_max` of type `Int`
+  """
+  tipoCreador_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Cuestionario'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Cuestionario_Data {
+  """
+  ✨ Generated from Field `Cuestionario`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Cuestionario`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Cuestionario`.`archivoId` of type `UUID`
+  """
+  archivoId: UUID
+  """
+  ✨ `_expr` server value variant of `archivoId` (✨ Generated from Field `Cuestionario`.`archivoId` of type `UUID`)
+  """
+  archivoId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Cuestionario`.`archivo` of type `Archivo`
+  """
+  archivo: Archivo_Key
+  """
+  ✨ Generated from Field `Cuestionario`.`tituloQuiz` of type `String!`
+  """
+  tituloQuiz: String
+  """
+  ✨ `_expr` server value variant of `tituloQuiz` (✨ Generated from Field `Cuestionario`.`tituloQuiz` of type `String!`)
+  """
+  tituloQuiz_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'Cuestionario'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Cuestionario_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Cuestionario_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Cuestionario_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Cuestionario_Filter!]
+  """
+  ✨ Generated from Field `Cuestionario`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Cuestionario`.`archivoId` of type `UUID`
+  """
+  archivoId: UUID_Filter
+  """
+  ✨ Generated from Field `Cuestionario`.`archivo` of type `Archivo`
+  """
+  archivo: Archivo_Filter
+  """
+  ✨ Generated from Field `Cuestionario`.`tituloQuiz` of type `String!`
+  """
+  tituloQuiz: String_Filter
+  """
+  ✨ Generated from Field `Cuestionario`.`preguntas_on_cuestionario` of type `[Pregunta!]!`
+  """
+  preguntas_on_cuestionario: Pregunta_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'Cuestionario'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Cuestionario_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Cuestionario_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Cuestionario_Filter
+}
+"""
+✨ Generated having input type for table 'Cuestionario'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Cuestionario_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [Cuestionario_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: Cuestionario_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [Cuestionario_Having!]
+  """
+  ✨ Generated from Field `Cuestionario`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `Cuestionario`.`archivoId_count` of type `Int!`
+  """
+  archivoId_count: Int_Filter
+  """
+  ✨ Generated from Field `Cuestionario`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `Cuestionario`.`tituloQuiz_count` of type `Int!`
+  """
+  tituloQuiz_count: Int_Filter
+}
+"""
+✨ Generated key input type for table 'Cuestionario'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Cuestionario_Key {
+  """
+  ✨ Generated from Field `Cuestionario`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Cuestionario`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Cuestionario'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Cuestionario_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Cuestionario_Filter
+}
+"""
+✨ Generated order input type for table 'Cuestionario'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Cuestionario_Order {
+  """
+  ✨ Generated from Field `Cuestionario`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Cuestionario`.`archivoId` of type `UUID`
+  """
+  archivoId: OrderDirection
+  """
+  ✨ Generated from Field `Cuestionario`.`archivo` of type `Archivo`
+  """
+  archivo: Archivo_Order
+  """
+  ✨ Generated from Field `Cuestionario`.`tituloQuiz` of type `String!`
+  """
+  tituloQuiz: OrderDirection
+  """
+  ✨ Generated from Field `Cuestionario`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `Cuestionario`.`archivoId_count` of type `Int!`
+  """
+  archivoId_count: OrderDirection
+  """
+  ✨ Generated from Field `Cuestionario`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `Cuestionario`.`tituloQuiz_count` of type `Int!`
+  """
+  tituloQuiz_count: OrderDirection
+}
+"""
+✨ Generated data input type for table 'EspacioAprendizaje'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input EspacioAprendizaje_Data {
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `EspacioAprendizaje`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`creadorId` of type `UUID`
+  """
+  creadorId: UUID
+  """
+  ✨ `_expr` server value variant of `creadorId` (✨ Generated from Field `EspacioAprendizaje`.`creadorId` of type `UUID`)
+  """
+  creadorId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`creador` of type `Usuario`
+  """
+  creador: Usuario_Key
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`nombreEspacio` of type `String!`
+  """
+  nombreEspacio: String
+  """
+  ✨ `_expr` server value variant of `nombreEspacio` (✨ Generated from Field `EspacioAprendizaje`.`nombreEspacio` of type `String!`)
+  """
+  nombreEspacio_expr: String_Expr
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso` of type `Int!`
+  """
+  tokenAcceso: Int
+  """
+  ✨ `_expr` server value variant of `tokenAcceso` (✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso` of type `Int!`)
+  """
+  tokenAcceso_expr: Int_Expr
+  """
+  ✨ `_update` server value variant of `tokenAcceso` (✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso` of type `Int!`)
+  """
+  tokenAcceso_update: [Int_Update!]
+}
+"""
+✨ Generated filter input type for table 'EspacioAprendizaje'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input EspacioAprendizaje_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [EspacioAprendizaje_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: EspacioAprendizaje_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [EspacioAprendizaje_Filter!]
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`creadorId` of type `UUID`
+  """
+  creadorId: UUID_Filter
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`creador` of type `Usuario`
+  """
+  creador: Usuario_Filter
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`nombreEspacio` of type `String!`
+  """
+  nombreEspacio: String_Filter
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso` of type `Int!`
+  """
+  tokenAcceso: Int_Filter
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`archivos_on_espacio` of type `[Archivo!]!`
+  """
+  archivos_on_espacio: Archivo_ListFilter
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`miembroEspacios_on_espacio` of type `[MiembroEspacio!]!`
+  """
+  miembroEspacios_on_espacio: MiembroEspacio_ListFilter
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`usuarios_via_MiembroEspacio` of type `[Usuario!]!`
+  """
+  usuarios_via_MiembroEspacio: Usuario_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'EspacioAprendizaje'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input EspacioAprendizaje_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [EspacioAprendizaje_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: EspacioAprendizaje_Filter
+}
+"""
+✨ Generated having input type for table 'EspacioAprendizaje'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input EspacioAprendizaje_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [EspacioAprendizaje_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: EspacioAprendizaje_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [EspacioAprendizaje_Having!]
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`creadorId_count` of type `Int!`
+  """
+  creadorId_count: Int_Filter
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`nombreEspacio_count` of type `Int!`
+  """
+  nombreEspacio_count: Int_Filter
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso_count` of type `Int!`
+  """
+  tokenAcceso_count: Int_Filter
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso_sum` of type `Int`
+  """
+  tokenAcceso_sum: Int_Filter
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso_avg` of type `Float`
+  """
+  tokenAcceso_avg: Float_Filter
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso_min` of type `Int`
+  """
+  tokenAcceso_min: Int_Filter
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso_max` of type `Int`
+  """
+  tokenAcceso_max: Int_Filter
+}
+"""
+✨ Generated key input type for table 'EspacioAprendizaje'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input EspacioAprendizaje_Key {
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `EspacioAprendizaje`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'EspacioAprendizaje'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input EspacioAprendizaje_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: EspacioAprendizaje_Filter
+}
+"""
+✨ Generated order input type for table 'EspacioAprendizaje'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input EspacioAprendizaje_Order {
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`creadorId` of type `UUID`
+  """
+  creadorId: OrderDirection
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`creador` of type `Usuario`
+  """
+  creador: Usuario_Order
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`nombreEspacio` of type `String!`
+  """
+  nombreEspacio: OrderDirection
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso` of type `Int!`
+  """
+  tokenAcceso: OrderDirection
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`creadorId_count` of type `Int!`
+  """
+  creadorId_count: OrderDirection
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`nombreEspacio_count` of type `Int!`
+  """
+  nombreEspacio_count: OrderDirection
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso_count` of type `Int!`
+  """
+  tokenAcceso_count: OrderDirection
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso_sum` of type `Int`
+  """
+  tokenAcceso_sum: OrderDirection
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso_avg` of type `Float`
+  """
+  tokenAcceso_avg: OrderDirection
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso_min` of type `Int`
+  """
+  tokenAcceso_min: OrderDirection
+  """
+  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso_max` of type `Int`
+  """
+  tokenAcceso_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Insignia'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Insignia_Data {
+  """
+  ✨ Generated from Field `Insignia`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Insignia`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Insignia`.`condicionDesbloqueo` of type `String!`
+  """
+  condicionDesbloqueo: String
+  """
+  ✨ `_expr` server value variant of `condicionDesbloqueo` (✨ Generated from Field `Insignia`.`condicionDesbloqueo` of type `String!`)
+  """
+  condicionDesbloqueo_expr: String_Expr
+  """
+  ✨ Generated from Field `Insignia`.`descripcion` of type `String!`
+  """
+  descripcion: String
+  """
+  ✨ `_expr` server value variant of `descripcion` (✨ Generated from Field `Insignia`.`descripcion` of type `String!`)
+  """
+  descripcion_expr: String_Expr
+  """
+  ✨ Generated from Field `Insignia`.`iconoRef` of type `String!`
+  """
+  iconoRef: String
+  """
+  ✨ `_expr` server value variant of `iconoRef` (✨ Generated from Field `Insignia`.`iconoRef` of type `String!`)
+  """
+  iconoRef_expr: String_Expr
+  """
+  ✨ Generated from Field `Insignia`.`nombreVisible` of type `String!`
+  """
+  nombreVisible: String
+  """
+  ✨ `_expr` server value variant of `nombreVisible` (✨ Generated from Field `Insignia`.`nombreVisible` of type `String!`)
+  """
+  nombreVisible_expr: String_Expr
+  """
+  ✨ Generated from Field `Insignia`.`tipoLogro` of type `String!`
+  """
+  tipoLogro: String
+  """
+  ✨ `_expr` server value variant of `tipoLogro` (✨ Generated from Field `Insignia`.`tipoLogro` of type `String!`)
+  """
+  tipoLogro_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'Insignia'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Insignia_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Insignia_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Insignia_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Insignia_Filter!]
+  """
+  ✨ Generated from Field `Insignia`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Insignia`.`condicionDesbloqueo` of type `String!`
+  """
+  condicionDesbloqueo: String_Filter
+  """
+  ✨ Generated from Field `Insignia`.`descripcion` of type `String!`
+  """
+  descripcion: String_Filter
+  """
+  ✨ Generated from Field `Insignia`.`iconoRef` of type `String!`
+  """
+  iconoRef: String_Filter
+  """
+  ✨ Generated from Field `Insignia`.`nombreVisible` of type `String!`
+  """
+  nombreVisible: String_Filter
+  """
+  ✨ Generated from Field `Insignia`.`tipoLogro` of type `String!`
+  """
+  tipoLogro: String_Filter
+  """
+  ✨ Generated from Field `Insignia`.`logroNotificados_on_insignia` of type `[LogroNotificado!]!`
+  """
+  logroNotificados_on_insignia: LogroNotificado_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'Insignia'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Insignia_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Insignia_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Insignia_Filter
+}
+"""
+✨ Generated having input type for table 'Insignia'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Insignia_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [Insignia_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: Insignia_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [Insignia_Having!]
+  """
+  ✨ Generated from Field `Insignia`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `Insignia`.`condicionDesbloqueo_count` of type `Int!`
+  """
+  condicionDesbloqueo_count: Int_Filter
+  """
+  ✨ Generated from Field `Insignia`.`descripcion_count` of type `Int!`
+  """
+  descripcion_count: Int_Filter
+  """
+  ✨ Generated from Field `Insignia`.`iconoRef_count` of type `Int!`
+  """
+  iconoRef_count: Int_Filter
+  """
+  ✨ Generated from Field `Insignia`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `Insignia`.`nombreVisible_count` of type `Int!`
+  """
+  nombreVisible_count: Int_Filter
+  """
+  ✨ Generated from Field `Insignia`.`tipoLogro_count` of type `Int!`
+  """
+  tipoLogro_count: Int_Filter
+}
+"""
+✨ Generated key input type for table 'Insignia'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Insignia_Key {
+  """
+  ✨ Generated from Field `Insignia`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Insignia`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Insignia'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Insignia_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Insignia_Filter
+}
+"""
+✨ Generated order input type for table 'Insignia'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Insignia_Order {
+  """
+  ✨ Generated from Field `Insignia`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Insignia`.`condicionDesbloqueo` of type `String!`
+  """
+  condicionDesbloqueo: OrderDirection
+  """
+  ✨ Generated from Field `Insignia`.`descripcion` of type `String!`
+  """
+  descripcion: OrderDirection
+  """
+  ✨ Generated from Field `Insignia`.`iconoRef` of type `String!`
+  """
+  iconoRef: OrderDirection
+  """
+  ✨ Generated from Field `Insignia`.`nombreVisible` of type `String!`
+  """
+  nombreVisible: OrderDirection
+  """
+  ✨ Generated from Field `Insignia`.`tipoLogro` of type `String!`
+  """
+  tipoLogro: OrderDirection
+  """
+  ✨ Generated from Field `Insignia`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `Insignia`.`condicionDesbloqueo_count` of type `Int!`
+  """
+  condicionDesbloqueo_count: OrderDirection
+  """
+  ✨ Generated from Field `Insignia`.`descripcion_count` of type `Int!`
+  """
+  descripcion_count: OrderDirection
+  """
+  ✨ Generated from Field `Insignia`.`iconoRef_count` of type `Int!`
+  """
+  iconoRef_count: OrderDirection
+  """
+  ✨ Generated from Field `Insignia`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `Insignia`.`nombreVisible_count` of type `Int!`
+  """
+  nombreVisible_count: OrderDirection
+  """
+  ✨ Generated from Field `Insignia`.`tipoLogro_count` of type `Int!`
+  """
+  tipoLogro_count: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Intento'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Intento_Data {
+  """
+  ✨ Generated from Field `Intento`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Intento`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Intento`.`archivoId` of type `UUID`
+  """
+  archivoId: UUID
+  """
+  ✨ `_expr` server value variant of `archivoId` (✨ Generated from Field `Intento`.`archivoId` of type `UUID`)
+  """
+  archivoId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Intento`.`usuarioId` of type `UUID`
+  """
+  usuarioId: UUID
+  """
+  ✨ `_expr` server value variant of `usuarioId` (✨ Generated from Field `Intento`.`usuarioId` of type `UUID`)
+  """
+  usuarioId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Intento`.`archivo` of type `Archivo`
+  """
+  archivo: Archivo_Key
+  """
+  ✨ Generated from Field `Intento`.`usuario` of type `Usuario`
+  """
+  usuario: Usuario_Key
+  """
+  ✨ Generated from Field `Intento`.`calificacionObtenida` of type `Int!`
+  """
+  calificacionObtenida: Int
+  """
+  ✨ `_expr` server value variant of `calificacionObtenida` (✨ Generated from Field `Intento`.`calificacionObtenida` of type `Int!`)
+  """
+  calificacionObtenida_expr: Int_Expr
+  """
+  ✨ `_update` server value variant of `calificacionObtenida` (✨ Generated from Field `Intento`.`calificacionObtenida` of type `Int!`)
+  """
+  calificacionObtenida_update: [Int_Update!]
+  """
+  ✨ Generated from Field `Intento`.`completadoExitosamente` of type `Boolean!`
+  """
+  completadoExitosamente: Boolean
+  """
+  ✨ `_expr` server value variant of `completadoExitosamente` (✨ Generated from Field `Intento`.`completadoExitosamente` of type `Boolean!`)
+  """
+  completadoExitosamente_expr: Boolean_Expr
+  """
+  ✨ Generated from Field `Intento`.`fechaIntento` of type `Timestamp!`
+  """
+  fechaIntento: Timestamp
+  """
+  ✨ `_expr` server value variant of `fechaIntento` (✨ Generated from Field `Intento`.`fechaIntento` of type `Timestamp!`)
+  """
+  fechaIntento_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `fechaIntento` (✨ Generated from Field `Intento`.`fechaIntento` of type `Timestamp!`)
+  """
+  fechaIntento_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `fechaIntento` (✨ Generated from Field `Intento`.`fechaIntento` of type `Timestamp!`)
+  """
+  fechaIntento_update: [Timestamp_Update!]
+}
+"""
+✨ Generated filter input type for table 'Intento'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Intento_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Intento_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Intento_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Intento_Filter!]
+  """
+  ✨ Generated from Field `Intento`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Intento`.`archivoId` of type `UUID`
+  """
+  archivoId: UUID_Filter
+  """
+  ✨ Generated from Field `Intento`.`usuarioId` of type `UUID`
+  """
+  usuarioId: UUID_Filter
+  """
+  ✨ Generated from Field `Intento`.`archivo` of type `Archivo`
+  """
+  archivo: Archivo_Filter
+  """
+  ✨ Generated from Field `Intento`.`usuario` of type `Usuario`
+  """
+  usuario: Usuario_Filter
+  """
+  ✨ Generated from Field `Intento`.`calificacionObtenida` of type `Int!`
+  """
+  calificacionObtenida: Int_Filter
+  """
+  ✨ Generated from Field `Intento`.`completadoExitosamente` of type `Boolean!`
+  """
+  completadoExitosamente: Boolean_Filter
+  """
+  ✨ Generated from Field `Intento`.`fechaIntento` of type `Timestamp!`
+  """
+  fechaIntento: Timestamp_Filter
+}
+"""
+✨ Generated first-row input type for table 'Intento'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Intento_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Intento_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Intento_Filter
+}
+"""
+✨ Generated having input type for table 'Intento'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Intento_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [Intento_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: Intento_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [Intento_Having!]
+  """
+  ✨ Generated from Field `Intento`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `Intento`.`archivoId_count` of type `Int!`
+  """
+  archivoId_count: Int_Filter
+  """
+  ✨ Generated from Field `Intento`.`calificacionObtenida_count` of type `Int!`
+  """
+  calificacionObtenida_count: Int_Filter
+  """
+  ✨ Generated from Field `Intento`.`completadoExitosamente_count` of type `Int!`
+  """
+  completadoExitosamente_count: Int_Filter
+  """
+  ✨ Generated from Field `Intento`.`fechaIntento_count` of type `Int!`
+  """
+  fechaIntento_count: Int_Filter
+  """
+  ✨ Generated from Field `Intento`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `Intento`.`usuarioId_count` of type `Int!`
+  """
+  usuarioId_count: Int_Filter
+  """
+  ✨ Generated from Field `Intento`.`calificacionObtenida_sum` of type `Int`
+  """
+  calificacionObtenida_sum: Int_Filter
+  """
+  ✨ Generated from Field `Intento`.`calificacionObtenida_avg` of type `Float`
+  """
+  calificacionObtenida_avg: Float_Filter
+  """
+  ✨ Generated from Field `Intento`.`calificacionObtenida_min` of type `Int`
+  """
+  calificacionObtenida_min: Int_Filter
+  """
+  ✨ Generated from Field `Intento`.`fechaIntento_min` of type `Timestamp`
+  """
+  fechaIntento_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `Intento`.`calificacionObtenida_max` of type `Int`
+  """
+  calificacionObtenida_max: Int_Filter
+  """
+  ✨ Generated from Field `Intento`.`fechaIntento_max` of type `Timestamp`
+  """
+  fechaIntento_max: Timestamp_Filter
+}
+"""
+✨ Generated key input type for table 'Intento'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Intento_Key {
+  """
+  ✨ Generated from Field `Intento`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Intento`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Intento'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Intento_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Intento_Filter
+}
+"""
+✨ Generated order input type for table 'Intento'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Intento_Order {
+  """
+  ✨ Generated from Field `Intento`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Intento`.`archivoId` of type `UUID`
+  """
+  archivoId: OrderDirection
+  """
+  ✨ Generated from Field `Intento`.`usuarioId` of type `UUID`
+  """
+  usuarioId: OrderDirection
+  """
+  ✨ Generated from Field `Intento`.`archivo` of type `Archivo`
+  """
+  archivo: Archivo_Order
+  """
+  ✨ Generated from Field `Intento`.`usuario` of type `Usuario`
+  """
+  usuario: Usuario_Order
+  """
+  ✨ Generated from Field `Intento`.`calificacionObtenida` of type `Int!`
+  """
+  calificacionObtenida: OrderDirection
+  """
+  ✨ Generated from Field `Intento`.`completadoExitosamente` of type `Boolean!`
+  """
+  completadoExitosamente: OrderDirection
+  """
+  ✨ Generated from Field `Intento`.`fechaIntento` of type `Timestamp!`
+  """
+  fechaIntento: OrderDirection
+  """
+  ✨ Generated from Field `Intento`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `Intento`.`archivoId_count` of type `Int!`
+  """
+  archivoId_count: OrderDirection
+  """
+  ✨ Generated from Field `Intento`.`calificacionObtenida_count` of type `Int!`
+  """
+  calificacionObtenida_count: OrderDirection
+  """
+  ✨ Generated from Field `Intento`.`completadoExitosamente_count` of type `Int!`
+  """
+  completadoExitosamente_count: OrderDirection
+  """
+  ✨ Generated from Field `Intento`.`fechaIntento_count` of type `Int!`
+  """
+  fechaIntento_count: OrderDirection
+  """
+  ✨ Generated from Field `Intento`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `Intento`.`usuarioId_count` of type `Int!`
+  """
+  usuarioId_count: OrderDirection
+  """
+  ✨ Generated from Field `Intento`.`calificacionObtenida_sum` of type `Int`
+  """
+  calificacionObtenida_sum: OrderDirection
+  """
+  ✨ Generated from Field `Intento`.`calificacionObtenida_avg` of type `Float`
+  """
+  calificacionObtenida_avg: OrderDirection
+  """
+  ✨ Generated from Field `Intento`.`calificacionObtenida_min` of type `Int`
+  """
+  calificacionObtenida_min: OrderDirection
+  """
+  ✨ Generated from Field `Intento`.`fechaIntento_min` of type `Timestamp`
+  """
+  fechaIntento_min: OrderDirection
+  """
+  ✨ Generated from Field `Intento`.`calificacionObtenida_max` of type `Int`
+  """
+  calificacionObtenida_max: OrderDirection
+  """
+  ✨ Generated from Field `Intento`.`fechaIntento_max` of type `Timestamp`
+  """
+  fechaIntento_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'LogroNotificado'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input LogroNotificado_Data {
+  """
+  ✨ Generated from Field `LogroNotificado`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `LogroNotificado`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `LogroNotificado`.`insigniaId` of type `UUID`
+  """
+  insigniaId: UUID
+  """
+  ✨ `_expr` server value variant of `insigniaId` (✨ Generated from Field `LogroNotificado`.`insigniaId` of type `UUID`)
+  """
+  insigniaId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `LogroNotificado`.`usuarioId` of type `UUID`
+  """
+  usuarioId: UUID
+  """
+  ✨ `_expr` server value variant of `usuarioId` (✨ Generated from Field `LogroNotificado`.`usuarioId` of type `UUID`)
+  """
+  usuarioId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `LogroNotificado`.`insignia` of type `Insignia`
+  """
+  insignia: Insignia_Key
+  """
+  ✨ Generated from Field `LogroNotificado`.`usuario` of type `Usuario`
+  """
+  usuario: Usuario_Key
+  """
+  ✨ Generated from Field `LogroNotificado`.`fechaNotificacion` of type `Timestamp!`
+  """
+  fechaNotificacion: Timestamp
+  """
+  ✨ `_expr` server value variant of `fechaNotificacion` (✨ Generated from Field `LogroNotificado`.`fechaNotificacion` of type `Timestamp!`)
+  """
+  fechaNotificacion_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `fechaNotificacion` (✨ Generated from Field `LogroNotificado`.`fechaNotificacion` of type `Timestamp!`)
+  """
+  fechaNotificacion_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `fechaNotificacion` (✨ Generated from Field `LogroNotificado`.`fechaNotificacion` of type `Timestamp!`)
+  """
+  fechaNotificacion_update: [Timestamp_Update!]
+}
+"""
+✨ Generated filter input type for table 'LogroNotificado'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input LogroNotificado_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [LogroNotificado_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: LogroNotificado_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [LogroNotificado_Filter!]
+  """
+  ✨ Generated from Field `LogroNotificado`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `LogroNotificado`.`insigniaId` of type `UUID`
+  """
+  insigniaId: UUID_Filter
+  """
+  ✨ Generated from Field `LogroNotificado`.`usuarioId` of type `UUID`
+  """
+  usuarioId: UUID_Filter
+  """
+  ✨ Generated from Field `LogroNotificado`.`insignia` of type `Insignia`
+  """
+  insignia: Insignia_Filter
+  """
+  ✨ Generated from Field `LogroNotificado`.`usuario` of type `Usuario`
+  """
+  usuario: Usuario_Filter
+  """
+  ✨ Generated from Field `LogroNotificado`.`fechaNotificacion` of type `Timestamp!`
+  """
+  fechaNotificacion: Timestamp_Filter
+}
+"""
+✨ Generated first-row input type for table 'LogroNotificado'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input LogroNotificado_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [LogroNotificado_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: LogroNotificado_Filter
+}
+"""
+✨ Generated having input type for table 'LogroNotificado'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input LogroNotificado_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [LogroNotificado_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: LogroNotificado_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [LogroNotificado_Having!]
+  """
+  ✨ Generated from Field `LogroNotificado`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `LogroNotificado`.`fechaNotificacion_count` of type `Int!`
+  """
+  fechaNotificacion_count: Int_Filter
+  """
+  ✨ Generated from Field `LogroNotificado`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `LogroNotificado`.`insigniaId_count` of type `Int!`
+  """
+  insigniaId_count: Int_Filter
+  """
+  ✨ Generated from Field `LogroNotificado`.`usuarioId_count` of type `Int!`
+  """
+  usuarioId_count: Int_Filter
+  """
+  ✨ Generated from Field `LogroNotificado`.`fechaNotificacion_min` of type `Timestamp`
+  """
+  fechaNotificacion_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `LogroNotificado`.`fechaNotificacion_max` of type `Timestamp`
+  """
+  fechaNotificacion_max: Timestamp_Filter
+}
+"""
+✨ Generated key input type for table 'LogroNotificado'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input LogroNotificado_Key {
+  """
+  ✨ Generated from Field `LogroNotificado`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `LogroNotificado`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'LogroNotificado'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input LogroNotificado_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: LogroNotificado_Filter
+}
+"""
+✨ Generated order input type for table 'LogroNotificado'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input LogroNotificado_Order {
+  """
+  ✨ Generated from Field `LogroNotificado`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `LogroNotificado`.`insigniaId` of type `UUID`
+  """
+  insigniaId: OrderDirection
+  """
+  ✨ Generated from Field `LogroNotificado`.`usuarioId` of type `UUID`
+  """
+  usuarioId: OrderDirection
+  """
+  ✨ Generated from Field `LogroNotificado`.`insignia` of type `Insignia`
+  """
+  insignia: Insignia_Order
+  """
+  ✨ Generated from Field `LogroNotificado`.`usuario` of type `Usuario`
+  """
+  usuario: Usuario_Order
+  """
+  ✨ Generated from Field `LogroNotificado`.`fechaNotificacion` of type `Timestamp!`
+  """
+  fechaNotificacion: OrderDirection
+  """
+  ✨ Generated from Field `LogroNotificado`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `LogroNotificado`.`fechaNotificacion_count` of type `Int!`
+  """
+  fechaNotificacion_count: OrderDirection
+  """
+  ✨ Generated from Field `LogroNotificado`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `LogroNotificado`.`insigniaId_count` of type `Int!`
+  """
+  insigniaId_count: OrderDirection
+  """
+  ✨ Generated from Field `LogroNotificado`.`usuarioId_count` of type `Int!`
+  """
+  usuarioId_count: OrderDirection
+  """
+  ✨ Generated from Field `LogroNotificado`.`fechaNotificacion_min` of type `Timestamp`
+  """
+  fechaNotificacion_min: OrderDirection
+  """
+  ✨ Generated from Field `LogroNotificado`.`fechaNotificacion_max` of type `Timestamp`
+  """
+  fechaNotificacion_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'MiembroEspacio'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input MiembroEspacio_Data {
+  """
+  ✨ Generated from Field `MiembroEspacio`.`espacioId` of type `UUID!`
+  """
+  espacioId: UUID
+  """
+  ✨ `_expr` server value variant of `espacioId` (✨ Generated from Field `MiembroEspacio`.`espacioId` of type `UUID!`)
+  """
+  espacioId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `MiembroEspacio`.`usuarioId` of type `UUID!`
+  """
+  usuarioId: UUID
+  """
+  ✨ `_expr` server value variant of `usuarioId` (✨ Generated from Field `MiembroEspacio`.`usuarioId` of type `UUID!`)
+  """
+  usuarioId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `MiembroEspacio`.`espacio` of type `EspacioAprendizaje!`
+  """
+  espacio: EspacioAprendizaje_Key
+  """
+  ✨ Generated from Field `MiembroEspacio`.`usuario` of type `Usuario!`
+  """
+  usuario: Usuario_Key
+}
+"""
+✨ Generated filter input type for table 'MiembroEspacio'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input MiembroEspacio_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [MiembroEspacio_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: MiembroEspacio_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [MiembroEspacio_Filter!]
+  """
+  ✨ Generated from Field `MiembroEspacio`.`espacioId` of type `UUID!`
+  """
+  espacioId: UUID_Filter
+  """
+  ✨ Generated from Field `MiembroEspacio`.`usuarioId` of type `UUID!`
+  """
+  usuarioId: UUID_Filter
+  """
+  ✨ Generated from Field `MiembroEspacio`.`espacio` of type `EspacioAprendizaje!`
+  """
+  espacio: EspacioAprendizaje_Filter
+  """
+  ✨ Generated from Field `MiembroEspacio`.`usuario` of type `Usuario!`
+  """
+  usuario: Usuario_Filter
+}
+"""
+✨ Generated first-row input type for table 'MiembroEspacio'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input MiembroEspacio_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [MiembroEspacio_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: MiembroEspacio_Filter
+}
+"""
+✨ Generated having input type for table 'MiembroEspacio'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input MiembroEspacio_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [MiembroEspacio_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: MiembroEspacio_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [MiembroEspacio_Having!]
+  """
+  ✨ Generated from Field `MiembroEspacio`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `MiembroEspacio`.`espacioId_count` of type `Int!`
+  """
+  espacioId_count: Int_Filter
+  """
+  ✨ Generated from Field `MiembroEspacio`.`usuarioId_count` of type `Int!`
+  """
+  usuarioId_count: Int_Filter
+}
+"""
+✨ Generated key input type for table 'MiembroEspacio'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input MiembroEspacio_Key {
+  """
+  ✨ Generated from Field `MiembroEspacio`.`espacioId` of type `UUID!`
+  """
+  espacioId: UUID
+  """
+  ✨ `_expr` server value variant of `espacioId` (✨ Generated from Field `MiembroEspacio`.`espacioId` of type `UUID!`)
+  """
+  espacioId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `MiembroEspacio`.`usuarioId` of type `UUID!`
+  """
+  usuarioId: UUID
+  """
+  ✨ `_expr` server value variant of `usuarioId` (✨ Generated from Field `MiembroEspacio`.`usuarioId` of type `UUID!`)
+  """
+  usuarioId_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'MiembroEspacio'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input MiembroEspacio_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: MiembroEspacio_Filter
+}
+"""
+✨ Generated order input type for table 'MiembroEspacio'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input MiembroEspacio_Order {
+  """
+  ✨ Generated from Field `MiembroEspacio`.`espacioId` of type `UUID!`
+  """
+  espacioId: OrderDirection
+  """
+  ✨ Generated from Field `MiembroEspacio`.`usuarioId` of type `UUID!`
+  """
+  usuarioId: OrderDirection
+  """
+  ✨ Generated from Field `MiembroEspacio`.`espacio` of type `EspacioAprendizaje!`
+  """
+  espacio: EspacioAprendizaje_Order
+  """
+  ✨ Generated from Field `MiembroEspacio`.`usuario` of type `Usuario!`
+  """
+  usuario: Usuario_Order
+  """
+  ✨ Generated from Field `MiembroEspacio`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `MiembroEspacio`.`espacioId_count` of type `Int!`
+  """
+  espacioId_count: OrderDirection
+  """
+  ✨ Generated from Field `MiembroEspacio`.`usuarioId_count` of type `Int!`
+  """
+  usuarioId_count: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Nivel'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Nivel_Data {
+  """
+  ✨ Generated from Field `Nivel`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Nivel`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Nivel`.`estrellasRequeridas` of type `Int!`
+  """
+  estrellasRequeridas: Int
+  """
+  ✨ `_expr` server value variant of `estrellasRequeridas` (✨ Generated from Field `Nivel`.`estrellasRequeridas` of type `Int!`)
+  """
+  estrellasRequeridas_expr: Int_Expr
+  """
+  ✨ `_update` server value variant of `estrellasRequeridas` (✨ Generated from Field `Nivel`.`estrellasRequeridas` of type `Int!`)
+  """
+  estrellasRequeridas_update: [Int_Update!]
+  """
+  ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta` of type `Int!`
+  """
+  limitePalabrasTarjeta: Int
+  """
+  ✨ `_expr` server value variant of `limitePalabrasTarjeta` (✨ Generated from Field `Nivel`.`limitePalabrasTarjeta` of type `Int!`)
+  """
+  limitePalabrasTarjeta_expr: Int_Expr
+  """
+  ✨ `_update` server value variant of `limitePalabrasTarjeta` (✨ Generated from Field `Nivel`.`limitePalabrasTarjeta` of type `Int!`)
+  """
+  limitePalabrasTarjeta_update: [Int_Update!]
+  """
+  ✨ Generated from Field `Nivel`.`nombreRango` of type `String!`
+  """
+  nombreRango: String
+  """
+  ✨ `_expr` server value variant of `nombreRango` (✨ Generated from Field `Nivel`.`nombreRango` of type `String!`)
+  """
+  nombreRango_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'Nivel'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Nivel_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Nivel_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Nivel_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Nivel_Filter!]
+  """
+  ✨ Generated from Field `Nivel`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Nivel`.`estrellasRequeridas` of type `Int!`
+  """
+  estrellasRequeridas: Int_Filter
+  """
+  ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta` of type `Int!`
+  """
+  limitePalabrasTarjeta: Int_Filter
+  """
+  ✨ Generated from Field `Nivel`.`nombreRango` of type `String!`
+  """
+  nombreRango: String_Filter
+  """
+  ✨ Generated from Field `Nivel`.`archivos_on_nivel` of type `[Archivo!]!`
+  """
+  archivos_on_nivel: Archivo_ListFilter
+  """
+  ✨ Generated from Field `Nivel`.`usuarios_on_nivel` of type `[Usuario!]!`
+  """
+  usuarios_on_nivel: Usuario_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'Nivel'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Nivel_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Nivel_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Nivel_Filter
+}
+"""
+✨ Generated having input type for table 'Nivel'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Nivel_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [Nivel_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: Nivel_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [Nivel_Having!]
+  """
+  ✨ Generated from Field `Nivel`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `Nivel`.`estrellasRequeridas_count` of type `Int!`
+  """
+  estrellasRequeridas_count: Int_Filter
+  """
+  ✨ Generated from Field `Nivel`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_count` of type `Int!`
+  """
+  limitePalabrasTarjeta_count: Int_Filter
+  """
+  ✨ Generated from Field `Nivel`.`nombreRango_count` of type `Int!`
+  """
+  nombreRango_count: Int_Filter
+  """
+  ✨ Generated from Field `Nivel`.`estrellasRequeridas_sum` of type `Int`
+  """
+  estrellasRequeridas_sum: Int_Filter
+  """
+  ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_sum` of type `Int`
+  """
+  limitePalabrasTarjeta_sum: Int_Filter
+  """
+  ✨ Generated from Field `Nivel`.`estrellasRequeridas_avg` of type `Float`
+  """
+  estrellasRequeridas_avg: Float_Filter
+  """
+  ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_avg` of type `Float`
+  """
+  limitePalabrasTarjeta_avg: Float_Filter
+  """
+  ✨ Generated from Field `Nivel`.`estrellasRequeridas_min` of type `Int`
+  """
+  estrellasRequeridas_min: Int_Filter
+  """
+  ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_min` of type `Int`
+  """
+  limitePalabrasTarjeta_min: Int_Filter
+  """
+  ✨ Generated from Field `Nivel`.`estrellasRequeridas_max` of type `Int`
+  """
+  estrellasRequeridas_max: Int_Filter
+  """
+  ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_max` of type `Int`
+  """
+  limitePalabrasTarjeta_max: Int_Filter
+}
+"""
+✨ Generated key input type for table 'Nivel'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Nivel_Key {
+  """
+  ✨ Generated from Field `Nivel`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Nivel`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Nivel'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Nivel_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Nivel_Filter
+}
+"""
+✨ Generated order input type for table 'Nivel'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Nivel_Order {
+  """
+  ✨ Generated from Field `Nivel`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Nivel`.`estrellasRequeridas` of type `Int!`
+  """
+  estrellasRequeridas: OrderDirection
+  """
+  ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta` of type `Int!`
+  """
+  limitePalabrasTarjeta: OrderDirection
+  """
+  ✨ Generated from Field `Nivel`.`nombreRango` of type `String!`
+  """
+  nombreRango: OrderDirection
+  """
+  ✨ Generated from Field `Nivel`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `Nivel`.`estrellasRequeridas_count` of type `Int!`
+  """
+  estrellasRequeridas_count: OrderDirection
+  """
+  ✨ Generated from Field `Nivel`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_count` of type `Int!`
+  """
+  limitePalabrasTarjeta_count: OrderDirection
+  """
+  ✨ Generated from Field `Nivel`.`nombreRango_count` of type `Int!`
+  """
+  nombreRango_count: OrderDirection
+  """
+  ✨ Generated from Field `Nivel`.`estrellasRequeridas_sum` of type `Int`
+  """
+  estrellasRequeridas_sum: OrderDirection
+  """
+  ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_sum` of type `Int`
+  """
+  limitePalabrasTarjeta_sum: OrderDirection
+  """
+  ✨ Generated from Field `Nivel`.`estrellasRequeridas_avg` of type `Float`
+  """
+  estrellasRequeridas_avg: OrderDirection
+  """
+  ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_avg` of type `Float`
+  """
+  limitePalabrasTarjeta_avg: OrderDirection
+  """
+  ✨ Generated from Field `Nivel`.`estrellasRequeridas_min` of type `Int`
+  """
+  estrellasRequeridas_min: OrderDirection
+  """
+  ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_min` of type `Int`
+  """
+  limitePalabrasTarjeta_min: OrderDirection
+  """
+  ✨ Generated from Field `Nivel`.`estrellasRequeridas_max` of type `Int`
+  """
+  estrellasRequeridas_max: OrderDirection
+  """
+  ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_max` of type `Int`
+  """
+  limitePalabrasTarjeta_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'OpcionAvatar'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input OpcionAvatar_Data {
+  """
+  ✨ Generated from Field `OpcionAvatar`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `OpcionAvatar`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `OpcionAvatar`.`descripcion` of type `String!`
+  """
+  descripcion: String
+  """
+  ✨ `_expr` server value variant of `descripcion` (✨ Generated from Field `OpcionAvatar`.`descripcion` of type `String!`)
+  """
+  descripcion_expr: String_Expr
+  """
+  ✨ Generated from Field `OpcionAvatar`.`imagenUrl` of type `String!`
+  """
+  imagenUrl: String
+  """
+  ✨ `_expr` server value variant of `imagenUrl` (✨ Generated from Field `OpcionAvatar`.`imagenUrl` of type `String!`)
+  """
+  imagenUrl_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'OpcionAvatar'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input OpcionAvatar_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [OpcionAvatar_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: OpcionAvatar_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [OpcionAvatar_Filter!]
+  """
+  ✨ Generated from Field `OpcionAvatar`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `OpcionAvatar`.`descripcion` of type `String!`
+  """
+  descripcion: String_Filter
+  """
+  ✨ Generated from Field `OpcionAvatar`.`imagenUrl` of type `String!`
+  """
+  imagenUrl: String_Filter
+  """
+  ✨ Generated from Field `OpcionAvatar`.`usuarios_on_avatar` of type `[Usuario!]!`
+  """
+  usuarios_on_avatar: Usuario_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'OpcionAvatar'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input OpcionAvatar_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [OpcionAvatar_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: OpcionAvatar_Filter
+}
+"""
+✨ Generated having input type for table 'OpcionAvatar'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input OpcionAvatar_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [OpcionAvatar_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: OpcionAvatar_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [OpcionAvatar_Having!]
+  """
+  ✨ Generated from Field `OpcionAvatar`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `OpcionAvatar`.`descripcion_count` of type `Int!`
+  """
+  descripcion_count: Int_Filter
+  """
+  ✨ Generated from Field `OpcionAvatar`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `OpcionAvatar`.`imagenUrl_count` of type `Int!`
+  """
+  imagenUrl_count: Int_Filter
+}
+"""
+✨ Generated key input type for table 'OpcionAvatar'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input OpcionAvatar_Key {
+  """
+  ✨ Generated from Field `OpcionAvatar`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `OpcionAvatar`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'OpcionAvatar'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input OpcionAvatar_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: OpcionAvatar_Filter
+}
+"""
+✨ Generated order input type for table 'OpcionAvatar'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input OpcionAvatar_Order {
+  """
+  ✨ Generated from Field `OpcionAvatar`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `OpcionAvatar`.`descripcion` of type `String!`
+  """
+  descripcion: OrderDirection
+  """
+  ✨ Generated from Field `OpcionAvatar`.`imagenUrl` of type `String!`
+  """
+  imagenUrl: OrderDirection
+  """
+  ✨ Generated from Field `OpcionAvatar`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `OpcionAvatar`.`descripcion_count` of type `Int!`
+  """
+  descripcion_count: OrderDirection
+  """
+  ✨ Generated from Field `OpcionAvatar`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `OpcionAvatar`.`imagenUrl_count` of type `Int!`
+  """
+  imagenUrl_count: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Pregunta'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Pregunta_Data {
+  """
+  ✨ Generated from Field `Pregunta`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Pregunta`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Pregunta`.`cuestionarioId` of type `UUID`
+  """
+  cuestionarioId: UUID
+  """
+  ✨ `_expr` server value variant of `cuestionarioId` (✨ Generated from Field `Pregunta`.`cuestionarioId` of type `UUID`)
+  """
+  cuestionarioId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Pregunta`.`cuestionario` of type `Cuestionario`
+  """
+  cuestionario: Cuestionario_Key
+  """
+  ✨ Generated from Field `Pregunta`.`enunciado` of type `String!`
+  """
+  enunciado: String
+  """
+  ✨ `_expr` server value variant of `enunciado` (✨ Generated from Field `Pregunta`.`enunciado` of type `String!`)
+  """
+  enunciado_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'Pregunta'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Pregunta_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Pregunta_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Pregunta_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Pregunta_Filter!]
+  """
+  ✨ Generated from Field `Pregunta`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Pregunta`.`cuestionarioId` of type `UUID`
+  """
+  cuestionarioId: UUID_Filter
+  """
+  ✨ Generated from Field `Pregunta`.`cuestionario` of type `Cuestionario`
+  """
+  cuestionario: Cuestionario_Filter
+  """
+  ✨ Generated from Field `Pregunta`.`enunciado` of type `String!`
+  """
+  enunciado: String_Filter
+  """
+  ✨ Generated from Field `Pregunta`.`respuestas_on_pregunta` of type `[Respuesta!]!`
+  """
+  respuestas_on_pregunta: Respuesta_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'Pregunta'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Pregunta_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Pregunta_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Pregunta_Filter
+}
+"""
+✨ Generated having input type for table 'Pregunta'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Pregunta_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [Pregunta_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: Pregunta_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [Pregunta_Having!]
+  """
+  ✨ Generated from Field `Pregunta`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `Pregunta`.`cuestionarioId_count` of type `Int!`
+  """
+  cuestionarioId_count: Int_Filter
+  """
+  ✨ Generated from Field `Pregunta`.`enunciado_count` of type `Int!`
+  """
+  enunciado_count: Int_Filter
+  """
+  ✨ Generated from Field `Pregunta`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+}
+"""
+✨ Generated key input type for table 'Pregunta'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Pregunta_Key {
+  """
+  ✨ Generated from Field `Pregunta`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Pregunta`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Pregunta'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Pregunta_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Pregunta_Filter
+}
+"""
+✨ Generated order input type for table 'Pregunta'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Pregunta_Order {
+  """
+  ✨ Generated from Field `Pregunta`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Pregunta`.`cuestionarioId` of type `UUID`
+  """
+  cuestionarioId: OrderDirection
+  """
+  ✨ Generated from Field `Pregunta`.`cuestionario` of type `Cuestionario`
+  """
+  cuestionario: Cuestionario_Order
+  """
+  ✨ Generated from Field `Pregunta`.`enunciado` of type `String!`
+  """
+  enunciado: OrderDirection
+  """
+  ✨ Generated from Field `Pregunta`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `Pregunta`.`cuestionarioId_count` of type `Int!`
+  """
+  cuestionarioId_count: OrderDirection
+  """
+  ✨ Generated from Field `Pregunta`.`enunciado_count` of type `Int!`
+  """
+  enunciado_count: OrderDirection
+  """
+  ✨ Generated from Field `Pregunta`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Respuesta'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Respuesta_Data {
+  """
+  ✨ Generated from Field `Respuesta`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Respuesta`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Respuesta`.`preguntaId` of type `UUID`
+  """
+  preguntaId: UUID
+  """
+  ✨ `_expr` server value variant of `preguntaId` (✨ Generated from Field `Respuesta`.`preguntaId` of type `UUID`)
+  """
+  preguntaId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Respuesta`.`pregunta` of type `Pregunta`
+  """
+  pregunta: Pregunta_Key
+  """
+  ✨ Generated from Field `Respuesta`.`esCorrecta` of type `Boolean!`
+  """
+  esCorrecta: Boolean
+  """
+  ✨ `_expr` server value variant of `esCorrecta` (✨ Generated from Field `Respuesta`.`esCorrecta` of type `Boolean!`)
+  """
+  esCorrecta_expr: Boolean_Expr
+  """
+  ✨ Generated from Field `Respuesta`.`textoOpcion` of type `String!`
+  """
+  textoOpcion: String
+  """
+  ✨ `_expr` server value variant of `textoOpcion` (✨ Generated from Field `Respuesta`.`textoOpcion` of type `String!`)
+  """
+  textoOpcion_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'Respuesta'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Respuesta_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Respuesta_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Respuesta_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Respuesta_Filter!]
+  """
+  ✨ Generated from Field `Respuesta`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Respuesta`.`preguntaId` of type `UUID`
+  """
+  preguntaId: UUID_Filter
+  """
+  ✨ Generated from Field `Respuesta`.`pregunta` of type `Pregunta`
+  """
+  pregunta: Pregunta_Filter
+  """
+  ✨ Generated from Field `Respuesta`.`esCorrecta` of type `Boolean!`
+  """
+  esCorrecta: Boolean_Filter
+  """
+  ✨ Generated from Field `Respuesta`.`textoOpcion` of type `String!`
+  """
+  textoOpcion: String_Filter
+}
+"""
+✨ Generated first-row input type for table 'Respuesta'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Respuesta_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Respuesta_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Respuesta_Filter
+}
+"""
+✨ Generated having input type for table 'Respuesta'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Respuesta_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [Respuesta_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: Respuesta_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [Respuesta_Having!]
+  """
+  ✨ Generated from Field `Respuesta`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `Respuesta`.`esCorrecta_count` of type `Int!`
+  """
+  esCorrecta_count: Int_Filter
+  """
+  ✨ Generated from Field `Respuesta`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `Respuesta`.`preguntaId_count` of type `Int!`
+  """
+  preguntaId_count: Int_Filter
+  """
+  ✨ Generated from Field `Respuesta`.`textoOpcion_count` of type `Int!`
+  """
+  textoOpcion_count: Int_Filter
+}
+"""
+✨ Generated key input type for table 'Respuesta'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Respuesta_Key {
+  """
+  ✨ Generated from Field `Respuesta`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Respuesta`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Respuesta'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Respuesta_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Respuesta_Filter
+}
+"""
+✨ Generated order input type for table 'Respuesta'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Respuesta_Order {
+  """
+  ✨ Generated from Field `Respuesta`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Respuesta`.`preguntaId` of type `UUID`
+  """
+  preguntaId: OrderDirection
+  """
+  ✨ Generated from Field `Respuesta`.`pregunta` of type `Pregunta`
+  """
+  pregunta: Pregunta_Order
+  """
+  ✨ Generated from Field `Respuesta`.`esCorrecta` of type `Boolean!`
+  """
+  esCorrecta: OrderDirection
+  """
+  ✨ Generated from Field `Respuesta`.`textoOpcion` of type `String!`
+  """
+  textoOpcion: OrderDirection
+  """
+  ✨ Generated from Field `Respuesta`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `Respuesta`.`esCorrecta_count` of type `Int!`
+  """
+  esCorrecta_count: OrderDirection
+  """
+  ✨ Generated from Field `Respuesta`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `Respuesta`.`preguntaId_count` of type `Int!`
+  """
+  preguntaId_count: OrderDirection
+  """
+  ✨ Generated from Field `Respuesta`.`textoOpcion_count` of type `Int!`
+  """
+  textoOpcion_count: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Tarjeta'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Tarjeta_Data {
+  """
+  ✨ Generated from Field `Tarjeta`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Tarjeta`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Tarjeta`.`archivoId` of type `UUID`
+  """
+  archivoId: UUID
+  """
+  ✨ `_expr` server value variant of `archivoId` (✨ Generated from Field `Tarjeta`.`archivoId` of type `UUID`)
+  """
+  archivoId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Tarjeta`.`archivo` of type `Archivo`
+  """
+  archivo: Archivo_Key
+  """
+  ✨ Generated from Field `Tarjeta`.`contenidoTexto` of type `String!`
+  """
+  contenidoTexto: String
+  """
+  ✨ `_expr` server value variant of `contenidoTexto` (✨ Generated from Field `Tarjeta`.`contenidoTexto` of type `String!`)
+  """
+  contenidoTexto_expr: String_Expr
+  """
+  ✨ Generated from Field `Tarjeta`.`dataFondo` of type `String!`
+  """
+  dataFondo: String
+  """
+  ✨ `_expr` server value variant of `dataFondo` (✨ Generated from Field `Tarjeta`.`dataFondo` of type `String!`)
+  """
+  dataFondo_expr: String_Expr
+  """
+  ✨ Generated from Field `Tarjeta`.`ordenSecuencia` of type `Int!`
+  """
+  ordenSecuencia: Int
+  """
+  ✨ `_expr` server value variant of `ordenSecuencia` (✨ Generated from Field `Tarjeta`.`ordenSecuencia` of type `Int!`)
+  """
+  ordenSecuencia_expr: Int_Expr
+  """
+  ✨ `_update` server value variant of `ordenSecuencia` (✨ Generated from Field `Tarjeta`.`ordenSecuencia` of type `Int!`)
+  """
+  ordenSecuencia_update: [Int_Update!]
+  """
+  ✨ Generated from Field `Tarjeta`.`tipoFondo` of type `String!`
+  """
+  tipoFondo: String
+  """
+  ✨ `_expr` server value variant of `tipoFondo` (✨ Generated from Field `Tarjeta`.`tipoFondo` of type `String!`)
+  """
+  tipoFondo_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'Tarjeta'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Tarjeta_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Tarjeta_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Tarjeta_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Tarjeta_Filter!]
+  """
+  ✨ Generated from Field `Tarjeta`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Tarjeta`.`archivoId` of type `UUID`
+  """
+  archivoId: UUID_Filter
+  """
+  ✨ Generated from Field `Tarjeta`.`archivo` of type `Archivo`
+  """
+  archivo: Archivo_Filter
+  """
+  ✨ Generated from Field `Tarjeta`.`contenidoTexto` of type `String!`
+  """
+  contenidoTexto: String_Filter
+  """
+  ✨ Generated from Field `Tarjeta`.`dataFondo` of type `String!`
+  """
+  dataFondo: String_Filter
+  """
+  ✨ Generated from Field `Tarjeta`.`ordenSecuencia` of type `Int!`
+  """
+  ordenSecuencia: Int_Filter
+  """
+  ✨ Generated from Field `Tarjeta`.`tipoFondo` of type `String!`
+  """
+  tipoFondo: String_Filter
+}
+"""
+✨ Generated first-row input type for table 'Tarjeta'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Tarjeta_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Tarjeta_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Tarjeta_Filter
+}
+"""
+✨ Generated having input type for table 'Tarjeta'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Tarjeta_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [Tarjeta_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: Tarjeta_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [Tarjeta_Having!]
+  """
+  ✨ Generated from Field `Tarjeta`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `Tarjeta`.`archivoId_count` of type `Int!`
+  """
+  archivoId_count: Int_Filter
+  """
+  ✨ Generated from Field `Tarjeta`.`contenidoTexto_count` of type `Int!`
+  """
+  contenidoTexto_count: Int_Filter
+  """
+  ✨ Generated from Field `Tarjeta`.`dataFondo_count` of type `Int!`
+  """
+  dataFondo_count: Int_Filter
+  """
+  ✨ Generated from Field `Tarjeta`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `Tarjeta`.`ordenSecuencia_count` of type `Int!`
+  """
+  ordenSecuencia_count: Int_Filter
+  """
+  ✨ Generated from Field `Tarjeta`.`tipoFondo_count` of type `Int!`
+  """
+  tipoFondo_count: Int_Filter
+  """
+  ✨ Generated from Field `Tarjeta`.`ordenSecuencia_sum` of type `Int`
+  """
+  ordenSecuencia_sum: Int_Filter
+  """
+  ✨ Generated from Field `Tarjeta`.`ordenSecuencia_avg` of type `Float`
+  """
+  ordenSecuencia_avg: Float_Filter
+  """
+  ✨ Generated from Field `Tarjeta`.`ordenSecuencia_min` of type `Int`
+  """
+  ordenSecuencia_min: Int_Filter
+  """
+  ✨ Generated from Field `Tarjeta`.`ordenSecuencia_max` of type `Int`
+  """
+  ordenSecuencia_max: Int_Filter
+}
+"""
+✨ Generated key input type for table 'Tarjeta'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Tarjeta_Key {
+  """
+  ✨ Generated from Field `Tarjeta`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Tarjeta`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Tarjeta'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Tarjeta_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Tarjeta_Filter
+}
+"""
+✨ Generated order input type for table 'Tarjeta'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Tarjeta_Order {
+  """
+  ✨ Generated from Field `Tarjeta`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Tarjeta`.`archivoId` of type `UUID`
+  """
+  archivoId: OrderDirection
+  """
+  ✨ Generated from Field `Tarjeta`.`archivo` of type `Archivo`
+  """
+  archivo: Archivo_Order
+  """
+  ✨ Generated from Field `Tarjeta`.`contenidoTexto` of type `String!`
+  """
+  contenidoTexto: OrderDirection
+  """
+  ✨ Generated from Field `Tarjeta`.`dataFondo` of type `String!`
+  """
+  dataFondo: OrderDirection
+  """
+  ✨ Generated from Field `Tarjeta`.`ordenSecuencia` of type `Int!`
+  """
+  ordenSecuencia: OrderDirection
+  """
+  ✨ Generated from Field `Tarjeta`.`tipoFondo` of type `String!`
+  """
+  tipoFondo: OrderDirection
+  """
+  ✨ Generated from Field `Tarjeta`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `Tarjeta`.`archivoId_count` of type `Int!`
+  """
+  archivoId_count: OrderDirection
+  """
+  ✨ Generated from Field `Tarjeta`.`contenidoTexto_count` of type `Int!`
+  """
+  contenidoTexto_count: OrderDirection
+  """
+  ✨ Generated from Field `Tarjeta`.`dataFondo_count` of type `Int!`
+  """
+  dataFondo_count: OrderDirection
+  """
+  ✨ Generated from Field `Tarjeta`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `Tarjeta`.`ordenSecuencia_count` of type `Int!`
+  """
+  ordenSecuencia_count: OrderDirection
+  """
+  ✨ Generated from Field `Tarjeta`.`tipoFondo_count` of type `Int!`
+  """
+  tipoFondo_count: OrderDirection
+  """
+  ✨ Generated from Field `Tarjeta`.`ordenSecuencia_sum` of type `Int`
+  """
+  ordenSecuencia_sum: OrderDirection
+  """
+  ✨ Generated from Field `Tarjeta`.`ordenSecuencia_avg` of type `Float`
+  """
+  ordenSecuencia_avg: OrderDirection
+  """
+  ✨ Generated from Field `Tarjeta`.`ordenSecuencia_min` of type `Int`
+  """
+  ordenSecuencia_min: OrderDirection
+  """
+  ✨ Generated from Field `Tarjeta`.`ordenSecuencia_max` of type `Int`
+  """
+  ordenSecuencia_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Usuario'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Usuario_Data {
+  """
+  ✨ Generated from Field `Usuario`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Usuario`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Usuario`.`avatarId` of type `UUID`
+  """
+  avatarId: UUID
+  """
+  ✨ `_expr` server value variant of `avatarId` (✨ Generated from Field `Usuario`.`avatarId` of type `UUID`)
+  """
+  avatarId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Usuario`.`nivelId` of type `UUID`
+  """
+  nivelId: UUID
+  """
+  ✨ `_expr` server value variant of `nivelId` (✨ Generated from Field `Usuario`.`nivelId` of type `UUID`)
+  """
+  nivelId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Usuario`.`avatar` of type `OpcionAvatar`
+  """
+  avatar: OpcionAvatar_Key
+  """
+  ✨ Generated from Field `Usuario`.`nivel` of type `Nivel`
+  """
+  nivel: Nivel_Key
+  """
+  ✨ Generated from Field `Usuario`.`alias` of type `String!`
+  """
+  alias: String
+  """
+  ✨ `_expr` server value variant of `alias` (✨ Generated from Field `Usuario`.`alias` of type `String!`)
+  """
+  alias_expr: String_Expr
+  """
+  ✨ Generated from Field `Usuario`.`apellidoMaterno` of type `String!`
+  """
+  apellidoMaterno: String
+  """
+  ✨ `_expr` server value variant of `apellidoMaterno` (✨ Generated from Field `Usuario`.`apellidoMaterno` of type `String!`)
+  """
+  apellidoMaterno_expr: String_Expr
+  """
+  ✨ Generated from Field `Usuario`.`apellidoPaterno` of type `String!`
+  """
+  apellidoPaterno: String
+  """
+  ✨ `_expr` server value variant of `apellidoPaterno` (✨ Generated from Field `Usuario`.`apellidoPaterno` of type `String!`)
+  """
+  apellidoPaterno_expr: String_Expr
+  """
+  ✨ Generated from Field `Usuario`.`estadoValidacion` of type `Boolean!`
+  """
+  estadoValidacion: Boolean
+  """
+  ✨ `_expr` server value variant of `estadoValidacion` (✨ Generated from Field `Usuario`.`estadoValidacion` of type `Boolean!`)
+  """
+  estadoValidacion_expr: Boolean_Expr
+  """
+  ✨ Generated from Field `Usuario`.`estrellasPrestigio` of type `Int!`
+  """
+  estrellasPrestigio: Int
+  """
+  ✨ `_expr` server value variant of `estrellasPrestigio` (✨ Generated from Field `Usuario`.`estrellasPrestigio` of type `Int!`)
+  """
+  estrellasPrestigio_expr: Int_Expr
+  """
+  ✨ `_update` server value variant of `estrellasPrestigio` (✨ Generated from Field `Usuario`.`estrellasPrestigio` of type `Int!`)
+  """
+  estrellasPrestigio_update: [Int_Update!]
+  """
+  ✨ Generated from Field `Usuario`.`nombre` of type `String!`
+  """
+  nombre: String
+  """
+  ✨ `_expr` server value variant of `nombre` (✨ Generated from Field `Usuario`.`nombre` of type `String!`)
+  """
+  nombre_expr: String_Expr
+  """
+  ✨ Generated from Field `Usuario`.`rachaActualDias` of type `Int!`
+  """
+  rachaActualDias: Int
+  """
+  ✨ `_expr` server value variant of `rachaActualDias` (✨ Generated from Field `Usuario`.`rachaActualDias` of type `Int!`)
+  """
+  rachaActualDias_expr: Int_Expr
+  """
+  ✨ `_update` server value variant of `rachaActualDias` (✨ Generated from Field `Usuario`.`rachaActualDias` of type `Int!`)
+  """
+  rachaActualDias_update: [Int_Update!]
+  """
+  ✨ Generated from Field `Usuario`.`tipoUsuario` of type `Int!`
+  """
+  tipoUsuario: Int
+  """
+  ✨ `_expr` server value variant of `tipoUsuario` (✨ Generated from Field `Usuario`.`tipoUsuario` of type `Int!`)
+  """
+  tipoUsuario_expr: Int_Expr
+  """
+  ✨ `_update` server value variant of `tipoUsuario` (✨ Generated from Field `Usuario`.`tipoUsuario` of type `Int!`)
+  """
+  tipoUsuario_update: [Int_Update!]
+  """
+  ✨ Generated from Field `Usuario`.`ultimaActividad` of type `Timestamp!`
+  """
+  ultimaActividad: Timestamp
+  """
+  ✨ `_expr` server value variant of `ultimaActividad` (✨ Generated from Field `Usuario`.`ultimaActividad` of type `Timestamp!`)
+  """
+  ultimaActividad_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `ultimaActividad` (✨ Generated from Field `Usuario`.`ultimaActividad` of type `Timestamp!`)
+  """
+  ultimaActividad_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `ultimaActividad` (✨ Generated from Field `Usuario`.`ultimaActividad` of type `Timestamp!`)
+  """
+  ultimaActividad_update: [Timestamp_Update!]
+}
+"""
+✨ Generated filter input type for table 'Usuario'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Usuario_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Usuario_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Usuario_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Usuario_Filter!]
+  """
+  ✨ Generated from Field `Usuario`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Usuario`.`avatarId` of type `UUID`
+  """
+  avatarId: UUID_Filter
+  """
+  ✨ Generated from Field `Usuario`.`nivelId` of type `UUID`
+  """
+  nivelId: UUID_Filter
+  """
+  ✨ Generated from Field `Usuario`.`avatar` of type `OpcionAvatar`
+  """
+  avatar: OpcionAvatar_Filter
+  """
+  ✨ Generated from Field `Usuario`.`nivel` of type `Nivel`
+  """
+  nivel: Nivel_Filter
+  """
+  ✨ Generated from Field `Usuario`.`alias` of type `String!`
+  """
+  alias: String_Filter
+  """
+  ✨ Generated from Field `Usuario`.`apellidoMaterno` of type `String!`
+  """
+  apellidoMaterno: String_Filter
+  """
+  ✨ Generated from Field `Usuario`.`apellidoPaterno` of type `String!`
+  """
+  apellidoPaterno: String_Filter
+  """
+  ✨ Generated from Field `Usuario`.`estadoValidacion` of type `Boolean!`
+  """
+  estadoValidacion: Boolean_Filter
+  """
+  ✨ Generated from Field `Usuario`.`estrellasPrestigio` of type `Int!`
+  """
+  estrellasPrestigio: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`nombre` of type `String!`
+  """
+  nombre: String_Filter
+  """
+  ✨ Generated from Field `Usuario`.`rachaActualDias` of type `Int!`
+  """
+  rachaActualDias: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`tipoUsuario` of type `Int!`
+  """
+  tipoUsuario: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`ultimaActividad` of type `Timestamp!`
+  """
+  ultimaActividad: Timestamp_Filter
+  """
+  ✨ Generated from Field `Usuario`.`archivos_on_creador` of type `[Archivo!]!`
+  """
+  archivos_on_creador: Archivo_ListFilter
+  """
+  ✨ Generated from Field `Usuario`.`espacioAprendizajes_on_creador` of type `[EspacioAprendizaje!]!`
+  """
+  espacioAprendizajes_on_creador: EspacioAprendizaje_ListFilter
+  """
+  ✨ Generated from Field `Usuario`.`intentos_on_usuario` of type `[Intento!]!`
+  """
+  intentos_on_usuario: Intento_ListFilter
+  """
+  ✨ Generated from Field `Usuario`.`logroNotificados_on_usuario` of type `[LogroNotificado!]!`
+  """
+  logroNotificados_on_usuario: LogroNotificado_ListFilter
+  """
+  ✨ Generated from Field `Usuario`.`miembroEspacios_on_usuario` of type `[MiembroEspacio!]!`
+  """
+  miembroEspacios_on_usuario: MiembroEspacio_ListFilter
+  """
+  ✨ Generated from Field `Usuario`.`espacioAprendizajes_via_MiembroEspacio` of type `[EspacioAprendizaje!]!`
+  """
+  espacioAprendizajes_via_MiembroEspacio: EspacioAprendizaje_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'Usuario'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Usuario_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Usuario_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Usuario_Filter
+}
+"""
+✨ Generated having input type for table 'Usuario'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Usuario_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [Usuario_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: Usuario_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [Usuario_Having!]
+  """
+  ✨ Generated from Field `Usuario`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`alias_count` of type `Int!`
+  """
+  alias_count: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`apellidoMaterno_count` of type `Int!`
+  """
+  apellidoMaterno_count: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`apellidoPaterno_count` of type `Int!`
+  """
+  apellidoPaterno_count: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`avatarId_count` of type `Int!`
+  """
+  avatarId_count: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`estadoValidacion_count` of type `Int!`
+  """
+  estadoValidacion_count: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`estrellasPrestigio_count` of type `Int!`
+  """
+  estrellasPrestigio_count: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`nivelId_count` of type `Int!`
+  """
+  nivelId_count: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`nombre_count` of type `Int!`
+  """
+  nombre_count: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`rachaActualDias_count` of type `Int!`
+  """
+  rachaActualDias_count: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`tipoUsuario_count` of type `Int!`
+  """
+  tipoUsuario_count: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`ultimaActividad_count` of type `Int!`
+  """
+  ultimaActividad_count: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`estrellasPrestigio_sum` of type `Int`
+  """
+  estrellasPrestigio_sum: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`rachaActualDias_sum` of type `Int`
+  """
+  rachaActualDias_sum: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`tipoUsuario_sum` of type `Int`
+  """
+  tipoUsuario_sum: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`estrellasPrestigio_avg` of type `Float`
+  """
+  estrellasPrestigio_avg: Float_Filter
+  """
+  ✨ Generated from Field `Usuario`.`rachaActualDias_avg` of type `Float`
+  """
+  rachaActualDias_avg: Float_Filter
+  """
+  ✨ Generated from Field `Usuario`.`tipoUsuario_avg` of type `Float`
+  """
+  tipoUsuario_avg: Float_Filter
+  """
+  ✨ Generated from Field `Usuario`.`estrellasPrestigio_min` of type `Int`
+  """
+  estrellasPrestigio_min: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`rachaActualDias_min` of type `Int`
+  """
+  rachaActualDias_min: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`tipoUsuario_min` of type `Int`
+  """
+  tipoUsuario_min: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`ultimaActividad_min` of type `Timestamp`
+  """
+  ultimaActividad_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `Usuario`.`estrellasPrestigio_max` of type `Int`
+  """
+  estrellasPrestigio_max: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`rachaActualDias_max` of type `Int`
+  """
+  rachaActualDias_max: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`tipoUsuario_max` of type `Int`
+  """
+  tipoUsuario_max: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`ultimaActividad_max` of type `Timestamp`
+  """
+  ultimaActividad_max: Timestamp_Filter
+}
+"""
+✨ Generated key input type for table 'Usuario'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Usuario_Key {
+  """
+  ✨ Generated from Field `Usuario`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Usuario`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Usuario'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Usuario_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Usuario_Filter
+}
+"""
+✨ Generated order input type for table 'Usuario'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Usuario_Order {
+  """
+  ✨ Generated from Field `Usuario`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`avatarId` of type `UUID`
+  """
+  avatarId: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`nivelId` of type `UUID`
+  """
+  nivelId: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`avatar` of type `OpcionAvatar`
+  """
+  avatar: OpcionAvatar_Order
+  """
+  ✨ Generated from Field `Usuario`.`nivel` of type `Nivel`
+  """
+  nivel: Nivel_Order
+  """
+  ✨ Generated from Field `Usuario`.`alias` of type `String!`
+  """
+  alias: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`apellidoMaterno` of type `String!`
+  """
+  apellidoMaterno: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`apellidoPaterno` of type `String!`
+  """
+  apellidoPaterno: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`estadoValidacion` of type `Boolean!`
+  """
+  estadoValidacion: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`estrellasPrestigio` of type `Int!`
+  """
+  estrellasPrestigio: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`nombre` of type `String!`
+  """
+  nombre: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`rachaActualDias` of type `Int!`
+  """
+  rachaActualDias: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`tipoUsuario` of type `Int!`
+  """
+  tipoUsuario: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`ultimaActividad` of type `Timestamp!`
+  """
+  ultimaActividad: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`alias_count` of type `Int!`
+  """
+  alias_count: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`apellidoMaterno_count` of type `Int!`
+  """
+  apellidoMaterno_count: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`apellidoPaterno_count` of type `Int!`
+  """
+  apellidoPaterno_count: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`avatarId_count` of type `Int!`
+  """
+  avatarId_count: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`estadoValidacion_count` of type `Int!`
+  """
+  estadoValidacion_count: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`estrellasPrestigio_count` of type `Int!`
+  """
+  estrellasPrestigio_count: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`nivelId_count` of type `Int!`
+  """
+  nivelId_count: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`nombre_count` of type `Int!`
+  """
+  nombre_count: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`rachaActualDias_count` of type `Int!`
+  """
+  rachaActualDias_count: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`tipoUsuario_count` of type `Int!`
+  """
+  tipoUsuario_count: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`ultimaActividad_count` of type `Int!`
+  """
+  ultimaActividad_count: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`estrellasPrestigio_sum` of type `Int`
+  """
+  estrellasPrestigio_sum: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`rachaActualDias_sum` of type `Int`
+  """
+  rachaActualDias_sum: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`tipoUsuario_sum` of type `Int`
+  """
+  tipoUsuario_sum: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`estrellasPrestigio_avg` of type `Float`
+  """
+  estrellasPrestigio_avg: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`rachaActualDias_avg` of type `Float`
+  """
+  rachaActualDias_avg: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`tipoUsuario_avg` of type `Float`
+  """
+  tipoUsuario_avg: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`estrellasPrestigio_min` of type `Int`
+  """
+  estrellasPrestigio_min: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`rachaActualDias_min` of type `Int`
+  """
+  rachaActualDias_min: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`tipoUsuario_min` of type `Int`
+  """
+  tipoUsuario_min: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`ultimaActividad_min` of type `Timestamp`
+  """
+  ultimaActividad_min: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`estrellasPrestigio_max` of type `Int`
+  """
+  estrellasPrestigio_max: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`rachaActualDias_max` of type `Int`
+  """
+  rachaActualDias_max: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`tipoUsuario_max` of type `Int`
+  """
+  tipoUsuario_max: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`ultimaActividad_max` of type `Timestamp`
+  """
+  ultimaActividad_max: OrderDirection
+}

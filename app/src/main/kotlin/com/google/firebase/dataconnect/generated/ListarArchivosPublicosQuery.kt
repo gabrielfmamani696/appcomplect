@@ -1,0 +1,131 @@
+
+@file:kotlin.Suppress(
+  "KotlinRedundantDiagnosticSuppress",
+  "LocalVariableName",
+  "MayBeConstant",
+  "RedundantVisibilityModifier",
+  "RemoveEmptyClassBody",
+  "SpellCheckingInspection",
+  "LocalVariableName",
+  "unused",
+)
+
+package com.google.firebase.dataconnect.generated
+
+
+import kotlinx.coroutines.flow.filterNotNull as _flow_filterNotNull
+import kotlinx.coroutines.flow.map as _flow_map
+
+
+public interface ListarArchivosPublicosQuery :
+    com.google.firebase.dataconnect.generated.GeneratedQuery<
+      DefaultConnector,
+      ListarArchivosPublicosQuery.Data,
+      Unit
+    >
+{
+  
+
+  
+    @kotlinx.serialization.Serializable
+  public data class Data(
+  
+    val archivos: List<ArchivosItem>
+  ) {
+    
+      
+        @kotlinx.serialization.Serializable
+  public data class ArchivosItem(
+  
+    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
+    val titulo: String,
+    val descripcion: String,
+    val fechaCreacion: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.TimestampSerializer::class) com.google.firebase.Timestamp,
+    val imagenUrl: String?,
+    val nivel: Nivel?,
+    val espacio: Espacio?,
+    val creador: Creador?
+  ) {
+    
+      
+        @kotlinx.serialization.Serializable
+  public data class Nivel(
+  
+    val nombreRango: String
+  ) {
+    
+    
+  }
+      
+        @kotlinx.serialization.Serializable
+  public data class Espacio(
+  
+    val nombreEspacio: String
+  ) {
+    
+    
+  }
+      
+        @kotlinx.serialization.Serializable
+  public data class Creador(
+  
+    val alias: String
+  ) {
+    
+    
+  }
+      
+    
+    
+  }
+      
+    
+    
+  }
+  
+
+  public companion object {
+    public val operationName: String = "ListarArchivosPublicos"
+
+    public val dataDeserializer: kotlinx.serialization.DeserializationStrategy<Data> =
+      kotlinx.serialization.serializer()
+
+    public val variablesSerializer: kotlinx.serialization.SerializationStrategy<Unit> =
+      kotlinx.serialization.serializer()
+  }
+}
+
+public fun ListarArchivosPublicosQuery.ref(
+  
+): com.google.firebase.dataconnect.QueryRef<
+    ListarArchivosPublicosQuery.Data,
+    Unit
+  > =
+  ref(
+    
+      Unit
+    
+  )
+
+public suspend fun ListarArchivosPublicosQuery.execute(
+  
+  ): com.google.firebase.dataconnect.QueryResult<
+    ListarArchivosPublicosQuery.Data,
+    Unit
+  > =
+  ref(
+    
+  ).execute()
+
+
+  public fun ListarArchivosPublicosQuery.flow(
+    
+    ): kotlinx.coroutines.flow.Flow<ListarArchivosPublicosQuery.Data> =
+    ref(
+        
+      ).subscribe()
+      .flow
+      ._flow_map { querySubscriptionResult -> querySubscriptionResult.result.getOrNull() }
+      ._flow_filterNotNull()
+      ._flow_map { it.data }
+

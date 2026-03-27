@@ -1,0 +1,62 @@
+query ListarArchivosPublicos @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public") {
+  archivos(orderBy: [{fechaCreacion: DESC}]) {
+    id
+    titulo
+    descripcion
+    fechaCreacion
+    imagenUrl
+    nivel {
+      nombreRango
+    }
+    espacio {
+      nombreEspacio
+    }
+    creador {
+      alias
+    }
+  }
+}
+
+mutation CrearUsuarioNuevo($alias: String!, $nombre: String!, $apellidoPaterno: String!, $apellidoMaterno: String!, $estadoValidacion: Boolean!, $estrellasPrestigio: Int!, $rachaActualDias: Int!, $tipoUsuario: Int!, $ultimaActividad: Timestamp!, $avatarId: UUID) @auth(level: PUBLIC, insecureReason: "Safe for custom user registration during development") {
+  usuario_insert(data: {alias: $alias, nombre: $nombre, apellidoPaterno: $apellidoPaterno, apellidoMaterno: $apellidoMaterno, estadoValidacion: $estadoValidacion, estrellasPrestigio: $estrellasPrestigio, rachaActualDias: $rachaActualDias, tipoUsuario: $tipoUsuario, ultimaActividad: $ultimaActividad, avatarId: $avatarId})
+}
+
+query ObtenerUsuarioPorId($id: UUID!) @auth(level: USER, insecureReason: "It is acceptable for logged-in users to fetch public profiles of other users.") {
+  usuario(id: $id) {
+    id
+    alias
+    nombre
+    apellidoPaterno
+    apellidoMaterno
+    estadoValidacion
+    estrellasPrestigio
+    rachaActualDias
+    tipoUsuario
+    ultimaActividad
+  }
+}
+
+query ListarAvatares @auth(level: PUBLIC, insecureReason: "Avatars are public assets available for selection by anyone.") {
+  opcionAvatars {
+    id
+    imagenUrl
+    descripcion
+  }
+}
+
+mutation SeedOpcionAvatarData @auth(level: PUBLIC, insecureReason: "Seed data is for development purposes only") {
+  opcionAvatar_insertMany(data: [
+    {
+      imagenUrl: "https://api.dicebear.com/7.x/bottts/png?seed=1",
+      descripcion: "Avatar con sombrero"
+    },
+    {
+      imagenUrl: "https://api.dicebear.com/7.x/bottts/png?seed=2",
+      descripcion: "Avatar con gafas"
+    },
+    {
+      imagenUrl: "https://api.dicebear.com/7.x/bottts/png?seed=3",
+      descripcion: "Avatar con capa"
+    }
+  ])
+}

@@ -1,0 +1,1448 @@
+extend type Mutation {
+  """
+  ✨ Insert a single `Archivo` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  archivo_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Archivo_Data!
+  ): Archivo_KeyOutput! @fdc_generated(from: "Archivo", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Cuestionario` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  cuestionario_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Cuestionario_Data!
+  ): Cuestionario_KeyOutput! @fdc_generated(from: "Cuestionario", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `EspacioAprendizaje` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  espacioAprendizaje_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: EspacioAprendizaje_Data!
+  ): EspacioAprendizaje_KeyOutput! @fdc_generated(from: "EspacioAprendizaje", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Insignia` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  insignia_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Insignia_Data!
+  ): Insignia_KeyOutput! @fdc_generated(from: "Insignia", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Intento` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  intento_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Intento_Data!
+  ): Intento_KeyOutput! @fdc_generated(from: "Intento", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `LogroNotificado` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  logroNotificado_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: LogroNotificado_Data!
+  ): LogroNotificado_KeyOutput! @fdc_generated(from: "LogroNotificado", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `MiembroEspacio` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  miembroEspacio_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: MiembroEspacio_Data!
+  ): MiembroEspacio_KeyOutput! @fdc_generated(from: "MiembroEspacio", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Nivel` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  nivel_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Nivel_Data!
+  ): Nivel_KeyOutput! @fdc_generated(from: "Nivel", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `OpcionAvatar` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  opcionAvatar_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: OpcionAvatar_Data!
+  ): OpcionAvatar_KeyOutput! @fdc_generated(from: "OpcionAvatar", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Pregunta` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  pregunta_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Pregunta_Data!
+  ): Pregunta_KeyOutput! @fdc_generated(from: "Pregunta", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Respuesta` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  respuesta_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Respuesta_Data!
+  ): Respuesta_KeyOutput! @fdc_generated(from: "Respuesta", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Tarjeta` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  tarjeta_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Tarjeta_Data!
+  ): Tarjeta_KeyOutput! @fdc_generated(from: "Tarjeta", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Usuario` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  usuario_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Usuario_Data!
+  ): Usuario_KeyOutput! @fdc_generated(from: "Usuario", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert `Archivo` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  archivo_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Archivo_Data!]!
+  ): [Archivo_KeyOutput!]! @fdc_generated(from: "Archivo", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Cuestionario` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  cuestionario_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Cuestionario_Data!]!
+  ): [Cuestionario_KeyOutput!]! @fdc_generated(from: "Cuestionario", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `EspacioAprendizaje` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  espacioAprendizaje_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [EspacioAprendizaje_Data!]!
+  ): [EspacioAprendizaje_KeyOutput!]! @fdc_generated(from: "EspacioAprendizaje", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Insignia` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  insignia_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Insignia_Data!]!
+  ): [Insignia_KeyOutput!]! @fdc_generated(from: "Insignia", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Intento` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  intento_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Intento_Data!]!
+  ): [Intento_KeyOutput!]! @fdc_generated(from: "Intento", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `LogroNotificado` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  logroNotificado_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [LogroNotificado_Data!]!
+  ): [LogroNotificado_KeyOutput!]! @fdc_generated(from: "LogroNotificado", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `MiembroEspacio` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  miembroEspacio_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [MiembroEspacio_Data!]!
+  ): [MiembroEspacio_KeyOutput!]! @fdc_generated(from: "MiembroEspacio", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Nivel` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  nivel_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Nivel_Data!]!
+  ): [Nivel_KeyOutput!]! @fdc_generated(from: "Nivel", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `OpcionAvatar` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  opcionAvatar_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [OpcionAvatar_Data!]!
+  ): [OpcionAvatar_KeyOutput!]! @fdc_generated(from: "OpcionAvatar", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Pregunta` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  pregunta_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Pregunta_Data!]!
+  ): [Pregunta_KeyOutput!]! @fdc_generated(from: "Pregunta", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Respuesta` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  respuesta_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Respuesta_Data!]!
+  ): [Respuesta_KeyOutput!]! @fdc_generated(from: "Respuesta", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Tarjeta` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  tarjeta_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Tarjeta_Data!]!
+  ): [Tarjeta_KeyOutput!]! @fdc_generated(from: "Tarjeta", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Usuario` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  usuario_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Usuario_Data!]!
+  ): [Usuario_KeyOutput!]! @fdc_generated(from: "Usuario", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert or update a single `Archivo` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Archivo`.
+  """
+  archivo_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Archivo_Data!
+  ): Archivo_KeyOutput! @fdc_generated(from: "Archivo", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Cuestionario` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Cuestionario`.
+  """
+  cuestionario_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Cuestionario_Data!
+  ): Cuestionario_KeyOutput! @fdc_generated(from: "Cuestionario", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `EspacioAprendizaje` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `EspacioAprendizaje`.
+  """
+  espacioAprendizaje_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: EspacioAprendizaje_Data!
+  ): EspacioAprendizaje_KeyOutput! @fdc_generated(from: "EspacioAprendizaje", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Insignia` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Insignia`.
+  """
+  insignia_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Insignia_Data!
+  ): Insignia_KeyOutput! @fdc_generated(from: "Insignia", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Intento` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Intento`.
+  """
+  intento_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Intento_Data!
+  ): Intento_KeyOutput! @fdc_generated(from: "Intento", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `LogroNotificado` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `LogroNotificado`.
+  """
+  logroNotificado_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: LogroNotificado_Data!
+  ): LogroNotificado_KeyOutput! @fdc_generated(from: "LogroNotificado", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `MiembroEspacio` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `MiembroEspacio`.
+  """
+  miembroEspacio_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: MiembroEspacio_Data!
+  ): MiembroEspacio_KeyOutput! @fdc_generated(from: "MiembroEspacio", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Nivel` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Nivel`.
+  """
+  nivel_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Nivel_Data!
+  ): Nivel_KeyOutput! @fdc_generated(from: "Nivel", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `OpcionAvatar` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `OpcionAvatar`.
+  """
+  opcionAvatar_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: OpcionAvatar_Data!
+  ): OpcionAvatar_KeyOutput! @fdc_generated(from: "OpcionAvatar", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Pregunta` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Pregunta`.
+  """
+  pregunta_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Pregunta_Data!
+  ): Pregunta_KeyOutput! @fdc_generated(from: "Pregunta", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Respuesta` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Respuesta`.
+  """
+  respuesta_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Respuesta_Data!
+  ): Respuesta_KeyOutput! @fdc_generated(from: "Respuesta", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Tarjeta` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Tarjeta`.
+  """
+  tarjeta_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Tarjeta_Data!
+  ): Tarjeta_KeyOutput! @fdc_generated(from: "Tarjeta", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Usuario` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Usuario`.
+  """
+  usuario_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Usuario_Data!
+  ): Usuario_KeyOutput! @fdc_generated(from: "Usuario", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update `Archivo` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Archivo`.
+  """
+  archivo_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Archivo_Data!]!
+  ): [Archivo_KeyOutput!]! @fdc_generated(from: "Archivo", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Cuestionario` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Cuestionario`.
+  """
+  cuestionario_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Cuestionario_Data!]!
+  ): [Cuestionario_KeyOutput!]! @fdc_generated(from: "Cuestionario", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `EspacioAprendizaje` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `EspacioAprendizaje`.
+  """
+  espacioAprendizaje_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [EspacioAprendizaje_Data!]!
+  ): [EspacioAprendizaje_KeyOutput!]! @fdc_generated(from: "EspacioAprendizaje", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Insignia` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Insignia`.
+  """
+  insignia_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Insignia_Data!]!
+  ): [Insignia_KeyOutput!]! @fdc_generated(from: "Insignia", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Intento` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Intento`.
+  """
+  intento_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Intento_Data!]!
+  ): [Intento_KeyOutput!]! @fdc_generated(from: "Intento", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `LogroNotificado` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `LogroNotificado`.
+  """
+  logroNotificado_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [LogroNotificado_Data!]!
+  ): [LogroNotificado_KeyOutput!]! @fdc_generated(from: "LogroNotificado", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `MiembroEspacio` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `MiembroEspacio`.
+  """
+  miembroEspacio_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [MiembroEspacio_Data!]!
+  ): [MiembroEspacio_KeyOutput!]! @fdc_generated(from: "MiembroEspacio", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Nivel` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Nivel`.
+  """
+  nivel_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Nivel_Data!]!
+  ): [Nivel_KeyOutput!]! @fdc_generated(from: "Nivel", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `OpcionAvatar` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `OpcionAvatar`.
+  """
+  opcionAvatar_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [OpcionAvatar_Data!]!
+  ): [OpcionAvatar_KeyOutput!]! @fdc_generated(from: "OpcionAvatar", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Pregunta` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Pregunta`.
+  """
+  pregunta_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Pregunta_Data!]!
+  ): [Pregunta_KeyOutput!]! @fdc_generated(from: "Pregunta", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Respuesta` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Respuesta`.
+  """
+  respuesta_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Respuesta_Data!]!
+  ): [Respuesta_KeyOutput!]! @fdc_generated(from: "Respuesta", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Tarjeta` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Tarjeta`.
+  """
+  tarjeta_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Tarjeta_Data!]!
+  ): [Tarjeta_KeyOutput!]! @fdc_generated(from: "Tarjeta", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Usuario` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Usuario`.
+  """
+  usuario_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Usuario_Data!]!
+  ): [Usuario_KeyOutput!]! @fdc_generated(from: "Usuario", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Update a single `Archivo` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Archivo` or `null` if not found.
+  """
+  archivo_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Archivo_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Archivo_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Archivo_Data!
+  ): Archivo_KeyOutput @fdc_generated(from: "Archivo", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Cuestionario` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Cuestionario` or `null` if not found.
+  """
+  cuestionario_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Cuestionario_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Cuestionario_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Cuestionario_Data!
+  ): Cuestionario_KeyOutput @fdc_generated(from: "Cuestionario", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `EspacioAprendizaje` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `EspacioAprendizaje` or `null` if not found.
+  """
+  espacioAprendizaje_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: EspacioAprendizaje_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: EspacioAprendizaje_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: EspacioAprendizaje_Data!
+  ): EspacioAprendizaje_KeyOutput @fdc_generated(from: "EspacioAprendizaje", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Insignia` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Insignia` or `null` if not found.
+  """
+  insignia_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Insignia_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Insignia_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Insignia_Data!
+  ): Insignia_KeyOutput @fdc_generated(from: "Insignia", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Intento` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Intento` or `null` if not found.
+  """
+  intento_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Intento_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Intento_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Intento_Data!
+  ): Intento_KeyOutput @fdc_generated(from: "Intento", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `LogroNotificado` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `LogroNotificado` or `null` if not found.
+  """
+  logroNotificado_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: LogroNotificado_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: LogroNotificado_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: LogroNotificado_Data!
+  ): LogroNotificado_KeyOutput @fdc_generated(from: "LogroNotificado", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `MiembroEspacio` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `MiembroEspacio` or `null` if not found.
+  """
+  miembroEspacio_update(
+    """
+    The key used to identify the object.
+    """
+    key: MiembroEspacio_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: MiembroEspacio_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: MiembroEspacio_Data!
+  ): MiembroEspacio_KeyOutput @fdc_generated(from: "MiembroEspacio", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Nivel` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Nivel` or `null` if not found.
+  """
+  nivel_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Nivel_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Nivel_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Nivel_Data!
+  ): Nivel_KeyOutput @fdc_generated(from: "Nivel", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `OpcionAvatar` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `OpcionAvatar` or `null` if not found.
+  """
+  opcionAvatar_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: OpcionAvatar_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: OpcionAvatar_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: OpcionAvatar_Data!
+  ): OpcionAvatar_KeyOutput @fdc_generated(from: "OpcionAvatar", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Pregunta` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Pregunta` or `null` if not found.
+  """
+  pregunta_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Pregunta_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Pregunta_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Pregunta_Data!
+  ): Pregunta_KeyOutput @fdc_generated(from: "Pregunta", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Respuesta` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Respuesta` or `null` if not found.
+  """
+  respuesta_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Respuesta_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Respuesta_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Respuesta_Data!
+  ): Respuesta_KeyOutput @fdc_generated(from: "Respuesta", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Tarjeta` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Tarjeta` or `null` if not found.
+  """
+  tarjeta_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Tarjeta_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Tarjeta_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Tarjeta_Data!
+  ): Tarjeta_KeyOutput @fdc_generated(from: "Tarjeta", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Usuario` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Usuario` or `null` if not found.
+  """
+  usuario_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Usuario_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Usuario_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Usuario_Data!
+  ): Usuario_KeyOutput @fdc_generated(from: "Usuario", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update `Archivo` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  archivo_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Archivo_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Archivo_Data!
+  ): Int! @fdc_generated(from: "Archivo", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Cuestionario` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  cuestionario_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Cuestionario_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Cuestionario_Data!
+  ): Int! @fdc_generated(from: "Cuestionario", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `EspacioAprendizaje` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  espacioAprendizaje_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: EspacioAprendizaje_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: EspacioAprendizaje_Data!
+  ): Int! @fdc_generated(from: "EspacioAprendizaje", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Insignia` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  insignia_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Insignia_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Insignia_Data!
+  ): Int! @fdc_generated(from: "Insignia", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Intento` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  intento_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Intento_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Intento_Data!
+  ): Int! @fdc_generated(from: "Intento", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `LogroNotificado` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  logroNotificado_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: LogroNotificado_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: LogroNotificado_Data!
+  ): Int! @fdc_generated(from: "LogroNotificado", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `MiembroEspacio` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  miembroEspacio_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: MiembroEspacio_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: MiembroEspacio_Data!
+  ): Int! @fdc_generated(from: "MiembroEspacio", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Nivel` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  nivel_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Nivel_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Nivel_Data!
+  ): Int! @fdc_generated(from: "Nivel", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `OpcionAvatar` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  opcionAvatar_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: OpcionAvatar_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: OpcionAvatar_Data!
+  ): Int! @fdc_generated(from: "OpcionAvatar", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Pregunta` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  pregunta_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Pregunta_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Pregunta_Data!
+  ): Int! @fdc_generated(from: "Pregunta", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Respuesta` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  respuesta_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Respuesta_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Respuesta_Data!
+  ): Int! @fdc_generated(from: "Respuesta", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Tarjeta` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  tarjeta_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Tarjeta_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Tarjeta_Data!
+  ): Int! @fdc_generated(from: "Tarjeta", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Usuario` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  usuario_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Usuario_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Usuario_Data!
+  ): Int! @fdc_generated(from: "Usuario", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Delete a single `Archivo` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  archivo_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Archivo_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Archivo_FirstRow
+  ): Archivo_KeyOutput @fdc_generated(from: "Archivo", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Cuestionario` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  cuestionario_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Cuestionario_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Cuestionario_FirstRow
+  ): Cuestionario_KeyOutput @fdc_generated(from: "Cuestionario", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `EspacioAprendizaje` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  espacioAprendizaje_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: EspacioAprendizaje_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: EspacioAprendizaje_FirstRow
+  ): EspacioAprendizaje_KeyOutput @fdc_generated(from: "EspacioAprendizaje", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Insignia` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  insignia_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Insignia_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Insignia_FirstRow
+  ): Insignia_KeyOutput @fdc_generated(from: "Insignia", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Intento` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  intento_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Intento_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Intento_FirstRow
+  ): Intento_KeyOutput @fdc_generated(from: "Intento", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `LogroNotificado` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  logroNotificado_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: LogroNotificado_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: LogroNotificado_FirstRow
+  ): LogroNotificado_KeyOutput @fdc_generated(from: "LogroNotificado", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `MiembroEspacio` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  miembroEspacio_delete(
+    """
+    The key used to identify the object.
+    """
+    key: MiembroEspacio_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: MiembroEspacio_FirstRow
+  ): MiembroEspacio_KeyOutput @fdc_generated(from: "MiembroEspacio", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Nivel` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  nivel_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Nivel_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Nivel_FirstRow
+  ): Nivel_KeyOutput @fdc_generated(from: "Nivel", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `OpcionAvatar` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  opcionAvatar_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: OpcionAvatar_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: OpcionAvatar_FirstRow
+  ): OpcionAvatar_KeyOutput @fdc_generated(from: "OpcionAvatar", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Pregunta` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  pregunta_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Pregunta_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Pregunta_FirstRow
+  ): Pregunta_KeyOutput @fdc_generated(from: "Pregunta", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Respuesta` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  respuesta_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Respuesta_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Respuesta_FirstRow
+  ): Respuesta_KeyOutput @fdc_generated(from: "Respuesta", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Tarjeta` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  tarjeta_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Tarjeta_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Tarjeta_FirstRow
+  ): Tarjeta_KeyOutput @fdc_generated(from: "Tarjeta", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Usuario` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  usuario_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Usuario_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Usuario_FirstRow
+  ): Usuario_KeyOutput @fdc_generated(from: "Usuario", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete `Archivo` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  archivo_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Archivo_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Archivo", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Cuestionario` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  cuestionario_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Cuestionario_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Cuestionario", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `EspacioAprendizaje` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  espacioAprendizaje_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: EspacioAprendizaje_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "EspacioAprendizaje", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Insignia` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  insignia_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Insignia_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Insignia", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Intento` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  intento_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Intento_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Intento", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `LogroNotificado` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  logroNotificado_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: LogroNotificado_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "LogroNotificado", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `MiembroEspacio` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  miembroEspacio_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: MiembroEspacio_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "MiembroEspacio", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Nivel` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  nivel_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Nivel_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Nivel", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `OpcionAvatar` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  opcionAvatar_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: OpcionAvatar_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "OpcionAvatar", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Pregunta` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  pregunta_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Pregunta_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Pregunta", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Respuesta` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  respuesta_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Respuesta_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Respuesta", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Tarjeta` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  tarjeta_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Tarjeta_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Tarjeta", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Usuario` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  usuario_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Usuario_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Usuario", purpose: DELETE_MULTIPLE)
+}
