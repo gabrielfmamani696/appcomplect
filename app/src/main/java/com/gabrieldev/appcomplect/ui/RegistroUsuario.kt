@@ -8,14 +8,18 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.SubcomposeAsyncImage
 import com.gabrieldev.appcomplect.data.repository.AvatarRepository
 import com.gabrieldev.appcomplect.data.repository.UsuarioRepository
 import com.gabrieldev.appcomplect.model.OpcionAvatar
@@ -76,7 +80,10 @@ fun RegistroUsuario(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(listaAvatares) { avatar ->
-                Box(
+                SubcomposeAsyncImage(
+                    model = avatar.urlImagen,
+                    contentDescription = avatar.descripcion,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(80.dp)
                         .clip(CircleShape)
@@ -86,11 +93,32 @@ fun RegistroUsuario(
                             shape = CircleShape
                         )
                         .clickable { avatarSeleccionado = avatar },
-                    contentAlignment = Alignment.Center
-                ) {
-                    // Aquí iría un AsyncImage de Coil. Por ahora usamos texto como fallback
-                    Text(text = avatar.descripcion.take(1), style = MaterialTheme.typography.headlineSmall)
-                }
+                    loading = {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(32.dp),
+                                color = MaterialTheme.colorScheme.primary,
+                                strokeWidth = 2.dp
+                            )
+                        }
+                    },
+                    error = {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Person,
+                                contentDescription = null,
+                                modifier = Modifier.size(40.dp),
+                                tint = Color.Gray
+                            )
+                        }
+                    }
+                )
             }
         }
 
@@ -186,7 +214,8 @@ fun RegistroUsuario(
                             apellidoMaterno = apellidoMaterno,
                             alias = alias,
                             idAvatar = avatarSeleccionado!!.idAvatar,
-                            tipoUsuario = 3
+                            tipoUsuario = 3,
+                            idNivel = "a9248daa-e652-43a7-81b3-c09b8c2701bb"
                         )
                         usuarioRepository.registrarUsuario(nuevoUsuario)
                         alTerminar()

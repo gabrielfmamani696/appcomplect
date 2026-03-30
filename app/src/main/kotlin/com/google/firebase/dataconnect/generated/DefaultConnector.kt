@@ -24,6 +24,8 @@ public interface DefaultConnector : com.google.firebase.dataconnect.generated.Ge
   
     public val listarAvatares: ListarAvataresQuery
   
+    public val obtenerPerfilCompleto: ObtenerPerfilCompletoQuery
+  
     public val obtenerUsuarioPorId: ObtenerUsuarioPorIdQuery
   
     public val seedOpcionAvatarData: SeedOpcionAvatarDataMutation
@@ -79,6 +81,10 @@ private class DefaultConnectorImpl(
       ListarAvataresQueryImpl(this)
     }
   
+    override val obtenerPerfilCompleto by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ObtenerPerfilCompletoQueryImpl(this)
+    }
+  
     override val obtenerUsuarioPorId by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ObtenerUsuarioPorIdQueryImpl(this)
     }
@@ -105,6 +111,7 @@ private class DefaultConnectorImpl(
     listOf(
       listarArchivosPublicos,
         listarAvatares,
+        obtenerPerfilCompleto,
         obtenerUsuarioPorId,
         
     )
@@ -283,6 +290,21 @@ private class ListarAvataresQueryImpl(
     ListarAvataresQuery.Companion.operationName,
     ListarAvataresQuery.Companion.dataDeserializer,
     ListarAvataresQuery.Companion.variablesSerializer,
+  )
+
+
+private class ObtenerPerfilCompletoQueryImpl(
+  connector: DefaultConnector
+):
+  ObtenerPerfilCompletoQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ObtenerPerfilCompletoQuery.Data,
+      ObtenerPerfilCompletoQuery.Variables
+  >(
+    connector,
+    ObtenerPerfilCompletoQuery.Companion.operationName,
+    ObtenerPerfilCompletoQuery.Companion.dataDeserializer,
+    ObtenerPerfilCompletoQuery.Companion.variablesSerializer,
   )
 
 

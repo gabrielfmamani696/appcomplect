@@ -80,9 +80,9 @@ val connector: DefaultConnector = DefaultConnector.getInstance(
 ### DefaultConnector - Query and Mutation Properties
 
 The `default` Data Connect connector defines
-3 queries and
+4 queries and
 2 mutations,
-a total of 5 operations.
+a total of 6 operations.
 Each of these operations is exposed
 as a property of [DefaultConnector].
 
@@ -189,14 +189,14 @@ println("ListarArchivosPublicos query returned: ${queryResult.data}")
 If a query has _required_ variables then they must be specified as
 arguments to the `execute()` method.
 
-For example, the "ObtenerUsuarioPorId" query has 1 required variable ("id")
-and can be executed via the [DefaultConnector.obtenerUsuarioPorId]
+For example, the "ObtenerPerfilCompleto" query has 1 required variable ("id")
+and can be executed via the [DefaultConnector.obtenerPerfilCompleto]
 property as follows:
 
 ```kotlin
 val connector = DefaultConnector.instance
-val queryResult = connector.obtenerUsuarioPorId.execute(id=java.util.UUID.randomUUID())
-println("ObtenerUsuarioPorId query returned: ${queryResult.data}")
+val queryResult = connector.obtenerPerfilCompleto.execute(id=java.util.UUID.randomUUID())
+println("ObtenerPerfilCompleto query returned: ${queryResult.data}")
 ```
 
 
@@ -256,7 +256,7 @@ however, if they _are_ specified,
 then they are specified in a Kotlin DSL block as the last argument
 of the `execute()` method.
 
-For example, the "CrearUsuarioNuevo" mutation has 1 optional variable ("avatarId")
+For example, the "CrearUsuarioNuevo" mutation has 2 optional variables ("avatarId" and "nivelId")
 and can be executed via the [DefaultConnector.crearUsuarioNuevo]
 property as follows:
 
@@ -264,6 +264,7 @@ property as follows:
 val connector = DefaultConnector.instance
 val mutationResult = connector.crearUsuarioNuevo.execute(alias="waldo", nombre="corge", apellidoPaterno="thud", apellidoMaterno="baz", estadoValidacion=true, estrellasPrestigio=8074, rachaActualDias=5618, tipoUsuario=4547, ultimaActividad=Timestamp(192707079, 865781620)) {
   avatarId = java.util.UUID.randomUUID()
+  nivelId = java.util.UUID.randomUUID()
 }
 println("CrearUsuarioNuevo mutation returned: ${mutationResult.data}")
 ```

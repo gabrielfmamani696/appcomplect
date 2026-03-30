@@ -17,8 +17,8 @@ query ListarArchivosPublicos @auth(level: PUBLIC, insecureReason: "This operatio
   }
 }
 
-mutation CrearUsuarioNuevo($alias: String!, $nombre: String!, $apellidoPaterno: String!, $apellidoMaterno: String!, $estadoValidacion: Boolean!, $estrellasPrestigio: Int!, $rachaActualDias: Int!, $tipoUsuario: Int!, $ultimaActividad: Timestamp!, $avatarId: UUID) @auth(level: PUBLIC, insecureReason: "Safe for custom user registration during development") {
-  usuario_insert(data: {alias: $alias, nombre: $nombre, apellidoPaterno: $apellidoPaterno, apellidoMaterno: $apellidoMaterno, estadoValidacion: $estadoValidacion, estrellasPrestigio: $estrellasPrestigio, rachaActualDias: $rachaActualDias, tipoUsuario: $tipoUsuario, ultimaActividad: $ultimaActividad, avatarId: $avatarId})
+mutation CrearUsuarioNuevo($alias: String!, $nombre: String!, $apellidoPaterno: String!, $apellidoMaterno: String!, $estadoValidacion: Boolean!, $estrellasPrestigio: Int!, $rachaActualDias: Int!, $tipoUsuario: Int!, $ultimaActividad: Timestamp!, $avatarId: UUID, $nivelId: UUID) @auth(level: PUBLIC, insecureReason: "Safe for custom user registration during development") {
+  usuario_insert(data: {alias: $alias, nombre: $nombre, apellidoPaterno: $apellidoPaterno, apellidoMaterno: $apellidoMaterno, estadoValidacion: $estadoValidacion, estrellasPrestigio: $estrellasPrestigio, rachaActualDias: $rachaActualDias, tipoUsuario: $tipoUsuario, ultimaActividad: $ultimaActividad, avatarId: $avatarId, nivelId: $nivelId})
 }
 
 query ObtenerUsuarioPorId($id: UUID!) @auth(level: USER, insecureReason: "It is acceptable for logged-in users to fetch public profiles of other users.") {
@@ -59,4 +59,29 @@ mutation SeedOpcionAvatarData @auth(level: PUBLIC, insecureReason: "Seed data is
       descripcion: "Avatar con capa"
     }
   ])
+}
+
+query ObtenerPerfilCompleto($id: UUID!) @auth(level: PUBLIC, insecureReason: "Fetch full user profile including level and avatar for home dashboard") {
+  usuario(id: $id) {
+    id
+    alias
+    nombre
+    apellidoPaterno
+    apellidoMaterno
+    estadoValidacion
+    estrellasPrestigio
+    rachaActualDias
+    tipoUsuario
+    ultimaActividad
+    nivel {
+      id
+      nombreRango
+      estrellasRequeridas
+      limitePalabrasTarjeta
+    }
+    avatar {
+      imagenUrl
+      descripcion
+    }
+  }
 }

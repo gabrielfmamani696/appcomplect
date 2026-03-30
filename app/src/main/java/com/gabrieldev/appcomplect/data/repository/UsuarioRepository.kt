@@ -8,10 +8,15 @@ import com.gabrieldev.appcomplect.model.Usuario
 import com.google.firebase.Timestamp
 import com.google.firebase.dataconnect.generated.DefaultConnector
 import com.google.firebase.dataconnect.generated.execute
+import com.google.firebase.dataconnect.generated.flow
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import kotlinx.serialization.InternalSerializationApi
 import java.util.Date
 import java.util.UUID
@@ -22,16 +27,18 @@ class UsuarioRepository(
     private val connector: DefaultConnector,
     private val context: Context
 ) {
+    private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+
     private val _usuarioActivo = MutableStateFlow<Usuario?>(null)
     val usuarioActivo: StateFlow<Usuario?> = _usuarioActivo
 
-    private val _estaCargando = MutableStateFlow(true)
-    val estaCargando: StateFlow<Boolean> = _estaCargando
+    private val _cargando = MutableStateFlow(true)
+    val cargando: StateFlow<Boolean> = _cargando
 
     private val USER_ID_KEY = stringPreferencesKey("session_user_id")
 
     suspend fun verificarSesion() {
-        _estaCargando.value = true
+        _cargando.value = true
         try {
             val userId = context.dataStore.data.map { prefs ->
                 prefs[USER_ID_KEY]
@@ -39,27 +46,65 @@ class UsuarioRepository(
 
             if (userId != null) {
                 _usuarioActivo.value = Usuario(
-                    nombre = "Sesión Recuperada",
+                    nombre = "",
                     apellidoPaterno = "",
                     apellidoMaterno = "",
-                    alias = "Registrado",
+                    alias = "...",
                     idAvatar = "",
                     tipoUsuario = 3,
-                    uuidSesion = userId
+                    uuidSesion = userId,
+                    idNivel = "",
+                    nivel = null
                 )
+                iniciarSuscripcionPerfil(userId)
             } else {
                 _usuarioActivo.value = null
             }
         } catch (e: Exception) {
             _usuarioActivo.value = null
         } finally {
-            _estaCargando.value = false
+            _cargando.value = false
+        }
+    }
+
+    private fun iniciarSuscripcionPerfil(userId: String) {
+        scope.launch {
+            try {
+                connector.obtenerPerfilCompleto
+                    .flow(id = UUID.fromString(userId))
+                    .collect { data ->
+                        val u = data.usuario ?: return@collect
+                        _usuarioActivo.value = Usuario(
+                            nombre = u.nombre,
+                            apellidoPaterno = u.apellidoPaterno,
+                            apellidoMaterno = u.apellidoMaterno,
+                            alias = u.alias,
+                            idAvatar = u.avatar?.imagenUrl ?: "",
+                            tipoUsuario = u.tipoUsuario,
+                            uuidSesion = userId,
+                            estrellasPrestigio = u.estrellasPrestigio,
+                            rachaActualDias = u.rachaActualDias,
+                            avatarUrl = u.avatar?.imagenUrl ?: "",
+                            idNivel = u.nivel?.id?.toString() ?: "",
+                            nivel = u.nivel?.let {
+                                com.gabrieldev.appcomplect.model.Nivel(
+                                    id = it.id.toString(),
+                                    nombreRango = it.nombreRango,
+                                    estrellasRequeridas = it.estrellasRequeridas,
+                                    limitePalabrasTarjeta = it.limitePalabrasTarjeta
+                                )
+                            }
+                        )
+                    }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
     @InternalSerializationApi
     suspend fun registrarUsuario(usuario: Usuario): Boolean {
-        try {
+        return try {
             val result = connector.crearUsuarioNuevo.execute(
                 alias = usuario.alias,
                 nombre = usuario.nombre,
@@ -72,6 +117,7 @@ class UsuarioRepository(
                 ultimaActividad = Timestamp(Date())
             ) {
                 avatarId = UUID.fromString(usuario.idAvatar)
+                nivelId = UUID.fromString(usuario.idNivel)
             }
 
             val remoteId = result.data.usuario_insert.id.toString()
@@ -81,11 +127,11 @@ class UsuarioRepository(
             }
 
             _usuarioActivo.value = usuario.copy(uuidSesion = remoteId)
-            
-            return true
+            iniciarSuscripcionPerfil(remoteId)
+            true
         } catch (e: Exception) {
             e.printStackTrace()
-            return false
+            false
         }
     }
 

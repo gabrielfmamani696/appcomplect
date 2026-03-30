@@ -107,4 +107,10 @@ dependencies {
     
     // Preferences DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    // Navigation Compose
+    implementation("androidx.navigation:navigation-compose:2.8.9")
+
+    // Coil - carga de imágenes desde URL (necesario para mostrar avatares de DataConnect)
+    implementation("io.coil-kt:coil-compose:2.7.0")
 }

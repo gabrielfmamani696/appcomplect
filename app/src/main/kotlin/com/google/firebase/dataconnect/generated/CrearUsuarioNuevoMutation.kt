@@ -34,7 +34,8 @@ public interface CrearUsuarioNuevoMutation :
     val rachaActualDias: Int,
     val tipoUsuario: Int,
     val ultimaActividad: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.TimestampSerializer::class) com.google.firebase.Timestamp,
-    val avatarId: com.google.firebase.dataconnect.OptionalVariable<@kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID?>
+    val avatarId: com.google.firebase.dataconnect.OptionalVariable<@kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID?>,
+    val nivelId: com.google.firebase.dataconnect.OptionalVariable<@kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID?>
   ) {
     
     
@@ -53,6 +54,7 @@ public interface CrearUsuarioNuevoMutation :
         public var tipoUsuario: Int
         public var ultimaActividad: com.google.firebase.Timestamp
         public var avatarId: java.util.UUID?
+        public var nivelId: java.util.UUID?
         
       }
 
@@ -72,6 +74,8 @@ public interface CrearUsuarioNuevoMutation :
             var tipoUsuario= tipoUsuario
             var ultimaActividad= ultimaActividad
             var avatarId: com.google.firebase.dataconnect.OptionalVariable<java.util.UUID?> =
+                com.google.firebase.dataconnect.OptionalVariable.Undefined
+            var nivelId: com.google.firebase.dataconnect.OptionalVariable<java.util.UUID?> =
                 com.google.firebase.dataconnect.OptionalVariable.Undefined
             
 
@@ -116,11 +120,15 @@ public interface CrearUsuarioNuevoMutation :
               get() = throw UnsupportedOperationException("getting builder values is not supported")
               set(value_) { avatarId = com.google.firebase.dataconnect.OptionalVariable.Value(value_) }
               
+            override var nivelId: java.util.UUID?
+              get() = throw UnsupportedOperationException("getting builder values is not supported")
+              set(value_) { nivelId = com.google.firebase.dataconnect.OptionalVariable.Value(value_) }
+              
             
           }.apply(block_)
           .let {
             Variables(
-              alias=alias,nombre=nombre,apellidoPaterno=apellidoPaterno,apellidoMaterno=apellidoMaterno,estadoValidacion=estadoValidacion,estrellasPrestigio=estrellasPrestigio,rachaActualDias=rachaActualDias,tipoUsuario=tipoUsuario,ultimaActividad=ultimaActividad,avatarId=avatarId,
+              alias=alias,nombre=nombre,apellidoPaterno=apellidoPaterno,apellidoMaterno=apellidoMaterno,estadoValidacion=estadoValidacion,estrellasPrestigio=estrellasPrestigio,rachaActualDias=rachaActualDias,tipoUsuario=tipoUsuario,ultimaActividad=ultimaActividad,avatarId=avatarId,nivelId=nivelId,
             )
           }
         }
