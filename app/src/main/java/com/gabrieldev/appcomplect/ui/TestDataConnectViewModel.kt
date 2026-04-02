@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gabrieldev.appcomplect.data.remote.UsuarioDataConnectRepository
 import com.google.firebase.Timestamp
-import com.google.firebase.dataconnect.generated.ObtenerUsuarioPorIdQuery
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -31,7 +30,8 @@ class TestDataConnectViewModel(
                 estadoValidacion = true,
                 estrellasPrestigio = 10,
                 rachaActualDias = 5,
-                tipoUsuario = 1,
+                numeroCelular = "60000000",
+                rolId = "00000000-0000-0000-0000-000000000000",
                 ultimaActividad = Timestamp(Date())
             )
 

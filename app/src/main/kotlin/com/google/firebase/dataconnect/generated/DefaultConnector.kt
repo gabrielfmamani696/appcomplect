@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -13,23 +14,36 @@
 package com.google.firebase.dataconnect.generated
 
 import com.google.firebase.dataconnect.getInstance as _fdcGetInstance
+import kotlin.time.Duration.Companion.milliseconds as _milliseconds
 
 public interface DefaultConnector : com.google.firebase.dataconnect.generated.GeneratedConnector<DefaultConnector> {
   override val dataConnect: com.google.firebase.dataconnect.FirebaseDataConnect
 
-  
+
+    public val actualizarUsuarioPerfil: ActualizarUsuarioPerfilMutation
+
     public val crearUsuarioNuevo: CrearUsuarioNuevoMutation
-  
+
     public val listarArchivosPublicos: ListarArchivosPublicosQuery
-  
+
     public val listarAvatares: ListarAvataresQuery
-  
+
+    public val listarRoles: ListarRolesQuery
+
+    public val obtenerLeaderboard: ObtenerLeaderboardQuery
+
     public val obtenerPerfilCompleto: ObtenerPerfilCompletoQuery
-  
+
+    public val obtenerRankingUsuario: ObtenerRankingUsuarioQuery
+
+    public val obtenerUsuarioPorCredenciales: ObtenerUsuarioPorCredencialesQuery
+
     public val obtenerUsuarioPorId: ObtenerUsuarioPorIdQuery
-  
+
     public val seedOpcionAvatarData: SeedOpcionAvatarDataMutation
-  
+
+    public val seedRolesData: SeedRolesDataMutation
+
 
   public companion object {
     @Suppress("MemberVisibilityCanBePrivate")
@@ -48,11 +62,15 @@ public interface DefaultConnector : com.google.firebase.dataconnect.generated.Ge
     }
 
     private val instances = java.util.WeakHashMap<com.google.firebase.dataconnect.FirebaseDataConnect, DefaultConnectorImpl>()
+
+
   }
 }
 
 public val DefaultConnector.Companion.instance:DefaultConnector
-  get() = getInstance(com.google.firebase.dataconnect.FirebaseDataConnect._fdcGetInstance(config))
+  get() = getInstance(com.google.firebase.dataconnect.FirebaseDataConnect._fdcGetInstance(
+    config
+  ))
 
 public fun DefaultConnector.Companion.getInstance(
   settings: com.google.firebase.dataconnect.DataConnectSettings = com.google.firebase.dataconnect.DataConnectSettings()
@@ -68,31 +86,55 @@ public fun DefaultConnector.Companion.getInstance(
 private class DefaultConnectorImpl(
   override val dataConnect: com.google.firebase.dataconnect.FirebaseDataConnect
 ) : DefaultConnector {
-  
+
+    override val actualizarUsuarioPerfil by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ActualizarUsuarioPerfilMutationImpl(this)
+    }
+
     override val crearUsuarioNuevo by lazy(LazyThreadSafetyMode.PUBLICATION) {
       CrearUsuarioNuevoMutationImpl(this)
     }
-  
+
     override val listarArchivosPublicos by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ListarArchivosPublicosQueryImpl(this)
     }
-  
+
     override val listarAvatares by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ListarAvataresQueryImpl(this)
     }
-  
+
+    override val listarRoles by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ListarRolesQueryImpl(this)
+    }
+
+    override val obtenerLeaderboard by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ObtenerLeaderboardQueryImpl(this)
+    }
+
     override val obtenerPerfilCompleto by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ObtenerPerfilCompletoQueryImpl(this)
     }
-  
+
+    override val obtenerRankingUsuario by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ObtenerRankingUsuarioQueryImpl(this)
+    }
+
+    override val obtenerUsuarioPorCredenciales by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ObtenerUsuarioPorCredencialesQueryImpl(this)
+    }
+
     override val obtenerUsuarioPorId by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ObtenerUsuarioPorIdQueryImpl(this)
     }
-  
+
     override val seedOpcionAvatarData by lazy(LazyThreadSafetyMode.PUBLICATION) {
       SeedOpcionAvatarDataMutationImpl(this)
     }
-  
+
+    override val seedRolesData by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      SeedRolesDataMutationImpl(this)
+    }
+
 
   @com.google.firebase.dataconnect.ExperimentalFirebaseDataConnect
   override fun operations(): List<com.google.firebase.dataconnect.generated.GeneratedOperation<DefaultConnector, *, *>> =
@@ -101,9 +143,11 @@ private class DefaultConnectorImpl(
   @com.google.firebase.dataconnect.ExperimentalFirebaseDataConnect
   override fun mutations(): List<com.google.firebase.dataconnect.generated.GeneratedMutation<DefaultConnector, *, *>> =
     listOf(
-      crearUsuarioNuevo,
+      actualizarUsuarioPerfil,
+        crearUsuarioNuevo,
         seedOpcionAvatarData,
-        
+        seedRolesData,
+
     )
 
   @com.google.firebase.dataconnect.ExperimentalFirebaseDataConnect
@@ -111,9 +155,13 @@ private class DefaultConnectorImpl(
     listOf(
       listarArchivosPublicos,
         listarAvatares,
+        listarRoles,
+        obtenerLeaderboard,
         obtenerPerfilCompleto,
+        obtenerRankingUsuario,
+        obtenerUsuarioPorCredenciales,
         obtenerUsuarioPorId,
-        
+
     )
 
   @com.google.firebase.dataconnect.ExperimentalFirebaseDataConnect
@@ -248,6 +296,21 @@ private open class DefaultConnectorGeneratedMutationImpl<Data, Variables>(
 
 
 
+private class ActualizarUsuarioPerfilMutationImpl(
+  connector: DefaultConnector
+):
+  ActualizarUsuarioPerfilMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      ActualizarUsuarioPerfilMutation.Data,
+      ActualizarUsuarioPerfilMutation.Variables
+  >(
+    connector,
+    ActualizarUsuarioPerfilMutation.Companion.operationName,
+    ActualizarUsuarioPerfilMutation.Companion.dataDeserializer,
+    ActualizarUsuarioPerfilMutation.Companion.variablesSerializer,
+  )
+
+
 private class CrearUsuarioNuevoMutationImpl(
   connector: DefaultConnector
 ):
@@ -293,6 +356,36 @@ private class ListarAvataresQueryImpl(
   )
 
 
+private class ListarRolesQueryImpl(
+  connector: DefaultConnector
+):
+  ListarRolesQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ListarRolesQuery.Data,
+      Unit
+  >(
+    connector,
+    ListarRolesQuery.Companion.operationName,
+    ListarRolesQuery.Companion.dataDeserializer,
+    ListarRolesQuery.Companion.variablesSerializer,
+  )
+
+
+private class ObtenerLeaderboardQueryImpl(
+  connector: DefaultConnector
+):
+  ObtenerLeaderboardQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ObtenerLeaderboardQuery.Data,
+      Unit
+  >(
+    connector,
+    ObtenerLeaderboardQuery.Companion.operationName,
+    ObtenerLeaderboardQuery.Companion.dataDeserializer,
+    ObtenerLeaderboardQuery.Companion.variablesSerializer,
+  )
+
+
 private class ObtenerPerfilCompletoQueryImpl(
   connector: DefaultConnector
 ):
@@ -305,6 +398,36 @@ private class ObtenerPerfilCompletoQueryImpl(
     ObtenerPerfilCompletoQuery.Companion.operationName,
     ObtenerPerfilCompletoQuery.Companion.dataDeserializer,
     ObtenerPerfilCompletoQuery.Companion.variablesSerializer,
+  )
+
+
+private class ObtenerRankingUsuarioQueryImpl(
+  connector: DefaultConnector
+):
+  ObtenerRankingUsuarioQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ObtenerRankingUsuarioQuery.Data,
+      ObtenerRankingUsuarioQuery.Variables
+  >(
+    connector,
+    ObtenerRankingUsuarioQuery.Companion.operationName,
+    ObtenerRankingUsuarioQuery.Companion.dataDeserializer,
+    ObtenerRankingUsuarioQuery.Companion.variablesSerializer,
+  )
+
+
+private class ObtenerUsuarioPorCredencialesQueryImpl(
+  connector: DefaultConnector
+):
+  ObtenerUsuarioPorCredencialesQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ObtenerUsuarioPorCredencialesQuery.Data,
+      ObtenerUsuarioPorCredencialesQuery.Variables
+  >(
+    connector,
+    ObtenerUsuarioPorCredencialesQuery.Companion.operationName,
+    ObtenerUsuarioPorCredencialesQuery.Companion.dataDeserializer,
+    ObtenerUsuarioPorCredencialesQuery.Companion.variablesSerializer,
   )
 
 
@@ -335,6 +458,21 @@ private class SeedOpcionAvatarDataMutationImpl(
     SeedOpcionAvatarDataMutation.Companion.operationName,
     SeedOpcionAvatarDataMutation.Companion.dataDeserializer,
     SeedOpcionAvatarDataMutation.Companion.variablesSerializer,
+  )
+
+
+private class SeedRolesDataMutationImpl(
+  connector: DefaultConnector
+):
+  SeedRolesDataMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      SeedRolesDataMutation.Data,
+      Unit
+  >(
+    connector,
+    SeedRolesDataMutation.Companion.operationName,
+    SeedRolesDataMutation.Companion.dataDeserializer,
+    SeedRolesDataMutation.Companion.variablesSerializer,
   )
 
 

@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
-import com.gabrieldev.appcomplect.ui.navegacion.Rutas
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,7 +30,7 @@ fun PantallaArchivos(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {  },
+                onClick = { },
                 containerColor = Color(0xFF4CAF50)
             ) {
                 Icon(Icons.Default.Add, contentDescription = "Nuevo archivo", tint = Color.White)

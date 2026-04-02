@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -113,4 +115,13 @@ dependencies {
 
     // Coil - carga de imágenes desde URL (necesario para mostrar avatares de DataConnect)
     implementation("io.coil-kt:coil-compose:2.7.0")
+
+    // Iconos extendidos (para el Rayo)
+    implementation("androidx.compose.material:material-icons-extended")
+}
+
+tasks.withType<KotlinCompile>().configureEach {
+    compilerOptions {
+        optIn.add("kotlinx.serialization.InternalSerializationApi")
+    }
 }

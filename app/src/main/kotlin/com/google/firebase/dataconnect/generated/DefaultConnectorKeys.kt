@@ -1,9 +1,9 @@
-
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -12,22 +12,21 @@
 
 package com.google.firebase.dataconnect.generated
 
+import com.google.firebase.dataconnect.serializers.UUIDSerializer
+import java.util.UUID
+import kotlinx.serialization.Serializable
 
-  @kotlinx.serialization.Serializable
-  public data class OpcionAvatarKey(
-  
-    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID
-  ) {
-    
-    
-  }
+@Serializable
+public data class OpcionAvatarKey(
+  val id: @Serializable(with = UUIDSerializer::class) UUID
+)
 
-  @kotlinx.serialization.Serializable
-  public data class UsuarioKey(
-  
-    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID
-  ) {
-    
-    
-  }
+@Serializable
+public data class RolUsuarioKey(
+  val id: @Serializable(with = UUIDSerializer::class) UUID
+)
 
+@Serializable
+public data class UsuarioKey(
+  val id: @Serializable(with = UUIDSerializer::class) UUID
+)

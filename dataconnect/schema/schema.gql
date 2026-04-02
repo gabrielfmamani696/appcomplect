@@ -1,10 +1,19 @@
+type RolUsuario @table {
+  nombreRol: String!
+}
+
 type Usuario @table {
   alias: String!
   estrellasPrestigio: Int!
   rachaActualDias: Int!
   ultimaActividad: Timestamp!
-  tipoUsuario: Int!
+  rol: RolUsuario!
   estadoValidacion: Boolean!
+  horaNotificacion: String
+  numeroCelular: String! @unique
+  curso: String
+  paralelo: String
+  nombreColegio: String
   nombre: String!
   apellidoPaterno: String!
   apellidoMaterno: String!
@@ -24,9 +33,9 @@ type OpcionAvatar @table {
 }
 
 type EspacioAprendizaje @table {
-  creador: Usuario
+  usuario: Usuario
   nombreEspacio: String!
-  tokenAcceso: Int!
+  tokenAcceso: String!
 }
 
 type MiembroEspacio @table(key: ["espacio", "usuario"]) {
@@ -39,11 +48,10 @@ type Archivo @table {
   tema: String!
   descripcion: String!
   fechaCreacion: Timestamp!
-  tipoCreador: Int!
   imagenUrl: String
-  nivel: Nivel
+  nivelRequerido: Nivel
   espacio: EspacioAprendizaje
-  creador: Usuario
+  usuario: Usuario
 }
 
 type Cuestionario @table {
@@ -79,7 +87,6 @@ type Intento @table {
 }
 
 type Insignia @table {
-  tipoLogro: String!
   nombreVisible: String!
   descripcion: String!
   iconoRef: String!

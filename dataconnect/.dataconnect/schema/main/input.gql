@@ -65,6 +65,12 @@ It has the same format as `Respuesta_Key`, but is only used as mutation return v
 """
 scalar Respuesta_KeyOutput
 """
+✨ `RolUsuario_KeyOutput` returns the primary key fields of table type `RolUsuario`.
+
+It has the same format as `RolUsuario_Key`, but is only used as mutation return value.
+"""
+scalar RolUsuario_KeyOutput
+"""
 ✨ `Tarjeta_KeyOutput` returns the primary key fields of table type `Tarjeta`.
 
 It has the same format as `Tarjeta_Key`, but is only used as mutation return value.
@@ -87,15 +93,7 @@ input Archivo_Data {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `Archivo`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
-  """
-  ✨ Generated from Field `Archivo`.`creadorId` of type `UUID`
-  """
-  creadorId: UUID
-  """
-  ✨ `_expr` server value variant of `creadorId` (✨ Generated from Field `Archivo`.`creadorId` of type `UUID`)
-  """
-  creadorId_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Archivo`.`espacioId` of type `UUID`
   """
@@ -103,27 +101,35 @@ input Archivo_Data {
   """
   ✨ `_expr` server value variant of `espacioId` (✨ Generated from Field `Archivo`.`espacioId` of type `UUID`)
   """
-  espacioId_expr: UUID_Expr
+  espacioId_expr: UUID_Expr @fdc_forbiddenInVariables
   """
-  ✨ Generated from Field `Archivo`.`nivelId` of type `UUID`
+  ✨ Generated from Field `Archivo`.`nivelRequeridoId` of type `UUID`
   """
-  nivelId: UUID
+  nivelRequeridoId: UUID
   """
-  ✨ `_expr` server value variant of `nivelId` (✨ Generated from Field `Archivo`.`nivelId` of type `UUID`)
+  ✨ `_expr` server value variant of `nivelRequeridoId` (✨ Generated from Field `Archivo`.`nivelRequeridoId` of type `UUID`)
   """
-  nivelId_expr: UUID_Expr
+  nivelRequeridoId_expr: UUID_Expr @fdc_forbiddenInVariables
   """
-  ✨ Generated from Field `Archivo`.`creador` of type `Usuario`
+  ✨ Generated from Field `Archivo`.`usuarioId` of type `UUID`
   """
-  creador: Usuario_Key
+  usuarioId: UUID
+  """
+  ✨ `_expr` server value variant of `usuarioId` (✨ Generated from Field `Archivo`.`usuarioId` of type `UUID`)
+  """
+  usuarioId_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Archivo`.`espacio` of type `EspacioAprendizaje`
   """
-  espacio: EspacioAprendizaje_Key
+  espacio: EspacioAprendizaje_Key @fdc_forbiddenInVariables
   """
-  ✨ Generated from Field `Archivo`.`nivel` of type `Nivel`
+  ✨ Generated from Field `Archivo`.`nivelRequerido` of type `Nivel`
   """
-  nivel: Nivel_Key
+  nivelRequerido: Nivel_Key @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Archivo`.`usuario` of type `Usuario`
+  """
+  usuario: Usuario_Key @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Archivo`.`descripcion` of type `String!`
   """
@@ -131,7 +137,7 @@ input Archivo_Data {
   """
   ✨ `_expr` server value variant of `descripcion` (✨ Generated from Field `Archivo`.`descripcion` of type `String!`)
   """
-  descripcion_expr: String_Expr
+  descripcion_expr: String_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Archivo`.`fechaCreacion` of type `Timestamp!`
   """
@@ -139,15 +145,15 @@ input Archivo_Data {
   """
   ✨ `_expr` server value variant of `fechaCreacion` (✨ Generated from Field `Archivo`.`fechaCreacion` of type `Timestamp!`)
   """
-  fechaCreacion_expr: Timestamp_Expr
+  fechaCreacion_expr: Timestamp_Expr @fdc_forbiddenInVariables
   """
   ✨ `_time` server value variant of `fechaCreacion` (✨ Generated from Field `Archivo`.`fechaCreacion` of type `Timestamp!`)
   """
-  fechaCreacion_time: Timestamp_Relative
+  fechaCreacion_time: Timestamp_Relative @fdc_forbiddenInVariables
   """
   ✨ `_update` server value variant of `fechaCreacion` (✨ Generated from Field `Archivo`.`fechaCreacion` of type `Timestamp!`)
   """
-  fechaCreacion_update: [Timestamp_Update!]
+  fechaCreacion_update: [Timestamp_Update!] @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Archivo`.`imagenUrl` of type `String`
   """
@@ -155,7 +161,7 @@ input Archivo_Data {
   """
   ✨ `_expr` server value variant of `imagenUrl` (✨ Generated from Field `Archivo`.`imagenUrl` of type `String`)
   """
-  imagenUrl_expr: String_Expr
+  imagenUrl_expr: String_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Archivo`.`tema` of type `String!`
   """
@@ -163,19 +169,7 @@ input Archivo_Data {
   """
   ✨ `_expr` server value variant of `tema` (✨ Generated from Field `Archivo`.`tema` of type `String!`)
   """
-  tema_expr: String_Expr
-  """
-  ✨ Generated from Field `Archivo`.`tipoCreador` of type `Int!`
-  """
-  tipoCreador: Int
-  """
-  ✨ `_expr` server value variant of `tipoCreador` (✨ Generated from Field `Archivo`.`tipoCreador` of type `Int!`)
-  """
-  tipoCreador_expr: Int_Expr
-  """
-  ✨ `_update` server value variant of `tipoCreador` (✨ Generated from Field `Archivo`.`tipoCreador` of type `Int!`)
-  """
-  tipoCreador_update: [Int_Update!]
+  tema_expr: String_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Archivo`.`titulo` of type `String!`
   """
@@ -183,7 +177,7 @@ input Archivo_Data {
   """
   ✨ `_expr` server value variant of `titulo` (✨ Generated from Field `Archivo`.`titulo` of type `String!`)
   """
-  titulo_expr: String_Expr
+  titulo_expr: String_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated filter input type for table 'Archivo'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
@@ -206,29 +200,29 @@ input Archivo_Filter {
   """
   id: UUID_Filter
   """
-  ✨ Generated from Field `Archivo`.`creadorId` of type `UUID`
-  """
-  creadorId: UUID_Filter
-  """
   ✨ Generated from Field `Archivo`.`espacioId` of type `UUID`
   """
   espacioId: UUID_Filter
   """
-  ✨ Generated from Field `Archivo`.`nivelId` of type `UUID`
+  ✨ Generated from Field `Archivo`.`nivelRequeridoId` of type `UUID`
   """
-  nivelId: UUID_Filter
+  nivelRequeridoId: UUID_Filter
   """
-  ✨ Generated from Field `Archivo`.`creador` of type `Usuario`
+  ✨ Generated from Field `Archivo`.`usuarioId` of type `UUID`
   """
-  creador: Usuario_Filter
+  usuarioId: UUID_Filter
   """
   ✨ Generated from Field `Archivo`.`espacio` of type `EspacioAprendizaje`
   """
   espacio: EspacioAprendizaje_Filter
   """
-  ✨ Generated from Field `Archivo`.`nivel` of type `Nivel`
+  ✨ Generated from Field `Archivo`.`nivelRequerido` of type `Nivel`
   """
-  nivel: Nivel_Filter
+  nivelRequerido: Nivel_Filter
+  """
+  ✨ Generated from Field `Archivo`.`usuario` of type `Usuario`
+  """
+  usuario: Usuario_Filter
   """
   ✨ Generated from Field `Archivo`.`descripcion` of type `String!`
   """
@@ -245,10 +239,6 @@ input Archivo_Filter {
   ✨ Generated from Field `Archivo`.`tema` of type `String!`
   """
   tema: String_Filter
-  """
-  ✨ Generated from Field `Archivo`.`tipoCreador` of type `Int!`
-  """
-  tipoCreador: Int_Filter
   """
   ✨ Generated from Field `Archivo`.`titulo` of type `String!`
   """
@@ -304,10 +294,6 @@ input Archivo_Having {
   """
   _count: Int_Filter
   """
-  ✨ Generated from Field `Archivo`.`creadorId_count` of type `Int!`
-  """
-  creadorId_count: Int_Filter
-  """
   ✨ Generated from Field `Archivo`.`descripcion_count` of type `Int!`
   """
   descripcion_count: Int_Filter
@@ -328,45 +314,29 @@ input Archivo_Having {
   """
   imagenUrl_count: Int_Filter
   """
-  ✨ Generated from Field `Archivo`.`nivelId_count` of type `Int!`
+  ✨ Generated from Field `Archivo`.`nivelRequeridoId_count` of type `Int!`
   """
-  nivelId_count: Int_Filter
+  nivelRequeridoId_count: Int_Filter
   """
   ✨ Generated from Field `Archivo`.`tema_count` of type `Int!`
   """
   tema_count: Int_Filter
   """
-  ✨ Generated from Field `Archivo`.`tipoCreador_count` of type `Int!`
-  """
-  tipoCreador_count: Int_Filter
-  """
   ✨ Generated from Field `Archivo`.`titulo_count` of type `Int!`
   """
   titulo_count: Int_Filter
   """
-  ✨ Generated from Field `Archivo`.`tipoCreador_sum` of type `Int`
+  ✨ Generated from Field `Archivo`.`usuarioId_count` of type `Int!`
   """
-  tipoCreador_sum: Int_Filter
-  """
-  ✨ Generated from Field `Archivo`.`tipoCreador_avg` of type `Float`
-  """
-  tipoCreador_avg: Float_Filter
+  usuarioId_count: Int_Filter
   """
   ✨ Generated from Field `Archivo`.`fechaCreacion_min` of type `Timestamp`
   """
   fechaCreacion_min: Timestamp_Filter
   """
-  ✨ Generated from Field `Archivo`.`tipoCreador_min` of type `Int`
-  """
-  tipoCreador_min: Int_Filter
-  """
   ✨ Generated from Field `Archivo`.`fechaCreacion_max` of type `Timestamp`
   """
   fechaCreacion_max: Timestamp_Filter
-  """
-  ✨ Generated from Field `Archivo`.`tipoCreador_max` of type `Int`
-  """
-  tipoCreador_max: Int_Filter
 }
 """
 ✨ Generated key input type for table 'Archivo'. It represents the primary key fields used to uniquely identify a row in the table.
@@ -379,7 +349,7 @@ input Archivo_Key {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `Archivo`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated list filter input type for table 'Archivo'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
@@ -403,29 +373,29 @@ input Archivo_Order {
   """
   id: OrderDirection
   """
-  ✨ Generated from Field `Archivo`.`creadorId` of type `UUID`
-  """
-  creadorId: OrderDirection
-  """
   ✨ Generated from Field `Archivo`.`espacioId` of type `UUID`
   """
   espacioId: OrderDirection
   """
-  ✨ Generated from Field `Archivo`.`nivelId` of type `UUID`
+  ✨ Generated from Field `Archivo`.`nivelRequeridoId` of type `UUID`
   """
-  nivelId: OrderDirection
+  nivelRequeridoId: OrderDirection
   """
-  ✨ Generated from Field `Archivo`.`creador` of type `Usuario`
+  ✨ Generated from Field `Archivo`.`usuarioId` of type `UUID`
   """
-  creador: Usuario_Order
+  usuarioId: OrderDirection
   """
   ✨ Generated from Field `Archivo`.`espacio` of type `EspacioAprendizaje`
   """
   espacio: EspacioAprendizaje_Order
   """
-  ✨ Generated from Field `Archivo`.`nivel` of type `Nivel`
+  ✨ Generated from Field `Archivo`.`nivelRequerido` of type `Nivel`
   """
-  nivel: Nivel_Order
+  nivelRequerido: Nivel_Order
+  """
+  ✨ Generated from Field `Archivo`.`usuario` of type `Usuario`
+  """
+  usuario: Usuario_Order
   """
   ✨ Generated from Field `Archivo`.`descripcion` of type `String!`
   """
@@ -443,10 +413,6 @@ input Archivo_Order {
   """
   tema: OrderDirection
   """
-  ✨ Generated from Field `Archivo`.`tipoCreador` of type `Int!`
-  """
-  tipoCreador: OrderDirection
-  """
   ✨ Generated from Field `Archivo`.`titulo` of type `String!`
   """
   titulo: OrderDirection
@@ -454,10 +420,6 @@ input Archivo_Order {
   ✨ Generated from Field `Archivo`.`_count` of type `Int!`
   """
   _count: OrderDirection
-  """
-  ✨ Generated from Field `Archivo`.`creadorId_count` of type `Int!`
-  """
-  creadorId_count: OrderDirection
   """
   ✨ Generated from Field `Archivo`.`descripcion_count` of type `Int!`
   """
@@ -479,45 +441,29 @@ input Archivo_Order {
   """
   imagenUrl_count: OrderDirection
   """
-  ✨ Generated from Field `Archivo`.`nivelId_count` of type `Int!`
+  ✨ Generated from Field `Archivo`.`nivelRequeridoId_count` of type `Int!`
   """
-  nivelId_count: OrderDirection
+  nivelRequeridoId_count: OrderDirection
   """
   ✨ Generated from Field `Archivo`.`tema_count` of type `Int!`
   """
   tema_count: OrderDirection
   """
-  ✨ Generated from Field `Archivo`.`tipoCreador_count` of type `Int!`
-  """
-  tipoCreador_count: OrderDirection
-  """
   ✨ Generated from Field `Archivo`.`titulo_count` of type `Int!`
   """
   titulo_count: OrderDirection
   """
-  ✨ Generated from Field `Archivo`.`tipoCreador_sum` of type `Int`
+  ✨ Generated from Field `Archivo`.`usuarioId_count` of type `Int!`
   """
-  tipoCreador_sum: OrderDirection
-  """
-  ✨ Generated from Field `Archivo`.`tipoCreador_avg` of type `Float`
-  """
-  tipoCreador_avg: OrderDirection
+  usuarioId_count: OrderDirection
   """
   ✨ Generated from Field `Archivo`.`fechaCreacion_min` of type `Timestamp`
   """
   fechaCreacion_min: OrderDirection
   """
-  ✨ Generated from Field `Archivo`.`tipoCreador_min` of type `Int`
-  """
-  tipoCreador_min: OrderDirection
-  """
   ✨ Generated from Field `Archivo`.`fechaCreacion_max` of type `Timestamp`
   """
   fechaCreacion_max: OrderDirection
-  """
-  ✨ Generated from Field `Archivo`.`tipoCreador_max` of type `Int`
-  """
-  tipoCreador_max: OrderDirection
 }
 """
 ✨ Generated data input type for table 'Cuestionario'. It includes all necessary fields for creating or upserting rows into table.
@@ -530,7 +476,7 @@ input Cuestionario_Data {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `Cuestionario`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Cuestionario`.`archivoId` of type `UUID`
   """
@@ -538,11 +484,11 @@ input Cuestionario_Data {
   """
   ✨ `_expr` server value variant of `archivoId` (✨ Generated from Field `Cuestionario`.`archivoId` of type `UUID`)
   """
-  archivoId_expr: UUID_Expr
+  archivoId_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Cuestionario`.`archivo` of type `Archivo`
   """
-  archivo: Archivo_Key
+  archivo: Archivo_Key @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Cuestionario`.`tituloQuiz` of type `String!`
   """
@@ -550,7 +496,7 @@ input Cuestionario_Data {
   """
   ✨ `_expr` server value variant of `tituloQuiz` (✨ Generated from Field `Cuestionario`.`tituloQuiz` of type `String!`)
   """
-  tituloQuiz_expr: String_Expr
+  tituloQuiz_expr: String_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated filter input type for table 'Cuestionario'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
@@ -650,7 +596,7 @@ input Cuestionario_Key {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `Cuestionario`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated list filter input type for table 'Cuestionario'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
@@ -713,19 +659,19 @@ input EspacioAprendizaje_Data {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `EspacioAprendizaje`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
   """
-  ✨ Generated from Field `EspacioAprendizaje`.`creadorId` of type `UUID`
+  ✨ Generated from Field `EspacioAprendizaje`.`usuarioId` of type `UUID`
   """
-  creadorId: UUID
+  usuarioId: UUID
   """
-  ✨ `_expr` server value variant of `creadorId` (✨ Generated from Field `EspacioAprendizaje`.`creadorId` of type `UUID`)
+  ✨ `_expr` server value variant of `usuarioId` (✨ Generated from Field `EspacioAprendizaje`.`usuarioId` of type `UUID`)
   """
-  creadorId_expr: UUID_Expr
+  usuarioId_expr: UUID_Expr @fdc_forbiddenInVariables
   """
-  ✨ Generated from Field `EspacioAprendizaje`.`creador` of type `Usuario`
+  ✨ Generated from Field `EspacioAprendizaje`.`usuario` of type `Usuario`
   """
-  creador: Usuario_Key
+  usuario: Usuario_Key @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `EspacioAprendizaje`.`nombreEspacio` of type `String!`
   """
@@ -733,19 +679,15 @@ input EspacioAprendizaje_Data {
   """
   ✨ `_expr` server value variant of `nombreEspacio` (✨ Generated from Field `EspacioAprendizaje`.`nombreEspacio` of type `String!`)
   """
-  nombreEspacio_expr: String_Expr
+  nombreEspacio_expr: String_Expr @fdc_forbiddenInVariables
   """
-  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso` of type `Int!`
+  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso` of type `String!`
   """
-  tokenAcceso: Int
+  tokenAcceso: String
   """
-  ✨ `_expr` server value variant of `tokenAcceso` (✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso` of type `Int!`)
+  ✨ `_expr` server value variant of `tokenAcceso` (✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso` of type `String!`)
   """
-  tokenAcceso_expr: Int_Expr
-  """
-  ✨ `_update` server value variant of `tokenAcceso` (✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso` of type `Int!`)
-  """
-  tokenAcceso_update: [Int_Update!]
+  tokenAcceso_expr: String_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated filter input type for table 'EspacioAprendizaje'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
@@ -768,21 +710,21 @@ input EspacioAprendizaje_Filter {
   """
   id: UUID_Filter
   """
-  ✨ Generated from Field `EspacioAprendizaje`.`creadorId` of type `UUID`
+  ✨ Generated from Field `EspacioAprendizaje`.`usuarioId` of type `UUID`
   """
-  creadorId: UUID_Filter
+  usuarioId: UUID_Filter
   """
-  ✨ Generated from Field `EspacioAprendizaje`.`creador` of type `Usuario`
+  ✨ Generated from Field `EspacioAprendizaje`.`usuario` of type `Usuario`
   """
-  creador: Usuario_Filter
+  usuario: Usuario_Filter
   """
   ✨ Generated from Field `EspacioAprendizaje`.`nombreEspacio` of type `String!`
   """
   nombreEspacio: String_Filter
   """
-  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso` of type `Int!`
+  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso` of type `String!`
   """
-  tokenAcceso: Int_Filter
+  tokenAcceso: String_Filter
   """
   ✨ Generated from Field `EspacioAprendizaje`.`archivos_on_espacio` of type `[Archivo!]!`
   """
@@ -834,10 +776,6 @@ input EspacioAprendizaje_Having {
   """
   _count: Int_Filter
   """
-  ✨ Generated from Field `EspacioAprendizaje`.`creadorId_count` of type `Int!`
-  """
-  creadorId_count: Int_Filter
-  """
   ✨ Generated from Field `EspacioAprendizaje`.`id_count` of type `Int!`
   """
   id_count: Int_Filter
@@ -850,21 +788,9 @@ input EspacioAprendizaje_Having {
   """
   tokenAcceso_count: Int_Filter
   """
-  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso_sum` of type `Int`
+  ✨ Generated from Field `EspacioAprendizaje`.`usuarioId_count` of type `Int!`
   """
-  tokenAcceso_sum: Int_Filter
-  """
-  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso_avg` of type `Float`
-  """
-  tokenAcceso_avg: Float_Filter
-  """
-  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso_min` of type `Int`
-  """
-  tokenAcceso_min: Int_Filter
-  """
-  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso_max` of type `Int`
-  """
-  tokenAcceso_max: Int_Filter
+  usuarioId_count: Int_Filter
 }
 """
 ✨ Generated key input type for table 'EspacioAprendizaje'. It represents the primary key fields used to uniquely identify a row in the table.
@@ -877,7 +803,7 @@ input EspacioAprendizaje_Key {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `EspacioAprendizaje`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated list filter input type for table 'EspacioAprendizaje'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
@@ -901,29 +827,25 @@ input EspacioAprendizaje_Order {
   """
   id: OrderDirection
   """
-  ✨ Generated from Field `EspacioAprendizaje`.`creadorId` of type `UUID`
+  ✨ Generated from Field `EspacioAprendizaje`.`usuarioId` of type `UUID`
   """
-  creadorId: OrderDirection
+  usuarioId: OrderDirection
   """
-  ✨ Generated from Field `EspacioAprendizaje`.`creador` of type `Usuario`
+  ✨ Generated from Field `EspacioAprendizaje`.`usuario` of type `Usuario`
   """
-  creador: Usuario_Order
+  usuario: Usuario_Order
   """
   ✨ Generated from Field `EspacioAprendizaje`.`nombreEspacio` of type `String!`
   """
   nombreEspacio: OrderDirection
   """
-  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso` of type `Int!`
+  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso` of type `String!`
   """
   tokenAcceso: OrderDirection
   """
   ✨ Generated from Field `EspacioAprendizaje`.`_count` of type `Int!`
   """
   _count: OrderDirection
-  """
-  ✨ Generated from Field `EspacioAprendizaje`.`creadorId_count` of type `Int!`
-  """
-  creadorId_count: OrderDirection
   """
   ✨ Generated from Field `EspacioAprendizaje`.`id_count` of type `Int!`
   """
@@ -937,21 +859,9 @@ input EspacioAprendizaje_Order {
   """
   tokenAcceso_count: OrderDirection
   """
-  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso_sum` of type `Int`
+  ✨ Generated from Field `EspacioAprendizaje`.`usuarioId_count` of type `Int!`
   """
-  tokenAcceso_sum: OrderDirection
-  """
-  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso_avg` of type `Float`
-  """
-  tokenAcceso_avg: OrderDirection
-  """
-  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso_min` of type `Int`
-  """
-  tokenAcceso_min: OrderDirection
-  """
-  ✨ Generated from Field `EspacioAprendizaje`.`tokenAcceso_max` of type `Int`
-  """
-  tokenAcceso_max: OrderDirection
+  usuarioId_count: OrderDirection
 }
 """
 ✨ Generated data input type for table 'Insignia'. It includes all necessary fields for creating or upserting rows into table.
@@ -964,7 +874,7 @@ input Insignia_Data {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `Insignia`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Insignia`.`condicionDesbloqueo` of type `String!`
   """
@@ -972,7 +882,7 @@ input Insignia_Data {
   """
   ✨ `_expr` server value variant of `condicionDesbloqueo` (✨ Generated from Field `Insignia`.`condicionDesbloqueo` of type `String!`)
   """
-  condicionDesbloqueo_expr: String_Expr
+  condicionDesbloqueo_expr: String_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Insignia`.`descripcion` of type `String!`
   """
@@ -980,7 +890,7 @@ input Insignia_Data {
   """
   ✨ `_expr` server value variant of `descripcion` (✨ Generated from Field `Insignia`.`descripcion` of type `String!`)
   """
-  descripcion_expr: String_Expr
+  descripcion_expr: String_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Insignia`.`iconoRef` of type `String!`
   """
@@ -988,7 +898,7 @@ input Insignia_Data {
   """
   ✨ `_expr` server value variant of `iconoRef` (✨ Generated from Field `Insignia`.`iconoRef` of type `String!`)
   """
-  iconoRef_expr: String_Expr
+  iconoRef_expr: String_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Insignia`.`nombreVisible` of type `String!`
   """
@@ -996,15 +906,7 @@ input Insignia_Data {
   """
   ✨ `_expr` server value variant of `nombreVisible` (✨ Generated from Field `Insignia`.`nombreVisible` of type `String!`)
   """
-  nombreVisible_expr: String_Expr
-  """
-  ✨ Generated from Field `Insignia`.`tipoLogro` of type `String!`
-  """
-  tipoLogro: String
-  """
-  ✨ `_expr` server value variant of `tipoLogro` (✨ Generated from Field `Insignia`.`tipoLogro` of type `String!`)
-  """
-  tipoLogro_expr: String_Expr
+  nombreVisible_expr: String_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated filter input type for table 'Insignia'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
@@ -1042,10 +944,6 @@ input Insignia_Filter {
   ✨ Generated from Field `Insignia`.`nombreVisible` of type `String!`
   """
   nombreVisible: String_Filter
-  """
-  ✨ Generated from Field `Insignia`.`tipoLogro` of type `String!`
-  """
-  tipoLogro: String_Filter
   """
   ✨ Generated from Field `Insignia`.`logroNotificados_on_insignia` of type `[LogroNotificado!]!`
   """
@@ -1108,10 +1006,6 @@ input Insignia_Having {
   ✨ Generated from Field `Insignia`.`nombreVisible_count` of type `Int!`
   """
   nombreVisible_count: Int_Filter
-  """
-  ✨ Generated from Field `Insignia`.`tipoLogro_count` of type `Int!`
-  """
-  tipoLogro_count: Int_Filter
 }
 """
 ✨ Generated key input type for table 'Insignia'. It represents the primary key fields used to uniquely identify a row in the table.
@@ -1124,7 +1018,7 @@ input Insignia_Key {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `Insignia`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated list filter input type for table 'Insignia'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
@@ -1164,10 +1058,6 @@ input Insignia_Order {
   """
   nombreVisible: OrderDirection
   """
-  ✨ Generated from Field `Insignia`.`tipoLogro` of type `String!`
-  """
-  tipoLogro: OrderDirection
-  """
   ✨ Generated from Field `Insignia`.`_count` of type `Int!`
   """
   _count: OrderDirection
@@ -1191,10 +1081,6 @@ input Insignia_Order {
   ✨ Generated from Field `Insignia`.`nombreVisible_count` of type `Int!`
   """
   nombreVisible_count: OrderDirection
-  """
-  ✨ Generated from Field `Insignia`.`tipoLogro_count` of type `Int!`
-  """
-  tipoLogro_count: OrderDirection
 }
 """
 ✨ Generated data input type for table 'Intento'. It includes all necessary fields for creating or upserting rows into table.
@@ -1207,7 +1093,7 @@ input Intento_Data {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `Intento`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Intento`.`archivoId` of type `UUID`
   """
@@ -1215,7 +1101,7 @@ input Intento_Data {
   """
   ✨ `_expr` server value variant of `archivoId` (✨ Generated from Field `Intento`.`archivoId` of type `UUID`)
   """
-  archivoId_expr: UUID_Expr
+  archivoId_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Intento`.`usuarioId` of type `UUID`
   """
@@ -1223,15 +1109,15 @@ input Intento_Data {
   """
   ✨ `_expr` server value variant of `usuarioId` (✨ Generated from Field `Intento`.`usuarioId` of type `UUID`)
   """
-  usuarioId_expr: UUID_Expr
+  usuarioId_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Intento`.`archivo` of type `Archivo`
   """
-  archivo: Archivo_Key
+  archivo: Archivo_Key @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Intento`.`usuario` of type `Usuario`
   """
-  usuario: Usuario_Key
+  usuario: Usuario_Key @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Intento`.`calificacionObtenida` of type `Int!`
   """
@@ -1239,11 +1125,11 @@ input Intento_Data {
   """
   ✨ `_expr` server value variant of `calificacionObtenida` (✨ Generated from Field `Intento`.`calificacionObtenida` of type `Int!`)
   """
-  calificacionObtenida_expr: Int_Expr
+  calificacionObtenida_expr: Int_Expr @fdc_forbiddenInVariables
   """
   ✨ `_update` server value variant of `calificacionObtenida` (✨ Generated from Field `Intento`.`calificacionObtenida` of type `Int!`)
   """
-  calificacionObtenida_update: [Int_Update!]
+  calificacionObtenida_update: [Int_Update!] @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Intento`.`completadoExitosamente` of type `Boolean!`
   """
@@ -1251,7 +1137,7 @@ input Intento_Data {
   """
   ✨ `_expr` server value variant of `completadoExitosamente` (✨ Generated from Field `Intento`.`completadoExitosamente` of type `Boolean!`)
   """
-  completadoExitosamente_expr: Boolean_Expr
+  completadoExitosamente_expr: Boolean_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Intento`.`fechaIntento` of type `Timestamp!`
   """
@@ -1259,15 +1145,15 @@ input Intento_Data {
   """
   ✨ `_expr` server value variant of `fechaIntento` (✨ Generated from Field `Intento`.`fechaIntento` of type `Timestamp!`)
   """
-  fechaIntento_expr: Timestamp_Expr
+  fechaIntento_expr: Timestamp_Expr @fdc_forbiddenInVariables
   """
   ✨ `_time` server value variant of `fechaIntento` (✨ Generated from Field `Intento`.`fechaIntento` of type `Timestamp!`)
   """
-  fechaIntento_time: Timestamp_Relative
+  fechaIntento_time: Timestamp_Relative @fdc_forbiddenInVariables
   """
   ✨ `_update` server value variant of `fechaIntento` (✨ Generated from Field `Intento`.`fechaIntento` of type `Timestamp!`)
   """
-  fechaIntento_update: [Timestamp_Update!]
+  fechaIntento_update: [Timestamp_Update!] @fdc_forbiddenInVariables
 }
 """
 ✨ Generated filter input type for table 'Intento'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
@@ -1415,7 +1301,7 @@ input Intento_Key {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `Intento`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated list filter input type for table 'Intento'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
@@ -1530,7 +1416,7 @@ input LogroNotificado_Data {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `LogroNotificado`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `LogroNotificado`.`insigniaId` of type `UUID`
   """
@@ -1538,7 +1424,7 @@ input LogroNotificado_Data {
   """
   ✨ `_expr` server value variant of `insigniaId` (✨ Generated from Field `LogroNotificado`.`insigniaId` of type `UUID`)
   """
-  insigniaId_expr: UUID_Expr
+  insigniaId_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `LogroNotificado`.`usuarioId` of type `UUID`
   """
@@ -1546,15 +1432,15 @@ input LogroNotificado_Data {
   """
   ✨ `_expr` server value variant of `usuarioId` (✨ Generated from Field `LogroNotificado`.`usuarioId` of type `UUID`)
   """
-  usuarioId_expr: UUID_Expr
+  usuarioId_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `LogroNotificado`.`insignia` of type `Insignia`
   """
-  insignia: Insignia_Key
+  insignia: Insignia_Key @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `LogroNotificado`.`usuario` of type `Usuario`
   """
-  usuario: Usuario_Key
+  usuario: Usuario_Key @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `LogroNotificado`.`fechaNotificacion` of type `Timestamp!`
   """
@@ -1562,15 +1448,15 @@ input LogroNotificado_Data {
   """
   ✨ `_expr` server value variant of `fechaNotificacion` (✨ Generated from Field `LogroNotificado`.`fechaNotificacion` of type `Timestamp!`)
   """
-  fechaNotificacion_expr: Timestamp_Expr
+  fechaNotificacion_expr: Timestamp_Expr @fdc_forbiddenInVariables
   """
   ✨ `_time` server value variant of `fechaNotificacion` (✨ Generated from Field `LogroNotificado`.`fechaNotificacion` of type `Timestamp!`)
   """
-  fechaNotificacion_time: Timestamp_Relative
+  fechaNotificacion_time: Timestamp_Relative @fdc_forbiddenInVariables
   """
   ✨ `_update` server value variant of `fechaNotificacion` (✨ Generated from Field `LogroNotificado`.`fechaNotificacion` of type `Timestamp!`)
   """
-  fechaNotificacion_update: [Timestamp_Update!]
+  fechaNotificacion_update: [Timestamp_Update!] @fdc_forbiddenInVariables
 }
 """
 ✨ Generated filter input type for table 'LogroNotificado'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
@@ -1686,7 +1572,7 @@ input LogroNotificado_Key {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `LogroNotificado`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated list filter input type for table 'LogroNotificado'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
@@ -1769,7 +1655,7 @@ input MiembroEspacio_Data {
   """
   ✨ `_expr` server value variant of `espacioId` (✨ Generated from Field `MiembroEspacio`.`espacioId` of type `UUID!`)
   """
-  espacioId_expr: UUID_Expr
+  espacioId_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `MiembroEspacio`.`usuarioId` of type `UUID!`
   """
@@ -1777,15 +1663,15 @@ input MiembroEspacio_Data {
   """
   ✨ `_expr` server value variant of `usuarioId` (✨ Generated from Field `MiembroEspacio`.`usuarioId` of type `UUID!`)
   """
-  usuarioId_expr: UUID_Expr
+  usuarioId_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `MiembroEspacio`.`espacio` of type `EspacioAprendizaje!`
   """
-  espacio: EspacioAprendizaje_Key
+  espacio: EspacioAprendizaje_Key @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `MiembroEspacio`.`usuario` of type `Usuario!`
   """
-  usuario: Usuario_Key
+  usuario: Usuario_Key @fdc_forbiddenInVariables
 }
 """
 ✨ Generated filter input type for table 'MiembroEspacio'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
@@ -1877,7 +1763,7 @@ input MiembroEspacio_Key {
   """
   ✨ `_expr` server value variant of `espacioId` (✨ Generated from Field `MiembroEspacio`.`espacioId` of type `UUID!`)
   """
-  espacioId_expr: UUID_Expr
+  espacioId_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `MiembroEspacio`.`usuarioId` of type `UUID!`
   """
@@ -1885,7 +1771,7 @@ input MiembroEspacio_Key {
   """
   ✨ `_expr` server value variant of `usuarioId` (✨ Generated from Field `MiembroEspacio`.`usuarioId` of type `UUID!`)
   """
-  usuarioId_expr: UUID_Expr
+  usuarioId_expr: UUID_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated list filter input type for table 'MiembroEspacio'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
@@ -1944,7 +1830,7 @@ input Nivel_Data {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `Nivel`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Nivel`.`estrellasRequeridas` of type `Int!`
   """
@@ -1952,11 +1838,11 @@ input Nivel_Data {
   """
   ✨ `_expr` server value variant of `estrellasRequeridas` (✨ Generated from Field `Nivel`.`estrellasRequeridas` of type `Int!`)
   """
-  estrellasRequeridas_expr: Int_Expr
+  estrellasRequeridas_expr: Int_Expr @fdc_forbiddenInVariables
   """
   ✨ `_update` server value variant of `estrellasRequeridas` (✨ Generated from Field `Nivel`.`estrellasRequeridas` of type `Int!`)
   """
-  estrellasRequeridas_update: [Int_Update!]
+  estrellasRequeridas_update: [Int_Update!] @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta` of type `Int!`
   """
@@ -1964,11 +1850,11 @@ input Nivel_Data {
   """
   ✨ `_expr` server value variant of `limitePalabrasTarjeta` (✨ Generated from Field `Nivel`.`limitePalabrasTarjeta` of type `Int!`)
   """
-  limitePalabrasTarjeta_expr: Int_Expr
+  limitePalabrasTarjeta_expr: Int_Expr @fdc_forbiddenInVariables
   """
   ✨ `_update` server value variant of `limitePalabrasTarjeta` (✨ Generated from Field `Nivel`.`limitePalabrasTarjeta` of type `Int!`)
   """
-  limitePalabrasTarjeta_update: [Int_Update!]
+  limitePalabrasTarjeta_update: [Int_Update!] @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Nivel`.`nombreRango` of type `String!`
   """
@@ -1976,7 +1862,7 @@ input Nivel_Data {
   """
   ✨ `_expr` server value variant of `nombreRango` (✨ Generated from Field `Nivel`.`nombreRango` of type `String!`)
   """
-  nombreRango_expr: String_Expr
+  nombreRango_expr: String_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated filter input type for table 'Nivel'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
@@ -2011,9 +1897,9 @@ input Nivel_Filter {
   """
   nombreRango: String_Filter
   """
-  ✨ Generated from Field `Nivel`.`archivos_on_nivel` of type `[Archivo!]!`
+  ✨ Generated from Field `Nivel`.`archivos_on_nivelRequerido` of type `[Archivo!]!`
   """
-  archivos_on_nivel: Archivo_ListFilter
+  archivos_on_nivelRequerido: Archivo_ListFilter
   """
   ✨ Generated from Field `Nivel`.`usuarios_on_nivel` of type `[Usuario!]!`
   """
@@ -2116,7 +2002,7 @@ input Nivel_Key {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `Nivel`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated list filter input type for table 'Nivel'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
@@ -2215,7 +2101,7 @@ input OpcionAvatar_Data {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `OpcionAvatar`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `OpcionAvatar`.`descripcion` of type `String!`
   """
@@ -2223,7 +2109,7 @@ input OpcionAvatar_Data {
   """
   ✨ `_expr` server value variant of `descripcion` (✨ Generated from Field `OpcionAvatar`.`descripcion` of type `String!`)
   """
-  descripcion_expr: String_Expr
+  descripcion_expr: String_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `OpcionAvatar`.`imagenUrl` of type `String!`
   """
@@ -2231,7 +2117,7 @@ input OpcionAvatar_Data {
   """
   ✨ `_expr` server value variant of `imagenUrl` (✨ Generated from Field `OpcionAvatar`.`imagenUrl` of type `String!`)
   """
-  imagenUrl_expr: String_Expr
+  imagenUrl_expr: String_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated filter input type for table 'OpcionAvatar'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
@@ -2327,7 +2213,7 @@ input OpcionAvatar_Key {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `OpcionAvatar`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated list filter input type for table 'OpcionAvatar'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
@@ -2386,7 +2272,7 @@ input Pregunta_Data {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `Pregunta`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Pregunta`.`cuestionarioId` of type `UUID`
   """
@@ -2394,11 +2280,11 @@ input Pregunta_Data {
   """
   ✨ `_expr` server value variant of `cuestionarioId` (✨ Generated from Field `Pregunta`.`cuestionarioId` of type `UUID`)
   """
-  cuestionarioId_expr: UUID_Expr
+  cuestionarioId_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Pregunta`.`cuestionario` of type `Cuestionario`
   """
-  cuestionario: Cuestionario_Key
+  cuestionario: Cuestionario_Key @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Pregunta`.`enunciado` of type `String!`
   """
@@ -2406,7 +2292,7 @@ input Pregunta_Data {
   """
   ✨ `_expr` server value variant of `enunciado` (✨ Generated from Field `Pregunta`.`enunciado` of type `String!`)
   """
-  enunciado_expr: String_Expr
+  enunciado_expr: String_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated filter input type for table 'Pregunta'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
@@ -2506,7 +2392,7 @@ input Pregunta_Key {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `Pregunta`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated list filter input type for table 'Pregunta'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
@@ -2569,7 +2455,7 @@ input Respuesta_Data {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `Respuesta`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Respuesta`.`preguntaId` of type `UUID`
   """
@@ -2577,11 +2463,11 @@ input Respuesta_Data {
   """
   ✨ `_expr` server value variant of `preguntaId` (✨ Generated from Field `Respuesta`.`preguntaId` of type `UUID`)
   """
-  preguntaId_expr: UUID_Expr
+  preguntaId_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Respuesta`.`pregunta` of type `Pregunta`
   """
-  pregunta: Pregunta_Key
+  pregunta: Pregunta_Key @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Respuesta`.`esCorrecta` of type `Boolean!`
   """
@@ -2589,7 +2475,7 @@ input Respuesta_Data {
   """
   ✨ `_expr` server value variant of `esCorrecta` (✨ Generated from Field `Respuesta`.`esCorrecta` of type `Boolean!`)
   """
-  esCorrecta_expr: Boolean_Expr
+  esCorrecta_expr: Boolean_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Respuesta`.`textoOpcion` of type `String!`
   """
@@ -2597,7 +2483,7 @@ input Respuesta_Data {
   """
   ✨ `_expr` server value variant of `textoOpcion` (✨ Generated from Field `Respuesta`.`textoOpcion` of type `String!`)
   """
-  textoOpcion_expr: String_Expr
+  textoOpcion_expr: String_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated filter input type for table 'Respuesta'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
@@ -2701,7 +2587,7 @@ input Respuesta_Key {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `Respuesta`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated list filter input type for table 'Respuesta'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
@@ -2762,6 +2648,153 @@ input Respuesta_Order {
   textoOpcion_count: OrderDirection
 }
 """
+✨ Generated data input type for table 'RolUsuario'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input RolUsuario_Data {
+  """
+  ✨ Generated from Field `RolUsuario`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `RolUsuario`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `RolUsuario`.`nombreRol` of type `String!`
+  """
+  nombreRol: String
+  """
+  ✨ `_expr` server value variant of `nombreRol` (✨ Generated from Field `RolUsuario`.`nombreRol` of type `String!`)
+  """
+  nombreRol_expr: String_Expr @fdc_forbiddenInVariables
+}
+"""
+✨ Generated filter input type for table 'RolUsuario'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input RolUsuario_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [RolUsuario_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: RolUsuario_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [RolUsuario_Filter!]
+  """
+  ✨ Generated from Field `RolUsuario`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `RolUsuario`.`nombreRol` of type `String!`
+  """
+  nombreRol: String_Filter
+  """
+  ✨ Generated from Field `RolUsuario`.`usuarios_on_rol` of type `[Usuario!]!`
+  """
+  usuarios_on_rol: Usuario_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'RolUsuario'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input RolUsuario_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [RolUsuario_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: RolUsuario_Filter
+}
+"""
+✨ Generated having input type for table 'RolUsuario'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input RolUsuario_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [RolUsuario_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: RolUsuario_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [RolUsuario_Having!]
+  """
+  ✨ Generated from Field `RolUsuario`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `RolUsuario`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `RolUsuario`.`nombreRol_count` of type `Int!`
+  """
+  nombreRol_count: Int_Filter
+}
+"""
+✨ Generated key input type for table 'RolUsuario'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input RolUsuario_Key {
+  """
+  ✨ Generated from Field `RolUsuario`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `RolUsuario`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
+}
+"""
+✨ Generated list filter input type for table 'RolUsuario'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input RolUsuario_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: RolUsuario_Filter
+}
+"""
+✨ Generated order input type for table 'RolUsuario'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input RolUsuario_Order {
+  """
+  ✨ Generated from Field `RolUsuario`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `RolUsuario`.`nombreRol` of type `String!`
+  """
+  nombreRol: OrderDirection
+  """
+  ✨ Generated from Field `RolUsuario`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `RolUsuario`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `RolUsuario`.`nombreRol_count` of type `Int!`
+  """
+  nombreRol_count: OrderDirection
+}
+"""
 ✨ Generated data input type for table 'Tarjeta'. It includes all necessary fields for creating or upserting rows into table.
 """
 input Tarjeta_Data {
@@ -2772,7 +2805,7 @@ input Tarjeta_Data {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `Tarjeta`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Tarjeta`.`archivoId` of type `UUID`
   """
@@ -2780,11 +2813,11 @@ input Tarjeta_Data {
   """
   ✨ `_expr` server value variant of `archivoId` (✨ Generated from Field `Tarjeta`.`archivoId` of type `UUID`)
   """
-  archivoId_expr: UUID_Expr
+  archivoId_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Tarjeta`.`archivo` of type `Archivo`
   """
-  archivo: Archivo_Key
+  archivo: Archivo_Key @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Tarjeta`.`contenidoTexto` of type `String!`
   """
@@ -2792,7 +2825,7 @@ input Tarjeta_Data {
   """
   ✨ `_expr` server value variant of `contenidoTexto` (✨ Generated from Field `Tarjeta`.`contenidoTexto` of type `String!`)
   """
-  contenidoTexto_expr: String_Expr
+  contenidoTexto_expr: String_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Tarjeta`.`dataFondo` of type `String!`
   """
@@ -2800,7 +2833,7 @@ input Tarjeta_Data {
   """
   ✨ `_expr` server value variant of `dataFondo` (✨ Generated from Field `Tarjeta`.`dataFondo` of type `String!`)
   """
-  dataFondo_expr: String_Expr
+  dataFondo_expr: String_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Tarjeta`.`ordenSecuencia` of type `Int!`
   """
@@ -2808,11 +2841,11 @@ input Tarjeta_Data {
   """
   ✨ `_expr` server value variant of `ordenSecuencia` (✨ Generated from Field `Tarjeta`.`ordenSecuencia` of type `Int!`)
   """
-  ordenSecuencia_expr: Int_Expr
+  ordenSecuencia_expr: Int_Expr @fdc_forbiddenInVariables
   """
   ✨ `_update` server value variant of `ordenSecuencia` (✨ Generated from Field `Tarjeta`.`ordenSecuencia` of type `Int!`)
   """
-  ordenSecuencia_update: [Int_Update!]
+  ordenSecuencia_update: [Int_Update!] @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Tarjeta`.`tipoFondo` of type `String!`
   """
@@ -2820,7 +2853,7 @@ input Tarjeta_Data {
   """
   ✨ `_expr` server value variant of `tipoFondo` (✨ Generated from Field `Tarjeta`.`tipoFondo` of type `String!`)
   """
-  tipoFondo_expr: String_Expr
+  tipoFondo_expr: String_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated filter input type for table 'Tarjeta'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
@@ -2956,7 +2989,7 @@ input Tarjeta_Key {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `Tarjeta`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated list filter input type for table 'Tarjeta'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
@@ -3059,7 +3092,7 @@ input Usuario_Data {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `Usuario`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Usuario`.`avatarId` of type `UUID`
   """
@@ -3067,7 +3100,7 @@ input Usuario_Data {
   """
   ✨ `_expr` server value variant of `avatarId` (✨ Generated from Field `Usuario`.`avatarId` of type `UUID`)
   """
-  avatarId_expr: UUID_Expr
+  avatarId_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Usuario`.`nivelId` of type `UUID`
   """
@@ -3075,15 +3108,27 @@ input Usuario_Data {
   """
   ✨ `_expr` server value variant of `nivelId` (✨ Generated from Field `Usuario`.`nivelId` of type `UUID`)
   """
-  nivelId_expr: UUID_Expr
+  nivelId_expr: UUID_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Usuario`.`rolId` of type `UUID!`
+  """
+  rolId: UUID
+  """
+  ✨ `_expr` server value variant of `rolId` (✨ Generated from Field `Usuario`.`rolId` of type `UUID!`)
+  """
+  rolId_expr: UUID_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Usuario`.`avatar` of type `OpcionAvatar`
   """
-  avatar: OpcionAvatar_Key
+  avatar: OpcionAvatar_Key @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Usuario`.`nivel` of type `Nivel`
   """
-  nivel: Nivel_Key
+  nivel: Nivel_Key @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Usuario`.`rol` of type `RolUsuario!`
+  """
+  rol: RolUsuario_Key @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Usuario`.`alias` of type `String!`
   """
@@ -3091,7 +3136,7 @@ input Usuario_Data {
   """
   ✨ `_expr` server value variant of `alias` (✨ Generated from Field `Usuario`.`alias` of type `String!`)
   """
-  alias_expr: String_Expr
+  alias_expr: String_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Usuario`.`apellidoMaterno` of type `String!`
   """
@@ -3099,7 +3144,7 @@ input Usuario_Data {
   """
   ✨ `_expr` server value variant of `apellidoMaterno` (✨ Generated from Field `Usuario`.`apellidoMaterno` of type `String!`)
   """
-  apellidoMaterno_expr: String_Expr
+  apellidoMaterno_expr: String_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Usuario`.`apellidoPaterno` of type `String!`
   """
@@ -3107,7 +3152,15 @@ input Usuario_Data {
   """
   ✨ `_expr` server value variant of `apellidoPaterno` (✨ Generated from Field `Usuario`.`apellidoPaterno` of type `String!`)
   """
-  apellidoPaterno_expr: String_Expr
+  apellidoPaterno_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Usuario`.`curso` of type `String`
+  """
+  curso: String
+  """
+  ✨ `_expr` server value variant of `curso` (✨ Generated from Field `Usuario`.`curso` of type `String`)
+  """
+  curso_expr: String_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Usuario`.`estadoValidacion` of type `Boolean!`
   """
@@ -3115,7 +3168,7 @@ input Usuario_Data {
   """
   ✨ `_expr` server value variant of `estadoValidacion` (✨ Generated from Field `Usuario`.`estadoValidacion` of type `Boolean!`)
   """
-  estadoValidacion_expr: Boolean_Expr
+  estadoValidacion_expr: Boolean_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Usuario`.`estrellasPrestigio` of type `Int!`
   """
@@ -3123,11 +3176,19 @@ input Usuario_Data {
   """
   ✨ `_expr` server value variant of `estrellasPrestigio` (✨ Generated from Field `Usuario`.`estrellasPrestigio` of type `Int!`)
   """
-  estrellasPrestigio_expr: Int_Expr
+  estrellasPrestigio_expr: Int_Expr @fdc_forbiddenInVariables
   """
   ✨ `_update` server value variant of `estrellasPrestigio` (✨ Generated from Field `Usuario`.`estrellasPrestigio` of type `Int!`)
   """
-  estrellasPrestigio_update: [Int_Update!]
+  estrellasPrestigio_update: [Int_Update!] @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Usuario`.`horaNotificacion` of type `String`
+  """
+  horaNotificacion: String
+  """
+  ✨ `_expr` server value variant of `horaNotificacion` (✨ Generated from Field `Usuario`.`horaNotificacion` of type `String`)
+  """
+  horaNotificacion_expr: String_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Usuario`.`nombre` of type `String!`
   """
@@ -3135,7 +3196,31 @@ input Usuario_Data {
   """
   ✨ `_expr` server value variant of `nombre` (✨ Generated from Field `Usuario`.`nombre` of type `String!`)
   """
-  nombre_expr: String_Expr
+  nombre_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Usuario`.`nombreColegio` of type `String`
+  """
+  nombreColegio: String
+  """
+  ✨ `_expr` server value variant of `nombreColegio` (✨ Generated from Field `Usuario`.`nombreColegio` of type `String`)
+  """
+  nombreColegio_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Usuario`.`numeroCelular` of type `String!`
+  """
+  numeroCelular: String
+  """
+  ✨ `_expr` server value variant of `numeroCelular` (✨ Generated from Field `Usuario`.`numeroCelular` of type `String!`)
+  """
+  numeroCelular_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Usuario`.`paralelo` of type `String`
+  """
+  paralelo: String
+  """
+  ✨ `_expr` server value variant of `paralelo` (✨ Generated from Field `Usuario`.`paralelo` of type `String`)
+  """
+  paralelo_expr: String_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Usuario`.`rachaActualDias` of type `Int!`
   """
@@ -3143,23 +3228,11 @@ input Usuario_Data {
   """
   ✨ `_expr` server value variant of `rachaActualDias` (✨ Generated from Field `Usuario`.`rachaActualDias` of type `Int!`)
   """
-  rachaActualDias_expr: Int_Expr
+  rachaActualDias_expr: Int_Expr @fdc_forbiddenInVariables
   """
   ✨ `_update` server value variant of `rachaActualDias` (✨ Generated from Field `Usuario`.`rachaActualDias` of type `Int!`)
   """
-  rachaActualDias_update: [Int_Update!]
-  """
-  ✨ Generated from Field `Usuario`.`tipoUsuario` of type `Int!`
-  """
-  tipoUsuario: Int
-  """
-  ✨ `_expr` server value variant of `tipoUsuario` (✨ Generated from Field `Usuario`.`tipoUsuario` of type `Int!`)
-  """
-  tipoUsuario_expr: Int_Expr
-  """
-  ✨ `_update` server value variant of `tipoUsuario` (✨ Generated from Field `Usuario`.`tipoUsuario` of type `Int!`)
-  """
-  tipoUsuario_update: [Int_Update!]
+  rachaActualDias_update: [Int_Update!] @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Usuario`.`ultimaActividad` of type `Timestamp!`
   """
@@ -3167,15 +3240,15 @@ input Usuario_Data {
   """
   ✨ `_expr` server value variant of `ultimaActividad` (✨ Generated from Field `Usuario`.`ultimaActividad` of type `Timestamp!`)
   """
-  ultimaActividad_expr: Timestamp_Expr
+  ultimaActividad_expr: Timestamp_Expr @fdc_forbiddenInVariables
   """
   ✨ `_time` server value variant of `ultimaActividad` (✨ Generated from Field `Usuario`.`ultimaActividad` of type `Timestamp!`)
   """
-  ultimaActividad_time: Timestamp_Relative
+  ultimaActividad_time: Timestamp_Relative @fdc_forbiddenInVariables
   """
   ✨ `_update` server value variant of `ultimaActividad` (✨ Generated from Field `Usuario`.`ultimaActividad` of type `Timestamp!`)
   """
-  ultimaActividad_update: [Timestamp_Update!]
+  ultimaActividad_update: [Timestamp_Update!] @fdc_forbiddenInVariables
 }
 """
 ✨ Generated filter input type for table 'Usuario'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
@@ -3206,6 +3279,10 @@ input Usuario_Filter {
   """
   nivelId: UUID_Filter
   """
+  ✨ Generated from Field `Usuario`.`rolId` of type `UUID!`
+  """
+  rolId: UUID_Filter
+  """
   ✨ Generated from Field `Usuario`.`avatar` of type `OpcionAvatar`
   """
   avatar: OpcionAvatar_Filter
@@ -3213,6 +3290,10 @@ input Usuario_Filter {
   ✨ Generated from Field `Usuario`.`nivel` of type `Nivel`
   """
   nivel: Nivel_Filter
+  """
+  ✨ Generated from Field `Usuario`.`rol` of type `RolUsuario!`
+  """
+  rol: RolUsuario_Filter
   """
   ✨ Generated from Field `Usuario`.`alias` of type `String!`
   """
@@ -3226,6 +3307,10 @@ input Usuario_Filter {
   """
   apellidoPaterno: String_Filter
   """
+  ✨ Generated from Field `Usuario`.`curso` of type `String`
+  """
+  curso: String_Filter
+  """
   ✨ Generated from Field `Usuario`.`estadoValidacion` of type `Boolean!`
   """
   estadoValidacion: Boolean_Filter
@@ -3234,29 +3319,41 @@ input Usuario_Filter {
   """
   estrellasPrestigio: Int_Filter
   """
+  ✨ Generated from Field `Usuario`.`horaNotificacion` of type `String`
+  """
+  horaNotificacion: String_Filter
+  """
   ✨ Generated from Field `Usuario`.`nombre` of type `String!`
   """
   nombre: String_Filter
+  """
+  ✨ Generated from Field `Usuario`.`nombreColegio` of type `String`
+  """
+  nombreColegio: String_Filter
+  """
+  ✨ Generated from Field `Usuario`.`numeroCelular` of type `String!`
+  """
+  numeroCelular: String_Filter
+  """
+  ✨ Generated from Field `Usuario`.`paralelo` of type `String`
+  """
+  paralelo: String_Filter
   """
   ✨ Generated from Field `Usuario`.`rachaActualDias` of type `Int!`
   """
   rachaActualDias: Int_Filter
   """
-  ✨ Generated from Field `Usuario`.`tipoUsuario` of type `Int!`
-  """
-  tipoUsuario: Int_Filter
-  """
   ✨ Generated from Field `Usuario`.`ultimaActividad` of type `Timestamp!`
   """
   ultimaActividad: Timestamp_Filter
   """
-  ✨ Generated from Field `Usuario`.`archivos_on_creador` of type `[Archivo!]!`
+  ✨ Generated from Field `Usuario`.`archivos_on_usuario` of type `[Archivo!]!`
   """
-  archivos_on_creador: Archivo_ListFilter
+  archivos_on_usuario: Archivo_ListFilter
   """
-  ✨ Generated from Field `Usuario`.`espacioAprendizajes_on_creador` of type `[EspacioAprendizaje!]!`
+  ✨ Generated from Field `Usuario`.`espacioAprendizajes_on_usuario` of type `[EspacioAprendizaje!]!`
   """
-  espacioAprendizajes_on_creador: EspacioAprendizaje_ListFilter
+  espacioAprendizajes_on_usuario: EspacioAprendizaje_ListFilter
   """
   ✨ Generated from Field `Usuario`.`intentos_on_usuario` of type `[Intento!]!`
   """
@@ -3328,6 +3425,10 @@ input Usuario_Having {
   """
   avatarId_count: Int_Filter
   """
+  ✨ Generated from Field `Usuario`.`curso_count` of type `Int!`
+  """
+  curso_count: Int_Filter
+  """
   ✨ Generated from Field `Usuario`.`estadoValidacion_count` of type `Int!`
   """
   estadoValidacion_count: Int_Filter
@@ -3335,6 +3436,10 @@ input Usuario_Having {
   ✨ Generated from Field `Usuario`.`estrellasPrestigio_count` of type `Int!`
   """
   estrellasPrestigio_count: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`horaNotificacion_count` of type `Int!`
+  """
+  horaNotificacion_count: Int_Filter
   """
   ✨ Generated from Field `Usuario`.`id_count` of type `Int!`
   """
@@ -3344,17 +3449,29 @@ input Usuario_Having {
   """
   nivelId_count: Int_Filter
   """
+  ✨ Generated from Field `Usuario`.`nombreColegio_count` of type `Int!`
+  """
+  nombreColegio_count: Int_Filter
+  """
   ✨ Generated from Field `Usuario`.`nombre_count` of type `Int!`
   """
   nombre_count: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`numeroCelular_count` of type `Int!`
+  """
+  numeroCelular_count: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`paralelo_count` of type `Int!`
+  """
+  paralelo_count: Int_Filter
   """
   ✨ Generated from Field `Usuario`.`rachaActualDias_count` of type `Int!`
   """
   rachaActualDias_count: Int_Filter
   """
-  ✨ Generated from Field `Usuario`.`tipoUsuario_count` of type `Int!`
+  ✨ Generated from Field `Usuario`.`rolId_count` of type `Int!`
   """
-  tipoUsuario_count: Int_Filter
+  rolId_count: Int_Filter
   """
   ✨ Generated from Field `Usuario`.`ultimaActividad_count` of type `Int!`
   """
@@ -3368,10 +3485,6 @@ input Usuario_Having {
   """
   rachaActualDias_sum: Int_Filter
   """
-  ✨ Generated from Field `Usuario`.`tipoUsuario_sum` of type `Int`
-  """
-  tipoUsuario_sum: Int_Filter
-  """
   ✨ Generated from Field `Usuario`.`estrellasPrestigio_avg` of type `Float`
   """
   estrellasPrestigio_avg: Float_Filter
@@ -3380,10 +3493,6 @@ input Usuario_Having {
   """
   rachaActualDias_avg: Float_Filter
   """
-  ✨ Generated from Field `Usuario`.`tipoUsuario_avg` of type `Float`
-  """
-  tipoUsuario_avg: Float_Filter
-  """
   ✨ Generated from Field `Usuario`.`estrellasPrestigio_min` of type `Int`
   """
   estrellasPrestigio_min: Int_Filter
@@ -3391,10 +3500,6 @@ input Usuario_Having {
   ✨ Generated from Field `Usuario`.`rachaActualDias_min` of type `Int`
   """
   rachaActualDias_min: Int_Filter
-  """
-  ✨ Generated from Field `Usuario`.`tipoUsuario_min` of type `Int`
-  """
-  tipoUsuario_min: Int_Filter
   """
   ✨ Generated from Field `Usuario`.`ultimaActividad_min` of type `Timestamp`
   """
@@ -3407,10 +3512,6 @@ input Usuario_Having {
   ✨ Generated from Field `Usuario`.`rachaActualDias_max` of type `Int`
   """
   rachaActualDias_max: Int_Filter
-  """
-  ✨ Generated from Field `Usuario`.`tipoUsuario_max` of type `Int`
-  """
-  tipoUsuario_max: Int_Filter
   """
   ✨ Generated from Field `Usuario`.`ultimaActividad_max` of type `Timestamp`
   """
@@ -3427,7 +3528,7 @@ input Usuario_Key {
   """
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `Usuario`.`id` of type `UUID!`)
   """
-  id_expr: UUID_Expr
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
 }
 """
 ✨ Generated list filter input type for table 'Usuario'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
@@ -3459,6 +3560,10 @@ input Usuario_Order {
   """
   nivelId: OrderDirection
   """
+  ✨ Generated from Field `Usuario`.`rolId` of type `UUID!`
+  """
+  rolId: OrderDirection
+  """
   ✨ Generated from Field `Usuario`.`avatar` of type `OpcionAvatar`
   """
   avatar: OpcionAvatar_Order
@@ -3466,6 +3571,10 @@ input Usuario_Order {
   ✨ Generated from Field `Usuario`.`nivel` of type `Nivel`
   """
   nivel: Nivel_Order
+  """
+  ✨ Generated from Field `Usuario`.`rol` of type `RolUsuario!`
+  """
+  rol: RolUsuario_Order
   """
   ✨ Generated from Field `Usuario`.`alias` of type `String!`
   """
@@ -3479,6 +3588,10 @@ input Usuario_Order {
   """
   apellidoPaterno: OrderDirection
   """
+  ✨ Generated from Field `Usuario`.`curso` of type `String`
+  """
+  curso: OrderDirection
+  """
   ✨ Generated from Field `Usuario`.`estadoValidacion` of type `Boolean!`
   """
   estadoValidacion: OrderDirection
@@ -3487,17 +3600,29 @@ input Usuario_Order {
   """
   estrellasPrestigio: OrderDirection
   """
+  ✨ Generated from Field `Usuario`.`horaNotificacion` of type `String`
+  """
+  horaNotificacion: OrderDirection
+  """
   ✨ Generated from Field `Usuario`.`nombre` of type `String!`
   """
   nombre: OrderDirection
   """
+  ✨ Generated from Field `Usuario`.`nombreColegio` of type `String`
+  """
+  nombreColegio: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`numeroCelular` of type `String!`
+  """
+  numeroCelular: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`paralelo` of type `String`
+  """
+  paralelo: OrderDirection
+  """
   ✨ Generated from Field `Usuario`.`rachaActualDias` of type `Int!`
   """
   rachaActualDias: OrderDirection
-  """
-  ✨ Generated from Field `Usuario`.`tipoUsuario` of type `Int!`
-  """
-  tipoUsuario: OrderDirection
   """
   ✨ Generated from Field `Usuario`.`ultimaActividad` of type `Timestamp!`
   """
@@ -3523,6 +3648,10 @@ input Usuario_Order {
   """
   avatarId_count: OrderDirection
   """
+  ✨ Generated from Field `Usuario`.`curso_count` of type `Int!`
+  """
+  curso_count: OrderDirection
+  """
   ✨ Generated from Field `Usuario`.`estadoValidacion_count` of type `Int!`
   """
   estadoValidacion_count: OrderDirection
@@ -3530,6 +3659,10 @@ input Usuario_Order {
   ✨ Generated from Field `Usuario`.`estrellasPrestigio_count` of type `Int!`
   """
   estrellasPrestigio_count: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`horaNotificacion_count` of type `Int!`
+  """
+  horaNotificacion_count: OrderDirection
   """
   ✨ Generated from Field `Usuario`.`id_count` of type `Int!`
   """
@@ -3539,17 +3672,29 @@ input Usuario_Order {
   """
   nivelId_count: OrderDirection
   """
+  ✨ Generated from Field `Usuario`.`nombreColegio_count` of type `Int!`
+  """
+  nombreColegio_count: OrderDirection
+  """
   ✨ Generated from Field `Usuario`.`nombre_count` of type `Int!`
   """
   nombre_count: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`numeroCelular_count` of type `Int!`
+  """
+  numeroCelular_count: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`paralelo_count` of type `Int!`
+  """
+  paralelo_count: OrderDirection
   """
   ✨ Generated from Field `Usuario`.`rachaActualDias_count` of type `Int!`
   """
   rachaActualDias_count: OrderDirection
   """
-  ✨ Generated from Field `Usuario`.`tipoUsuario_count` of type `Int!`
+  ✨ Generated from Field `Usuario`.`rolId_count` of type `Int!`
   """
-  tipoUsuario_count: OrderDirection
+  rolId_count: OrderDirection
   """
   ✨ Generated from Field `Usuario`.`ultimaActividad_count` of type `Int!`
   """
@@ -3563,10 +3708,6 @@ input Usuario_Order {
   """
   rachaActualDias_sum: OrderDirection
   """
-  ✨ Generated from Field `Usuario`.`tipoUsuario_sum` of type `Int`
-  """
-  tipoUsuario_sum: OrderDirection
-  """
   ✨ Generated from Field `Usuario`.`estrellasPrestigio_avg` of type `Float`
   """
   estrellasPrestigio_avg: OrderDirection
@@ -3575,10 +3716,6 @@ input Usuario_Order {
   """
   rachaActualDias_avg: OrderDirection
   """
-  ✨ Generated from Field `Usuario`.`tipoUsuario_avg` of type `Float`
-  """
-  tipoUsuario_avg: OrderDirection
-  """
   ✨ Generated from Field `Usuario`.`estrellasPrestigio_min` of type `Int`
   """
   estrellasPrestigio_min: OrderDirection
@@ -3586,10 +3723,6 @@ input Usuario_Order {
   ✨ Generated from Field `Usuario`.`rachaActualDias_min` of type `Int`
   """
   rachaActualDias_min: OrderDirection
-  """
-  ✨ Generated from Field `Usuario`.`tipoUsuario_min` of type `Int`
-  """
-  tipoUsuario_min: OrderDirection
   """
   ✨ Generated from Field `Usuario`.`ultimaActividad_min` of type `Timestamp`
   """
@@ -3602,10 +3735,6 @@ input Usuario_Order {
   ✨ Generated from Field `Usuario`.`rachaActualDias_max` of type `Int`
   """
   rachaActualDias_max: OrderDirection
-  """
-  ✨ Generated from Field `Usuario`.`tipoUsuario_max` of type `Int`
-  """
-  tipoUsuario_max: OrderDirection
   """
   ✨ Generated from Field `Usuario`.`ultimaActividad_max` of type `Timestamp`
   """

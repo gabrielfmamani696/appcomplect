@@ -110,15 +110,6 @@ extend type Archivo {
   """
   _count: Int! @fdc_generated(from: "Archivo.", purpose: QUERY_COUNT)
   """
-  ✨ Count the number of rows in the `Archivo` table where the `creadorId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
-  """
-  creadorId_count(
-    """
-    Set to true to count the number of distinct values.
-    """
-    distinct: Boolean = false
-  ): Int! @fdc_generated(from: "Archivo.creadorId", purpose: QUERY_COUNT)
-  """
   ✨ Count the number of rows in the `Archivo` table where the `descripcion` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
   descripcion_count(
@@ -164,14 +155,14 @@ extend type Archivo {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Archivo.imagenUrl", purpose: QUERY_COUNT)
   """
-  ✨ Count the number of rows in the `Archivo` table where the `nivelId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  ✨ Count the number of rows in the `Archivo` table where the `nivelRequeridoId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
-  nivelId_count(
+  nivelRequeridoId_count(
     """
     Set to true to count the number of distinct values.
     """
     distinct: Boolean = false
-  ): Int! @fdc_generated(from: "Archivo.nivelId", purpose: QUERY_COUNT)
+  ): Int! @fdc_generated(from: "Archivo.nivelRequeridoId", purpose: QUERY_COUNT)
   """
   ✨ Count the number of rows in the `Archivo` table where the `tema` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
@@ -182,15 +173,6 @@ extend type Archivo {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Archivo.tema", purpose: QUERY_COUNT)
   """
-  ✨ Count the number of rows in the `Archivo` table where the `tipoCreador` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
-  """
-  tipoCreador_count(
-    """
-    Set to true to count the number of distinct values.
-    """
-    distinct: Boolean = false
-  ): Int! @fdc_generated(from: "Archivo.tipoCreador", purpose: QUERY_COUNT)
-  """
   ✨ Count the number of rows in the `Archivo` table where the `titulo` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
   titulo_count(
@@ -200,43 +182,26 @@ extend type Archivo {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Archivo.titulo", purpose: QUERY_COUNT)
   """
-  ✨ Sum the `tipoCreador` field in the `Archivo` table.
+  ✨ Count the number of rows in the `Archivo` table where the `usuarioId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
-  tipoCreador_sum(
+  usuarioId_count(
     """
-    Set to true to sum the distinct values.
+    Set to true to count the number of distinct values.
     """
     distinct: Boolean = false
-  ): Int @fdc_generated(from: "Archivo.tipoCreador", purpose: QUERY_SUM)
-  """
-  ✨ Average the `tipoCreador` field in the `Archivo` table.
-  """
-  tipoCreador_avg(
-    """
-    Set to true to average the distinct values.
-    """
-    distinct: Boolean = false
-  ): Float @fdc_generated(from: "Archivo.tipoCreador", purpose: QUERY_AVG)
+  ): Int! @fdc_generated(from: "Archivo.usuarioId", purpose: QUERY_COUNT)
   """
   ✨ Minimum of the `fechaCreacion` field in the `Archivo` table.
   """
   fechaCreacion_min: Timestamp @fdc_generated(from: "Archivo.fechaCreacion", purpose: QUERY_MIN)
   """
-  ✨ Minimum of the `tipoCreador` field in the `Archivo` table.
-  """
-  tipoCreador_min: Int @fdc_generated(from: "Archivo.tipoCreador", purpose: QUERY_MIN)
-  """
   ✨ Maximum of the `fechaCreacion` field in the `Archivo` table.
   """
   fechaCreacion_max: Timestamp @fdc_generated(from: "Archivo.fechaCreacion", purpose: QUERY_MAX)
   """
-  ✨ Maximum of the `tipoCreador` field in the `Archivo` table.
-  """
-  tipoCreador_max: Int @fdc_generated(from: "Archivo.tipoCreador", purpose: QUERY_MAX)
-  """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "Archivo.id", purpose: GLOBAL_ID)
+  _id: ID! @fdc_generated(from: "Archivo.id", purpose: ENTITY_ID)
 }
 extend type Cuestionario {
   """
@@ -311,7 +276,7 @@ extend type Cuestionario {
   """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "Cuestionario.id", purpose: GLOBAL_ID)
+  _id: ID! @fdc_generated(from: "Cuestionario.id", purpose: ENTITY_ID)
 }
 extend type EspacioAprendizaje {
   """
@@ -425,15 +390,6 @@ extend type EspacioAprendizaje {
   """
   _count: Int! @fdc_generated(from: "EspacioAprendizaje.", purpose: QUERY_COUNT)
   """
-  ✨ Count the number of rows in the `EspacioAprendizaje` table where the `creadorId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
-  """
-  creadorId_count(
-    """
-    Set to true to count the number of distinct values.
-    """
-    distinct: Boolean = false
-  ): Int! @fdc_generated(from: "EspacioAprendizaje.creadorId", purpose: QUERY_COUNT)
-  """
   ✨ Count the number of rows in the `EspacioAprendizaje` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
   id_count(
@@ -461,35 +417,18 @@ extend type EspacioAprendizaje {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "EspacioAprendizaje.tokenAcceso", purpose: QUERY_COUNT)
   """
-  ✨ Sum the `tokenAcceso` field in the `EspacioAprendizaje` table.
+  ✨ Count the number of rows in the `EspacioAprendizaje` table where the `usuarioId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
-  tokenAcceso_sum(
+  usuarioId_count(
     """
-    Set to true to sum the distinct values.
-    """
-    distinct: Boolean = false
-  ): Int @fdc_generated(from: "EspacioAprendizaje.tokenAcceso", purpose: QUERY_SUM)
-  """
-  ✨ Average the `tokenAcceso` field in the `EspacioAprendizaje` table.
-  """
-  tokenAcceso_avg(
-    """
-    Set to true to average the distinct values.
+    Set to true to count the number of distinct values.
     """
     distinct: Boolean = false
-  ): Float @fdc_generated(from: "EspacioAprendizaje.tokenAcceso", purpose: QUERY_AVG)
-  """
-  ✨ Minimum of the `tokenAcceso` field in the `EspacioAprendizaje` table.
-  """
-  tokenAcceso_min: Int @fdc_generated(from: "EspacioAprendizaje.tokenAcceso", purpose: QUERY_MIN)
-  """
-  ✨ Maximum of the `tokenAcceso` field in the `EspacioAprendizaje` table.
-  """
-  tokenAcceso_max: Int @fdc_generated(from: "EspacioAprendizaje.tokenAcceso", purpose: QUERY_MAX)
+  ): Int! @fdc_generated(from: "EspacioAprendizaje.usuarioId", purpose: QUERY_COUNT)
   """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "EspacioAprendizaje.id", purpose: GLOBAL_ID)
+  _id: ID! @fdc_generated(from: "EspacioAprendizaje.id", purpose: ENTITY_ID)
 }
 extend type Insignia {
   """
@@ -580,18 +519,9 @@ extend type Insignia {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Insignia.nombreVisible", purpose: QUERY_COUNT)
   """
-  ✨ Count the number of rows in the `Insignia` table where the `tipoLogro` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
-  """
-  tipoLogro_count(
-    """
-    Set to true to count the number of distinct values.
-    """
-    distinct: Boolean = false
-  ): Int! @fdc_generated(from: "Insignia.tipoLogro", purpose: QUERY_COUNT)
-  """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "Insignia.id", purpose: GLOBAL_ID)
+  _id: ID! @fdc_generated(from: "Insignia.id", purpose: ENTITY_ID)
 }
 extend type Intento {
   """
@@ -693,7 +623,7 @@ extend type Intento {
   """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "Intento.id", purpose: GLOBAL_ID)
+  _id: ID! @fdc_generated(from: "Intento.id", purpose: ENTITY_ID)
 }
 extend type LogroNotificado {
   """
@@ -751,7 +681,7 @@ extend type LogroNotificado {
   """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "LogroNotificado.id", purpose: GLOBAL_ID)
+  _id: ID! @fdc_generated(from: "LogroNotificado.id", purpose: ENTITY_ID)
 }
 extend type MiembroEspacio {
   """
@@ -783,13 +713,13 @@ extend type MiembroEspacio {
   """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "MiembroEspacio.espacioId,usuarioId", purpose: GLOBAL_ID)
+  _id: ID! @fdc_generated(from: "MiembroEspacio.espacioId,usuarioId", purpose: ENTITY_ID)
 }
 extend type Nivel {
   """
-  ✨ List `Archivo` objects in a one-to-many relationship (where `Archivo`.`nivel` is this object).
+  ✨ List `Archivo` objects in a one-to-many relationship (where `Archivo`.`nivelRequerido` is this object).
   """
-  archivos_on_nivel(
+  archivos_on_nivelRequerido(
     """
     Filter condition to narrow down the query results.
     """
@@ -819,7 +749,7 @@ extend type Nivel {
     Filter condition to apply to the groups of aggregate queries.
     """
     having: Archivo_Having
-  ): [Archivo!]! @fdc_generated(from: "Archivo.nivel", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  ): [Archivo!]! @fdc_generated(from: "Archivo.nivelRequerido", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
   """
   ✨ List `Usuario` objects in a one-to-many relationship (where `Usuario`.`nivel` is this object).
   """
@@ -953,7 +883,7 @@ extend type Nivel {
   """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "Nivel.id", purpose: GLOBAL_ID)
+  _id: ID! @fdc_generated(from: "Nivel.id", purpose: ENTITY_ID)
 }
 extend type OpcionAvatar {
   """
@@ -1028,7 +958,7 @@ extend type OpcionAvatar {
   """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "OpcionAvatar.id", purpose: GLOBAL_ID)
+  _id: ID! @fdc_generated(from: "OpcionAvatar.id", purpose: ENTITY_ID)
 }
 extend type Pregunta {
   """
@@ -1103,7 +1033,7 @@ extend type Pregunta {
   """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "Pregunta.id", purpose: GLOBAL_ID)
+  _id: ID! @fdc_generated(from: "Pregunta.id", purpose: ENTITY_ID)
 }
 extend type Respuesta {
   """
@@ -1153,7 +1083,73 @@ extend type Respuesta {
   """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "Respuesta.id", purpose: GLOBAL_ID)
+  _id: ID! @fdc_generated(from: "Respuesta.id", purpose: ENTITY_ID)
+}
+extend type RolUsuario {
+  """
+  ✨ List `Usuario` objects in a one-to-many relationship (where `Usuario`.`rol` is this object).
+  """
+  usuarios_on_rol(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Usuario_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Usuario_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Usuario_Having
+  ): [Usuario!]! @fdc_generated(from: "Usuario.rol", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "RolUsuario", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `RolUsuario` table.
+  """
+  _count: Int! @fdc_generated(from: "RolUsuario.", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `RolUsuario` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "RolUsuario.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `RolUsuario` table where the `nombreRol` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  nombreRol_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "RolUsuario.nombreRol", purpose: QUERY_COUNT)
+  """
+  A generated field that is used for caching results in SDKs.
+  """
+  _id: ID! @fdc_generated(from: "RolUsuario.id", purpose: ENTITY_ID)
 }
 extend type Tarjeta {
   """
@@ -1247,13 +1243,13 @@ extend type Tarjeta {
   """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "Tarjeta.id", purpose: GLOBAL_ID)
+  _id: ID! @fdc_generated(from: "Tarjeta.id", purpose: ENTITY_ID)
 }
 extend type Usuario {
   """
-  ✨ List `Archivo` objects in a one-to-many relationship (where `Archivo`.`creador` is this object).
+  ✨ List `Archivo` objects in a one-to-many relationship (where `Archivo`.`usuario` is this object).
   """
-  archivos_on_creador(
+  archivos_on_usuario(
     """
     Filter condition to narrow down the query results.
     """
@@ -1283,11 +1279,11 @@ extend type Usuario {
     Filter condition to apply to the groups of aggregate queries.
     """
     having: Archivo_Having
-  ): [Archivo!]! @fdc_generated(from: "Archivo.creador", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  ): [Archivo!]! @fdc_generated(from: "Archivo.usuario", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
   """
-  ✨ List `EspacioAprendizaje` objects in a one-to-many relationship (where `EspacioAprendizaje`.`creador` is this object).
+  ✨ List `EspacioAprendizaje` objects in a one-to-many relationship (where `EspacioAprendizaje`.`usuario` is this object).
   """
-  espacioAprendizajes_on_creador(
+  espacioAprendizajes_on_usuario(
     """
     Filter condition to narrow down the query results.
     """
@@ -1317,7 +1313,7 @@ extend type Usuario {
     Filter condition to apply to the groups of aggregate queries.
     """
     having: EspacioAprendizaje_Having
-  ): [EspacioAprendizaje!]! @fdc_generated(from: "EspacioAprendizaje.creador", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  ): [EspacioAprendizaje!]! @fdc_generated(from: "EspacioAprendizaje.usuario", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
   """
   ✨ List `Intento` objects in a one-to-many relationship (where `Intento`.`usuario` is this object).
   """
@@ -1499,6 +1495,15 @@ extend type Usuario {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Usuario.avatarId", purpose: QUERY_COUNT)
   """
+  ✨ Count the number of rows in the `Usuario` table where the `curso` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  curso_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Usuario.curso", purpose: QUERY_COUNT)
+  """
   ✨ Count the number of rows in the `Usuario` table where the `estadoValidacion` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
   estadoValidacion_count(
@@ -1516,6 +1521,15 @@ extend type Usuario {
     """
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Usuario.estrellasPrestigio", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Usuario` table where the `horaNotificacion` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  horaNotificacion_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Usuario.horaNotificacion", purpose: QUERY_COUNT)
   """
   ✨ Count the number of rows in the `Usuario` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
@@ -1535,6 +1549,15 @@ extend type Usuario {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Usuario.nivelId", purpose: QUERY_COUNT)
   """
+  ✨ Count the number of rows in the `Usuario` table where the `nombreColegio` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  nombreColegio_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Usuario.nombreColegio", purpose: QUERY_COUNT)
+  """
   ✨ Count the number of rows in the `Usuario` table where the `nombre` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
   nombre_count(
@@ -1543,6 +1566,24 @@ extend type Usuario {
     """
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Usuario.nombre", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Usuario` table where the `numeroCelular` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  numeroCelular_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Usuario.numeroCelular", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Usuario` table where the `paralelo` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  paralelo_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Usuario.paralelo", purpose: QUERY_COUNT)
   """
   ✨ Count the number of rows in the `Usuario` table where the `rachaActualDias` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
@@ -1553,14 +1594,14 @@ extend type Usuario {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Usuario.rachaActualDias", purpose: QUERY_COUNT)
   """
-  ✨ Count the number of rows in the `Usuario` table where the `tipoUsuario` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  ✨ Count the number of rows in the `Usuario` table where the `rolId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
-  tipoUsuario_count(
+  rolId_count(
     """
     Set to true to count the number of distinct values.
     """
     distinct: Boolean = false
-  ): Int! @fdc_generated(from: "Usuario.tipoUsuario", purpose: QUERY_COUNT)
+  ): Int! @fdc_generated(from: "Usuario.rolId", purpose: QUERY_COUNT)
   """
   ✨ Count the number of rows in the `Usuario` table where the `ultimaActividad` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
@@ -1589,15 +1630,6 @@ extend type Usuario {
     distinct: Boolean = false
   ): Int @fdc_generated(from: "Usuario.rachaActualDias", purpose: QUERY_SUM)
   """
-  ✨ Sum the `tipoUsuario` field in the `Usuario` table.
-  """
-  tipoUsuario_sum(
-    """
-    Set to true to sum the distinct values.
-    """
-    distinct: Boolean = false
-  ): Int @fdc_generated(from: "Usuario.tipoUsuario", purpose: QUERY_SUM)
-  """
   ✨ Average the `estrellasPrestigio` field in the `Usuario` table.
   """
   estrellasPrestigio_avg(
@@ -1616,15 +1648,6 @@ extend type Usuario {
     distinct: Boolean = false
   ): Float @fdc_generated(from: "Usuario.rachaActualDias", purpose: QUERY_AVG)
   """
-  ✨ Average the `tipoUsuario` field in the `Usuario` table.
-  """
-  tipoUsuario_avg(
-    """
-    Set to true to average the distinct values.
-    """
-    distinct: Boolean = false
-  ): Float @fdc_generated(from: "Usuario.tipoUsuario", purpose: QUERY_AVG)
-  """
   ✨ Minimum of the `estrellasPrestigio` field in the `Usuario` table.
   """
   estrellasPrestigio_min: Int @fdc_generated(from: "Usuario.estrellasPrestigio", purpose: QUERY_MIN)
@@ -1632,10 +1655,6 @@ extend type Usuario {
   ✨ Minimum of the `rachaActualDias` field in the `Usuario` table.
   """
   rachaActualDias_min: Int @fdc_generated(from: "Usuario.rachaActualDias", purpose: QUERY_MIN)
-  """
-  ✨ Minimum of the `tipoUsuario` field in the `Usuario` table.
-  """
-  tipoUsuario_min: Int @fdc_generated(from: "Usuario.tipoUsuario", purpose: QUERY_MIN)
   """
   ✨ Minimum of the `ultimaActividad` field in the `Usuario` table.
   """
@@ -1649,15 +1668,11 @@ extend type Usuario {
   """
   rachaActualDias_max: Int @fdc_generated(from: "Usuario.rachaActualDias", purpose: QUERY_MAX)
   """
-  ✨ Maximum of the `tipoUsuario` field in the `Usuario` table.
-  """
-  tipoUsuario_max: Int @fdc_generated(from: "Usuario.tipoUsuario", purpose: QUERY_MAX)
-  """
   ✨ Maximum of the `ultimaActividad` field in the `Usuario` table.
   """
   ultimaActividad_max: Timestamp @fdc_generated(from: "Usuario.ultimaActividad", purpose: QUERY_MAX)
   """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "Usuario.id", purpose: GLOBAL_ID)
+  _id: ID! @fdc_generated(from: "Usuario.id", purpose: ENTITY_ID)
 }

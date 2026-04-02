@@ -4,17 +4,17 @@ extend type Archivo {
   """
   id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "Archivo", purpose: IMPLICIT_KEY_FIELD)
   """
-  ✨ Implicit foreign key field based on `Archivo`.`creador`. It must match the value of `Usuario`.`id`. See `@ref` for how to customize it.
-  """
-  creadorId: UUID @fdc_generated(from: "Archivo.creador", purpose: IMPLICIT_REF_FIELD)
-  """
   ✨ Implicit foreign key field based on `Archivo`.`espacio`. It must match the value of `EspacioAprendizaje`.`id`. See `@ref` for how to customize it.
   """
   espacioId: UUID @fdc_generated(from: "Archivo.espacio", purpose: IMPLICIT_REF_FIELD)
   """
-  ✨ Implicit foreign key field based on `Archivo`.`nivel`. It must match the value of `Nivel`.`id`. See `@ref` for how to customize it.
+  ✨ Implicit foreign key field based on `Archivo`.`nivelRequerido`. It must match the value of `Nivel`.`id`. See `@ref` for how to customize it.
   """
-  nivelId: UUID @fdc_generated(from: "Archivo.nivel", purpose: IMPLICIT_REF_FIELD)
+  nivelRequeridoId: UUID @fdc_generated(from: "Archivo.nivelRequerido", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Archivo`.`usuario`. It must match the value of `Usuario`.`id`. See `@ref` for how to customize it.
+  """
+  usuarioId: UUID @fdc_generated(from: "Archivo.usuario", purpose: IMPLICIT_REF_FIELD)
 }
 extend type Cuestionario {
   """
@@ -32,9 +32,9 @@ extend type EspacioAprendizaje {
   """
   id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "EspacioAprendizaje", purpose: IMPLICIT_KEY_FIELD)
   """
-  ✨ Implicit foreign key field based on `EspacioAprendizaje`.`creador`. It must match the value of `Usuario`.`id`. See `@ref` for how to customize it.
+  ✨ Implicit foreign key field based on `EspacioAprendizaje`.`usuario`. It must match the value of `Usuario`.`id`. See `@ref` for how to customize it.
   """
-  creadorId: UUID @fdc_generated(from: "EspacioAprendizaje.creador", purpose: IMPLICIT_REF_FIELD)
+  usuarioId: UUID @fdc_generated(from: "EspacioAprendizaje.usuario", purpose: IMPLICIT_REF_FIELD)
 }
 extend type Insignia {
   """
@@ -112,6 +112,12 @@ extend type Respuesta {
   """
   preguntaId: UUID @fdc_generated(from: "Respuesta.pregunta", purpose: IMPLICIT_REF_FIELD)
 }
+extend type RolUsuario {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "RolUsuario", purpose: IMPLICIT_KEY_FIELD)
+}
 extend type Tarjeta {
   """
   ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
@@ -135,4 +141,8 @@ extend type Usuario {
   ✨ Implicit foreign key field based on `Usuario`.`nivel`. It must match the value of `Nivel`.`id`. See `@ref` for how to customize it.
   """
   nivelId: UUID @fdc_generated(from: "Usuario.nivel", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Usuario`.`rol`. It must match the value of `RolUsuario`.`id`. See `@ref` for how to customize it.
+  """
+  rolId: UUID! @fdc_generated(from: "Usuario.rol", purpose: IMPLICIT_REF_FIELD)
 }

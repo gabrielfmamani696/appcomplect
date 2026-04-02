@@ -5,20 +5,38 @@ query ListarArchivosPublicos @auth(level: PUBLIC, insecureReason: "This operatio
     descripcion
     fechaCreacion
     imagenUrl
-    nivel {
+    nivelRequerido {
       nombreRango
     }
     espacio {
       nombreEspacio
     }
-    creador {
+    usuario {
       alias
     }
   }
 }
 
-mutation CrearUsuarioNuevo($alias: String!, $nombre: String!, $apellidoPaterno: String!, $apellidoMaterno: String!, $estadoValidacion: Boolean!, $estrellasPrestigio: Int!, $rachaActualDias: Int!, $tipoUsuario: Int!, $ultimaActividad: Timestamp!, $avatarId: UUID, $nivelId: UUID) @auth(level: PUBLIC, insecureReason: "Safe for custom user registration during development") {
-  usuario_insert(data: {alias: $alias, nombre: $nombre, apellidoPaterno: $apellidoPaterno, apellidoMaterno: $apellidoMaterno, estadoValidacion: $estadoValidacion, estrellasPrestigio: $estrellasPrestigio, rachaActualDias: $rachaActualDias, tipoUsuario: $tipoUsuario, ultimaActividad: $ultimaActividad, avatarId: $avatarId, nivelId: $nivelId})
+mutation CrearUsuarioNuevo($alias: String!, $nombre: String!, $apellidoPaterno: String!, $apellidoMaterno: String!, $estadoValidacion: Boolean!, $estrellasPrestigio: Int!, $rachaActualDias: Int!, $numeroCelular: String!, $rolId: UUID!, $ultimaActividad: Timestamp!, $curso: String, $paralelo: String, $nombreColegio: String, $avatarId: UUID, $nivelId: UUID, $horaNotificacion: String) @auth(level: PUBLIC, insecureReason: "Safe for custom user registration during development") {
+  usuario_insert(data: {alias: $alias, nombre: $nombre, apellidoPaterno: $apellidoPaterno, apellidoMaterno: $apellidoMaterno, estadoValidacion: $estadoValidacion, estrellasPrestigio: $estrellasPrestigio, rachaActualDias: $rachaActualDias, numeroCelular: $numeroCelular, rolId: $rolId, ultimaActividad: $ultimaActividad, curso: $curso, paralelo: $paralelo, nombreColegio: $nombreColegio, horaNotificacion: $horaNotificacion, avatarId: $avatarId, nivelId: $nivelId})
+}
+
+mutation ActualizarUsuarioPerfil($id: UUID!, $alias: String!, $nombre: String!, $apellidoPaterno: String!, $apellidoMaterno: String!, $numeroCelular: String!, $curso: String, $paralelo: String, $nombreColegio: String, $rolId: UUID!, $avatarId: UUID, $horaNotificacion: String) @auth(level: PUBLIC, insecureReason: "Safe for custom user update") {
+  usuario_update(id: $id, data: {alias: $alias, nombre: $nombre, apellidoPaterno: $apellidoPaterno, apellidoMaterno: $apellidoMaterno, numeroCelular: $numeroCelular, curso: $curso, paralelo: $paralelo, nombreColegio: $nombreColegio, rolId: $rolId, avatarId: $avatarId, horaNotificacion: $horaNotificacion})
+}
+
+query ListarRoles @auth(level: PUBLIC, insecureReason: "Roles are public to show in registration") {
+  rolUsuarios {
+    id
+    nombreRol
+  }
+}
+
+mutation SeedRolesData @auth(level: PUBLIC, insecureReason: "Seed data for development") {
+  rolUsuario_insertMany(data: [
+    { nombreRol: "Estudiante" },
+    { nombreRol: "Docente" }
+  ])
 }
 
 query ObtenerUsuarioPorId($id: UUID!) @auth(level: USER, insecureReason: "It is acceptable for logged-in users to fetch public profiles of other users.") {
@@ -31,7 +49,11 @@ query ObtenerUsuarioPorId($id: UUID!) @auth(level: USER, insecureReason: "It is 
     estadoValidacion
     estrellasPrestigio
     rachaActualDias
-    tipoUsuario
+    numeroCelular
+    rol {
+      id
+      nombreRol
+    }
     ultimaActividad
   }
 }
@@ -71,7 +93,15 @@ query ObtenerPerfilCompleto($id: UUID!) @auth(level: PUBLIC, insecureReason: "Fe
     estadoValidacion
     estrellasPrestigio
     rachaActualDias
-    tipoUsuario
+    numeroCelular
+    curso
+    paralelo
+    nombreColegio
+    horaNotificacion
+    rol {
+      id
+      nombreRol
+    }
     ultimaActividad
     nivel {
       id
@@ -80,8 +110,47 @@ query ObtenerPerfilCompleto($id: UUID!) @auth(level: PUBLIC, insecureReason: "Fe
       limitePalabrasTarjeta
     }
     avatar {
+      id
       imagenUrl
       descripcion
+    }
+  }
+}
+
+query ObtenerLeaderboard @auth(level: PUBLIC, insecureReason: "Leaderboard is public for all users.") {
+  usuarios(orderBy: [{estrellasPrestigio: DESC}, {rachaActualDias: DESC}], limit: 5) {
+    id
+    alias
+    estrellasPrestigio
+    rachaActualDias
+    avatar {
+      imagenUrl
+    }
+    logroNotificados_on_usuario(limit: 3) {
+      insignia {
+        iconoRef
+        nombreVisible
+      }
+    }
+  }
+}
+
+query ObtenerRankingUsuario($misEstrellas: Int!) @auth(level: PUBLIC, insecureReason: "Aggregate counts for ranking are public.") {
+  usuarios(where: {estrellasPrestigio: {gt: $misEstrellas}}) {
+    id
+  }
+}
+
+query ObtenerUsuarioPorCredenciales($numeroCelular: String!, $nombre: String!, $apellidoPaterno: String!) @auth(level: PUBLIC, insecureReason: "Auth implementation for login via fixed credentials.") {
+  usuarios(where: {
+    numeroCelular: {eq: $numeroCelular},
+    nombre: {eq: $nombre},
+    apellidoPaterno: {eq: $apellidoPaterno}
+  }, limit: 1) {
+    id
+    alias
+    avatar {
+      imagenUrl
     }
   }
 }

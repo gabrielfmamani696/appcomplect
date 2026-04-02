@@ -19,7 +19,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.EmojiEvents
+import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.School
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -31,6 +34,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -39,6 +44,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -46,6 +52,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
 import com.gabrieldev.appcomplect.data.repository.UsuarioRepository
 import com.gabrieldev.appcomplect.model.Usuario
+import com.gabrieldev.appcomplect.model.UsuarioLeaderboard
 
 @Composable
 fun PantallaSeccionInicio(
@@ -54,11 +61,7 @@ fun PantallaSeccionInicio(
 ) {
     val scrollState = rememberScrollState()
 
-    val tipoTexto = when (usuario.tipoUsuario) {
-        1 -> "Administrador"
-        2 -> "Editor"
-        else -> "Periodista"
-    }
+    val tipoTexto = usuario.nombreRol.ifBlank { "Investigador" }
 
     val estrellasRequeridas = usuario.nivel?.estrellasRequeridas ?: 0
     val progresoObjetivo = if (estrellasRequeridas > 0)
@@ -71,8 +74,17 @@ fun PantallaSeccionInicio(
         animationSpec = tween(durationMillis = 1000),
         label = "progreso"
     )
+    
+    var leaderboard by remember { mutableStateOf<List<UsuarioLeaderboard>>(emptyList()) }
+    var posicionActual by remember { mutableIntStateOf(0) }
+    
     LaunchedEffect(progresoObjetivo) {
         progresoAnimado = progresoObjetivo
+    }
+
+    LaunchedEffect(Unit) {
+        leaderboard = usuarioRepository.obtenerLeaderboardTop5()
+        posicionActual = usuarioRepository.obtenerRankingPosicion(usuario.estrellasPrestigio)
     }
 
     Column(
@@ -266,6 +278,133 @@ fun PantallaSeccionInicio(
                     }
                 }
             }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.White),
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Top Investigadores",
+                            style = MaterialTheme.typography.titleMedium,
+                            color = Color(0xFF1B5E20),
+                            fontWeight = FontWeight.Bold
+                        )
+                        if (posicionActual > 0) {
+                            Text(
+                                text = "Tu posición: #$posicionActual",
+                                style = MaterialTheme.typography.labelLarge,
+                                color = Color(0xFF4CAF50),
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+                    if (leaderboard.isEmpty()) {
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(
+                            text = "Aún no hay usuarios en la cima. ¡Sé el primero!",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Color.Gray
+                        )
+                    } else {
+                        Spacer(modifier = Modifier.height(16.dp))
+                        for ((index, usuarioTop) in leaderboard.withIndex()) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 8.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "#${index + 1}",
+                                    style = MaterialTheme.typography.titleMedium,
+                                    color = if (index == 0) Color(0xFFFFD700) else if (index == 1) Color.Gray else if (index == 2) Color(0xFFCD7F32) else Color(0xFF9E9E9E),
+                                    modifier = Modifier.width(32.dp),
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Box(
+                                    modifier = Modifier
+                                        .size(40.dp)
+                                        .clip(CircleShape)
+                                        .background(Color(0xFFE8F5E9)),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    SubcomposeAsyncImage(
+                                        model = usuarioTop.avatarUrl,
+                                        contentDescription = null,
+                                        contentScale = ContentScale.Crop,
+                                        modifier = Modifier.fillMaxSize(),
+                                        loading = { Icon(
+                                            Icons.Default.Person,contentDescription = null, tint = Color.Gray) },
+                                        error = { Icon(Icons.Default.Person, contentDescription = null, tint = Color.Gray) }
+                                    )
+                                }
+                                Spacer(modifier = Modifier.width(12.dp))
+                                Column(modifier = Modifier.weight(1f)) {
+                                    Text(
+                                        text = usuarioTop.alias,
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color(0xFF2E7D32)
+                                    )
+                                    Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                                        for (insignia in usuarioTop.insignias.take(3)) {
+                                            Box(
+                                                modifier = Modifier
+                                                    .size(22.dp)
+                                                    .clip(CircleShape)
+                                                    .background(Color(0xFFFFF9DB)),
+                                                contentAlignment = Alignment.Center
+                                            ) {
+                                                Icon(
+                                                    imageVector = mapearIconoInsignia(insignia.iconoRef),
+                                                    contentDescription = insignia.nombreVisible,
+                                                    tint = Color(0xFFFFD54F),
+                                                    modifier = Modifier.size(14.dp)
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Text(
+                                        text = "${usuarioTop.estrellasPrestigio}",
+                                        style = MaterialTheme.typography.titleMedium,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color(0xFF388E3C)
+                                    )
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Icon(
+                                        Icons.Default.Star,
+                                        contentDescription = null,
+                                        tint = Color(0xFFFFD54F),
+                                        modifier = Modifier.size(16.dp)
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
+    }
+}
+
+private fun mapearIconoInsignia(ref: String): ImageVector {
+    return when (ref) {
+        "Icons.Default.Star" -> Icons.Default.Star
+        "Icons.Default.School" -> Icons.Default.School
+        "Icons.Default.EmojiEvents" -> Icons.Default.EmojiEvents
+        "Icons.Default.LocalFireDepartment" -> Icons.Default.LocalFireDepartment
+        else -> Icons.Default.LocalFireDepartment
     }
 }

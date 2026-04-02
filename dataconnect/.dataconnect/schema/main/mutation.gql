@@ -99,6 +99,15 @@ extend type Mutation {
     data: Respuesta_Data!
   ): Respuesta_KeyOutput! @fdc_generated(from: "Respuesta", purpose: INSERT_SINGLE)
   """
+  ✨ Insert a single `RolUsuario` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  rolUsuario_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: RolUsuario_Data!
+  ): RolUsuario_KeyOutput! @fdc_generated(from: "RolUsuario", purpose: INSERT_SINGLE)
+  """
   ✨ Insert a single `Tarjeta` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
   """
   tarjeta_insert(
@@ -215,6 +224,15 @@ extend type Mutation {
     """
     data: [Respuesta_Data!]!
   ): [Respuesta_KeyOutput!]! @fdc_generated(from: "Respuesta", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `RolUsuario` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  rolUsuario_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [RolUsuario_Data!]!
+  ): [RolUsuario_KeyOutput!]! @fdc_generated(from: "RolUsuario", purpose: INSERT_MULTIPLE)
   """
   ✨ Insert `Tarjeta` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
   """
@@ -333,6 +351,15 @@ extend type Mutation {
     data: Respuesta_Data!
   ): Respuesta_KeyOutput! @fdc_generated(from: "Respuesta", purpose: UPSERT_SINGLE)
   """
+  ✨ Insert or update a single `RolUsuario` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `RolUsuario`.
+  """
+  rolUsuario_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: RolUsuario_Data!
+  ): RolUsuario_KeyOutput! @fdc_generated(from: "RolUsuario", purpose: UPSERT_SINGLE)
+  """
   ✨ Insert or update a single `Tarjeta` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Tarjeta`.
   """
   tarjeta_upsert(
@@ -449,6 +476,15 @@ extend type Mutation {
     """
     data: [Respuesta_Data!]!
   ): [Respuesta_KeyOutput!]! @fdc_generated(from: "Respuesta", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `RolUsuario` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `RolUsuario`.
+  """
+  rolUsuario_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [RolUsuario_Data!]!
+  ): [RolUsuario_KeyOutput!]! @fdc_generated(from: "RolUsuario", purpose: UPSERT_MULTIPLE)
   """
   ✨ Insert or update `Tarjeta` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Tarjeta`.
   """
@@ -727,6 +763,30 @@ extend type Mutation {
     data: Respuesta_Data!
   ): Respuesta_KeyOutput @fdc_generated(from: "Respuesta", purpose: UPDATE_SINGLE)
   """
+  ✨ Update a single `RolUsuario` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `RolUsuario` or `null` if not found.
+  """
+  rolUsuario_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: RolUsuario_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: RolUsuario_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: RolUsuario_Data!
+  ): RolUsuario_KeyOutput @fdc_generated(from: "RolUsuario", purpose: UPDATE_SINGLE)
+  """
   ✨ Update a single `Tarjeta` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Tarjeta` or `null` if not found.
   """
   tarjeta_update(
@@ -984,6 +1044,25 @@ extend type Mutation {
     data: Respuesta_Data!
   ): Int! @fdc_generated(from: "Respuesta", purpose: UPDATE_MULTIPLE)
   """
+  ✨ Update `RolUsuario` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  rolUsuario_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: RolUsuario_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: RolUsuario_Data!
+  ): Int! @fdc_generated(from: "RolUsuario", purpose: UPDATE_MULTIPLE)
+  """
   ✨ Update `Tarjeta` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
   """
   tarjeta_updateMany(
@@ -1226,6 +1305,25 @@ extend type Mutation {
     first: Respuesta_FirstRow
   ): Respuesta_KeyOutput @fdc_generated(from: "Respuesta", purpose: DELETE_SINGLE)
   """
+  ✨ Delete a single `RolUsuario` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  rolUsuario_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: RolUsuario_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: RolUsuario_FirstRow
+  ): RolUsuario_KeyOutput @fdc_generated(from: "RolUsuario", purpose: DELETE_SINGLE)
+  """
   ✨ Delete a single `Tarjeta` based on `id`, `key` or `first` and return its key (or `null` if not found).
   """
   tarjeta_delete(
@@ -1417,6 +1515,20 @@ extend type Mutation {
     """
     all: Boolean = false
   ): Int! @fdc_generated(from: "Respuesta", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `RolUsuario` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  rolUsuario_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: RolUsuario_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "RolUsuario", purpose: DELETE_MULTIPLE)
   """
   ✨ Delete `Tarjeta` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
   """

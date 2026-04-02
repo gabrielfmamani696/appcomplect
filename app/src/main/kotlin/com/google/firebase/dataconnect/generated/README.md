@@ -80,9 +80,9 @@ val connector: DefaultConnector = DefaultConnector.getInstance(
 ### DefaultConnector - Query and Mutation Properties
 
 The `default` Data Connect connector defines
-4 queries and
-2 mutations,
-a total of 6 operations.
+8 queries and
+4 mutations,
+a total of 12 operations.
 Each of these operations is exposed
 as a property of [DefaultConnector].
 
@@ -93,8 +93,8 @@ which can be accessed via the [DefaultConnector.listarArchivosPublicos] property
 
 
 An example of the property for a mutation
-is the mutation named "CrearUsuarioNuevo",
-which can be accessed via the [DefaultConnector.crearUsuarioNuevo] property.
+is the mutation named "ActualizarUsuarioPerfil",
+which can be accessed via the [DefaultConnector.actualizarUsuarioPerfil] property.
 
 
 ### DefaultConnector - The `dataConnect` Property
@@ -189,14 +189,14 @@ println("ListarArchivosPublicos query returned: ${queryResult.data}")
 If a query has _required_ variables then they must be specified as
 arguments to the `execute()` method.
 
-For example, the "ObtenerPerfilCompleto" query has 1 required variable ("id")
-and can be executed via the [DefaultConnector.obtenerPerfilCompleto]
+For example, the "ObtenerUsuarioPorCredenciales" query has 3 required variables ("numeroCelular", "nombre", and "apellidoPaterno")
+and can be executed via the [DefaultConnector.obtenerUsuarioPorCredenciales]
 property as follows:
 
 ```kotlin
 val connector = DefaultConnector.instance
-val queryResult = connector.obtenerPerfilCompleto.execute(id=java.util.UUID.randomUUID())
-println("ObtenerPerfilCompleto query returned: ${queryResult.data}")
+val queryResult = connector.obtenerUsuarioPorCredenciales.execute(numeroCelular="corge", nombre="corge", apellidoPaterno="thud")
+println("ObtenerUsuarioPorCredenciales query returned: ${queryResult.data}")
 ```
 
 
@@ -237,13 +237,13 @@ println("SeedOpcionAvatarData mutation returned: ${mutationResult.data}")
 If a mutation has _required_ variables then they must be specified as
 arguments to the `execute()` method.
 
-For example, the "CrearUsuarioNuevo" mutation has 9 required variables ("alias", "nombre", "apellidoPaterno", "apellidoMaterno", "estadoValidacion", "estrellasPrestigio", "rachaActualDias", "tipoUsuario", and "ultimaActividad")
+For example, the "CrearUsuarioNuevo" mutation has 10 required variables ("alias", "nombre", "apellidoPaterno", "apellidoMaterno", "estadoValidacion", "estrellasPrestigio", "rachaActualDias", "numeroCelular", "rolId", and "ultimaActividad")
 and can be executed via the [DefaultConnector.crearUsuarioNuevo]
 property as follows:
 
 ```kotlin
 val connector = DefaultConnector.instance
-val mutationResult = connector.crearUsuarioNuevo.execute(alias="waldo", nombre="corge", apellidoPaterno="thud", apellidoMaterno="baz", estadoValidacion=true, estrellasPrestigio=8074, rachaActualDias=5618, tipoUsuario=4547, ultimaActividad=Timestamp(192707079, 865781620))
+val mutationResult = connector.crearUsuarioNuevo.execute(alias="waldo", nombre="corge", apellidoPaterno="thud", apellidoMaterno="baz", estadoValidacion=true, estrellasPrestigio=8074, rachaActualDias=5618, numeroCelular="corge", rolId=java.util.UUID.randomUUID(), ultimaActividad=Timestamp(192707079, 865781620))
 println("CrearUsuarioNuevo mutation returned: ${mutationResult.data}")
 ```
 
@@ -256,15 +256,19 @@ however, if they _are_ specified,
 then they are specified in a Kotlin DSL block as the last argument
 of the `execute()` method.
 
-For example, the "CrearUsuarioNuevo" mutation has 2 optional variables ("avatarId" and "nivelId")
+For example, the "CrearUsuarioNuevo" mutation has 6 optional variables ("curso", "paralelo", "nombreColegio", "avatarId", "nivelId", and "horaNotificacion")
 and can be executed via the [DefaultConnector.crearUsuarioNuevo]
 property as follows:
 
 ```kotlin
 val connector = DefaultConnector.instance
-val mutationResult = connector.crearUsuarioNuevo.execute(alias="waldo", nombre="corge", apellidoPaterno="thud", apellidoMaterno="baz", estadoValidacion=true, estrellasPrestigio=8074, rachaActualDias=5618, tipoUsuario=4547, ultimaActividad=Timestamp(192707079, 865781620)) {
+val mutationResult = connector.crearUsuarioNuevo.execute(alias="waldo", nombre="corge", apellidoPaterno="thud", apellidoMaterno="baz", estadoValidacion=true, estrellasPrestigio=8074, rachaActualDias=5618, numeroCelular="corge", rolId=java.util.UUID.randomUUID(), ultimaActividad=Timestamp(192707079, 865781620)) {
+  curso = "corge"
+  paralelo = "grault"
+  nombreColegio = "baz"
   avatarId = java.util.UUID.randomUUID()
   nivelId = java.util.UUID.randomUUID()
+  horaNotificacion = "quux"
 }
 println("CrearUsuarioNuevo mutation returned: ${mutationResult.data}")
 ```

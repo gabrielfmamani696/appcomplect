@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -32,14 +33,19 @@ public interface CrearUsuarioNuevoMutation :
     val estadoValidacion: Boolean,
     val estrellasPrestigio: Int,
     val rachaActualDias: Int,
-    val tipoUsuario: Int,
+    val numeroCelular: String,
+    val rolId: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
     val ultimaActividad: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.TimestampSerializer::class) com.google.firebase.Timestamp,
+    val curso: com.google.firebase.dataconnect.OptionalVariable<String?>,
+    val paralelo: com.google.firebase.dataconnect.OptionalVariable<String?>,
+    val nombreColegio: com.google.firebase.dataconnect.OptionalVariable<String?>,
     val avatarId: com.google.firebase.dataconnect.OptionalVariable<@kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID?>,
-    val nivelId: com.google.firebase.dataconnect.OptionalVariable<@kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID?>
+    val nivelId: com.google.firebase.dataconnect.OptionalVariable<@kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID?>,
+    val horaNotificacion: com.google.firebase.dataconnect.OptionalVariable<String?>
   ) {
     
     
-      
+
       @kotlin.DslMarker public annotation class BuilderDsl
 
       @BuilderDsl
@@ -51,17 +57,22 @@ public interface CrearUsuarioNuevoMutation :
         public var estadoValidacion: Boolean
         public var estrellasPrestigio: Int
         public var rachaActualDias: Int
-        public var tipoUsuario: Int
+        public var numeroCelular: String
+        public var rolId: java.util.UUID
         public var ultimaActividad: com.google.firebase.Timestamp
+        public var curso: String?
+        public var paralelo: String?
+        public var nombreColegio: String?
         public var avatarId: java.util.UUID?
         public var nivelId: java.util.UUID?
+        public var horaNotificacion: String?
         
       }
 
       public companion object {
         @Suppress("NAME_SHADOWING")
         public fun build(
-          alias: String,nombre: String,apellidoPaterno: String,apellidoMaterno: String,estadoValidacion: Boolean,estrellasPrestigio: Int,rachaActualDias: Int,tipoUsuario: Int,ultimaActividad: com.google.firebase.Timestamp,
+          alias: String,nombre: String,apellidoPaterno: String,apellidoMaterno: String,estadoValidacion: Boolean,estrellasPrestigio: Int,rachaActualDias: Int,numeroCelular: String,rolId: java.util.UUID,ultimaActividad: com.google.firebase.Timestamp,
           block_: Builder.() -> Unit
         ): Variables {
           var alias= alias
@@ -71,11 +82,20 @@ public interface CrearUsuarioNuevoMutation :
             var estadoValidacion= estadoValidacion
             var estrellasPrestigio= estrellasPrestigio
             var rachaActualDias= rachaActualDias
-            var tipoUsuario= tipoUsuario
+            var numeroCelular= numeroCelular
+            var rolId= rolId
             var ultimaActividad= ultimaActividad
+            var curso: com.google.firebase.dataconnect.OptionalVariable<String?> =
+                com.google.firebase.dataconnect.OptionalVariable.Undefined
+            var paralelo: com.google.firebase.dataconnect.OptionalVariable<String?> =
+                com.google.firebase.dataconnect.OptionalVariable.Undefined
+            var nombreColegio: com.google.firebase.dataconnect.OptionalVariable<String?> =
+                com.google.firebase.dataconnect.OptionalVariable.Undefined
             var avatarId: com.google.firebase.dataconnect.OptionalVariable<java.util.UUID?> =
                 com.google.firebase.dataconnect.OptionalVariable.Undefined
             var nivelId: com.google.firebase.dataconnect.OptionalVariable<java.util.UUID?> =
+                com.google.firebase.dataconnect.OptionalVariable.Undefined
+            var horaNotificacion: com.google.firebase.dataconnect.OptionalVariable<String?> =
                 com.google.firebase.dataconnect.OptionalVariable.Undefined
             
 
@@ -108,13 +128,29 @@ public interface CrearUsuarioNuevoMutation :
               get() = throw UnsupportedOperationException("getting builder values is not supported")
               set(value_) { rachaActualDias = value_ }
               
-            override var tipoUsuario: Int
+            override var numeroCelular: String
               get() = throw UnsupportedOperationException("getting builder values is not supported")
-              set(value_) { tipoUsuario = value_ }
+              set(value_) { numeroCelular = value_ }
+              
+            override var rolId: java.util.UUID
+              get() = throw UnsupportedOperationException("getting builder values is not supported")
+              set(value_) { rolId = value_ }
               
             override var ultimaActividad: com.google.firebase.Timestamp
               get() = throw UnsupportedOperationException("getting builder values is not supported")
               set(value_) { ultimaActividad = value_ }
+              
+            override var curso: String?
+              get() = throw UnsupportedOperationException("getting builder values is not supported")
+              set(value_) { curso = com.google.firebase.dataconnect.OptionalVariable.Value(value_) }
+              
+            override var paralelo: String?
+              get() = throw UnsupportedOperationException("getting builder values is not supported")
+              set(value_) { paralelo = com.google.firebase.dataconnect.OptionalVariable.Value(value_) }
+              
+            override var nombreColegio: String?
+              get() = throw UnsupportedOperationException("getting builder values is not supported")
+              set(value_) { nombreColegio = com.google.firebase.dataconnect.OptionalVariable.Value(value_) }
               
             override var avatarId: java.util.UUID?
               get() = throw UnsupportedOperationException("getting builder values is not supported")
@@ -124,11 +160,15 @@ public interface CrearUsuarioNuevoMutation :
               get() = throw UnsupportedOperationException("getting builder values is not supported")
               set(value_) { nivelId = com.google.firebase.dataconnect.OptionalVariable.Value(value_) }
               
+            override var horaNotificacion: String?
+              get() = throw UnsupportedOperationException("getting builder values is not supported")
+              set(value_) { horaNotificacion = com.google.firebase.dataconnect.OptionalVariable.Value(value_) }
+              
             
           }.apply(block_)
           .let {
             Variables(
-              alias=alias,nombre=nombre,apellidoPaterno=apellidoPaterno,apellidoMaterno=apellidoMaterno,estadoValidacion=estadoValidacion,estrellasPrestigio=estrellasPrestigio,rachaActualDias=rachaActualDias,tipoUsuario=tipoUsuario,ultimaActividad=ultimaActividad,avatarId=avatarId,nivelId=nivelId,
+              alias=alias,nombre=nombre,apellidoPaterno=apellidoPaterno,apellidoMaterno=apellidoMaterno,estadoValidacion=estadoValidacion,estrellasPrestigio=estrellasPrestigio,rachaActualDias=rachaActualDias,numeroCelular=numeroCelular,rolId=rolId,ultimaActividad=ultimaActividad,curso=curso,paralelo=paralelo,nombreColegio=nombreColegio,avatarId=avatarId,nivelId=nivelId,horaNotificacion=horaNotificacion,
             )
           }
         }
@@ -161,7 +201,7 @@ public interface CrearUsuarioNuevoMutation :
 
 public fun CrearUsuarioNuevoMutation.ref(
   
-    alias: String,nombre: String,apellidoPaterno: String,apellidoMaterno: String,estadoValidacion: Boolean,estrellasPrestigio: Int,rachaActualDias: Int,tipoUsuario: Int,ultimaActividad: com.google.firebase.Timestamp,
+    alias: String,nombre: String,apellidoPaterno: String,apellidoMaterno: String,estadoValidacion: Boolean,estrellasPrestigio: Int,rachaActualDias: Int,numeroCelular: String,rolId: java.util.UUID,ultimaActividad: com.google.firebase.Timestamp,
   
     block_: CrearUsuarioNuevoMutation.Variables.Builder.() -> Unit = {}
   
@@ -172,7 +212,7 @@ public fun CrearUsuarioNuevoMutation.ref(
   ref(
     
       CrearUsuarioNuevoMutation.Variables.build(
-        alias=alias,nombre=nombre,apellidoPaterno=apellidoPaterno,apellidoMaterno=apellidoMaterno,estadoValidacion=estadoValidacion,estrellasPrestigio=estrellasPrestigio,rachaActualDias=rachaActualDias,tipoUsuario=tipoUsuario,ultimaActividad=ultimaActividad,
+        alias=alias,nombre=nombre,apellidoPaterno=apellidoPaterno,apellidoMaterno=apellidoMaterno,estadoValidacion=estadoValidacion,estrellasPrestigio=estrellasPrestigio,rachaActualDias=rachaActualDias,numeroCelular=numeroCelular,rolId=rolId,ultimaActividad=ultimaActividad,
   
     block_
       )
@@ -181,7 +221,7 @@ public fun CrearUsuarioNuevoMutation.ref(
 
 public suspend fun CrearUsuarioNuevoMutation.execute(
   
-    alias: String,nombre: String,apellidoPaterno: String,apellidoMaterno: String,estadoValidacion: Boolean,estrellasPrestigio: Int,rachaActualDias: Int,tipoUsuario: Int,ultimaActividad: com.google.firebase.Timestamp,
+    alias: String,nombre: String,apellidoPaterno: String,apellidoMaterno: String,estadoValidacion: Boolean,estrellasPrestigio: Int,rachaActualDias: Int,numeroCelular: String,rolId: java.util.UUID,ultimaActividad: com.google.firebase.Timestamp,
   
     block_: CrearUsuarioNuevoMutation.Variables.Builder.() -> Unit = {}
   
@@ -191,7 +231,7 @@ public suspend fun CrearUsuarioNuevoMutation.execute(
   > =
   ref(
     
-      alias=alias,nombre=nombre,apellidoPaterno=apellidoPaterno,apellidoMaterno=apellidoMaterno,estadoValidacion=estadoValidacion,estrellasPrestigio=estrellasPrestigio,rachaActualDias=rachaActualDias,tipoUsuario=tipoUsuario,ultimaActividad=ultimaActividad,
+      alias=alias,nombre=nombre,apellidoPaterno=apellidoPaterno,apellidoMaterno=apellidoMaterno,estadoValidacion=estadoValidacion,estrellasPrestigio=estrellasPrestigio,rachaActualDias=rachaActualDias,numeroCelular=numeroCelular,rolId=rolId,ultimaActividad=ultimaActividad,
   
     block_
     

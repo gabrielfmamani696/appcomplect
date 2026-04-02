@@ -5,6 +5,7 @@ import com.google.firebase.dataconnect.generated.DefaultConnector
 import com.google.firebase.dataconnect.generated.ObtenerUsuarioPorIdQuery
 import com.google.firebase.dataconnect.generated.execute
 import kotlinx.serialization.InternalSerializationApi
+import java.util.UUID
 
 @InternalSerializationApi
 class UsuarioDataConnectRepository(
@@ -19,7 +20,8 @@ class UsuarioDataConnectRepository(
         estadoValidacion: Boolean,
         estrellasPrestigio: Int,
         rachaActualDias: Int,
-        tipoUsuario: Int,
+        numeroCelular: String,
+        rolId: String,
         ultimaActividad: Timestamp
     ): Result<Unit> {
         return try {
@@ -31,7 +33,8 @@ class UsuarioDataConnectRepository(
                 estadoValidacion = estadoValidacion,
                 estrellasPrestigio = estrellasPrestigio,
                 rachaActualDias = rachaActualDias,
-                tipoUsuario = tipoUsuario,
+                numeroCelular = numeroCelular,
+                rolId = UUID.fromString(rolId),
                 ultimaActividad = ultimaActividad
             )
             Result.success(Unit)
@@ -43,7 +46,7 @@ class UsuarioDataConnectRepository(
     @InternalSerializationApi
     suspend fun obtenerUsuarioPorId(id: String): Result<ObtenerUsuarioPorIdQuery.Data.Usuario?> {
         return try {
-            val result = connector.obtenerUsuarioPorId.execute(id = java.util.UUID.fromString(id))
+            val result = connector.obtenerUsuarioPorId.execute(id = UUID.fromString(id))
             Result.success(result.data.usuario)
         } catch (e: Exception) {
             Result.failure(e)

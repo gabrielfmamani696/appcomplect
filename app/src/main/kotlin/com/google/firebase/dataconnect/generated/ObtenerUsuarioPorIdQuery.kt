@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -27,25 +28,25 @@ public interface ObtenerUsuarioPorIdQuery :
   
     @kotlinx.serialization.Serializable
   public data class Variables(
-  
+
     val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID
   ) {
-    
-    
-  }
-  
 
-  
+
+  }
+
+
+
     @kotlinx.serialization.Serializable
   public data class Data(
-  
+
     val usuario: Usuario?
   ) {
     
-      
+
         @kotlinx.serialization.Serializable
   public data class Usuario(
-  
+
     val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
     val alias: String,
     val nombre: String,
@@ -54,17 +55,30 @@ public interface ObtenerUsuarioPorIdQuery :
     val estadoValidacion: Boolean,
     val estrellasPrestigio: Int,
     val rachaActualDias: Int,
-    val tipoUsuario: Int,
+    val numeroCelular: String,
+    val rol: Rol,
     val ultimaActividad: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.TimestampSerializer::class) com.google.firebase.Timestamp
   ) {
     
-    
+
+        @kotlinx.serialization.Serializable
+  public data class Rol(
+
+    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
+    val nombreRol: String
+  ) {
+
+
   }
       
-    
-    
+
+
   }
-  
+
+
+
+  }
+
 
   public companion object {
     public val operationName: String = "ObtenerUsuarioPorId"
@@ -78,51 +92,51 @@ public interface ObtenerUsuarioPorIdQuery :
 }
 
 public fun ObtenerUsuarioPorIdQuery.ref(
-  
+
     id: java.util.UUID,
-  
-  
+
+
 ): com.google.firebase.dataconnect.QueryRef<
     ObtenerUsuarioPorIdQuery.Data,
     ObtenerUsuarioPorIdQuery.Variables
   > =
   ref(
-    
+
       ObtenerUsuarioPorIdQuery.Variables(
         id=id,
-  
+
       )
-    
+
   )
 
 public suspend fun ObtenerUsuarioPorIdQuery.execute(
-  
+
     id: java.util.UUID,
-  
-  
+
+
   ): com.google.firebase.dataconnect.QueryResult<
     ObtenerUsuarioPorIdQuery.Data,
     ObtenerUsuarioPorIdQuery.Variables
   > =
   ref(
-    
+
       id=id,
-  
-    
+
+
   ).execute()
 
 
   public fun ObtenerUsuarioPorIdQuery.flow(
-    
+
       id: java.util.UUID,
-  
-    
+
+
     ): kotlinx.coroutines.flow.Flow<ObtenerUsuarioPorIdQuery.Data> =
     ref(
-        
+
           id=id,
-  
-        
+
+
       ).subscribe()
       .flow
       ._flow_map { querySubscriptionResult -> querySubscriptionResult.result.getOrNull() }

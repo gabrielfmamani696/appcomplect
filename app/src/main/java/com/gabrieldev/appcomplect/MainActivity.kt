@@ -59,7 +59,8 @@ class MainActivity : ComponentActivity() {
                             usuarioActivo != null -> {
                                 PantallaPrincipal(
                                     usuario = usuarioActivo!!,
-                                    usuarioRepository = repositorioUsuario
+                                    usuarioRepository = repositorioUsuario,
+                                    avatarRepository = repositorioAvatar
                                 )
                             }
                             else -> {
