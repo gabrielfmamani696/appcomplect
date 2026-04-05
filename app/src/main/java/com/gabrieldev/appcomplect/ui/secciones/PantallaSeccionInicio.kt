@@ -24,6 +24,8 @@ import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.School
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -37,7 +39,9 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -67,6 +71,8 @@ fun PantallaSeccionInicio(
     val progresoObjetivo = if (estrellasRequeridas > 0)
         (usuario.estrellasPrestigio.toFloat() / estrellasRequeridas.toFloat()).coerceIn(0f, 1f)
     else 0f
+
+    val coroutineScope = rememberCoroutineScope()
 
     var progresoAnimado by remember { mutableFloatStateOf(0f) }
     val progresoState by animateFloatAsState(
@@ -240,7 +246,7 @@ fun PantallaSeccionInicio(
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = if (usuario.rachaActualDias == 1) "día de racha" else "días de racha",
+                            text = if (usuario.rachaActualDias == 1) "Día de racha" else "Días de racha",
                             style = MaterialTheme.typography.labelMedium,
                             color = Color(0xFFA5D6A7)
                         )
@@ -271,12 +277,26 @@ fun PantallaSeccionInicio(
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "estrellas",
+                            text = "Estrellas",
                             style = MaterialTheme.typography.labelMedium,
                             color = Color(0xFFA5D6A7)
                         )
                     }
                 }
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Button(
+                onClick = {
+                    coroutineScope.launch {
+                        usuarioRepository.registrarAccionDiaria()
+                    }
+                },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50))
+            ) {
+                Text("Simular Acción Diaria", color = Color.White, fontWeight = FontWeight.Bold)
             }
 
             Spacer(modifier = Modifier.height(8.dp))

@@ -118,6 +118,16 @@ extend type RolUsuario {
   """
   id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "RolUsuario", purpose: IMPLICIT_KEY_FIELD)
 }
+extend type SolicitudValidacion {
+  """
+  ✨ Implicit foreign key field based on `SolicitudValidacion`.`rolSolicitado`. It must match the value of `RolUsuario`.`id`. See `@ref` for how to customize it.
+  """
+  rolSolicitadoId: UUID! @fdc_generated(from: "SolicitudValidacion.rolSolicitado", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `SolicitudValidacion`.`usuario`. It must match the value of `Usuario`.`id`. See `@ref` for how to customize it.
+  """
+  usuarioId: UUID! @fdc_generated(from: "SolicitudValidacion.usuario", purpose: IMPLICIT_REF_FIELD)
+}
 extend type Tarjeta {
   """
   ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.

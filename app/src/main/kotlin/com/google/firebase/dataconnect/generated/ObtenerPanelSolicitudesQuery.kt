@@ -18,10 +18,10 @@ import kotlinx.coroutines.flow.filterNotNull as _flow_filterNotNull
 import kotlinx.coroutines.flow.map as _flow_map
 
 
-public interface ListarAvataresQuery :
+public interface ObtenerPanelSolicitudesQuery :
     com.google.firebase.dataconnect.generated.GeneratedQuery<
       DefaultConnector,
-      ListarAvataresQuery.Data,
+      ObtenerPanelSolicitudesQuery.Data,
       Unit
     >
 {
@@ -31,17 +31,28 @@ public interface ListarAvataresQuery :
     @kotlinx.serialization.Serializable
   public data class Data(
 
-    val opcionAvatars: List<OpcionAvatarsItem>
+    val solicitudValidacions: List<SolicitudValidacionsItem>
   ) {
 
 
         @kotlinx.serialization.Serializable
-  public data class OpcionAvatarsItem(
+  public data class SolicitudValidacionsItem(
 
     val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
-    val imagenUrl: String,
-    val descripcion: String
+    val usuario: Usuario
   ) {
+
+
+        @kotlinx.serialization.Serializable
+  public data class Usuario(
+
+    val nombre: String,
+    val apellidoPaterno: String
+  ) {
+
+
+  }
+
 
 
   }
@@ -52,7 +63,7 @@ public interface ListarAvataresQuery :
 
 
   public companion object {
-    public val operationName: String = "ListarAvatares"
+    public val operationName: String = "ObtenerPanelSolicitudes"
 
     public val dataDeserializer: kotlinx.serialization.DeserializationStrategy<Data> =
       kotlinx.serialization.serializer()
@@ -62,10 +73,10 @@ public interface ListarAvataresQuery :
   }
 }
 
-public fun ListarAvataresQuery.ref(
+public fun ObtenerPanelSolicitudesQuery.ref(
 
 ): com.google.firebase.dataconnect.QueryRef<
-    ListarAvataresQuery.Data,
+    ObtenerPanelSolicitudesQuery.Data,
     Unit
   > =
   ref(
@@ -74,10 +85,10 @@ public fun ListarAvataresQuery.ref(
 
   )
 
-public suspend fun ListarAvataresQuery.execute(
+public suspend fun ObtenerPanelSolicitudesQuery.execute(
 
   ): com.google.firebase.dataconnect.QueryResult<
-    ListarAvataresQuery.Data,
+    ObtenerPanelSolicitudesQuery.Data,
     Unit
   > =
   ref(
@@ -85,9 +96,9 @@ public suspend fun ListarAvataresQuery.execute(
   ).execute()
 
 
-  public fun ListarAvataresQuery.flow(
+  public fun ObtenerPanelSolicitudesQuery.flow(
 
-    ): kotlinx.coroutines.flow.Flow<ListarAvataresQuery.Data> =
+    ): kotlinx.coroutines.flow.Flow<ObtenerPanelSolicitudesQuery.Data> =
     ref(
 
       ).subscribe()

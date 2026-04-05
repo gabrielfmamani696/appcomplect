@@ -71,6 +71,12 @@ It has the same format as `RolUsuario_Key`, but is only used as mutation return 
 """
 scalar RolUsuario_KeyOutput
 """
+✨ `SolicitudValidacion_KeyOutput` returns the primary key fields of table type `SolicitudValidacion`.
+
+It has the same format as `SolicitudValidacion_Key`, but is only used as mutation return value.
+"""
+scalar SolicitudValidacion_KeyOutput
+"""
 ✨ `Tarjeta_KeyOutput` returns the primary key fields of table type `Tarjeta`.
 
 It has the same format as `Tarjeta_Key`, but is only used as mutation return value.
@@ -2693,6 +2699,10 @@ input RolUsuario_Filter {
   """
   nombreRol: String_Filter
   """
+  ✨ Generated from Field `RolUsuario`.`solicitudValidacions_on_rolSolicitado` of type `[SolicitudValidacion!]!`
+  """
+  solicitudValidacions_on_rolSolicitado: SolicitudValidacion_ListFilter
+  """
   ✨ Generated from Field `RolUsuario`.`usuarios_on_rol` of type `[Usuario!]!`
   """
   usuarios_on_rol: Usuario_ListFilter
@@ -2793,6 +2803,269 @@ input RolUsuario_Order {
   ✨ Generated from Field `RolUsuario`.`nombreRol_count` of type `Int!`
   """
   nombreRol_count: OrderDirection
+}
+"""
+✨ Generated data input type for table 'SolicitudValidacion'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input SolicitudValidacion_Data {
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `SolicitudValidacion`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`rolSolicitadoId` of type `UUID!`
+  """
+  rolSolicitadoId: UUID
+  """
+  ✨ `_expr` server value variant of `rolSolicitadoId` (✨ Generated from Field `SolicitudValidacion`.`rolSolicitadoId` of type `UUID!`)
+  """
+  rolSolicitadoId_expr: UUID_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`usuarioId` of type `UUID!`
+  """
+  usuarioId: UUID
+  """
+  ✨ `_expr` server value variant of `usuarioId` (✨ Generated from Field `SolicitudValidacion`.`usuarioId` of type `UUID!`)
+  """
+  usuarioId_expr: UUID_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`rolSolicitado` of type `RolUsuario!`
+  """
+  rolSolicitado: RolUsuario_Key @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`usuario` of type `Usuario!`
+  """
+  usuario: Usuario_Key @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`estado` of type `String!`
+  """
+  estado: String
+  """
+  ✨ `_expr` server value variant of `estado` (✨ Generated from Field `SolicitudValidacion`.`estado` of type `String!`)
+  """
+  estado_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`fechaEnvio` of type `Timestamp!`
+  """
+  fechaEnvio: Timestamp
+  """
+  ✨ `_expr` server value variant of `fechaEnvio` (✨ Generated from Field `SolicitudValidacion`.`fechaEnvio` of type `Timestamp!`)
+  """
+  fechaEnvio_expr: Timestamp_Expr @fdc_forbiddenInVariables
+  """
+  ✨ `_time` server value variant of `fechaEnvio` (✨ Generated from Field `SolicitudValidacion`.`fechaEnvio` of type `Timestamp!`)
+  """
+  fechaEnvio_time: Timestamp_Relative @fdc_forbiddenInVariables
+  """
+  ✨ `_update` server value variant of `fechaEnvio` (✨ Generated from Field `SolicitudValidacion`.`fechaEnvio` of type `Timestamp!`)
+  """
+  fechaEnvio_update: [Timestamp_Update!] @fdc_forbiddenInVariables
+}
+"""
+✨ Generated filter input type for table 'SolicitudValidacion'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input SolicitudValidacion_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [SolicitudValidacion_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: SolicitudValidacion_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [SolicitudValidacion_Filter!]
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`rolSolicitadoId` of type `UUID!`
+  """
+  rolSolicitadoId: UUID_Filter
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`usuarioId` of type `UUID!`
+  """
+  usuarioId: UUID_Filter
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`rolSolicitado` of type `RolUsuario!`
+  """
+  rolSolicitado: RolUsuario_Filter
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`usuario` of type `Usuario!`
+  """
+  usuario: Usuario_Filter
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`estado` of type `String!`
+  """
+  estado: String_Filter
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`fechaEnvio` of type `Timestamp!`
+  """
+  fechaEnvio: Timestamp_Filter
+}
+"""
+✨ Generated first-row input type for table 'SolicitudValidacion'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input SolicitudValidacion_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [SolicitudValidacion_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: SolicitudValidacion_Filter
+}
+"""
+✨ Generated having input type for table 'SolicitudValidacion'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input SolicitudValidacion_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [SolicitudValidacion_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: SolicitudValidacion_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [SolicitudValidacion_Having!]
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`estado_count` of type `Int!`
+  """
+  estado_count: Int_Filter
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`fechaEnvio_count` of type `Int!`
+  """
+  fechaEnvio_count: Int_Filter
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`rolSolicitadoId_count` of type `Int!`
+  """
+  rolSolicitadoId_count: Int_Filter
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`usuarioId_count` of type `Int!`
+  """
+  usuarioId_count: Int_Filter
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`fechaEnvio_min` of type `Timestamp`
+  """
+  fechaEnvio_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`fechaEnvio_max` of type `Timestamp`
+  """
+  fechaEnvio_max: Timestamp_Filter
+}
+"""
+✨ Generated key input type for table 'SolicitudValidacion'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input SolicitudValidacion_Key {
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `SolicitudValidacion`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
+}
+"""
+✨ Generated list filter input type for table 'SolicitudValidacion'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input SolicitudValidacion_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: SolicitudValidacion_Filter
+}
+"""
+✨ Generated order input type for table 'SolicitudValidacion'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input SolicitudValidacion_Order {
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`rolSolicitadoId` of type `UUID!`
+  """
+  rolSolicitadoId: OrderDirection
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`usuarioId` of type `UUID!`
+  """
+  usuarioId: OrderDirection
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`rolSolicitado` of type `RolUsuario!`
+  """
+  rolSolicitado: RolUsuario_Order
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`usuario` of type `Usuario!`
+  """
+  usuario: Usuario_Order
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`estado` of type `String!`
+  """
+  estado: OrderDirection
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`fechaEnvio` of type `Timestamp!`
+  """
+  fechaEnvio: OrderDirection
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`estado_count` of type `Int!`
+  """
+  estado_count: OrderDirection
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`fechaEnvio_count` of type `Int!`
+  """
+  fechaEnvio_count: OrderDirection
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`rolSolicitadoId_count` of type `Int!`
+  """
+  rolSolicitadoId_count: OrderDirection
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`usuarioId_count` of type `Int!`
+  """
+  usuarioId_count: OrderDirection
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`fechaEnvio_min` of type `Timestamp`
+  """
+  fechaEnvio_min: OrderDirection
+  """
+  ✨ Generated from Field `SolicitudValidacion`.`fechaEnvio_max` of type `Timestamp`
+  """
+  fechaEnvio_max: OrderDirection
 }
 """
 ✨ Generated data input type for table 'Tarjeta'. It includes all necessary fields for creating or upserting rows into table.
@@ -3366,6 +3639,10 @@ input Usuario_Filter {
   ✨ Generated from Field `Usuario`.`miembroEspacios_on_usuario` of type `[MiembroEspacio!]!`
   """
   miembroEspacios_on_usuario: MiembroEspacio_ListFilter
+  """
+  ✨ Generated from Field `Usuario`.`solicitudValidacions_on_usuario` of type `[SolicitudValidacion!]!`
+  """
+  solicitudValidacions_on_usuario: SolicitudValidacion_ListFilter
   """
   ✨ Generated from Field `Usuario`.`espacioAprendizajes_via_MiembroEspacio` of type `[EspacioAprendizaje!]!`
   """

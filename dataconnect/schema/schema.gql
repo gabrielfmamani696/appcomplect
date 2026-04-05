@@ -98,3 +98,11 @@ type LogroNotificado @table {
   insignia: Insignia
   fechaNotificacion: Timestamp!
 }
+
+type SolicitudValidacion @table(key: ["id"]) {
+  id: UUID! @default(expr: "uuidV4()")
+  usuario: Usuario!
+  rolSolicitado: RolUsuario!
+  estado: String! # PENDIENTE, APROBADA, RECHAZADA
+  fechaEnvio: Timestamp!
+}

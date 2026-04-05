@@ -1,3 +1,4 @@
+
 @file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
@@ -12,105 +13,126 @@
 
 package com.google.firebase.dataconnect.generated
 
-import com.google.firebase.dataconnect.QueryRef
-import com.google.firebase.dataconnect.QueryResult
-import com.google.firebase.dataconnect.serializers.UUIDSerializer
-import java.util.UUID
-import kotlinx.coroutines.flow.Flow
+
 import kotlinx.coroutines.flow.filterNotNull as _flow_filterNotNull
 import kotlinx.coroutines.flow.map as _flow_map
-import kotlinx.serialization.DeserializationStrategy
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.SerializationStrategy
-import kotlinx.serialization.serializer
+
 
 public interface ObtenerUsuarioPorCredencialesQuery :
-    GeneratedQuery<
+    com.google.firebase.dataconnect.generated.GeneratedQuery<
       DefaultConnector,
       ObtenerUsuarioPorCredencialesQuery.Data,
       ObtenerUsuarioPorCredencialesQuery.Variables
     >
 {
   
-    @Serializable
+    @kotlinx.serialization.Serializable
   public data class Variables(
+  
     val numeroCelular: String,
     val nombre: String,
     val apellidoPaterno: String
-  )
+  ) {
+    
+    
+  }
+  
 
-    @Serializable
+  
+    @kotlinx.serialization.Serializable
   public data class Data(
+  
     val usuarios: List<UsuariosItem>
   ) {
     
-        @Serializable
+      
+        @kotlinx.serialization.Serializable
   public data class UsuariosItem(
-    val id: @Serializable(with = UUIDSerializer::class) UUID,
+  
+    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
     val alias: String,
     val avatar: Avatar?
   ) {
     
-        @Serializable
-  public data class Avatar(
-    val imagenUrl: String
-  )
       
+        @kotlinx.serialization.Serializable
+  public data class Avatar(
+  
+    val imagenUrl: String
+  ) {
+    
+    
   }
+      
+    
+    
   }
+      
+    
+    
+  }
+  
 
   public companion object {
     public val operationName: String = "ObtenerUsuarioPorCredenciales"
 
-    public val dataDeserializer: DeserializationStrategy<Data> =
-      serializer()
+    public val dataDeserializer: kotlinx.serialization.DeserializationStrategy<Data> =
+      kotlinx.serialization.serializer()
 
-    public val variablesSerializer: SerializationStrategy<Variables> =
-      serializer()
+    public val variablesSerializer: kotlinx.serialization.SerializationStrategy<Variables> =
+      kotlinx.serialization.serializer()
   }
 }
 
 public fun ObtenerUsuarioPorCredencialesQuery.ref(
-    numeroCelular: String,
-    nombre: String,
-    apellidoPaterno: String,
-): QueryRef<
+  
+    numeroCelular: String,nombre: String,apellidoPaterno: String,
+  
+  
+): com.google.firebase.dataconnect.QueryRef<
     ObtenerUsuarioPorCredencialesQuery.Data,
     ObtenerUsuarioPorCredencialesQuery.Variables
   > =
   ref(
+    
       ObtenerUsuarioPorCredencialesQuery.Variables(
-        numeroCelular=numeroCelular,
-        nombre=nombre,
-        apellidoPaterno=apellidoPaterno,
+        numeroCelular=numeroCelular,nombre=nombre,apellidoPaterno=apellidoPaterno,
+  
       )
+    
   )
 
 public suspend fun ObtenerUsuarioPorCredencialesQuery.execute(
-    numeroCelular: String,
-    nombre: String,
-    apellidoPaterno: String,
-  ): QueryResult<
+  
+    numeroCelular: String,nombre: String,apellidoPaterno: String,
+  
+  
+  ): com.google.firebase.dataconnect.QueryResult<
     ObtenerUsuarioPorCredencialesQuery.Data,
     ObtenerUsuarioPorCredencialesQuery.Variables
   > =
   ref(
-      numeroCelular=numeroCelular,
-      nombre=nombre,
-      apellidoPaterno=apellidoPaterno,
+    
+      numeroCelular=numeroCelular,nombre=nombre,apellidoPaterno=apellidoPaterno,
+  
+    
   ).execute()
 
+
   public fun ObtenerUsuarioPorCredencialesQuery.flow(
-      numeroCelular: String,
-      nombre: String,
-      apellidoPaterno: String,
-    ): Flow<ObtenerUsuarioPorCredencialesQuery.Data> =
+    
+      numeroCelular: String,nombre: String,apellidoPaterno: String,
+  
+    
+    ): kotlinx.coroutines.flow.Flow<ObtenerUsuarioPorCredencialesQuery.Data> =
     ref(
-          numeroCelular=numeroCelular,
-          nombre=nombre,
-          apellidoPaterno=apellidoPaterno,
+        
+          numeroCelular=numeroCelular,nombre=nombre,apellidoPaterno=apellidoPaterno,
+  
+        
       ).subscribe()
       .flow
       ._flow_map { querySubscriptionResult -> querySubscriptionResult.result.getOrNull() }
       ._flow_filterNotNull()
       ._flow_map { it.data }
+

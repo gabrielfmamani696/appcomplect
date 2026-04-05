@@ -1,5 +1,8 @@
 package com.gabrieldev.appcomplect
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,6 +17,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.gabrieldev.appcomplect.data.repository.AvatarRepository
 import com.gabrieldev.appcomplect.data.repository.UsuarioRepository
 import com.gabrieldev.appcomplect.ui.RegistroUsuario
@@ -26,7 +31,6 @@ class MainActivity : ComponentActivity() {
 
     private val connector by lazy {
         val conn = DefaultConnector.instance
-        // conn.dataConnect.useEmulator("10.0.2.2", 9399)
         conn
     }
 
@@ -38,13 +42,28 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            LaunchedEffect(Unit) {
-                repositorioUsuario.verificarSesion()
+            val factory = androidx.compose.runtime.remember { com.gabrieldev.appcomplect.ui.AppViewModelFactory(repositorioUsuario, repositorioAvatar) }
+            val mainViewModel: com.gabrieldev.appcomplect.ui.MainViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = factory)
+
+            androidx.compose.runtime.LaunchedEffect(Unit) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                    if (androidx.core.content.ContextCompat.checkSelfPermission(
+                            this@MainActivity,
+                            android.Manifest.permission.POST_NOTIFICATIONS
+                        ) != android.content.pm.PackageManager.PERMISSION_GRANTED
+                    ) {
+                        androidx.core.app.ActivityCompat.requestPermissions(
+                            this@MainActivity,
+                            arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                            101
+                        )
+                    }
+                }
             }
 
             AppcomplectTheme {
-                val usuarioActivo by repositorioUsuario.usuarioActivo.collectAsState()
-                val estaCargando by repositorioUsuario.cargando.collectAsState()
+                val usuarioActivo by mainViewModel.usuarioActivo.collectAsState()
+                val estaCargando by mainViewModel.estaCargando.collectAsState()
 
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(
@@ -64,9 +83,9 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             else -> {
+                                val registroViewModel: com.gabrieldev.appcomplect.ui.RegistroViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = factory)
                                 RegistroUsuario(
-                                    usuarioRepository = repositorioUsuario,
-                                    avatarRepository = repositorioAvatar,
+                                    viewModel = registroViewModel,
                                     alTerminar = { }
                                 )
                             }

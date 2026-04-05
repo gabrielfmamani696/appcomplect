@@ -20,8 +20,6 @@ class AvatarRepository(private val connector: DefaultConnector) {
                 )
             }
         } catch (e: Exception) {
-            e.printStackTrace()
-            Log.e("AvatarRepository", "Error obteniendo avatares", e)
             emptyList()
         }
     }

@@ -43,6 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -52,10 +53,12 @@ import coil.compose.SubcomposeAsyncImage
 import com.gabrieldev.appcomplect.data.repository.AvatarRepository
 import com.gabrieldev.appcomplect.data.repository.UsuarioRepository
 import com.gabrieldev.appcomplect.model.Usuario
+import com.gabrieldev.appcomplect.ui.AppViewModelFactory
 import com.gabrieldev.appcomplect.ui.navegacion.Rutas
 import com.gabrieldev.appcomplect.ui.secciones.PantallaSeccionInicio
 import com.gabrieldev.appcomplect.ui.secciones.archivos.PantallaArchivos
 import com.gabrieldev.appcomplect.ui.secciones.perfilpersonal.PantallaPerfil
+import com.gabrieldev.appcomplect.ui.secciones.perfilpersonal.PerfilViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -216,10 +219,12 @@ fun PantallaPrincipal(
                     PantallaArchivos(navController = navController)
                 }
                 composable(Rutas.Perfil.ruta) {
+                    val factory = remember { AppViewModelFactory(usuarioRepository, avatarRepository) }
+                    val perfilViewModel: PerfilViewModel = viewModel(factory = factory)
+                    
                     PantallaPerfil(
                         usuario = usuario,
-                        usuarioRepository = usuarioRepository,
-                        avatarRepository = avatarRepository
+                        viewModel = perfilViewModel
                     )
                 }
             }

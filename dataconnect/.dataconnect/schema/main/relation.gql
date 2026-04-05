@@ -1087,6 +1087,40 @@ extend type Respuesta {
 }
 extend type RolUsuario {
   """
+  ✨ List `SolicitudValidacion` objects in a one-to-many relationship (where `SolicitudValidacion`.`rolSolicitado` is this object).
+  """
+  solicitudValidacions_on_rolSolicitado(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: SolicitudValidacion_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [SolicitudValidacion_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: SolicitudValidacion_Having
+  ): [SolicitudValidacion!]! @fdc_generated(from: "SolicitudValidacion.rolSolicitado", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
   ✨ List `Usuario` objects in a one-to-many relationship (where `Usuario`.`rol` is this object).
   """
   usuarios_on_rol(
@@ -1150,6 +1184,73 @@ extend type RolUsuario {
   A generated field that is used for caching results in SDKs.
   """
   _id: ID! @fdc_generated(from: "RolUsuario.id", purpose: ENTITY_ID)
+}
+extend type SolicitudValidacion {
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "SolicitudValidacion", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `SolicitudValidacion` table.
+  """
+  _count: Int! @fdc_generated(from: "SolicitudValidacion.", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `SolicitudValidacion` table where the `estado` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  estado_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "SolicitudValidacion.estado", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `SolicitudValidacion` table where the `fechaEnvio` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  fechaEnvio_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "SolicitudValidacion.fechaEnvio", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `SolicitudValidacion` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "SolicitudValidacion.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `SolicitudValidacion` table where the `rolSolicitadoId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  rolSolicitadoId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "SolicitudValidacion.rolSolicitadoId", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `SolicitudValidacion` table where the `usuarioId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  usuarioId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "SolicitudValidacion.usuarioId", purpose: QUERY_COUNT)
+  """
+  ✨ Minimum of the `fechaEnvio` field in the `SolicitudValidacion` table.
+  """
+  fechaEnvio_min: Timestamp @fdc_generated(from: "SolicitudValidacion.fechaEnvio", purpose: QUERY_MIN)
+  """
+  ✨ Maximum of the `fechaEnvio` field in the `SolicitudValidacion` table.
+  """
+  fechaEnvio_max: Timestamp @fdc_generated(from: "SolicitudValidacion.fechaEnvio", purpose: QUERY_MAX)
+  """
+  A generated field that is used for caching results in SDKs.
+  """
+  _id: ID! @fdc_generated(from: "SolicitudValidacion.id", purpose: ENTITY_ID)
 }
 extend type Tarjeta {
   """
@@ -1416,6 +1517,40 @@ extend type Usuario {
     """
     having: MiembroEspacio_Having
   ): [MiembroEspacio!]! @fdc_generated(from: "MiembroEspacio.usuario", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
+  ✨ List `SolicitudValidacion` objects in a one-to-many relationship (where `SolicitudValidacion`.`usuario` is this object).
+  """
+  solicitudValidacions_on_usuario(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: SolicitudValidacion_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [SolicitudValidacion_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: SolicitudValidacion_Having
+  ): [SolicitudValidacion!]! @fdc_generated(from: "SolicitudValidacion.usuario", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
   """
   ✨ List `EspacioAprendizaje` objects using `MiembroEspacio` as the join table (a `MiembroEspacio` object exists where its `usuario` is this and its `espacio` is that).
   """

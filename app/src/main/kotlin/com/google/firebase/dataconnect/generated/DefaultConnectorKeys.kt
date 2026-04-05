@@ -1,3 +1,4 @@
+
 @file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
@@ -12,21 +13,40 @@
 
 package com.google.firebase.dataconnect.generated
 
-import com.google.firebase.dataconnect.serializers.UUIDSerializer
-import java.util.UUID
-import kotlinx.serialization.Serializable
 
-@Serializable
-public data class OpcionAvatarKey(
-  val id: @Serializable(with = UUIDSerializer::class) UUID
-)
+  @kotlinx.serialization.Serializable
+  public data class OpcionAvatarKey(
 
-@Serializable
-public data class RolUsuarioKey(
-  val id: @Serializable(with = UUIDSerializer::class) UUID
-)
+    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID
+  ) {
 
-@Serializable
-public data class UsuarioKey(
-  val id: @Serializable(with = UUIDSerializer::class) UUID
-)
+
+  }
+
+  @kotlinx.serialization.Serializable
+  public data class RolUsuarioKey(
+
+    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID
+  ) {
+
+
+  }
+
+  @kotlinx.serialization.Serializable
+  public data class SolicitudValidacionKey(
+
+    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID
+  ) {
+
+
+  }
+
+  @kotlinx.serialization.Serializable
+  public data class UsuarioKey(
+
+    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID
+  ) {
+
+
+  }
+

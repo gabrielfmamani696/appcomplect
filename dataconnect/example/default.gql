@@ -1,3 +1,19 @@
+
+
+query ObtenerPanelSolicitudes @auth(level: PUBLIC, insecureReason: "Safe for admin panel querying") {
+  solicitudValidacions(where: {estado: {eq: "PENDIENTE"}}) {
+    id
+    usuario {
+      nombre
+      apellidoPaterno
+    }
+  }
+}
+
+mutation CrearSolicitudValidacion($usuarioId: UUID!, $rolSolicitadoId: UUID!, $fechaEnvio: Timestamp!) @auth(level: PUBLIC, insecureReason: "Safe for registration flow") {
+  solicitudValidacion_insert(data: {usuarioId: $usuarioId, rolSolicitadoId: $rolSolicitadoId, estado: "PENDIENTE", fechaEnvio: $fechaEnvio})
+}
+
 query ListarArchivosPublicos @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public") {
   archivos(orderBy: [{fechaCreacion: DESC}]) {
     id
@@ -23,6 +39,10 @@ mutation CrearUsuarioNuevo($alias: String!, $nombre: String!, $apellidoPaterno: 
 
 mutation ActualizarUsuarioPerfil($id: UUID!, $alias: String!, $nombre: String!, $apellidoPaterno: String!, $apellidoMaterno: String!, $numeroCelular: String!, $curso: String, $paralelo: String, $nombreColegio: String, $rolId: UUID!, $avatarId: UUID, $horaNotificacion: String) @auth(level: PUBLIC, insecureReason: "Safe for custom user update") {
   usuario_update(id: $id, data: {alias: $alias, nombre: $nombre, apellidoPaterno: $apellidoPaterno, apellidoMaterno: $apellidoMaterno, numeroCelular: $numeroCelular, curso: $curso, paralelo: $paralelo, nombreColegio: $nombreColegio, rolId: $rolId, avatarId: $avatarId, horaNotificacion: $horaNotificacion})
+}
+
+mutation ActualizarRachaUsuario($id: UUID!, $racha: Int!, $ultimaActividad: Timestamp!) @auth(level: PUBLIC, insecureReason: "Safe for user action tracking") {
+  usuario_update(id: $id, data: {rachaActualDias: $racha, ultimaActividad: $ultimaActividad})
 }
 
 query ListarRoles @auth(level: PUBLIC, insecureReason: "Roles are public to show in registration") {

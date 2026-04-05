@@ -1,3 +1,4 @@
+
 @file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
@@ -12,41 +13,41 @@
 
 package com.google.firebase.dataconnect.generated
 
-import com.google.firebase.Timestamp
-import com.google.firebase.dataconnect.QueryRef
-import com.google.firebase.dataconnect.QueryResult
-import com.google.firebase.dataconnect.serializers.TimestampSerializer
-import com.google.firebase.dataconnect.serializers.UUIDSerializer
-import java.util.UUID
-import kotlinx.coroutines.flow.Flow
+
 import kotlinx.coroutines.flow.filterNotNull as _flow_filterNotNull
 import kotlinx.coroutines.flow.map as _flow_map
-import kotlinx.serialization.DeserializationStrategy
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.SerializationStrategy
-import kotlinx.serialization.serializer
+
 
 public interface ObtenerPerfilCompletoQuery :
-    GeneratedQuery<
+    com.google.firebase.dataconnect.generated.GeneratedQuery<
       DefaultConnector,
       ObtenerPerfilCompletoQuery.Data,
       ObtenerPerfilCompletoQuery.Variables
     >
 {
   
-    @Serializable
+    @kotlinx.serialization.Serializable
   public data class Variables(
-    val id: @Serializable(with = UUIDSerializer::class) UUID
-  )
+  
+    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID
+  ) {
+    
+    
+  }
+  
 
-    @Serializable
+  
+    @kotlinx.serialization.Serializable
   public data class Data(
+  
     val usuario: Usuario?
   ) {
     
-        @Serializable
+      
+        @kotlinx.serialization.Serializable
   public data class Usuario(
-    val id: @Serializable(with = UUIDSerializer::class) UUID,
+  
+    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
     val alias: String,
     val nombre: String,
     val apellidoPaterno: String,
@@ -60,75 +61,114 @@ public interface ObtenerPerfilCompletoQuery :
     val nombreColegio: String?,
     val horaNotificacion: String?,
     val rol: Rol,
-    val ultimaActividad: @Serializable(with = TimestampSerializer::class) Timestamp,
+    val ultimaActividad: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.TimestampSerializer::class) com.google.firebase.Timestamp,
     val nivel: Nivel?,
     val avatar: Avatar?
   ) {
     
-        @Serializable
+      
+        @kotlinx.serialization.Serializable
   public data class Rol(
-    val id: @Serializable(with = UUIDSerializer::class) UUID,
+  
+    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
     val nombreRol: String
-  )
-
-        @Serializable
+  ) {
+    
+    
+  }
+      
+        @kotlinx.serialization.Serializable
   public data class Nivel(
-    val id: @Serializable(with = UUIDSerializer::class) UUID,
+  
+    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
     val nombreRango: String,
     val estrellasRequeridas: Int,
     val limitePalabrasTarjeta: Int
-  )
-
-        @Serializable
+  ) {
+    
+    
+  }
+      
+        @kotlinx.serialization.Serializable
   public data class Avatar(
-    val id: @Serializable(with = UUIDSerializer::class) UUID,
+  
+    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
     val imagenUrl: String,
     val descripcion: String
-  )
+  ) {
+    
+    
+  }
       
+    
+    
   }
+      
+    
+    
   }
+  
 
   public companion object {
     public val operationName: String = "ObtenerPerfilCompleto"
 
-    public val dataDeserializer: DeserializationStrategy<Data> =
-      serializer()
+    public val dataDeserializer: kotlinx.serialization.DeserializationStrategy<Data> =
+      kotlinx.serialization.serializer()
 
-    public val variablesSerializer: SerializationStrategy<Variables> =
-      serializer()
+    public val variablesSerializer: kotlinx.serialization.SerializationStrategy<Variables> =
+      kotlinx.serialization.serializer()
   }
 }
 
 public fun ObtenerPerfilCompletoQuery.ref(
-    id: UUID,
-): QueryRef<
+  
+    id: java.util.UUID,
+  
+  
+): com.google.firebase.dataconnect.QueryRef<
     ObtenerPerfilCompletoQuery.Data,
     ObtenerPerfilCompletoQuery.Variables
   > =
   ref(
+    
       ObtenerPerfilCompletoQuery.Variables(
         id=id,
+  
       )
+    
   )
 
 public suspend fun ObtenerPerfilCompletoQuery.execute(
-    id: UUID,
-  ): QueryResult<
+  
+    id: java.util.UUID,
+  
+  
+  ): com.google.firebase.dataconnect.QueryResult<
     ObtenerPerfilCompletoQuery.Data,
     ObtenerPerfilCompletoQuery.Variables
   > =
   ref(
+    
       id=id,
+  
+    
   ).execute()
 
+
   public fun ObtenerPerfilCompletoQuery.flow(
-      id: UUID,
-    ): Flow<ObtenerPerfilCompletoQuery.Data> =
+    
+      id: java.util.UUID,
+  
+    
+    ): kotlinx.coroutines.flow.Flow<ObtenerPerfilCompletoQuery.Data> =
     ref(
+        
           id=id,
+  
+        
       ).subscribe()
       .flow
       ._flow_map { querySubscriptionResult -> querySubscriptionResult.result.getOrNull() }
       ._flow_filterNotNull()
       ._flow_map { it.data }
+

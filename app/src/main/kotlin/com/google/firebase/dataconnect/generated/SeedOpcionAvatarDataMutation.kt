@@ -22,18 +22,18 @@ public interface SeedOpcionAvatarDataMutation :
       Unit
     >
 {
+  
 
-
-
+  
     @kotlinx.serialization.Serializable
   public data class Data(
-
+  
     val opcionAvatar_insertMany: List<OpcionAvatarKey>
   ) {
-
-
+    
+    
   }
-
+  
 
   public companion object {
     public val operationName: String = "SeedOpcionAvatarData"
@@ -47,25 +47,25 @@ public interface SeedOpcionAvatarDataMutation :
 }
 
 public fun SeedOpcionAvatarDataMutation.ref(
-
+  
 ): com.google.firebase.dataconnect.MutationRef<
     SeedOpcionAvatarDataMutation.Data,
     Unit
   > =
   ref(
-
+    
       Unit
-
+    
   )
 
 public suspend fun SeedOpcionAvatarDataMutation.execute(
-
+  
   ): com.google.firebase.dataconnect.MutationResult<
     SeedOpcionAvatarDataMutation.Data,
     Unit
   > =
   ref(
-
+    
   ).execute()
 
 

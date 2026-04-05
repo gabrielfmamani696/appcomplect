@@ -33,7 +33,7 @@ public interface ListarArchivosPublicosQuery :
 
     val archivos: List<ArchivosItem>
   ) {
-    
+
 
         @kotlinx.serialization.Serializable
   public data class ArchivosItem(
@@ -47,7 +47,7 @@ public interface ListarArchivosPublicosQuery :
     val espacio: Espacio?,
     val usuario: Usuario?
   ) {
-    
+
 
         @kotlinx.serialization.Serializable
   public data class NivelRequerido(
@@ -75,7 +75,7 @@ public interface ListarArchivosPublicosQuery :
 
 
   }
-      
+
 
 
   }

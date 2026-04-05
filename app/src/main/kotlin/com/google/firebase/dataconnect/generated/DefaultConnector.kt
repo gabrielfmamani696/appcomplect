@@ -20,7 +20,11 @@ public interface DefaultConnector : com.google.firebase.dataconnect.generated.Ge
   override val dataConnect: com.google.firebase.dataconnect.FirebaseDataConnect
 
 
+    public val actualizarRachaUsuario: ActualizarRachaUsuarioMutation
+
     public val actualizarUsuarioPerfil: ActualizarUsuarioPerfilMutation
+
+    public val crearSolicitudValidacion: CrearSolicitudValidacionMutation
 
     public val crearUsuarioNuevo: CrearUsuarioNuevoMutation
 
@@ -31,6 +35,8 @@ public interface DefaultConnector : com.google.firebase.dataconnect.generated.Ge
     public val listarRoles: ListarRolesQuery
 
     public val obtenerLeaderboard: ObtenerLeaderboardQuery
+
+    public val obtenerPanelSolicitudes: ObtenerPanelSolicitudesQuery
 
     public val obtenerPerfilCompleto: ObtenerPerfilCompletoQuery
 
@@ -87,8 +93,16 @@ private class DefaultConnectorImpl(
   override val dataConnect: com.google.firebase.dataconnect.FirebaseDataConnect
 ) : DefaultConnector {
 
+    override val actualizarRachaUsuario by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ActualizarRachaUsuarioMutationImpl(this)
+    }
+
     override val actualizarUsuarioPerfil by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ActualizarUsuarioPerfilMutationImpl(this)
+    }
+
+    override val crearSolicitudValidacion by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      CrearSolicitudValidacionMutationImpl(this)
     }
 
     override val crearUsuarioNuevo by lazy(LazyThreadSafetyMode.PUBLICATION) {
@@ -109,6 +123,10 @@ private class DefaultConnectorImpl(
 
     override val obtenerLeaderboard by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ObtenerLeaderboardQueryImpl(this)
+    }
+
+    override val obtenerPanelSolicitudes by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ObtenerPanelSolicitudesQueryImpl(this)
     }
 
     override val obtenerPerfilCompleto by lazy(LazyThreadSafetyMode.PUBLICATION) {
@@ -143,7 +161,9 @@ private class DefaultConnectorImpl(
   @com.google.firebase.dataconnect.ExperimentalFirebaseDataConnect
   override fun mutations(): List<com.google.firebase.dataconnect.generated.GeneratedMutation<DefaultConnector, *, *>> =
     listOf(
-      actualizarUsuarioPerfil,
+      actualizarRachaUsuario,
+        actualizarUsuarioPerfil,
+        crearSolicitudValidacion,
         crearUsuarioNuevo,
         seedOpcionAvatarData,
         seedRolesData,
@@ -157,6 +177,7 @@ private class DefaultConnectorImpl(
         listarAvatares,
         listarRoles,
         obtenerLeaderboard,
+        obtenerPanelSolicitudes,
         obtenerPerfilCompleto,
         obtenerRankingUsuario,
         obtenerUsuarioPorCredenciales,
@@ -296,6 +317,21 @@ private open class DefaultConnectorGeneratedMutationImpl<Data, Variables>(
 
 
 
+private class ActualizarRachaUsuarioMutationImpl(
+  connector: DefaultConnector
+):
+  ActualizarRachaUsuarioMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      ActualizarRachaUsuarioMutation.Data,
+      ActualizarRachaUsuarioMutation.Variables
+  >(
+    connector,
+    ActualizarRachaUsuarioMutation.Companion.operationName,
+    ActualizarRachaUsuarioMutation.Companion.dataDeserializer,
+    ActualizarRachaUsuarioMutation.Companion.variablesSerializer,
+  )
+
+
 private class ActualizarUsuarioPerfilMutationImpl(
   connector: DefaultConnector
 ):
@@ -308,6 +344,21 @@ private class ActualizarUsuarioPerfilMutationImpl(
     ActualizarUsuarioPerfilMutation.Companion.operationName,
     ActualizarUsuarioPerfilMutation.Companion.dataDeserializer,
     ActualizarUsuarioPerfilMutation.Companion.variablesSerializer,
+  )
+
+
+private class CrearSolicitudValidacionMutationImpl(
+  connector: DefaultConnector
+):
+  CrearSolicitudValidacionMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      CrearSolicitudValidacionMutation.Data,
+      CrearSolicitudValidacionMutation.Variables
+  >(
+    connector,
+    CrearSolicitudValidacionMutation.Companion.operationName,
+    CrearSolicitudValidacionMutation.Companion.dataDeserializer,
+    CrearSolicitudValidacionMutation.Companion.variablesSerializer,
   )
 
 
@@ -383,6 +434,21 @@ private class ObtenerLeaderboardQueryImpl(
     ObtenerLeaderboardQuery.Companion.operationName,
     ObtenerLeaderboardQuery.Companion.dataDeserializer,
     ObtenerLeaderboardQuery.Companion.variablesSerializer,
+  )
+
+
+private class ObtenerPanelSolicitudesQueryImpl(
+  connector: DefaultConnector
+):
+  ObtenerPanelSolicitudesQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ObtenerPanelSolicitudesQuery.Data,
+      Unit
+  >(
+    connector,
+    ObtenerPanelSolicitudesQuery.Companion.operationName,
+    ObtenerPanelSolicitudesQuery.Companion.dataDeserializer,
+    ObtenerPanelSolicitudesQuery.Companion.variablesSerializer,
   )
 
 

@@ -1,6 +1,9 @@
 package com.gabrieldev.appcomplect.data.repository
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -10,6 +13,7 @@ import com.gabrieldev.appcomplect.model.RolUsuario
 import com.gabrieldev.appcomplect.model.SesionGuardada
 import com.gabrieldev.appcomplect.model.Usuario
 import com.gabrieldev.appcomplect.model.UsuarioLeaderboard
+import com.gabrieldev.appcomplect.workers.RecordatorioReceiver
 import com.google.firebase.Timestamp
 import com.google.firebase.dataconnect.generated.DefaultConnector
 import com.google.firebase.dataconnect.generated.execute
@@ -25,8 +29,12 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.InternalSerializationApi
 import org.json.JSONArray
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 import java.util.UUID
+import java.sql.Date as SqlDate
 
 private val Context.dataStore by preferencesDataStore(name = "user_prefs")
 
@@ -104,6 +112,30 @@ class UsuarioRepository(
                     .flow(id = UUID.fromString(userId))
                     .collect { data ->
                         val u = data.usuario ?: return@collect
+                        
+                        val key = stringPreferencesKey("streak_data_$userId")
+                        val prefs = context.dataStore.data.first()
+                        val jsonStr = prefs[key] ?: "{}"
+                        val obj = try { JSONObject(jsonStr) } catch(e: Exception) { JSONObject() }
+                        
+                        val pendiente = obj.optBoolean("pendienteSincronizar", false)
+                        var rachaVisual = u.rachaActualDias
+
+                        if (pendiente) {
+                            rachaVisual = obj.optInt("rachaLocal", u.rachaActualDias)
+                            scope.launch { sincronizarRachaConBackend() }
+                        } else {
+                            context.dataStore.edit { editPrefs ->
+                                val editObj = try { JSONObject(editPrefs[key] ?: "{}") } catch(e: Exception) { JSONObject() }
+                                editObj.put("rachaLocal", u.rachaActualDias)
+                                val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                                val dateStr = format.format(u.ultimaActividad.toDate())
+                                editObj.put("ultimaFechaAccion", dateStr)
+                                editObj.put("pendienteSincronizar", false)
+                                editPrefs[key] = editObj.toString()
+                            }
+                        }
+
                         _usuarioActivo.value = Usuario(
                             nombre = u.nombre,
                             apellidoPaterno = u.apellidoPaterno,
@@ -112,7 +144,7 @@ class UsuarioRepository(
                             idAvatar = u.avatar?.id?.toString() ?: "",
                             uuidSesion = userId,
                             estrellasPrestigio = u.estrellasPrestigio,
-                            rachaActualDias = u.rachaActualDias,
+                            rachaActualDias = rachaVisual,
                             avatarUrl = u.avatar?.imagenUrl ?: "",
                             curso = u.curso,
                             paralelo = u.paralelo,
@@ -156,6 +188,10 @@ class UsuarioRepository(
 
     @InternalSerializationApi
     suspend fun registrarUsuario(usuario: Usuario) {
+        val rolesLocales = obtenerRoles()
+        val rolMapeado = rolesLocales.find { it.id == usuario.idRol }
+        val idEstudiante = rolesLocales.find { it.nombreRol.contains("estudiante", true) }?.id ?: usuario.idRol
+
         val result = connector.crearUsuarioNuevo.execute(
             alias = usuario.alias,
             nombre = usuario.nombre,
@@ -165,7 +201,7 @@ class UsuarioRepository(
             estrellasPrestigio = 0,
             rachaActualDias = 0,
             numeroCelular = usuario.numeroCelular,
-            rolId = UUID.fromString(usuario.idRol),
+            rolId = UUID.fromString(idEstudiante),
             ultimaActividad = Timestamp(Date())
         ) {
             curso = usuario.curso
@@ -178,12 +214,45 @@ class UsuarioRepository(
 
         val remoteId = result.data.usuario_insert.id.toString()
 
+        if (rolMapeado != null && !rolMapeado.nombreRol.contains("estudiante", true)) {
+            try {
+                connector.crearSolicitudValidacion.execute(
+                    usuarioId = UUID.fromString(remoteId),
+                    rolSolicitadoId = UUID.fromString(usuario.idRol),
+                    fechaEnvio = Timestamp(Date())
+                )
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
         context.dataStore.edit { prefs ->
             prefs[USER_ID_KEY] = remoteId
         }
 
-        _usuarioActivo.value = usuario.copy(uuidSesion = remoteId)
+        _usuarioActivo.value = usuario.copy(uuidSesion = remoteId, idRol = idEstudiante, nombreRol = "Estudiante")
         iniciarSuscripcionPerfil(remoteId)
+        reprogramarNotificaciones("18:00")
+    }
+
+    suspend fun loginUsuario(numeroCelular: String, nombre: String, apellidoPaterno: String): Boolean {
+        return try {
+            val response = connector.obtenerUsuarioPorCredenciales.execute(numeroCelular, nombre, apellidoPaterno)
+            if (response.data.usuarios.isNotEmpty()) {
+                val u = response.data.usuarios.first()
+                val sessionRemoteId = u.id.toString()
+                context.dataStore.edit { prefs ->
+                    prefs[USER_ID_KEY] = sessionRemoteId
+                }
+                verificarSesion()
+                true
+            } else {
+                false
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
     }
 
     suspend fun actualizarUsuarioPerfil(usuario: Usuario): Boolean {
@@ -204,11 +273,50 @@ class UsuarioRepository(
                 horaNotificacion = usuario.horaNotificacion
                 avatarId = if(usuario.idAvatar.isNotEmpty()) UUID.fromString(usuario.idAvatar) else null
             }
+            
+            _usuarioActivo.value = usuario
+            reprogramarNotificaciones(usuario.horaNotificacion ?: "18:00")
+            
             true
         } catch (e: Exception) {
             e.printStackTrace()
             false
         }
+    }
+
+    fun reprogramarNotificaciones(hora: String) {
+        val partes = hora.split(":")
+        if (partes.size < 2) return
+        val h = partes[0].toIntOrNull() ?: return
+        val m = partes[1].toIntOrNull() ?: return
+        
+        val ahora = Calendar.getInstance()
+        val target = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, h)
+            set(Calendar.MINUTE, m)
+            set(Calendar.SECOND, 0)
+        }
+        
+        if (target.before(ahora)) {
+            target.add(Calendar.DAY_OF_YEAR, 1)
+        }
+
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, RecordatorioReceiver::class.java)
+        
+        val pendingIntent = PendingIntent.getBroadcast(
+            context, 
+            0, 
+            intent, 
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            target.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            pendingIntent
+        )
     }
 
     suspend fun cerrarSesion() {
@@ -313,6 +421,73 @@ class UsuarioRepository(
         } catch (e: Exception) {
             e.printStackTrace()
             0
+        }
+    }
+
+    suspend fun registrarAccionDiaria() {
+        val uuId = _usuarioActivo.value?.uuidSesion ?: return
+        val key = stringPreferencesKey("streak_data_$uuId")
+        context.dataStore.edit { prefs ->
+            val jsonStr = prefs[key] ?: "{}"
+            val obj = try { JSONObject(jsonStr) } catch(e: Exception) { JSONObject() }
+            
+            val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val hoy = format.format(Date())
+            val ultima = obj.optString("ultimaFechaAccion", "")
+            var rachaLocal = obj.optInt("rachaLocal", _usuarioActivo.value?.rachaActualDias ?: 1)
+            
+            if (ultima != hoy) {
+                if (ultima.isNotEmpty()) {
+                    val ultimaDate = try { format.parse(ultima) } catch(e: Exception) { null }
+                    if (ultimaDate != null) {
+                        val calAyer = Calendar.getInstance()
+                        calAyer.add(Calendar.DAY_OF_YEAR, -1)
+                        if (format.format(ultimaDate) == format.format(calAyer.time)) {
+                            rachaLocal += 1
+                        } else {
+                            rachaLocal = 1
+                        }
+                    } else {
+                        rachaLocal = 1
+                    }
+                } else {
+                     rachaLocal = 1
+                }
+                obj.put("ultimaFechaAccion", hoy)
+                obj.put("rachaLocal", rachaLocal)
+                obj.put("pendienteSincronizar", true)
+                prefs[key] = obj.toString()
+                
+                _usuarioActivo.value = _usuarioActivo.value?.copy(rachaActualDias = rachaLocal)
+            }
+        }
+        sincronizarRachaConBackend()
+    }
+
+    suspend fun sincronizarRachaConBackend() {
+        val uuId = _usuarioActivo.value?.uuidSesion ?: return
+        val key = stringPreferencesKey("streak_data_$uuId")
+        val jsonStr = context.dataStore.data.first()[key] ?: return
+        val obj = try { JSONObject(jsonStr) } catch(e: Exception) { return }
+        
+        if (obj.optBoolean("pendienteSincronizar", false)) {
+            val racha = obj.optInt("rachaLocal")
+            val ultimaActividadStr = obj.optString("ultimaFechaAccion")
+            val actDate = try { SqlDate.valueOf(ultimaActividadStr) } catch(e: Exception) { Date() }
+            try {
+                connector.actualizarRachaUsuario.execute(
+                    id = UUID.fromString(uuId),
+                    racha = racha,
+                    ultimaActividad = Timestamp(actDate)
+                )
+                context.dataStore.edit { prefs ->
+                     val eObj = try { JSONObject(prefs[key] ?: "{}") } catch(e: Exception) { JSONObject() }
+                     eObj.put("pendienteSincronizar", false)
+                     prefs[key] = eObj.toString()
+                }
+            } catch (e: Exception) {
+               e.printStackTrace()
+            }
         }
     }
 }

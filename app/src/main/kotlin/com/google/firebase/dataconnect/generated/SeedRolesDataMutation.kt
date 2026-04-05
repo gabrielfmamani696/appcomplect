@@ -1,3 +1,4 @@
+
 @file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
@@ -12,50 +13,59 @@
 
 package com.google.firebase.dataconnect.generated
 
-import com.google.firebase.dataconnect.MutationRef
-import com.google.firebase.dataconnect.MutationResult
-import kotlinx.serialization.DeserializationStrategy
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.SerializationStrategy
-import kotlinx.serialization.serializer
+
 
 public interface SeedRolesDataMutation :
-    GeneratedMutation<
+    com.google.firebase.dataconnect.generated.GeneratedMutation<
       DefaultConnector,
       SeedRolesDataMutation.Data,
       Unit
     >
 {
   
-    @Serializable
+
+  
+    @kotlinx.serialization.Serializable
   public data class Data(
+  
     val rolUsuario_insertMany: List<RolUsuarioKey>
-  )
+  ) {
+    
+    
+  }
+  
 
   public companion object {
     public val operationName: String = "SeedRolesData"
 
-    public val dataDeserializer: DeserializationStrategy<Data> =
-      serializer()
+    public val dataDeserializer: kotlinx.serialization.DeserializationStrategy<Data> =
+      kotlinx.serialization.serializer()
 
-    public val variablesSerializer: SerializationStrategy<Unit> =
-      serializer()
+    public val variablesSerializer: kotlinx.serialization.SerializationStrategy<Unit> =
+      kotlinx.serialization.serializer()
   }
 }
 
 public fun SeedRolesDataMutation.ref(
-): MutationRef<
+  
+): com.google.firebase.dataconnect.MutationRef<
     SeedRolesDataMutation.Data,
     Unit
   > =
   ref(
+    
       Unit
+    
   )
 
 public suspend fun SeedRolesDataMutation.execute(
-  ): MutationResult<
+  
+  ): com.google.firebase.dataconnect.MutationResult<
     SeedRolesDataMutation.Data,
     Unit
   > =
   ref(
+    
   ).execute()
+
+

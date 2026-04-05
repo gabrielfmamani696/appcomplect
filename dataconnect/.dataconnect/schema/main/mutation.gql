@@ -108,6 +108,15 @@ extend type Mutation {
     data: RolUsuario_Data!
   ): RolUsuario_KeyOutput! @fdc_generated(from: "RolUsuario", purpose: INSERT_SINGLE)
   """
+  ✨ Insert a single `SolicitudValidacion` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  solicitudValidacion_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: SolicitudValidacion_Data!
+  ): SolicitudValidacion_KeyOutput! @fdc_generated(from: "SolicitudValidacion", purpose: INSERT_SINGLE)
+  """
   ✨ Insert a single `Tarjeta` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
   """
   tarjeta_insert(
@@ -233,6 +242,15 @@ extend type Mutation {
     """
     data: [RolUsuario_Data!]!
   ): [RolUsuario_KeyOutput!]! @fdc_generated(from: "RolUsuario", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `SolicitudValidacion` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  solicitudValidacion_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [SolicitudValidacion_Data!]!
+  ): [SolicitudValidacion_KeyOutput!]! @fdc_generated(from: "SolicitudValidacion", purpose: INSERT_MULTIPLE)
   """
   ✨ Insert `Tarjeta` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
   """
@@ -360,6 +378,15 @@ extend type Mutation {
     data: RolUsuario_Data!
   ): RolUsuario_KeyOutput! @fdc_generated(from: "RolUsuario", purpose: UPSERT_SINGLE)
   """
+  ✨ Insert or update a single `SolicitudValidacion` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `SolicitudValidacion`.
+  """
+  solicitudValidacion_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: SolicitudValidacion_Data!
+  ): SolicitudValidacion_KeyOutput! @fdc_generated(from: "SolicitudValidacion", purpose: UPSERT_SINGLE)
+  """
   ✨ Insert or update a single `Tarjeta` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Tarjeta`.
   """
   tarjeta_upsert(
@@ -485,6 +512,15 @@ extend type Mutation {
     """
     data: [RolUsuario_Data!]!
   ): [RolUsuario_KeyOutput!]! @fdc_generated(from: "RolUsuario", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `SolicitudValidacion` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `SolicitudValidacion`.
+  """
+  solicitudValidacion_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [SolicitudValidacion_Data!]!
+  ): [SolicitudValidacion_KeyOutput!]! @fdc_generated(from: "SolicitudValidacion", purpose: UPSERT_MULTIPLE)
   """
   ✨ Insert or update `Tarjeta` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Tarjeta`.
   """
@@ -787,6 +823,30 @@ extend type Mutation {
     data: RolUsuario_Data!
   ): RolUsuario_KeyOutput @fdc_generated(from: "RolUsuario", purpose: UPDATE_SINGLE)
   """
+  ✨ Update a single `SolicitudValidacion` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `SolicitudValidacion` or `null` if not found.
+  """
+  solicitudValidacion_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: SolicitudValidacion_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: SolicitudValidacion_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: SolicitudValidacion_Data!
+  ): SolicitudValidacion_KeyOutput @fdc_generated(from: "SolicitudValidacion", purpose: UPDATE_SINGLE)
+  """
   ✨ Update a single `Tarjeta` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Tarjeta` or `null` if not found.
   """
   tarjeta_update(
@@ -1063,6 +1123,25 @@ extend type Mutation {
     data: RolUsuario_Data!
   ): Int! @fdc_generated(from: "RolUsuario", purpose: UPDATE_MULTIPLE)
   """
+  ✨ Update `SolicitudValidacion` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  solicitudValidacion_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: SolicitudValidacion_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: SolicitudValidacion_Data!
+  ): Int! @fdc_generated(from: "SolicitudValidacion", purpose: UPDATE_MULTIPLE)
+  """
   ✨ Update `Tarjeta` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
   """
   tarjeta_updateMany(
@@ -1324,6 +1403,25 @@ extend type Mutation {
     first: RolUsuario_FirstRow
   ): RolUsuario_KeyOutput @fdc_generated(from: "RolUsuario", purpose: DELETE_SINGLE)
   """
+  ✨ Delete a single `SolicitudValidacion` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  solicitudValidacion_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: SolicitudValidacion_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: SolicitudValidacion_FirstRow
+  ): SolicitudValidacion_KeyOutput @fdc_generated(from: "SolicitudValidacion", purpose: DELETE_SINGLE)
+  """
   ✨ Delete a single `Tarjeta` based on `id`, `key` or `first` and return its key (or `null` if not found).
   """
   tarjeta_delete(
@@ -1529,6 +1627,20 @@ extend type Mutation {
     """
     all: Boolean = false
   ): Int! @fdc_generated(from: "RolUsuario", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `SolicitudValidacion` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  solicitudValidacion_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: SolicitudValidacion_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "SolicitudValidacion", purpose: DELETE_MULTIPLE)
   """
   ✨ Delete `Tarjeta` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
   """

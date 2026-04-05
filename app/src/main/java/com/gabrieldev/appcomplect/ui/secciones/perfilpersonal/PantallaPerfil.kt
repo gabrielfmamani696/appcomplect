@@ -23,9 +23,13 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
@@ -34,11 +38,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -47,52 +48,28 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
-import com.gabrieldev.appcomplect.data.repository.AvatarRepository
-import com.gabrieldev.appcomplect.data.repository.UsuarioRepository
-import com.gabrieldev.appcomplect.model.OpcionAvatar
-import com.gabrieldev.appcomplect.model.RolUsuario
 import com.gabrieldev.appcomplect.model.Usuario
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PantallaPerfil(
     usuario: Usuario,
-    usuarioRepository: UsuarioRepository,
-    avatarRepository: AvatarRepository
+    viewModel: PerfilViewModel
 ) {
-    val scope = rememberCoroutineScope()
+    val state by viewModel.uiState.collectAsState()
     val scrollState = rememberScrollState()
 
-    var nombre by remember { mutableStateOf(usuario.nombre) }
-    var apellidoPaterno by remember { mutableStateOf(usuario.apellidoPaterno) }
-    var apellidoMaterno by remember { mutableStateOf(usuario.apellidoMaterno) }
-    var alias by remember { mutableStateOf(usuario.alias) }
-    
-    var numeroCelular by remember { mutableStateOf(usuario.numeroCelular) }
-    var curso by remember { mutableStateOf(usuario.curso ?: "") }
-    var paralelo by remember { mutableStateOf(usuario.paralelo ?: "") }
-    var nombreColegio by remember { mutableStateOf(usuario.nombreColegio ?: "") }
-    
-    val horaParts = usuario.horaNotificacion?.split(":") ?: listOf("18", "00")
-    var horaNotificacionH by remember { mutableStateOf(horaParts.getOrNull(0) ?: "18") }
-    var horaNotificacionM by remember { mutableStateOf(horaParts.getOrNull(1) ?: "00") }
+    val opcionesCurso = listOf(
+        "Primero de Primaria",
+        "Segundo de Primaria",
+        "Tercero de Primaria",
+        "Cuarto de Primaria",
+        "Quinto de Primaria",
+        "Sexto de Primaria"
+    )
 
-    var avatarSeleccionado by remember { mutableStateOf<OpcionAvatar?>(null) }
-    var listaAvatares by remember { mutableStateOf<List<OpcionAvatar>>(emptyList()) }
-    var rolSeleccionado by remember { mutableStateOf<RolUsuario?>(null) }
-    var listaRoles by remember { mutableStateOf<List<RolUsuario>>(emptyList()) }
-
-    var mensajeError by remember { mutableStateOf<String?>(null) }
-    var mensajeExito by remember { mutableStateOf<String?>(null) }
-    var guardando by remember { mutableStateOf(false) }
-
-    LaunchedEffect(Unit) {
-        listaAvatares = avatarRepository.obtenerAvatares()
-        listaRoles = usuarioRepository.obtenerRoles()
-        
-        avatarSeleccionado = listaAvatares.find { it.idAvatar == usuario.idAvatar }
-        rolSeleccionado = listaRoles.find { it.id == usuario.idRol }
+    LaunchedEffect(usuario) {
+        viewModel.initUsuario(usuario)
     }
 
     Scaffold(
@@ -122,7 +99,7 @@ fun PantallaPerfil(
                     .padding(vertical = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(listaAvatares) { avatar ->
+                items(state.listaAvatares) { avatar ->
                     SubcomposeAsyncImage(
                         model = avatar.urlImagen,
                         contentDescription = avatar.descripcion,
@@ -131,17 +108,13 @@ fun PantallaPerfil(
                             .size(80.dp)
                             .clip(CircleShape)
                             .border(
-                                width = if (avatarSeleccionado?.idAvatar == avatar.idAvatar) 4.dp else 1.dp,
-                                color = if (avatarSeleccionado?.idAvatar == avatar.idAvatar) MaterialTheme.colorScheme.primary else Color.Gray,
+                                width = if (state.avatarSeleccionado?.idAvatar == avatar.idAvatar) 4.dp else 1.dp,
+                                color = if (state.avatarSeleccionado?.idAvatar == avatar.idAvatar) MaterialTheme.colorScheme.primary else Color.Gray,
                                 shape = CircleShape
                             )
-                            .clickable { avatarSeleccionado = avatar },
-                        loading = {
-                            CircularProgressIndicator(modifier = Modifier.size(32.dp))
-                        },
-                        error = {
-                            Icon(Icons.Default.Person, contentDescription = null, tint = Color.Gray, modifier = Modifier.size(40.dp))
-                        }
+                            .clickable { viewModel.seleccionarAvatar(avatar) },
+                        loading = { CircularProgressIndicator(modifier = Modifier.size(32.dp)) },
+                        error = { Icon(Icons.Default.Person, contentDescription = null, tint = Color.Gray, modifier = Modifier.size(40.dp)) }
                     )
                 }
             }
@@ -149,25 +122,25 @@ fun PantallaPerfil(
             Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedTextField(
-                value = nombre,
-                onValueChange = { nombre = it; mensajeError = null; mensajeExito = null },
+                value = state.nombre,
+                onValueChange = { viewModel.actualizarCampo("nombre", it) },
                 label = { Text("Nombre") },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )
 
             OutlinedTextField(
-                value = apellidoPaterno,
-                onValueChange = { apellidoPaterno = it; mensajeError = null; mensajeExito = null },
+                value = state.apellidoPaterno,
+                onValueChange = { viewModel.actualizarCampo("apellidoPaterno", it) },
                 label = { Text("Apellido Paterno") },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )
 
             OutlinedTextField(
-                value = apellidoMaterno,
-                onValueChange = { apellidoMaterno = it; mensajeError = null; mensajeExito = null },
-                label = { Text("Apellido Materno (Opcional)") },
+                value = state.apellidoMaterno,
+                onValueChange = { viewModel.actualizarCampo("apellidoMaterno", it) },
+                label = { Text("Apellido Materno") },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )
@@ -175,24 +148,47 @@ fun PantallaPerfil(
             Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedTextField(
-                value = nombreColegio,
-                onValueChange = { nombreColegio = it; mensajeError = null; mensajeExito = null },
-                label = { Text("Nombre del Colegio (Opcional)") },
+                value = state.nombreColegio,
+                onValueChange = { viewModel.actualizarCampo("nombreColegio", it) },
+                label = { Text("Nombre del Colegio") },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )
             
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                ExposedDropdownMenuBox(
+                    expanded = state.expandedCurso,
+                    onExpandedChange = { viewModel.toggleExpandedCurso() },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    OutlinedTextField(
+                        value = state.curso,
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text("Curso") },
+                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = state.expandedCurso) },
+                        colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
+                        modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable, true),
+                        singleLine = true
+                    )
+                    ExposedDropdownMenu(
+                        expanded = state.expandedCurso,
+                        onDismissRequest = { viewModel.toggleExpandedCurso() }
+                    ) {
+                        opcionesCurso.forEach { opcion ->
+                            DropdownMenuItem(
+                                text = { Text(opcion) },
+                                onClick = {
+                                    viewModel.actualizarCampo("curso", opcion)
+                                    viewModel.toggleExpandedCurso()
+                                }
+                            )
+                        }
+                    }
+                }
                 OutlinedTextField(
-                    value = curso,
-                    onValueChange = { curso = it; mensajeError = null; mensajeExito = null },
-                    label = { Text("Curso") },
-                    modifier = Modifier.weight(1f),
-                    singleLine = true
-                )
-                OutlinedTextField(
-                    value = paralelo,
-                    onValueChange = { paralelo = it; mensajeError = null; mensajeExito = null },
+                    value = state.paralelo,
+                    onValueChange = { viewModel.actualizarCampo("paralelo", it) },
                     label = { Text("Paralelo") },
                     modifier = Modifier.weight(1f),
                     singleLine = true
@@ -200,8 +196,8 @@ fun PantallaPerfil(
             }
 
             OutlinedTextField(
-                value = numeroCelular,
-                onValueChange = { numeroCelular = it; mensajeError = null; mensajeExito = null },
+                value = state.numeroCelular,
+                onValueChange = { viewModel.actualizarCampo("numeroCelular", it) },
                 label = { Text("Número de Celular") },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
@@ -212,16 +208,16 @@ fun PantallaPerfil(
             Text("Preferencia Notificación Diaria:", style = MaterialTheme.typography.titleMedium)
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
-                    value = horaNotificacionH,
-                    onValueChange = { if(it.length <= 2) horaNotificacionH = it.filter { c -> c.isDigit() } ; mensajeError = null; mensajeExito = null },
+                    value = state.horaH,
+                    onValueChange = { if(it.length <= 2) viewModel.actualizarCampo("horaH", it.filter { c -> c.isDigit() }) },
                     label = { Text("Hora (00-23)") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier.weight(1f),
                     singleLine = true
                 )
                 OutlinedTextField(
-                    value = horaNotificacionM,
-                    onValueChange = { if(it.length <= 2) horaNotificacionM = it.filter { c -> c.isDigit() } ; mensajeError = null; mensajeExito = null },
+                    value = state.horaM,
+                    onValueChange = { if(it.length <= 2) viewModel.actualizarCampo("horaM", it.filter { c -> c.isDigit() }) },
                     label = { Text("Minuto (00-59)") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier.weight(1f),
@@ -229,17 +225,17 @@ fun PantallaPerfil(
                 )
             }
 
-            if (listaRoles.isNotEmpty()) {
+            if (state.listaRoles.isNotEmpty()) {
                 Text("Soy un:", style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(top = 16.dp))
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-                    listaRoles.forEach { rol ->
+                    state.listaRoles.forEach { rol ->
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.clickable { rolSeleccionado = rol }
+                            modifier = Modifier.clickable { viewModel.seleccionarRol(rol) }
                         ) {
                             RadioButton(
-                                selected = (rolSeleccionado?.id == rol.id),
-                                onClick = { rolSeleccionado = rol }
+                                selected = (state.rolSeleccionado?.id == rol.id),
+                                onClick = { viewModel.seleccionarRol(rol) }
                             )
                             Text(text = rol.nombreRol)
                         }
@@ -251,24 +247,24 @@ fun PantallaPerfil(
 
             Text("Tu nombre de investigador (Alias):", style = MaterialTheme.typography.titleMedium)
             OutlinedTextField(
-                value = alias,
-                onValueChange = { alias = it; mensajeError = null; mensajeExito = null },
+                value = state.alias,
+                onValueChange = { viewModel.actualizarCampo("alias", it) },
                 label = { Text("Alias") },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )
 
-            if (mensajeError != null) {
+            if (state.mensajeError != null) {
                 Text(
-                    text = mensajeError!!,
+                    text = state.mensajeError!!,
                     color = MaterialTheme.colorScheme.error,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
             }
-            if (mensajeExito != null) {
+            if (state.mensajeExito != null) {
                 Text(
-                    text = mensajeExito!!,
+                    text = state.mensajeExito!!,
                     color = Color(0xFF2E7D32),
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(vertical = 8.dp)
@@ -283,11 +279,7 @@ fun PantallaPerfil(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Button(
-                    onClick = {
-                        scope.launch {
-                            usuarioRepository.cerrarSesion()
-                        }
-                    },
+                    onClick = { viewModel.cerrarSesion() },
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD32F2F)),
                     modifier = Modifier.weight(1f)
                 ) {
@@ -297,49 +289,11 @@ fun PantallaPerfil(
                 Spacer(modifier = Modifier.width(16.dp))
 
                 Button(
-                    onClick = {
-                        if (nombre.length < 4) {
-                            mensajeError = "El nombre es muy corto"
-                        } else if (numeroCelular.length < 8) {
-                            mensajeError = "Ingresa un número de celular válido"
-                        } else if (rolSeleccionado == null) {
-                            mensajeError = "Selecciona si eres Estudiante o Docente"
-                        } else if (alias.length < 4) {
-                            mensajeError = "El alias debe tener al menos 4 letras"
-                        } else {
-                            val h = horaNotificacionH.toIntOrNull() ?: 18
-                            val m = horaNotificacionM.toIntOrNull() ?: 0
-                            val horaLimpia = "${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}"
-                            
-                            guardando = true
-                            scope.launch {
-                                val upd = usuario.copy(
-                                    nombre = nombre,
-                                    apellidoPaterno = apellidoPaterno,
-                                    apellidoMaterno = apellidoMaterno,
-                                    alias = alias,
-                                    idAvatar = avatarSeleccionado?.idAvatar ?: usuario.idAvatar,
-                                    numeroCelular = numeroCelular,
-                                    curso = curso.takeIf { it.isNotBlank() },
-                                    paralelo = paralelo.takeIf { it.isNotBlank() },
-                                    nombreColegio = nombreColegio.takeIf { it.isNotBlank() },
-                                    idRol = rolSeleccionado!!.id,
-                                    horaNotificacion = horaLimpia
-                                )
-                                val exito = usuarioRepository.actualizarUsuarioPerfil(upd)
-                                guardando = false
-                                if (exito) {
-                                    mensajeExito = "Perfil actualizado correctamente."
-                                } else {
-                                    mensajeError = "Hubo un error al actualizar."
-                                }
-                            }
-                        }
-                    },
-                    enabled = !guardando,
+                    onClick = { viewModel.guardarCambios() },
+                    enabled = !state.guardando,
                     modifier = Modifier.weight(1f)
                 ) {
-                    if (guardando) {
+                    if (state.guardando) {
                         CircularProgressIndicator(modifier = Modifier.size(20.dp), color = Color.White)
                     } else {
                         Text("Guardar Cambios")
