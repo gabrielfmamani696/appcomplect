@@ -161,7 +161,6 @@ class RegistroViewModel(
     }
 
     private fun limpiarCampos() {
-        // Mantener lista de avatares y roles, pero borrar el input del usuario
         _uiState.value = _uiState.value.copy(
             nombre = "",
             apellidoPaterno = "",

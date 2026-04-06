@@ -38,6 +38,7 @@ import java.sql.Date as SqlDate
 
 private val Context.dataStore by preferencesDataStore(name = "user_prefs")
 
+//intermedairio de datos del usuario e informacion relacionada
 class UsuarioRepository(
     private val connector: DefaultConnector,
     private val context: Context

@@ -10,8 +10,6 @@ import androidx.core.app.NotificationCompat
 
 class RecordatorioReceiver : BroadcastReceiver() {
 
-    // Compatibilidad para evitar el error "Cannot infer type for type parameter 'T'" cuando se sobreescribe
-    // la forma abstracta incorrectamente. BroadcastReceiver usa onReceive
     override fun onReceive(context: Context, intent: Intent) {
         mostrarNotificacion(context)
     }
