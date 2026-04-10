@@ -7,6 +7,7 @@ import com.gabrieldev.appcomplect.data.repository.UsuarioRepository
 import com.gabrieldev.appcomplect.model.OpcionAvatar
 import com.gabrieldev.appcomplect.model.RolUsuario
 import com.gabrieldev.appcomplect.model.Usuario
+import com.gabrieldev.appcomplect.util.UsuarioUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -103,6 +104,14 @@ class PerfilViewModel(
         }
     }
 
+    fun generarAlias() {
+        val state = _uiState.value
+        val nuevoAlias = UsuarioUtils.generarAlias(state.nombre)
+        if (nuevoAlias.isNotEmpty()) {
+            _uiState.value = state.copy(alias = nuevoAlias)
+        }
+    }
+
     fun seleccionarAvatar(avatar: OpcionAvatar) {
         _uiState.value = _uiState.value.copy(avatarSeleccionado = avatar)
     }
@@ -124,7 +133,19 @@ class PerfilViewModel(
     fun guardarCambios() {
         val state = _uiState.value
         if (state.nombre.length < 4) {
-            _uiState.value = state.copy(mensajeError = "El nombre es muy corto", mensajeExito = null)
+            _uiState.value = state.copy(mensajeError = "El nombre debe tener al menos 4 caracteres", mensajeExito = null)
+            return
+        }
+        if (state.apellidoPaterno.length < 4) {
+            _uiState.value = state.copy(mensajeError = "El apellido paterno debe tener al menos 4 caracteres", mensajeExito = null)
+            return
+        }
+        if (state.apellidoMaterno.length < 5) {
+            _uiState.value = state.copy(mensajeError = "El apellido materno debe tener al menos 5 caracteres", mensajeExito = null)
+            return
+        }
+        if (state.nombreColegio.length < 4) {
+            _uiState.value = state.copy(mensajeError = "El nombre del colegio debe tener al menos 4 caracteres", mensajeExito = null)
             return
         }
         if (state.numeroCelular.length < 8) {

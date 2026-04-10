@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -38,7 +39,6 @@ import java.sql.Date as SqlDate
 
 private val Context.dataStore by preferencesDataStore(name = "user_prefs")
 
-//intermedairio de datos del usuario e informacion relacionada
 class UsuarioRepository(
     private val connector: DefaultConnector,
     private val context: Context
@@ -157,6 +157,7 @@ class UsuarioRepository(
                                 Nivel(
                                     id = it.id.toString(),
                                     nombreRango = it.nombreRango,
+                                    jerarquia = it.jerarquia ?: 1,
                                     estrellasRequeridas = it.estrellasRequeridas,
                                     limitePalabrasTarjeta = it.limitePalabrasTarjeta
                                 )
@@ -193,6 +194,10 @@ class UsuarioRepository(
         val rolMapeado = rolesLocales.find { it.id == usuario.idRol }
         val idEstudiante = rolesLocales.find { it.nombreRol.contains("estudiante", true) }?.id ?: usuario.idRol
 
+        val niveles = obtenerTodosLosNiveles()
+        val nivelJerarquia1 = niveles.find { it.jerarquia == 1 }
+        val nivelIdFinal = nivelJerarquia1?.id ?: usuario.idNivel
+
         val result = connector.crearUsuarioNuevo.execute(
             alias = usuario.alias,
             nombre = usuario.nombre,
@@ -209,8 +214,8 @@ class UsuarioRepository(
             paralelo = usuario.paralelo
             nombreColegio = usuario.nombreColegio
             horaNotificacion = "18:00"
-            avatarId = UUID.fromString(usuario.idAvatar)
-            nivelId = if(usuario.idNivel.isNotEmpty()) UUID.fromString(usuario.idNivel) else null
+            avatarId = if(usuario.idAvatar.isNotEmpty()) UUID.fromString(usuario.idAvatar) else null
+            nivelId = if(nivelIdFinal.isNotEmpty()) UUID.fromString(nivelIdFinal) else null
         }
 
         val remoteId = result.data.usuario_insert.id.toString()
@@ -438,12 +443,24 @@ class UsuarioRepository(
             var rachaLocal = obj.optInt("rachaLocal", _usuarioActivo.value?.rachaActualDias ?: 1)
             
             if (ultima != hoy) {
+                val formatFull = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val hoyDate = Date()
+                val hoyStr = formatFull.format(hoyDate)
+                
                 if (ultima.isNotEmpty()) {
-                    val ultimaDate = try { format.parse(ultima) } catch(e: Exception) { null }
+                    val ultimaDate = try { formatFull.parse(ultima) } catch(e: Exception) { null }
                     if (ultimaDate != null) {
                         val calAyer = Calendar.getInstance()
+                        calAyer.time = hoyDate
                         calAyer.add(Calendar.DAY_OF_YEAR, -1)
-                        if (format.format(ultimaDate) == format.format(calAyer.time)) {
+                        val ayerStr = formatFull.format(calAyer.time)
+                        
+                        val calAntier = Calendar.getInstance()
+                        calAntier.time = hoyDate
+                        calAntier.add(Calendar.DAY_OF_YEAR, -2)
+                        val antierStr = formatFull.format(calAntier.time)
+
+                        if (ultima == ayerStr || ultima == antierStr) {
                             rachaLocal += 1
                         } else {
                             rachaLocal = 1
@@ -454,7 +471,7 @@ class UsuarioRepository(
                 } else {
                      rachaLocal = 1
                 }
-                obj.put("ultimaFechaAccion", hoy)
+                obj.put("ultimaFechaAccion", hoyStr)
                 obj.put("rachaLocal", rachaLocal)
                 obj.put("pendienteSincronizar", true)
                 prefs[key] = obj.toString()
@@ -462,7 +479,9 @@ class UsuarioRepository(
                 _usuarioActivo.value = _usuarioActivo.value?.copy(rachaActualDias = rachaLocal)
             }
         }
-        sincronizarRachaConBackend()
+        scope.launch {
+            sincronizarRachaConBackend()
+        }
     }
 
     suspend fun sincronizarRachaConBackend() {
@@ -489,6 +508,120 @@ class UsuarioRepository(
             } catch (e: Exception) {
                e.printStackTrace()
             }
+        }
+    }
+
+    suspend fun obtenerTodosLosNiveles(): List<Nivel> {
+        return try {
+            connector.listarNiveles.execute().data.nivels
+                .filter { it.jerarquia != null }
+                .sortedBy { it.jerarquia }
+                .map { n ->
+                    Nivel(
+                        id = n.id.toString(),
+                        nombreRango = n.nombreRango,
+                        jerarquia = n.jerarquia ?: 1,
+                        estrellasRequeridas = n.estrellasRequeridas,
+                        limitePalabrasTarjeta = n.limitePalabrasTarjeta
+                    )
+                }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun registrarResultadoExamen(
+        usuarioId: String,
+        archivoId: String,
+        calificacion: Int,
+        estrellasGanadas: Int
+    ) {
+        try {
+            val aprobado = calificacion >= 60
+            val uuid = UUID.fromString(usuarioId)
+            connector.registrarIntentoExamen.execute(
+                usuarioId = uuid,
+                archivoId = UUID.fromString(archivoId),
+                calificacionObtenida = calificacion,
+                fechaIntento = Timestamp(Date()),
+                completadoExitosamente = aprobado
+            )
+            if (estrellasGanadas > 0) {
+                val usuarioActual = _usuarioActivo.value ?: return
+                val nuevasEstrellas = usuarioActual.estrellasPrestigio + estrellasGanadas
+                connector.actualizarEstrellasUsuario.execute(
+                    id = uuid,
+                    nuevasEstrellas = nuevasEstrellas
+                )
+                val nivelActualizado = verificarSubidaNivel(uuid, nuevasEstrellas, usuarioActual.nivel?.id ?: "")
+                _usuarioActivo.value = usuarioActual.copy(
+                    estrellasPrestigio = nuevasEstrellas,
+                    nivel = nivelActualizado ?: usuarioActual.nivel
+                )
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private suspend fun verificarSubidaNivel(
+        usuarioUuid: UUID,
+        nuevasEstrellas: Int,
+        nivelActualId: String
+    ): Nivel? {
+        return try {
+            val sorted = connector.listarNiveles.execute().data.nivels
+                .filter { it.jerarquia != null }
+                .sortedBy { it.jerarquia }
+
+            if (sorted.isEmpty()) return null
+
+            val idxActual = sorted.indexOfFirst { it.id.toString() == nivelActualId }
+            if (idxActual < 0) {
+                Log.w("NivelCheck", "ID de nivel actual no encontrado en la lista: $nivelActualId")
+                return null
+            }
+
+            Log.d("NivelCheck",
+                "Estrellas: $nuevasEstrellas | NivelActual: ${sorted[idxActual].nombreRango} (jerarquia=${sorted[idxActual].jerarquia}) | Total niveles: ${sorted.size}"
+            )
+            sorted.forEach { n ->
+                Log.d("NivelCheck",
+                    "  -> ${n.nombreRango} | jerarquia=${n.jerarquia} | estrellasRequeridas=${n.estrellasRequeridas}"
+                )
+            }
+
+            var idxObjetivo = idxActual
+            while (idxObjetivo < sorted.size - 1) {
+                val nivelEval = sorted[idxObjetivo]
+                if (nuevasEstrellas >= nivelEval.estrellasRequeridas) {
+                    idxObjetivo++
+                } else {
+                    break
+                }
+            }
+
+            if (idxObjetivo > idxActual) {
+                val nivelNuevo = sorted[idxObjetivo]
+                Log.d("NivelCheck", "Subiendo a: ${nivelNuevo.nombreRango} (jerarquia=${nivelNuevo.jerarquia})")
+                connector.actualizarNivelUsuario.execute(
+                    id = usuarioUuid,
+                    nivelId = nivelNuevo.id
+                )
+                Nivel(
+                    id = nivelNuevo.id.toString(),
+                    nombreRango = nivelNuevo.nombreRango,
+                    jerarquia = nivelNuevo.jerarquia ?: 1,
+                    estrellasRequeridas = nivelNuevo.estrellasRequeridas,
+                    limitePalabrasTarjeta = nivelNuevo.limitePalabrasTarjeta
+                )
+            } else {
+                Log.d("NivelCheck", "Sin subida de nivel.")
+                null
+            }
+        } catch (e: Exception) {
+            Log.e("NivelCheck", "Error: ${e.message}", e)
+            null
         }
     }
 }

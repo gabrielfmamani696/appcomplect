@@ -19,10 +19,13 @@ type Usuario @table {
   apellidoMaterno: String!
   nivel: Nivel
   avatar: OpcionAvatar
+  autorOriginal: String
+  licencia: String
 }
 
 type Nivel @table {
   nombreRango: String!
+  jerarquia: Int
   estrellasRequeridas: Int!
   limitePalabrasTarjeta: Int!
 }

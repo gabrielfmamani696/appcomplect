@@ -25,19 +25,19 @@ public interface ObtenerLeaderboardQuery :
       Unit
     >
 {
+  
 
-
-
+  
     @kotlinx.serialization.Serializable
   public data class Data(
-
+  
     val usuarios: List<UsuariosItem>
   ) {
-
-
+    
+      
         @kotlinx.serialization.Serializable
   public data class UsuariosItem(
-
+  
     val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
     val alias: String,
     val estrellasPrestigio: Int,
@@ -45,46 +45,46 @@ public interface ObtenerLeaderboardQuery :
     val avatar: Avatar?,
     val logroNotificados_on_usuario: List<LogroNotificadosOnUsuarioItem>
   ) {
-
-
+    
+      
         @kotlinx.serialization.Serializable
   public data class Avatar(
-
+  
     val imagenUrl: String
   ) {
-
-
+    
+    
   }
-
+      
         @kotlinx.serialization.Serializable
   public data class LogroNotificadosOnUsuarioItem(
-
+  
     val insignia: Insignia?
   ) {
-
-
+    
+      
         @kotlinx.serialization.Serializable
   public data class Insignia(
-
+  
     val iconoRef: String,
     val nombreVisible: String
   ) {
-
-
+    
+    
   }
-
-
-
+      
+    
+    
   }
-
-
-
+      
+    
+    
   }
-
-
-
+      
+    
+    
   }
-
+  
 
   public companion object {
     public val operationName: String = "ObtenerLeaderboard"
@@ -98,33 +98,33 @@ public interface ObtenerLeaderboardQuery :
 }
 
 public fun ObtenerLeaderboardQuery.ref(
-
+  
 ): com.google.firebase.dataconnect.QueryRef<
     ObtenerLeaderboardQuery.Data,
     Unit
   > =
   ref(
-
+    
       Unit
-
+    
   )
 
 public suspend fun ObtenerLeaderboardQuery.execute(
-
+  
   ): com.google.firebase.dataconnect.QueryResult<
     ObtenerLeaderboardQuery.Data,
     Unit
   > =
   ref(
-
+    
   ).execute()
 
 
   public fun ObtenerLeaderboardQuery.flow(
-
+    
     ): kotlinx.coroutines.flow.Flow<ObtenerLeaderboardQuery.Data> =
     ref(
-
+        
       ).subscribe()
       .flow
       ._flow_map { querySubscriptionResult -> querySubscriptionResult.result.getOrNull() }

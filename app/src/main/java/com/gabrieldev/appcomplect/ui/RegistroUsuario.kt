@@ -36,6 +36,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,6 +48,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.PaddingValues
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -196,13 +201,39 @@ fun RegistroUsuario(
                     }
                 }
 
-                OutlinedTextField(
-                    value = state.paralelo,
-                    onValueChange = { viewModel.actualizarCampo("paralelo", it) },
-                    label = { Text("Paralelo") },
-                    modifier = Modifier.weight(1f),
-                    singleLine = true
-                )
+                val opcionesParalelo = listOf("A", "B", "C", "D", "E", "F")
+                var expandedParalelo by remember { mutableStateOf(false) }
+
+                ExposedDropdownMenuBox(
+                    expanded = expandedParalelo,
+                    onExpandedChange = { expandedParalelo = !expandedParalelo },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    OutlinedTextField(
+                        value = state.paralelo,
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text("Paralelo") },
+                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedParalelo) },
+                        colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
+                        modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable, true),
+                        singleLine = true
+                    )
+                    ExposedDropdownMenu(
+                        expanded = expandedParalelo,
+                        onDismissRequest = { expandedParalelo = false }
+                    ) {
+                        opcionesParalelo.forEach { opcion ->
+                            DropdownMenuItem(
+                                text = { Text(opcion) },
+                                onClick = {
+                                    viewModel.actualizarCampo("paralelo", opcion)
+                                    expandedParalelo = false
+                                }
+                            )
+                        }
+                    }
+                }
             }
             
             Spacer(modifier = Modifier.height(16.dp))
@@ -242,13 +273,26 @@ fun RegistroUsuario(
         if (!state.esModoLogin) {
             Spacer(modifier = Modifier.height(16.dp))
             Text("Tu nombre de investigador (Alias):", style = MaterialTheme.typography.titleMedium)
-            OutlinedTextField(
-                value = state.alias,
-                onValueChange = { viewModel.actualizarCampo("alias", it) },
-                label = { Text("Alias") },
+            Row(
                 modifier = Modifier.fillMaxWidth(),
-                singleLine = true
-            )
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                OutlinedTextField(
+                    value = state.alias,
+                    onValueChange = { viewModel.actualizarCampo("alias", it) },
+                    label = { Text("Alias") },
+                    modifier = Modifier.weight(1f),
+                    singleLine = true
+                )
+                Button(
+                    onClick = { viewModel.generarAlias() },
+                    shape = RoundedCornerShape(12.dp),
+                    contentPadding = PaddingValues(horizontal = 12.dp)
+                ) {
+                    Text("Auto", fontSize = 12.sp)
+                }
+            }
         }
 
         if (state.mensajeError != null) {

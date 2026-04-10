@@ -25,31 +25,31 @@ public interface ListarAvataresQuery :
       Unit
     >
 {
+  
 
-
-
+  
     @kotlinx.serialization.Serializable
   public data class Data(
-
+  
     val opcionAvatars: List<OpcionAvatarsItem>
   ) {
-
-
+    
+      
         @kotlinx.serialization.Serializable
   public data class OpcionAvatarsItem(
-
+  
     val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
     val imagenUrl: String,
     val descripcion: String
   ) {
-
-
+    
+    
   }
-
-
-
+      
+    
+    
   }
-
+  
 
   public companion object {
     public val operationName: String = "ListarAvatares"
@@ -63,33 +63,33 @@ public interface ListarAvataresQuery :
 }
 
 public fun ListarAvataresQuery.ref(
-
+  
 ): com.google.firebase.dataconnect.QueryRef<
     ListarAvataresQuery.Data,
     Unit
   > =
   ref(
-
+    
       Unit
-
+    
   )
 
 public suspend fun ListarAvataresQuery.execute(
-
+  
   ): com.google.firebase.dataconnect.QueryResult<
     ListarAvataresQuery.Data,
     Unit
   > =
   ref(
-
+    
   ).execute()
 
 
   public fun ListarAvataresQuery.flow(
-
+    
     ): kotlinx.coroutines.flow.Flow<ListarAvataresQuery.Data> =
     ref(
-
+        
       ).subscribe()
       .flow
       ._flow_map { querySubscriptionResult -> querySubscriptionResult.result.getOrNull() }

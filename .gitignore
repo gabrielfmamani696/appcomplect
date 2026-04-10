@@ -25,9 +25,11 @@ firebase.exe
 .DS_Store
 *.log
 
-# Google Services configuration file (contiene API Keys)
+# Google Services configuration file
 app/google-services.json
 
-# Otros archivos sensibles que podrías tener
+# Otros archivos sensibles
 .env
 local.properties
+
+/appcomplect/app/build/outputs/apk/debug

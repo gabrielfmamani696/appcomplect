@@ -23,14 +23,92 @@ query ListarArchivosPublicos @auth(level: PUBLIC, insecureReason: "This operatio
     imagenUrl
     nivelRequerido {
       nombreRango
+      jerarquia
+      estrellasRequeridas
+      id
     }
     espacio {
       nombreEspacio
     }
     usuario {
+      id
       alias
+      rol {
+        nombreRol
+      }
     }
   }
+}
+
+query ObtenerArchivoParaEdicion($id: UUID!) @auth(level: PUBLIC, insecureReason: "Load publication metadata for editing") {
+  archivo(id: $id) {
+    id
+    titulo
+    tema
+    descripcion
+    imagenUrl
+    usuario {
+      id
+    }
+  }
+}
+
+mutation CrearArchivoDivulgacion($titulo: String!, $tema: String!, $descripcion: String!, $fechaCreacion: Timestamp!, $imagenUrl: String, $usuarioId: UUID!, $nivelRequeridoId: UUID) @auth(level: PUBLIC, insecureReason: "Student publication create") {
+  archivo_insert(data: {
+    titulo: $titulo
+    tema: $tema
+    descripcion: $descripcion
+    fechaCreacion: $fechaCreacion
+    imagenUrl: $imagenUrl
+    usuarioId: $usuarioId
+    nivelRequeridoId: $nivelRequeridoId
+  })
+}
+
+mutation ActualizarArchivoDivulgacion($id: UUID!, $titulo: String!, $tema: String!, $descripcion: String!, $imagenUrl: String) @auth(level: PUBLIC, insecureReason: "Student publication update") {
+  archivo_update(id: $id, data: { titulo: $titulo, tema: $tema, descripcion: $descripcion, imagenUrl: $imagenUrl })
+}
+
+mutation EliminarArchivo($id: UUID!) @auth(level: PUBLIC, insecureReason: "Student publication delete") {
+  archivo_delete(id: $id)
+}
+
+mutation EliminarTarjetasDeArchivo($archivoId: UUID!) @auth(level: PUBLIC, insecureReason: "Student publication cleanup") {
+  tarjeta_deleteMany(where: { archivoId: { eq: $archivoId } })
+}
+
+mutation EliminarCuestionariosDeArchivo($archivoId: UUID!) @auth(level: PUBLIC, insecureReason: "Student publication cleanup") {
+  cuestionario_deleteMany(where: { archivoId: { eq: $archivoId } })
+}
+
+mutation EliminarPreguntasDeCuestionario($cuestionarioId: UUID!) @auth(level: PUBLIC, insecureReason: "Student publication cleanup") {
+  pregunta_deleteMany(where: { cuestionarioId: { eq: $cuestionarioId } })
+}
+
+mutation EliminarRespuestasDePregunta($preguntaId: UUID!) @auth(level: PUBLIC, insecureReason: "Student publication cleanup") {
+  respuesta_deleteMany(where: { preguntaId: { eq: $preguntaId } })
+}
+
+mutation AgregarTarjetaArchivo($archivoId: UUID!, $ordenSecuencia: Int!, $contenidoTexto: String!, $tipoFondo: String!, $dataFondo: String!) @auth(level: PUBLIC, insecureReason: "Student publication cards") {
+  tarjeta_insert(data: {
+    archivoId: $archivoId
+    ordenSecuencia: $ordenSecuencia
+    contenidoTexto: $contenidoTexto
+    tipoFondo: $tipoFondo
+    dataFondo: $dataFondo
+  })
+}
+
+mutation AgregarCuestionarioArchivo($archivoId: UUID!, $tituloQuiz: String!) @auth(level: PUBLIC, insecureReason: "Student publication quiz") {
+  cuestionario_insert(data: { archivoId: $archivoId, tituloQuiz: $tituloQuiz })
+}
+
+mutation AgregarPreguntaCuestionario($cuestionarioId: UUID!, $enunciado: String!) @auth(level: PUBLIC, insecureReason: "Student publication quiz") {
+  pregunta_insert(data: { cuestionarioId: $cuestionarioId, enunciado: $enunciado })
+}
+
+mutation AgregarRespuestaPregunta($preguntaId: UUID!, $textoOpcion: String!, $esCorrecta: Boolean!) @auth(level: PUBLIC, insecureReason: "Student publication quiz") {
+  respuesta_insert(data: { preguntaId: $preguntaId, textoOpcion: $textoOpcion, esCorrecta: $esCorrecta })
 }
 
 mutation CrearUsuarioNuevo($alias: String!, $nombre: String!, $apellidoPaterno: String!, $apellidoMaterno: String!, $estadoValidacion: Boolean!, $estrellasPrestigio: Int!, $rachaActualDias: Int!, $numeroCelular: String!, $rolId: UUID!, $ultimaActividad: Timestamp!, $curso: String, $paralelo: String, $nombreColegio: String, $avatarId: UUID, $nivelId: UUID, $horaNotificacion: String) @auth(level: PUBLIC, insecureReason: "Safe for custom user registration during development") {
@@ -126,6 +204,7 @@ query ObtenerPerfilCompleto($id: UUID!) @auth(level: PUBLIC, insecureReason: "Fe
     nivel {
       id
       nombreRango
+      jerarquia
       estrellasRequeridas
       limitePalabrasTarjeta
     }
@@ -173,4 +252,108 @@ query ObtenerUsuarioPorCredenciales($numeroCelular: String!, $nombre: String!, $
       imagenUrl
     }
   }
+}
+
+query ObtenerContenidoArchivo($idArchivo: UUID!) @auth(level: PUBLIC, insecureReason: "Safe to fetch learning material") {
+  archivo(id: $idArchivo) {
+    id
+    titulo
+    tarjetas_on_archivo(orderBy: [{ordenSecuencia: ASC}]) {
+      id
+      ordenSecuencia
+      contenidoTexto
+      tipoFondo
+      dataFondo
+    }
+    cuestionarios_on_archivo {
+      id
+      tituloQuiz
+      preguntas_on_cuestionario {
+        id
+        enunciado
+        respuestas_on_pregunta {
+          id
+          textoOpcion
+          esCorrecta
+        }
+      }
+    }
+  }
+}
+
+query ObtenerEstructuraLimpiezaArchivo($archivoId: UUID!) @auth(level: PUBLIC, insecureReason: "Cascade delete helper") {
+  archivo(id: $archivoId) {
+    cuestionarios_on_archivo {
+      id
+      preguntas_on_cuestionario {
+        id
+      }
+    }
+  }
+}
+
+mutation RegistrarIntentoExamen($usuarioId: UUID!, $archivoId: UUID!, $calificacionObtenida: Int!, $fechaIntento: Timestamp!, $completadoExitosamente: Boolean!) @auth(level: PUBLIC, insecureReason: "Safe for auth tracking") {
+  intento_insert(data: {usuarioId: $usuarioId, archivoId: $archivoId, calificacionObtenida: $calificacionObtenida, fechaIntento: $fechaIntento, completadoExitosamente: $completadoExitosamente})
+}
+
+mutation ActualizarEstrellasUsuario($id: UUID!, $nuevasEstrellas: Int!) @auth(level: PUBLIC, insecureReason: "Safe for point updates") {
+  usuario_update(id: $id, data: {estrellasPrestigio: $nuevasEstrellas})
+}
+
+query ListarNiveles @auth(level: PUBLIC, insecureReason: "Levels are public data for progression logic") {
+  nivels(orderBy: [{jerarquia: ASC}]) {
+    id
+    nombreRango
+    jerarquia
+    estrellasRequeridas
+    limitePalabrasTarjeta
+  }
+}
+
+mutation ActualizarNivelUsuario($id: UUID!, $nivelId: UUID!) @auth(level: PUBLIC, insecureReason: "Safe for level update") {
+  usuario_update(id: $id, data: {nivelId: $nivelId})
+}
+
+query ListarTodasInsignias @auth(level: PUBLIC, insecureReason: "Badge catalog is public") {
+  insignias {
+    id
+    nombreVisible
+    descripcion
+    iconoRef
+    condicionDesbloqueo
+  }
+}
+
+query ObtenerInsigniasNotificadas($usuarioId: UUID!) @auth(level: PUBLIC, insecureReason: "Safe for badge tracking") {
+  logroNotificados(where: { usuarioId: { eq: $usuarioId } }) {
+    insignia {
+      id
+      condicionDesbloqueo
+    }
+  }
+}
+
+query ContarIntentosUsuario($usuarioId: UUID!) @auth(level: PUBLIC, insecureReason: "Safe for badge evaluation") {
+  intentos(where: { usuarioId: { eq: $usuarioId } }) {
+    id
+    archivoId
+    completadoExitosamente
+  }
+}
+
+query ContarArchivosCompletadosDistintos($usuarioId: UUID!) @auth(level: PUBLIC, insecureReason: "Safe for badge evaluation") {
+  intentos(where: {
+    usuarioId: { eq: $usuarioId },
+    completadoExitosamente: { eq: true }
+  }) {
+    archivoId
+  }
+}
+
+mutation RegistrarLogroNotificado($usuarioId: UUID!, $insigniaId: UUID!, $fecha: Timestamp!) @auth(level: PUBLIC, insecureReason: "Safe badge notification tracking") {
+  logroNotificado_insert(data: {
+    usuarioId: $usuarioId,
+    insigniaId: $insigniaId,
+    fechaNotificacion: $fecha
+  })
 }

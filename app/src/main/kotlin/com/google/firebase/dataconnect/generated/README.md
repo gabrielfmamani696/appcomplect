@@ -80,21 +80,21 @@ val connector: DefaultConnector = DefaultConnector.getInstance(
 ### DefaultConnector - Query and Mutation Properties
 
 The `default` Data Connect connector defines
-9 queries and
-6 mutations,
-a total of 15 operations.
+17 queries and
+21 mutations,
+a total of 38 operations.
 Each of these operations is exposed
 as a property of [DefaultConnector].
 
 
 An example of the property for a query
-is the query named "ListarArchivosPublicos",
-which can be accessed via the [DefaultConnector.listarArchivosPublicos] property.
+is the query named "ContarArchivosCompletadosDistintos",
+which can be accessed via the [DefaultConnector.contarArchivosCompletadosDistintos] property.
 
 
 An example of the property for a mutation
-is the mutation named "ActualizarRachaUsuario",
-which can be accessed via the [DefaultConnector.actualizarRachaUsuario] property.
+is the mutation named "ActualizarArchivoDivulgacion",
+which can be accessed via the [DefaultConnector.actualizarArchivoDivulgacion] property.
 
 
 ### DefaultConnector - The `dataConnect` Property

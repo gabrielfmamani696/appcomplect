@@ -811,6 +811,15 @@ extend type Nivel {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Nivel.id", purpose: QUERY_COUNT)
   """
+  ✨ Count the number of rows in the `Nivel` table where the `jerarquia` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  jerarquia_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Nivel.jerarquia", purpose: QUERY_COUNT)
+  """
   ✨ Count the number of rows in the `Nivel` table where the `limitePalabrasTarjeta` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
   limitePalabrasTarjeta_count(
@@ -838,6 +847,15 @@ extend type Nivel {
     distinct: Boolean = false
   ): Int @fdc_generated(from: "Nivel.estrellasRequeridas", purpose: QUERY_SUM)
   """
+  ✨ Sum the `jerarquia` field in the `Nivel` table.
+  """
+  jerarquia_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Int @fdc_generated(from: "Nivel.jerarquia", purpose: QUERY_SUM)
+  """
   ✨ Sum the `limitePalabrasTarjeta` field in the `Nivel` table.
   """
   limitePalabrasTarjeta_sum(
@@ -856,6 +874,15 @@ extend type Nivel {
     distinct: Boolean = false
   ): Float @fdc_generated(from: "Nivel.estrellasRequeridas", purpose: QUERY_AVG)
   """
+  ✨ Average the `jerarquia` field in the `Nivel` table.
+  """
+  jerarquia_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "Nivel.jerarquia", purpose: QUERY_AVG)
+  """
   ✨ Average the `limitePalabrasTarjeta` field in the `Nivel` table.
   """
   limitePalabrasTarjeta_avg(
@@ -869,6 +896,10 @@ extend type Nivel {
   """
   estrellasRequeridas_min: Int @fdc_generated(from: "Nivel.estrellasRequeridas", purpose: QUERY_MIN)
   """
+  ✨ Minimum of the `jerarquia` field in the `Nivel` table.
+  """
+  jerarquia_min: Int @fdc_generated(from: "Nivel.jerarquia", purpose: QUERY_MIN)
+  """
   ✨ Minimum of the `limitePalabrasTarjeta` field in the `Nivel` table.
   """
   limitePalabrasTarjeta_min: Int @fdc_generated(from: "Nivel.limitePalabrasTarjeta", purpose: QUERY_MIN)
@@ -876,6 +907,10 @@ extend type Nivel {
   ✨ Maximum of the `estrellasRequeridas` field in the `Nivel` table.
   """
   estrellasRequeridas_max: Int @fdc_generated(from: "Nivel.estrellasRequeridas", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `jerarquia` field in the `Nivel` table.
+  """
+  jerarquia_max: Int @fdc_generated(from: "Nivel.jerarquia", purpose: QUERY_MAX)
   """
   ✨ Maximum of the `limitePalabrasTarjeta` field in the `Nivel` table.
   """
@@ -1621,6 +1656,15 @@ extend type Usuario {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Usuario.apellidoPaterno", purpose: QUERY_COUNT)
   """
+  ✨ Count the number of rows in the `Usuario` table where the `autorOriginal` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  autorOriginal_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Usuario.autorOriginal", purpose: QUERY_COUNT)
+  """
   ✨ Count the number of rows in the `Usuario` table where the `avatarId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
   avatarId_count(
@@ -1674,6 +1718,15 @@ extend type Usuario {
     """
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Usuario.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Usuario` table where the `licencia` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  licencia_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Usuario.licencia", purpose: QUERY_COUNT)
   """
   ✨ Count the number of rows in the `Usuario` table where the `nivelId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """

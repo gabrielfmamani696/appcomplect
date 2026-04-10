@@ -25,19 +25,19 @@ public interface ListarArchivosPublicosQuery :
       Unit
     >
 {
+  
 
-
-
+  
     @kotlinx.serialization.Serializable
   public data class Data(
-
+  
     val archivos: List<ArchivosItem>
   ) {
-
-
+    
+      
         @kotlinx.serialization.Serializable
   public data class ArchivosItem(
-
+  
     val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
     val titulo: String,
     val descripcion: String,
@@ -47,43 +47,59 @@ public interface ListarArchivosPublicosQuery :
     val espacio: Espacio?,
     val usuario: Usuario?
   ) {
-
-
+    
+      
         @kotlinx.serialization.Serializable
   public data class NivelRequerido(
-
-    val nombreRango: String
+  
+    val nombreRango: String,
+    val jerarquia: Int?,
+    val estrellasRequeridas: Int,
+    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID
   ) {
-
-
+    
+    
   }
-
+      
         @kotlinx.serialization.Serializable
   public data class Espacio(
-
+  
     val nombreEspacio: String
   ) {
-
-
+    
+    
   }
-
+      
         @kotlinx.serialization.Serializable
   public data class Usuario(
-
-    val alias: String
+  
+    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
+    val alias: String,
+    val rol: Rol
   ) {
-
-
+    
+      
+        @kotlinx.serialization.Serializable
+  public data class Rol(
+  
+    val nombreRol: String
+  ) {
+    
+    
   }
-
-
-
+      
+    
+    
   }
-
-
-
+      
+    
+    
   }
-
+      
+    
+    
+  }
+  
 
   public companion object {
     public val operationName: String = "ListarArchivosPublicos"
@@ -97,33 +113,33 @@ public interface ListarArchivosPublicosQuery :
 }
 
 public fun ListarArchivosPublicosQuery.ref(
-
+  
 ): com.google.firebase.dataconnect.QueryRef<
     ListarArchivosPublicosQuery.Data,
     Unit
   > =
   ref(
-
+    
       Unit
-
+    
   )
 
 public suspend fun ListarArchivosPublicosQuery.execute(
-
+  
   ): com.google.firebase.dataconnect.QueryResult<
     ListarArchivosPublicosQuery.Data,
     Unit
   > =
   ref(
-
+    
   ).execute()
 
 
   public fun ListarArchivosPublicosQuery.flow(
-
+    
     ): kotlinx.coroutines.flow.Flow<ListarArchivosPublicosQuery.Data> =
     ref(
-
+        
       ).subscribe()
       .flow
       ._flow_map { querySubscriptionResult -> querySubscriptionResult.result.getOrNull() }

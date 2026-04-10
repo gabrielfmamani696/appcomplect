@@ -19,37 +19,83 @@ import kotlin.time.Duration.Companion.milliseconds as _milliseconds
 public interface DefaultConnector : com.google.firebase.dataconnect.generated.GeneratedConnector<DefaultConnector> {
   override val dataConnect: com.google.firebase.dataconnect.FirebaseDataConnect
 
-
+  
+    public val actualizarArchivoDivulgacion: ActualizarArchivoDivulgacionMutation
+  
+    public val actualizarEstrellasUsuario: ActualizarEstrellasUsuarioMutation
+  
+    public val actualizarNivelUsuario: ActualizarNivelUsuarioMutation
+  
     public val actualizarRachaUsuario: ActualizarRachaUsuarioMutation
-
+  
     public val actualizarUsuarioPerfil: ActualizarUsuarioPerfilMutation
-
+  
+    public val agregarCuestionarioArchivo: AgregarCuestionarioArchivoMutation
+  
+    public val agregarPreguntaCuestionario: AgregarPreguntaCuestionarioMutation
+  
+    public val agregarRespuestaPregunta: AgregarRespuestaPreguntaMutation
+  
+    public val agregarTarjetaArchivo: AgregarTarjetaArchivoMutation
+  
+    public val contarArchivosCompletadosDistintos: ContarArchivosCompletadosDistintosQuery
+  
+    public val contarIntentosUsuario: ContarIntentosUsuarioQuery
+  
+    public val crearArchivoDivulgacion: CrearArchivoDivulgacionMutation
+  
     public val crearSolicitudValidacion: CrearSolicitudValidacionMutation
-
+  
     public val crearUsuarioNuevo: CrearUsuarioNuevoMutation
-
+  
+    public val eliminarArchivo: EliminarArchivoMutation
+  
+    public val eliminarCuestionariosDeArchivo: EliminarCuestionariosDeArchivoMutation
+  
+    public val eliminarPreguntasDeCuestionario: EliminarPreguntasDeCuestionarioMutation
+  
+    public val eliminarRespuestasDePregunta: EliminarRespuestasDePreguntaMutation
+  
+    public val eliminarTarjetasDeArchivo: EliminarTarjetasDeArchivoMutation
+  
     public val listarArchivosPublicos: ListarArchivosPublicosQuery
-
+  
     public val listarAvatares: ListarAvataresQuery
-
+  
+    public val listarNiveles: ListarNivelesQuery
+  
     public val listarRoles: ListarRolesQuery
-
+  
+    public val listarTodasInsignias: ListarTodasInsigniasQuery
+  
+    public val obtenerArchivoParaEdicion: ObtenerArchivoParaEdicionQuery
+  
+    public val obtenerContenidoArchivo: ObtenerContenidoArchivoQuery
+  
+    public val obtenerEstructuraLimpiezaArchivo: ObtenerEstructuraLimpiezaArchivoQuery
+  
+    public val obtenerInsigniasNotificadas: ObtenerInsigniasNotificadasQuery
+  
     public val obtenerLeaderboard: ObtenerLeaderboardQuery
-
+  
     public val obtenerPanelSolicitudes: ObtenerPanelSolicitudesQuery
-
+  
     public val obtenerPerfilCompleto: ObtenerPerfilCompletoQuery
-
+  
     public val obtenerRankingUsuario: ObtenerRankingUsuarioQuery
-
+  
     public val obtenerUsuarioPorCredenciales: ObtenerUsuarioPorCredencialesQuery
-
+  
     public val obtenerUsuarioPorId: ObtenerUsuarioPorIdQuery
-
+  
+    public val registrarIntentoExamen: RegistrarIntentoExamenMutation
+  
+    public val registrarLogroNotificado: RegistrarLogroNotificadoMutation
+  
     public val seedOpcionAvatarData: SeedOpcionAvatarDataMutation
-
+  
     public val seedRolesData: SeedRolesDataMutation
-
+  
 
   public companion object {
     @Suppress("MemberVisibilityCanBePrivate")
@@ -69,7 +115,7 @@ public interface DefaultConnector : com.google.firebase.dataconnect.generated.Ge
 
     private val instances = java.util.WeakHashMap<com.google.firebase.dataconnect.FirebaseDataConnect, DefaultConnectorImpl>()
 
-
+    
   }
 }
 
@@ -92,67 +138,159 @@ public fun DefaultConnector.Companion.getInstance(
 private class DefaultConnectorImpl(
   override val dataConnect: com.google.firebase.dataconnect.FirebaseDataConnect
 ) : DefaultConnector {
-
+  
+    override val actualizarArchivoDivulgacion by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ActualizarArchivoDivulgacionMutationImpl(this)
+    }
+  
+    override val actualizarEstrellasUsuario by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ActualizarEstrellasUsuarioMutationImpl(this)
+    }
+  
+    override val actualizarNivelUsuario by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ActualizarNivelUsuarioMutationImpl(this)
+    }
+  
     override val actualizarRachaUsuario by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ActualizarRachaUsuarioMutationImpl(this)
     }
-
+  
     override val actualizarUsuarioPerfil by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ActualizarUsuarioPerfilMutationImpl(this)
     }
-
+  
+    override val agregarCuestionarioArchivo by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      AgregarCuestionarioArchivoMutationImpl(this)
+    }
+  
+    override val agregarPreguntaCuestionario by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      AgregarPreguntaCuestionarioMutationImpl(this)
+    }
+  
+    override val agregarRespuestaPregunta by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      AgregarRespuestaPreguntaMutationImpl(this)
+    }
+  
+    override val agregarTarjetaArchivo by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      AgregarTarjetaArchivoMutationImpl(this)
+    }
+  
+    override val contarArchivosCompletadosDistintos by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ContarArchivosCompletadosDistintosQueryImpl(this)
+    }
+  
+    override val contarIntentosUsuario by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ContarIntentosUsuarioQueryImpl(this)
+    }
+  
+    override val crearArchivoDivulgacion by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      CrearArchivoDivulgacionMutationImpl(this)
+    }
+  
     override val crearSolicitudValidacion by lazy(LazyThreadSafetyMode.PUBLICATION) {
       CrearSolicitudValidacionMutationImpl(this)
     }
-
+  
     override val crearUsuarioNuevo by lazy(LazyThreadSafetyMode.PUBLICATION) {
       CrearUsuarioNuevoMutationImpl(this)
     }
-
+  
+    override val eliminarArchivo by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      EliminarArchivoMutationImpl(this)
+    }
+  
+    override val eliminarCuestionariosDeArchivo by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      EliminarCuestionariosDeArchivoMutationImpl(this)
+    }
+  
+    override val eliminarPreguntasDeCuestionario by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      EliminarPreguntasDeCuestionarioMutationImpl(this)
+    }
+  
+    override val eliminarRespuestasDePregunta by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      EliminarRespuestasDePreguntaMutationImpl(this)
+    }
+  
+    override val eliminarTarjetasDeArchivo by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      EliminarTarjetasDeArchivoMutationImpl(this)
+    }
+  
     override val listarArchivosPublicos by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ListarArchivosPublicosQueryImpl(this)
     }
-
+  
     override val listarAvatares by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ListarAvataresQueryImpl(this)
     }
-
+  
+    override val listarNiveles by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ListarNivelesQueryImpl(this)
+    }
+  
     override val listarRoles by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ListarRolesQueryImpl(this)
     }
-
+  
+    override val listarTodasInsignias by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ListarTodasInsigniasQueryImpl(this)
+    }
+  
+    override val obtenerArchivoParaEdicion by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ObtenerArchivoParaEdicionQueryImpl(this)
+    }
+  
+    override val obtenerContenidoArchivo by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ObtenerContenidoArchivoQueryImpl(this)
+    }
+  
+    override val obtenerEstructuraLimpiezaArchivo by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ObtenerEstructuraLimpiezaArchivoQueryImpl(this)
+    }
+  
+    override val obtenerInsigniasNotificadas by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ObtenerInsigniasNotificadasQueryImpl(this)
+    }
+  
     override val obtenerLeaderboard by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ObtenerLeaderboardQueryImpl(this)
     }
-
+  
     override val obtenerPanelSolicitudes by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ObtenerPanelSolicitudesQueryImpl(this)
     }
-
+  
     override val obtenerPerfilCompleto by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ObtenerPerfilCompletoQueryImpl(this)
     }
-
+  
     override val obtenerRankingUsuario by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ObtenerRankingUsuarioQueryImpl(this)
     }
-
+  
     override val obtenerUsuarioPorCredenciales by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ObtenerUsuarioPorCredencialesQueryImpl(this)
     }
-
+  
     override val obtenerUsuarioPorId by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ObtenerUsuarioPorIdQueryImpl(this)
     }
-
+  
+    override val registrarIntentoExamen by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      RegistrarIntentoExamenMutationImpl(this)
+    }
+  
+    override val registrarLogroNotificado by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      RegistrarLogroNotificadoMutationImpl(this)
+    }
+  
     override val seedOpcionAvatarData by lazy(LazyThreadSafetyMode.PUBLICATION) {
       SeedOpcionAvatarDataMutationImpl(this)
     }
-
+  
     override val seedRolesData by lazy(LazyThreadSafetyMode.PUBLICATION) {
       SeedRolesDataMutationImpl(this)
     }
-
+  
 
   @com.google.firebase.dataconnect.ExperimentalFirebaseDataConnect
   override fun operations(): List<com.google.firebase.dataconnect.generated.GeneratedOperation<DefaultConnector, *, *>> =
@@ -161,28 +299,51 @@ private class DefaultConnectorImpl(
   @com.google.firebase.dataconnect.ExperimentalFirebaseDataConnect
   override fun mutations(): List<com.google.firebase.dataconnect.generated.GeneratedMutation<DefaultConnector, *, *>> =
     listOf(
-      actualizarRachaUsuario,
+      actualizarArchivoDivulgacion,
+        actualizarEstrellasUsuario,
+        actualizarNivelUsuario,
+        actualizarRachaUsuario,
         actualizarUsuarioPerfil,
+        agregarCuestionarioArchivo,
+        agregarPreguntaCuestionario,
+        agregarRespuestaPregunta,
+        agregarTarjetaArchivo,
+        crearArchivoDivulgacion,
         crearSolicitudValidacion,
         crearUsuarioNuevo,
+        eliminarArchivo,
+        eliminarCuestionariosDeArchivo,
+        eliminarPreguntasDeCuestionario,
+        eliminarRespuestasDePregunta,
+        eliminarTarjetasDeArchivo,
+        registrarIntentoExamen,
+        registrarLogroNotificado,
         seedOpcionAvatarData,
         seedRolesData,
-
+        
     )
 
   @com.google.firebase.dataconnect.ExperimentalFirebaseDataConnect
   override fun queries(): List<com.google.firebase.dataconnect.generated.GeneratedQuery<DefaultConnector, *, *>> =
     listOf(
-      listarArchivosPublicos,
+      contarArchivosCompletadosDistintos,
+        contarIntentosUsuario,
+        listarArchivosPublicos,
         listarAvatares,
+        listarNiveles,
         listarRoles,
+        listarTodasInsignias,
+        obtenerArchivoParaEdicion,
+        obtenerContenidoArchivo,
+        obtenerEstructuraLimpiezaArchivo,
+        obtenerInsigniasNotificadas,
         obtenerLeaderboard,
         obtenerPanelSolicitudes,
         obtenerPerfilCompleto,
         obtenerRankingUsuario,
         obtenerUsuarioPorCredenciales,
         obtenerUsuarioPorId,
-
+        
     )
 
   @com.google.firebase.dataconnect.ExperimentalFirebaseDataConnect
@@ -317,6 +478,51 @@ private open class DefaultConnectorGeneratedMutationImpl<Data, Variables>(
 
 
 
+private class ActualizarArchivoDivulgacionMutationImpl(
+  connector: DefaultConnector
+):
+  ActualizarArchivoDivulgacionMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      ActualizarArchivoDivulgacionMutation.Data,
+      ActualizarArchivoDivulgacionMutation.Variables
+  >(
+    connector,
+    ActualizarArchivoDivulgacionMutation.Companion.operationName,
+    ActualizarArchivoDivulgacionMutation.Companion.dataDeserializer,
+    ActualizarArchivoDivulgacionMutation.Companion.variablesSerializer,
+  )
+
+
+private class ActualizarEstrellasUsuarioMutationImpl(
+  connector: DefaultConnector
+):
+  ActualizarEstrellasUsuarioMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      ActualizarEstrellasUsuarioMutation.Data,
+      ActualizarEstrellasUsuarioMutation.Variables
+  >(
+    connector,
+    ActualizarEstrellasUsuarioMutation.Companion.operationName,
+    ActualizarEstrellasUsuarioMutation.Companion.dataDeserializer,
+    ActualizarEstrellasUsuarioMutation.Companion.variablesSerializer,
+  )
+
+
+private class ActualizarNivelUsuarioMutationImpl(
+  connector: DefaultConnector
+):
+  ActualizarNivelUsuarioMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      ActualizarNivelUsuarioMutation.Data,
+      ActualizarNivelUsuarioMutation.Variables
+  >(
+    connector,
+    ActualizarNivelUsuarioMutation.Companion.operationName,
+    ActualizarNivelUsuarioMutation.Companion.dataDeserializer,
+    ActualizarNivelUsuarioMutation.Companion.variablesSerializer,
+  )
+
+
 private class ActualizarRachaUsuarioMutationImpl(
   connector: DefaultConnector
 ):
@@ -344,6 +550,111 @@ private class ActualizarUsuarioPerfilMutationImpl(
     ActualizarUsuarioPerfilMutation.Companion.operationName,
     ActualizarUsuarioPerfilMutation.Companion.dataDeserializer,
     ActualizarUsuarioPerfilMutation.Companion.variablesSerializer,
+  )
+
+
+private class AgregarCuestionarioArchivoMutationImpl(
+  connector: DefaultConnector
+):
+  AgregarCuestionarioArchivoMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      AgregarCuestionarioArchivoMutation.Data,
+      AgregarCuestionarioArchivoMutation.Variables
+  >(
+    connector,
+    AgregarCuestionarioArchivoMutation.Companion.operationName,
+    AgregarCuestionarioArchivoMutation.Companion.dataDeserializer,
+    AgregarCuestionarioArchivoMutation.Companion.variablesSerializer,
+  )
+
+
+private class AgregarPreguntaCuestionarioMutationImpl(
+  connector: DefaultConnector
+):
+  AgregarPreguntaCuestionarioMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      AgregarPreguntaCuestionarioMutation.Data,
+      AgregarPreguntaCuestionarioMutation.Variables
+  >(
+    connector,
+    AgregarPreguntaCuestionarioMutation.Companion.operationName,
+    AgregarPreguntaCuestionarioMutation.Companion.dataDeserializer,
+    AgregarPreguntaCuestionarioMutation.Companion.variablesSerializer,
+  )
+
+
+private class AgregarRespuestaPreguntaMutationImpl(
+  connector: DefaultConnector
+):
+  AgregarRespuestaPreguntaMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      AgregarRespuestaPreguntaMutation.Data,
+      AgregarRespuestaPreguntaMutation.Variables
+  >(
+    connector,
+    AgregarRespuestaPreguntaMutation.Companion.operationName,
+    AgregarRespuestaPreguntaMutation.Companion.dataDeserializer,
+    AgregarRespuestaPreguntaMutation.Companion.variablesSerializer,
+  )
+
+
+private class AgregarTarjetaArchivoMutationImpl(
+  connector: DefaultConnector
+):
+  AgregarTarjetaArchivoMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      AgregarTarjetaArchivoMutation.Data,
+      AgregarTarjetaArchivoMutation.Variables
+  >(
+    connector,
+    AgregarTarjetaArchivoMutation.Companion.operationName,
+    AgregarTarjetaArchivoMutation.Companion.dataDeserializer,
+    AgregarTarjetaArchivoMutation.Companion.variablesSerializer,
+  )
+
+
+private class ContarArchivosCompletadosDistintosQueryImpl(
+  connector: DefaultConnector
+):
+  ContarArchivosCompletadosDistintosQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ContarArchivosCompletadosDistintosQuery.Data,
+      ContarArchivosCompletadosDistintosQuery.Variables
+  >(
+    connector,
+    ContarArchivosCompletadosDistintosQuery.Companion.operationName,
+    ContarArchivosCompletadosDistintosQuery.Companion.dataDeserializer,
+    ContarArchivosCompletadosDistintosQuery.Companion.variablesSerializer,
+  )
+
+
+private class ContarIntentosUsuarioQueryImpl(
+  connector: DefaultConnector
+):
+  ContarIntentosUsuarioQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ContarIntentosUsuarioQuery.Data,
+      ContarIntentosUsuarioQuery.Variables
+  >(
+    connector,
+    ContarIntentosUsuarioQuery.Companion.operationName,
+    ContarIntentosUsuarioQuery.Companion.dataDeserializer,
+    ContarIntentosUsuarioQuery.Companion.variablesSerializer,
+  )
+
+
+private class CrearArchivoDivulgacionMutationImpl(
+  connector: DefaultConnector
+):
+  CrearArchivoDivulgacionMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      CrearArchivoDivulgacionMutation.Data,
+      CrearArchivoDivulgacionMutation.Variables
+  >(
+    connector,
+    CrearArchivoDivulgacionMutation.Companion.operationName,
+    CrearArchivoDivulgacionMutation.Companion.dataDeserializer,
+    CrearArchivoDivulgacionMutation.Companion.variablesSerializer,
   )
 
 
@@ -377,6 +688,81 @@ private class CrearUsuarioNuevoMutationImpl(
   )
 
 
+private class EliminarArchivoMutationImpl(
+  connector: DefaultConnector
+):
+  EliminarArchivoMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      EliminarArchivoMutation.Data,
+      EliminarArchivoMutation.Variables
+  >(
+    connector,
+    EliminarArchivoMutation.Companion.operationName,
+    EliminarArchivoMutation.Companion.dataDeserializer,
+    EliminarArchivoMutation.Companion.variablesSerializer,
+  )
+
+
+private class EliminarCuestionariosDeArchivoMutationImpl(
+  connector: DefaultConnector
+):
+  EliminarCuestionariosDeArchivoMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      EliminarCuestionariosDeArchivoMutation.Data,
+      EliminarCuestionariosDeArchivoMutation.Variables
+  >(
+    connector,
+    EliminarCuestionariosDeArchivoMutation.Companion.operationName,
+    EliminarCuestionariosDeArchivoMutation.Companion.dataDeserializer,
+    EliminarCuestionariosDeArchivoMutation.Companion.variablesSerializer,
+  )
+
+
+private class EliminarPreguntasDeCuestionarioMutationImpl(
+  connector: DefaultConnector
+):
+  EliminarPreguntasDeCuestionarioMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      EliminarPreguntasDeCuestionarioMutation.Data,
+      EliminarPreguntasDeCuestionarioMutation.Variables
+  >(
+    connector,
+    EliminarPreguntasDeCuestionarioMutation.Companion.operationName,
+    EliminarPreguntasDeCuestionarioMutation.Companion.dataDeserializer,
+    EliminarPreguntasDeCuestionarioMutation.Companion.variablesSerializer,
+  )
+
+
+private class EliminarRespuestasDePreguntaMutationImpl(
+  connector: DefaultConnector
+):
+  EliminarRespuestasDePreguntaMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      EliminarRespuestasDePreguntaMutation.Data,
+      EliminarRespuestasDePreguntaMutation.Variables
+  >(
+    connector,
+    EliminarRespuestasDePreguntaMutation.Companion.operationName,
+    EliminarRespuestasDePreguntaMutation.Companion.dataDeserializer,
+    EliminarRespuestasDePreguntaMutation.Companion.variablesSerializer,
+  )
+
+
+private class EliminarTarjetasDeArchivoMutationImpl(
+  connector: DefaultConnector
+):
+  EliminarTarjetasDeArchivoMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      EliminarTarjetasDeArchivoMutation.Data,
+      EliminarTarjetasDeArchivoMutation.Variables
+  >(
+    connector,
+    EliminarTarjetasDeArchivoMutation.Companion.operationName,
+    EliminarTarjetasDeArchivoMutation.Companion.dataDeserializer,
+    EliminarTarjetasDeArchivoMutation.Companion.variablesSerializer,
+  )
+
+
 private class ListarArchivosPublicosQueryImpl(
   connector: DefaultConnector
 ):
@@ -407,6 +793,21 @@ private class ListarAvataresQueryImpl(
   )
 
 
+private class ListarNivelesQueryImpl(
+  connector: DefaultConnector
+):
+  ListarNivelesQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ListarNivelesQuery.Data,
+      Unit
+  >(
+    connector,
+    ListarNivelesQuery.Companion.operationName,
+    ListarNivelesQuery.Companion.dataDeserializer,
+    ListarNivelesQuery.Companion.variablesSerializer,
+  )
+
+
 private class ListarRolesQueryImpl(
   connector: DefaultConnector
 ):
@@ -419,6 +820,81 @@ private class ListarRolesQueryImpl(
     ListarRolesQuery.Companion.operationName,
     ListarRolesQuery.Companion.dataDeserializer,
     ListarRolesQuery.Companion.variablesSerializer,
+  )
+
+
+private class ListarTodasInsigniasQueryImpl(
+  connector: DefaultConnector
+):
+  ListarTodasInsigniasQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ListarTodasInsigniasQuery.Data,
+      Unit
+  >(
+    connector,
+    ListarTodasInsigniasQuery.Companion.operationName,
+    ListarTodasInsigniasQuery.Companion.dataDeserializer,
+    ListarTodasInsigniasQuery.Companion.variablesSerializer,
+  )
+
+
+private class ObtenerArchivoParaEdicionQueryImpl(
+  connector: DefaultConnector
+):
+  ObtenerArchivoParaEdicionQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ObtenerArchivoParaEdicionQuery.Data,
+      ObtenerArchivoParaEdicionQuery.Variables
+  >(
+    connector,
+    ObtenerArchivoParaEdicionQuery.Companion.operationName,
+    ObtenerArchivoParaEdicionQuery.Companion.dataDeserializer,
+    ObtenerArchivoParaEdicionQuery.Companion.variablesSerializer,
+  )
+
+
+private class ObtenerContenidoArchivoQueryImpl(
+  connector: DefaultConnector
+):
+  ObtenerContenidoArchivoQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ObtenerContenidoArchivoQuery.Data,
+      ObtenerContenidoArchivoQuery.Variables
+  >(
+    connector,
+    ObtenerContenidoArchivoQuery.Companion.operationName,
+    ObtenerContenidoArchivoQuery.Companion.dataDeserializer,
+    ObtenerContenidoArchivoQuery.Companion.variablesSerializer,
+  )
+
+
+private class ObtenerEstructuraLimpiezaArchivoQueryImpl(
+  connector: DefaultConnector
+):
+  ObtenerEstructuraLimpiezaArchivoQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ObtenerEstructuraLimpiezaArchivoQuery.Data,
+      ObtenerEstructuraLimpiezaArchivoQuery.Variables
+  >(
+    connector,
+    ObtenerEstructuraLimpiezaArchivoQuery.Companion.operationName,
+    ObtenerEstructuraLimpiezaArchivoQuery.Companion.dataDeserializer,
+    ObtenerEstructuraLimpiezaArchivoQuery.Companion.variablesSerializer,
+  )
+
+
+private class ObtenerInsigniasNotificadasQueryImpl(
+  connector: DefaultConnector
+):
+  ObtenerInsigniasNotificadasQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ObtenerInsigniasNotificadasQuery.Data,
+      ObtenerInsigniasNotificadasQuery.Variables
+  >(
+    connector,
+    ObtenerInsigniasNotificadasQuery.Companion.operationName,
+    ObtenerInsigniasNotificadasQuery.Companion.dataDeserializer,
+    ObtenerInsigniasNotificadasQuery.Companion.variablesSerializer,
   )
 
 
@@ -509,6 +985,36 @@ private class ObtenerUsuarioPorIdQueryImpl(
     ObtenerUsuarioPorIdQuery.Companion.operationName,
     ObtenerUsuarioPorIdQuery.Companion.dataDeserializer,
     ObtenerUsuarioPorIdQuery.Companion.variablesSerializer,
+  )
+
+
+private class RegistrarIntentoExamenMutationImpl(
+  connector: DefaultConnector
+):
+  RegistrarIntentoExamenMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      RegistrarIntentoExamenMutation.Data,
+      RegistrarIntentoExamenMutation.Variables
+  >(
+    connector,
+    RegistrarIntentoExamenMutation.Companion.operationName,
+    RegistrarIntentoExamenMutation.Companion.dataDeserializer,
+    RegistrarIntentoExamenMutation.Companion.variablesSerializer,
+  )
+
+
+private class RegistrarLogroNotificadoMutationImpl(
+  connector: DefaultConnector
+):
+  RegistrarLogroNotificadoMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      RegistrarLogroNotificadoMutation.Data,
+      RegistrarLogroNotificadoMutation.Variables
+  >(
+    connector,
+    RegistrarLogroNotificadoMutation.Companion.operationName,
+    RegistrarLogroNotificadoMutation.Companion.dataDeserializer,
+    RegistrarLogroNotificadoMutation.Companion.variablesSerializer,
   )
 
 

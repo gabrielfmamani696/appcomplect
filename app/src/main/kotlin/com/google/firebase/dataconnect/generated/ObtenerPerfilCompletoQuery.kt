@@ -82,6 +82,7 @@ public interface ObtenerPerfilCompletoQuery :
   
     val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
     val nombreRango: String,
+    val jerarquia: Int?,
     val estrellasRequeridas: Int,
     val limitePalabrasTarjeta: Int
   ) {

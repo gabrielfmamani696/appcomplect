@@ -1850,6 +1850,18 @@ input Nivel_Data {
   """
   estrellasRequeridas_update: [Int_Update!] @fdc_forbiddenInVariables
   """
+  ✨ Generated from Field `Nivel`.`jerarquia` of type `Int`
+  """
+  jerarquia: Int
+  """
+  ✨ `_expr` server value variant of `jerarquia` (✨ Generated from Field `Nivel`.`jerarquia` of type `Int`)
+  """
+  jerarquia_expr: Int_Expr @fdc_forbiddenInVariables
+  """
+  ✨ `_update` server value variant of `jerarquia` (✨ Generated from Field `Nivel`.`jerarquia` of type `Int`)
+  """
+  jerarquia_update: [Int_Update!] @fdc_forbiddenInVariables
+  """
   ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta` of type `Int!`
   """
   limitePalabrasTarjeta: Int
@@ -1894,6 +1906,10 @@ input Nivel_Filter {
   ✨ Generated from Field `Nivel`.`estrellasRequeridas` of type `Int!`
   """
   estrellasRequeridas: Int_Filter
+  """
+  ✨ Generated from Field `Nivel`.`jerarquia` of type `Int`
+  """
+  jerarquia: Int_Filter
   """
   ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta` of type `Int!`
   """
@@ -1957,6 +1973,10 @@ input Nivel_Having {
   """
   id_count: Int_Filter
   """
+  ✨ Generated from Field `Nivel`.`jerarquia_count` of type `Int!`
+  """
+  jerarquia_count: Int_Filter
+  """
   ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_count` of type `Int!`
   """
   limitePalabrasTarjeta_count: Int_Filter
@@ -1969,6 +1989,10 @@ input Nivel_Having {
   """
   estrellasRequeridas_sum: Int_Filter
   """
+  ✨ Generated from Field `Nivel`.`jerarquia_sum` of type `Int`
+  """
+  jerarquia_sum: Int_Filter
+  """
   ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_sum` of type `Int`
   """
   limitePalabrasTarjeta_sum: Int_Filter
@@ -1976,6 +2000,10 @@ input Nivel_Having {
   ✨ Generated from Field `Nivel`.`estrellasRequeridas_avg` of type `Float`
   """
   estrellasRequeridas_avg: Float_Filter
+  """
+  ✨ Generated from Field `Nivel`.`jerarquia_avg` of type `Float`
+  """
+  jerarquia_avg: Float_Filter
   """
   ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_avg` of type `Float`
   """
@@ -1985,6 +2013,10 @@ input Nivel_Having {
   """
   estrellasRequeridas_min: Int_Filter
   """
+  ✨ Generated from Field `Nivel`.`jerarquia_min` of type `Int`
+  """
+  jerarquia_min: Int_Filter
+  """
   ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_min` of type `Int`
   """
   limitePalabrasTarjeta_min: Int_Filter
@@ -1992,6 +2024,10 @@ input Nivel_Having {
   ✨ Generated from Field `Nivel`.`estrellasRequeridas_max` of type `Int`
   """
   estrellasRequeridas_max: Int_Filter
+  """
+  ✨ Generated from Field `Nivel`.`jerarquia_max` of type `Int`
+  """
+  jerarquia_max: Int_Filter
   """
   ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_max` of type `Int`
   """
@@ -2036,6 +2072,10 @@ input Nivel_Order {
   """
   estrellasRequeridas: OrderDirection
   """
+  ✨ Generated from Field `Nivel`.`jerarquia` of type `Int`
+  """
+  jerarquia: OrderDirection
+  """
   ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta` of type `Int!`
   """
   limitePalabrasTarjeta: OrderDirection
@@ -2056,6 +2096,10 @@ input Nivel_Order {
   """
   id_count: OrderDirection
   """
+  ✨ Generated from Field `Nivel`.`jerarquia_count` of type `Int!`
+  """
+  jerarquia_count: OrderDirection
+  """
   ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_count` of type `Int!`
   """
   limitePalabrasTarjeta_count: OrderDirection
@@ -2068,6 +2112,10 @@ input Nivel_Order {
   """
   estrellasRequeridas_sum: OrderDirection
   """
+  ✨ Generated from Field `Nivel`.`jerarquia_sum` of type `Int`
+  """
+  jerarquia_sum: OrderDirection
+  """
   ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_sum` of type `Int`
   """
   limitePalabrasTarjeta_sum: OrderDirection
@@ -2075,6 +2123,10 @@ input Nivel_Order {
   ✨ Generated from Field `Nivel`.`estrellasRequeridas_avg` of type `Float`
   """
   estrellasRequeridas_avg: OrderDirection
+  """
+  ✨ Generated from Field `Nivel`.`jerarquia_avg` of type `Float`
+  """
+  jerarquia_avg: OrderDirection
   """
   ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_avg` of type `Float`
   """
@@ -2084,6 +2136,10 @@ input Nivel_Order {
   """
   estrellasRequeridas_min: OrderDirection
   """
+  ✨ Generated from Field `Nivel`.`jerarquia_min` of type `Int`
+  """
+  jerarquia_min: OrderDirection
+  """
   ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_min` of type `Int`
   """
   limitePalabrasTarjeta_min: OrderDirection
@@ -2091,6 +2147,10 @@ input Nivel_Order {
   ✨ Generated from Field `Nivel`.`estrellasRequeridas_max` of type `Int`
   """
   estrellasRequeridas_max: OrderDirection
+  """
+  ✨ Generated from Field `Nivel`.`jerarquia_max` of type `Int`
+  """
+  jerarquia_max: OrderDirection
   """
   ✨ Generated from Field `Nivel`.`limitePalabrasTarjeta_max` of type `Int`
   """
@@ -3427,6 +3487,14 @@ input Usuario_Data {
   """
   apellidoPaterno_expr: String_Expr @fdc_forbiddenInVariables
   """
+  ✨ Generated from Field `Usuario`.`autorOriginal` of type `String`
+  """
+  autorOriginal: String
+  """
+  ✨ `_expr` server value variant of `autorOriginal` (✨ Generated from Field `Usuario`.`autorOriginal` of type `String`)
+  """
+  autorOriginal_expr: String_Expr @fdc_forbiddenInVariables
+  """
   ✨ Generated from Field `Usuario`.`curso` of type `String`
   """
   curso: String
@@ -3462,6 +3530,14 @@ input Usuario_Data {
   ✨ `_expr` server value variant of `horaNotificacion` (✨ Generated from Field `Usuario`.`horaNotificacion` of type `String`)
   """
   horaNotificacion_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Usuario`.`licencia` of type `String`
+  """
+  licencia: String
+  """
+  ✨ `_expr` server value variant of `licencia` (✨ Generated from Field `Usuario`.`licencia` of type `String`)
+  """
+  licencia_expr: String_Expr @fdc_forbiddenInVariables
   """
   ✨ Generated from Field `Usuario`.`nombre` of type `String!`
   """
@@ -3580,6 +3656,10 @@ input Usuario_Filter {
   """
   apellidoPaterno: String_Filter
   """
+  ✨ Generated from Field `Usuario`.`autorOriginal` of type `String`
+  """
+  autorOriginal: String_Filter
+  """
   ✨ Generated from Field `Usuario`.`curso` of type `String`
   """
   curso: String_Filter
@@ -3595,6 +3675,10 @@ input Usuario_Filter {
   ✨ Generated from Field `Usuario`.`horaNotificacion` of type `String`
   """
   horaNotificacion: String_Filter
+  """
+  ✨ Generated from Field `Usuario`.`licencia` of type `String`
+  """
+  licencia: String_Filter
   """
   ✨ Generated from Field `Usuario`.`nombre` of type `String!`
   """
@@ -3698,6 +3782,10 @@ input Usuario_Having {
   """
   apellidoPaterno_count: Int_Filter
   """
+  ✨ Generated from Field `Usuario`.`autorOriginal_count` of type `Int!`
+  """
+  autorOriginal_count: Int_Filter
+  """
   ✨ Generated from Field `Usuario`.`avatarId_count` of type `Int!`
   """
   avatarId_count: Int_Filter
@@ -3721,6 +3809,10 @@ input Usuario_Having {
   ✨ Generated from Field `Usuario`.`id_count` of type `Int!`
   """
   id_count: Int_Filter
+  """
+  ✨ Generated from Field `Usuario`.`licencia_count` of type `Int!`
+  """
+  licencia_count: Int_Filter
   """
   ✨ Generated from Field `Usuario`.`nivelId_count` of type `Int!`
   """
@@ -3865,6 +3957,10 @@ input Usuario_Order {
   """
   apellidoPaterno: OrderDirection
   """
+  ✨ Generated from Field `Usuario`.`autorOriginal` of type `String`
+  """
+  autorOriginal: OrderDirection
+  """
   ✨ Generated from Field `Usuario`.`curso` of type `String`
   """
   curso: OrderDirection
@@ -3880,6 +3976,10 @@ input Usuario_Order {
   ✨ Generated from Field `Usuario`.`horaNotificacion` of type `String`
   """
   horaNotificacion: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`licencia` of type `String`
+  """
+  licencia: OrderDirection
   """
   ✨ Generated from Field `Usuario`.`nombre` of type `String!`
   """
@@ -3921,6 +4021,10 @@ input Usuario_Order {
   """
   apellidoPaterno_count: OrderDirection
   """
+  ✨ Generated from Field `Usuario`.`autorOriginal_count` of type `Int!`
+  """
+  autorOriginal_count: OrderDirection
+  """
   ✨ Generated from Field `Usuario`.`avatarId_count` of type `Int!`
   """
   avatarId_count: OrderDirection
@@ -3944,6 +4048,10 @@ input Usuario_Order {
   ✨ Generated from Field `Usuario`.`id_count` of type `Int!`
   """
   id_count: OrderDirection
+  """
+  ✨ Generated from Field `Usuario`.`licencia_count` of type `Int!`
+  """
+  licencia_count: OrderDirection
   """
   ✨ Generated from Field `Usuario`.`nivelId_count` of type `Int!`
   """
