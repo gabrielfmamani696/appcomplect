@@ -12,8 +12,8 @@ import com.gabrieldev.appcomplect.model.RespuestaOpcion
 import com.gabrieldev.appcomplect.model.Tarjeta
 import com.google.firebase.Timestamp
 import com.google.firebase.dataconnect.generated.DefaultConnector
-import com.google.firebase.dataconnect.generated.execute
 import com.google.firebase.dataconnect.generated.ListarArchivosPublicosQuery
+import com.google.firebase.dataconnect.generated.execute
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
@@ -42,6 +42,7 @@ class ArchivoRepository(private val connector: DefaultConnector) {
         return Archivo(
             idArchivo = a.id.toString(),
             titulo = a.titulo,
+            tema = a.tema,
             descripcion = a.descripcion,
             imagenUrl = a.imagenUrl,
             fechaCreacion = a.fechaCreacion.seconds * 1000L,
@@ -127,6 +128,10 @@ class ArchivoRepository(private val connector: DefaultConnector) {
             ContenidoArchivo(
                 idArchivo = a.id,
                 titulo = a.titulo,
+                tema = a.tema,
+                descripcion = a.descripcion,
+                fechaCreacion = a.fechaCreacion.seconds * 1000L,
+                imagenUrl = a.imagenUrl,
                 tarjetas = a.tarjetas_on_archivo.map { t ->
                     Tarjeta(
                         id = t.id,

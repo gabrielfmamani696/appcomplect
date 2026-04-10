@@ -52,6 +52,8 @@ public interface ObtenerArchivoParaEdicionQuery :
     val tema: String,
     val descripcion: String,
     val imagenUrl: String?,
+    val autorOriginal: String?,
+    val licencia: String?,
     val usuario: Usuario?
   ) {
     

@@ -18,9 +18,12 @@ query ListarArchivosPublicos @auth(level: PUBLIC, insecureReason: "This operatio
   archivos(orderBy: [{fechaCreacion: DESC}]) {
     id
     titulo
+    tema
     descripcion
     fechaCreacion
     imagenUrl
+    autorOriginal
+    licencia
     nivelRequerido {
       nombreRango
       jerarquia
@@ -47,13 +50,15 @@ query ObtenerArchivoParaEdicion($id: UUID!) @auth(level: PUBLIC, insecureReason:
     tema
     descripcion
     imagenUrl
+    autorOriginal
+    licencia
     usuario {
       id
     }
   }
 }
 
-mutation CrearArchivoDivulgacion($titulo: String!, $tema: String!, $descripcion: String!, $fechaCreacion: Timestamp!, $imagenUrl: String, $usuarioId: UUID!, $nivelRequeridoId: UUID) @auth(level: PUBLIC, insecureReason: "Student publication create") {
+mutation CrearArchivoDivulgacion($titulo: String!, $tema: String!, $descripcion: String!, $fechaCreacion: Timestamp!, $imagenUrl: String, $usuarioId: UUID!, $nivelRequeridoId: UUID, $autorOriginal: String @retired, $licencia: String @retired) @auth(level: PUBLIC, insecureReason: "Student publication create") {
   archivo_insert(data: {
     titulo: $titulo
     tema: $tema
@@ -65,7 +70,7 @@ mutation CrearArchivoDivulgacion($titulo: String!, $tema: String!, $descripcion:
   })
 }
 
-mutation ActualizarArchivoDivulgacion($id: UUID!, $titulo: String!, $tema: String!, $descripcion: String!, $imagenUrl: String) @auth(level: PUBLIC, insecureReason: "Student publication update") {
+mutation ActualizarArchivoDivulgacion($id: UUID!, $titulo: String!, $tema: String!, $descripcion: String!, $imagenUrl: String, $autorOriginal: String @retired, $licencia: String @retired) @auth(level: PUBLIC, insecureReason: "Student publication update") {
   archivo_update(id: $id, data: { titulo: $titulo, tema: $tema, descripcion: $descripcion, imagenUrl: $imagenUrl })
 }
 
@@ -258,6 +263,12 @@ query ObtenerContenidoArchivo($idArchivo: UUID!) @auth(level: PUBLIC, insecureRe
   archivo(id: $idArchivo) {
     id
     titulo
+    tema
+    descripcion
+    fechaCreacion
+    imagenUrl
+    autorOriginal
+    licencia
     tarjetas_on_archivo(orderBy: [{ordenSecuencia: ASC}]) {
       id
       ordenSecuencia

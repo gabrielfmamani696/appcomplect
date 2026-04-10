@@ -62,6 +62,7 @@ import coil.compose.SubcomposeAsyncImage
 import com.gabrieldev.appcomplect.model.Archivo
 import com.gabrieldev.appcomplect.model.Usuario
 import com.gabrieldev.appcomplect.ui.navegacion.Rutas
+import com.gabrieldev.appcomplect.ui.theme.ColorVerde
 
 @Composable
 fun PantallaArchivos(
@@ -222,129 +223,143 @@ fun ItemArchivoMockup(
     usuarioActual: Usuario?,
     onClick: () -> Unit
 ) {
+    val context = LocalContext.current
     val nivelArchivo = archivo.nivelRequerido
     val nivelUsuario = usuarioActual?.nivel?.jerarquia ?: 1
     val bloqueado = nivelUsuario < nivelArchivo
     val numeroNivelDisplay = nivelArchivo
 
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(enabled = !bloqueado) { onClick() },
+        modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-
-            Box(
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Row(
                 modifier = Modifier
-                    .size(96.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(Color(0xFFE8F5E9)),
-                contentAlignment = Alignment.Center
+                    .fillMaxWidth()
+                    .clickable(enabled = !bloqueado) { onClick() }
+                    .padding(12.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                if (!archivo.imagenUrl.isNullOrEmpty()) {
-                    SubcomposeAsyncImage(
-                        model = archivo.imagenUrl,
-                        contentDescription = "Portada",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
+
+                Box(
+                    modifier = Modifier
+                        .size(96.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(Color(0xFFE8F5E9)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (!archivo.imagenUrl.isNullOrEmpty()) {
+                        SubcomposeAsyncImage(
+                            model = archivo.imagenUrl,
+                            contentDescription = "Portada",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    } else {
+                        Text("📦", fontSize = 40.sp)
+                    }
+                }
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+
+                        Box(
+                            modifier = Modifier
+                                .background(
+                                    if (bloqueado) Color(0xFFEEEEEE) else Color(0xFFE8F5E9),
+                                    RoundedCornerShape(8.dp)
+                                )
+                                .padding(horizontal = 8.dp, vertical = 4.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = "Nivel $numeroNivelDisplay",
+                                color = if (bloqueado) Color.Gray else Color(0xFF2E7D32),
+                                style = MaterialTheme.typography.labelSmall,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.width(6.dp))
+
+                        if (bloqueado) {
+                            Icon(
+                                Icons.Default.Lock,
+                                contentDescription = "Bloqueado",
+                                tint = Color.Gray,
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(6.dp))
+
+                    Text(
+                        text = archivo.titulo,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = if (bloqueado) Color(0xFF9E9E9E) else Color(0xFF2E7D32),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
-                } else {
-                    Text("📦", fontSize = 40.sp)
+
+                    Spacer(modifier = Modifier.height(2.dp))
+
+                    Text(
+                        text = "Por ${archivo.autor}",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = if (bloqueado) Color(0xFFBDBDBD) else Color(0xFF757575)
+                    )
+
+                    if (!archivo.tema.isNullOrBlank()) {
+                        Text(
+                            text = "Tema: ${archivo.tema}",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = ColorVerde,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(4.dp))
+
+                    Text(
+                        text = archivo.descripcion,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = if (bloqueado) Color(0xFFBDBDBD) else Color.DarkGray,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
                 }
             }
 
-            Spacer(modifier = Modifier.width(16.dp))
-
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.Center
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-
-                    Box(
-                        modifier = Modifier
-                            .background(
-                                if (bloqueado) Color(0xFFEEEEEE) else Color(0xFFE8F5E9),
-                                RoundedCornerShape(8.dp)
-                            )
-                            .padding(horizontal = 8.dp, vertical = 4.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "Nivel $numeroNivelDisplay",
-                            color = if (bloqueado) Color.Gray else Color(0xFF2E7D32),
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.width(6.dp))
-
-                    if (bloqueado) {
+            if (!bloqueado) {
+                HorizontalDivider(color = Color(0xFFEEEEEE))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 4.dp, vertical = 4.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    TextButton(onClick = {
+                        Toast.makeText(context, "Descargando: ${archivo.titulo}", Toast.LENGTH_SHORT).show()
+                    }) {
                         Icon(
-                            Icons.Default.Lock,
-                            contentDescription = "Bloqueado",
-                            tint = Color.Gray,
-                            modifier = Modifier.size(16.dp)
+                            Icons.Default.Download,
+                            contentDescription = "Descargar",
+                            tint = Color(0xFF2E7D32),
+                            modifier = Modifier.size(20.dp)
                         )
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(6.dp))
-
-                Text(
-                    text = archivo.titulo,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = if (bloqueado) Color(0xFF9E9E9E) else Color(0xFF2E7D32),
-                    maxLines = 1
-                )
-
-                Spacer(modifier = Modifier.height(2.dp))
-
-                Text(
-                    text = "Por ${archivo.autor}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = if (bloqueado) Color(0xFFBDBDBD) else Color(0xFF757575)
-                )
-
-                Spacer(modifier = Modifier.height(4.dp))
-
-                Text(
-                    text = archivo.descripcion,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = if (bloqueado) Color(0xFFBDBDBD) else Color.DarkGray,
-                    maxLines = 2
-                )
-
-                if (!bloqueado) {
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.End
-                    ) {
-                        val context = LocalContext.current
-                        IconButton(
-                            onClick = {
-                                android.widget.Toast.makeText(context, "Descargando: ${archivo.titulo}", android.widget.Toast.LENGTH_SHORT).show()
-                            },
-                            modifier = Modifier.size(32.dp)
-                        ) {
-                            Icon(
-                                Icons.Default.Download,
-                                contentDescription = "Descargar",
-                                tint = Color(0xFF2E7D32),
-                                modifier = Modifier.size(20.dp)
-                            )
-                        }
+                        Spacer(Modifier.width(4.dp))
+                        Text("Descargar", color = Color(0xFF2E7D32))
                     }
                 }
             }
@@ -363,7 +378,8 @@ fun ItemArchivoDivulgacion(
     val context = LocalContext.current
     val nivelArchivo = archivo.nivelRequerido
     val nivelUsuario = usuarioActual?.nivel?.jerarquia ?: 1
-    val bloqueado = nivelUsuario < nivelArchivo && usuarioActual?.uuidSesion != archivo.idAutor
+    val esAutor = usuarioActual?.uuidSesion == archivo.idAutor
+    val bloqueado = nivelUsuario < nivelArchivo && !esAutor
     var mostrarEliminar by remember(archivo.idArchivo) { mutableStateOf(false) }
 
     if (mostrarEliminar) {
@@ -458,6 +474,14 @@ fun ItemArchivoDivulgacion(
                         style = MaterialTheme.typography.bodySmall,
                         color = Color(0xFF757575)
                     )
+                    if (!archivo.tema.isNullOrBlank()) {
+                        Text(
+                            text = "Tema: ${archivo.tema}",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = ColorVerde,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
                     Text(
                         archivo.descripcion,
                         style = MaterialTheme.typography.bodySmall,
@@ -475,14 +499,17 @@ fun ItemArchivoDivulgacion(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                TextButton(onClick = {
 
-                    Toast.makeText(context, "Descargando: ${archivo.titulo}", Toast.LENGTH_SHORT).show()
-                }) {
-                    Icon(Icons.Default.Download, null, tint = Color(0xFF2E7D32), modifier = Modifier.size(20.dp))
-                    Spacer(Modifier.width(4.dp))
-                    Text("Descargar", color = Color(0xFF2E7D32))
+                if (!bloqueado) {
+                    TextButton(onClick = {
+                        Toast.makeText(context, "Descargando: ${archivo.titulo}", Toast.LENGTH_SHORT).show()
+                    }) {
+                        Icon(Icons.Default.Download, null, tint = Color(0xFF2E7D32), modifier = Modifier.size(20.dp))
+                        Spacer(Modifier.width(4.dp))
+                        Text("Descargar", color = Color(0xFF2E7D32))
+                    }
                 }
+                
                 if (onEditar != null) {
                     TextButton(onClick = onEditar) {
                         Icon(Icons.Default.Edit, null, tint = Color(0xFF2E7D32), modifier = Modifier.size(20.dp))

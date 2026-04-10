@@ -31,6 +31,10 @@ data class Cuestionario(
 data class ContenidoArchivo(
     val idArchivo: UUID,
     val titulo: String,
+    val tema: String? = null,
+    val descripcion: String? = null,
+    val fechaCreacion: Long? = null,
+    val imagenUrl: String? = null,
     val tarjetas: List<Tarjeta>,
     val cuestionario: Cuestionario?
 )

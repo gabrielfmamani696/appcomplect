@@ -44,6 +44,7 @@ type EspacioAprendizaje @table {
 type MiembroEspacio @table(key: ["espacio", "usuario"]) {
   espacio: EspacioAprendizaje!
   usuario: Usuario!
+  estreallasPrestigioE: Int! @default(expr: "0")
 }
 
 type Archivo @table {
@@ -55,6 +56,8 @@ type Archivo @table {
   nivelRequerido: Nivel
   espacio: EspacioAprendizaje
   usuario: Usuario
+  autorOriginal: String
+  licencia: String
 }
 
 type Cuestionario @table {

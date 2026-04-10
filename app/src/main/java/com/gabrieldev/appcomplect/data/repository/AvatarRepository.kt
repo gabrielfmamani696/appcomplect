@@ -3,7 +3,6 @@ package com.gabrieldev.appcomplect.data.repository
 import com.gabrieldev.appcomplect.model.OpcionAvatar
 import com.google.firebase.dataconnect.generated.DefaultConnector
 import com.google.firebase.dataconnect.generated.execute
-import kotlinx.serialization.InternalSerializationApi
 
 class AvatarRepository(private val connector: DefaultConnector) {
 

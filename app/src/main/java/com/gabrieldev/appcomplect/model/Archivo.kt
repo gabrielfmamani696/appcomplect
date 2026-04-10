@@ -3,6 +3,7 @@ package com.gabrieldev.appcomplect.model
 data class Archivo(
     val idArchivo: String,
     val titulo: String,
+    val tema: String? = null,
     val descripcion: String,
     val imagenUrl: String?,
     val fechaCreacion: Long,

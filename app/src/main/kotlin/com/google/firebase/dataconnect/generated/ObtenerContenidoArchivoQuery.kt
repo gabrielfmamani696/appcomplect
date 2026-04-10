@@ -49,6 +49,12 @@ public interface ObtenerContenidoArchivoQuery :
   
     val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
     val titulo: String,
+    val tema: String,
+    val descripcion: String,
+    val fechaCreacion: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.TimestampSerializer::class) com.google.firebase.Timestamp,
+    val imagenUrl: String?,
+    val autorOriginal: String?,
+    val licencia: String?,
     val tarjetas_on_archivo: List<TarjetasOnArchivoItem>,
     val cuestionarios_on_archivo: List<CuestionariosOnArchivoItem>
   ) {
