@@ -1,0 +1,338 @@
+Generar el  plan definitivo para el resto de los sprints
+
+O sea ordenes que debera acatar SIEMPRE la ia
+
+- esta es mi tesis #todo, por fin leer la tesis y llegar a un producto final
+
+- Asume que eres una ia actualizada, en conscuencia, deberas revisar en Internet la mejor manera de realizar las tareas.
+- Debes evitar los comentarios dentro de cualquiera de los archivos
+- Debes evitar importaciones redundantes como android.com. ... .Libreria, cuando perfectamente puedes importar la libreria en la seccion de importaciones
+- 
+
+{
+  "data": {
+    "archivos": [
+      {
+        "espacioId": null,
+        "nivelRequeridoId": "7b80db2606f04e45a2da56d0c092131f",
+        "tema": "Comercio electrónico (eCommerce)",
+        "fechaCreacion": "2026-04-06T15:56:00.000000Z",
+        "titulo": "Comercio online",
+        "imagenUrl": "archivo_comercio_electronico.jpg",
+        "id": "03107736c0cb471fb4c0e10117fa82d2",
+        "usuarioId": "60201061296b46af921e1d1bd3609a5c",
+        "descripcion": "Concepto de Comercio Online"
+      },
+      {
+        "fechaCreacion": "2026-04-06T16:21:00.000000Z",
+        "titulo": "Portable Document File (PDF)",
+        "nivelRequeridoId": "67581243465841d9bae2b251a83534e3",
+        "imagenUrl": "pdf_logo_iso_standard.png",
+        "id": "9c70e2d04bff425280a5628636526e1b",
+        "espacioId": null,
+        "tema": "Formatos de almacenamiento digital",
+        "descripcion": "Concepto de PDF",
+        "usuarioId": "60201061296b46af921e1d1bd3609a5c"
+      }
+    ]
+  }
+}
+
+
+jerarquia
+	estrellasRequeridas
+	limitePalabrasTarjeta
+	nombreRango
+	id
+	
+1
+	10
+	30
+	Investigador Top D
+	7b80db2606f04e45a2da56d0c092131f
+2
+	25
+	45
+	Investigador Top C
+	67581243465841d9bae2b251a83534e3
+3
+	40
+	60
+	Investigador Top B
+	1e3a086360d042c38facccf6c266e33c
+4
+	65
+	75
+	Investigador Top A
+	95ee230a64a641b5accf451d2daf8b1a 
+
+
+
+03107736c0cb471fb4c0e10117fa82d2
+
+type Tarjeta @table {
+  archivo: 03107736c0cb471fb4c0e10117fa82d2
+  ordenSecuencia: 1
+  contenidoTexto: El comercio electronico es la compra y venta de productos de todo tipo a través de una página web
+  tipoFondo: imagen
+  dataFondo: gs://appcomplect-d11b1.firebasestorage.app/modern-shopping-experience-stockcake.png 
+}
+
+type Tarjeta @table {
+  archivo: 03107736c0cb471fb4c0e10117fa82d2
+  ordenSecuencia: 2
+  contenidoTexto: El negocio usa tecnologías de información para procesar transacciones.
+  tipoFondo: color
+  dataFondo: #4CAF50
+}
+
+    @ColumnInfo(name = "tipo_fondo")
+    val tipoFondo: String, // "COLOR_SOLIDO", "SVG", o "IMAGEN"
+
+    @ColumnInfo(name = "data_fondo")
+    val dataFondo: String // Hex del color, Path del SVG, o nombre del drawable
+
+type Cuestionario @table {
+  id: 5fc4ecb6580849dd82ba8b2597191d3e
+  archivo: 03107736c0cb471fb4c0e10117fa82d2
+  tituloQuiz: Cuestionario 1
+}
+
+type Pregunta @table {
+    id: cbd8e8e5968946dab92caba59bedff21
+  cuestionario: 5fc4ecb6580849dd82ba8b2597191d3e
+  enunciado: ¿Qué es el comercio electrónico?
+}
+
+type Pregunta @table {
+    id: 670eed85468640e891518412b80a9952
+  cuestionario: 5fc4ecb6580849dd82ba8b2597191d3e
+  enunciado: ¿A través de qué medio se da?
+}
+
+type Pregunta @table {
+    id: d2db3af7b4694dfb930dfeff2d2c33bc
+  cuestionario: 5fc4ecb6580849dd82ba8b2597191d3e
+  enunciado: ¿Qué tipos de tecnología utiliza?
+}
+
+
+
+type Respuesta @table {
+  pregunta: cbd8e8e5968946dab92caba59bedff21
+  textoOpcion: Es la simple compra de objetos
+  esCorrecta: Boolean!
+}
+
+type Respuesta @table {
+  pregunta: cbd8e8e5968946dab92caba59bedff21
+  textoOpcion: La compra y venta de productos de todo tipo a través de una página web
+  esCorrecta: True
+}
+
+type Respuesta @table {
+  pregunta: cbd8e8e5968946dab92caba59bedff21
+  textoOpcion: Es la donación de objetos por internet.
+  esCorrecta: False
+}
+
+type Respuesta @table {
+  pregunta: 670eed85468640e891518412b80a9952
+  textoOpcion: A través de una página web
+  esCorrecta: True
+}
+
+type Respuesta @table {
+  pregunta: 670eed85468640e891518412b80a9952
+  textoOpcion: En tiendas físicas y sucursales presenciales
+  esCorrecta: False
+}
+
+type Respuesta @table {
+  pregunta: 670eed85468640e891518412b80a9952
+  textoOpcion: Por medio de catálogos de papel enviados por correo postal
+  esCorrecta: False
+}
+
+type Respuesta @table {
+  pregunta: d2db3af7b4694dfb930dfeff2d2c33bc
+  textoOpcion: Tecnologías de información para procesar transacciones
+  esCorrecta: True
+}
+
+type Respuesta @table {
+  pregunta: d2db3af7b4694dfb930dfeff2d2c33bc
+  textoOpcion: Únicamente máquinas de escribir y calculadoras manuales
+  esCorrecta: False
+}
+
+type Respuesta @table {
+  pregunta: d2db3af7b4694dfb930dfeff2d2c33bc
+  textoOpcion: Maquinaria industrial para fabricar los productos
+  esCorrecta: False
+}
+
+
+query AllLogroNotificado @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  logroNotificados {
+    id
+    fechaNotificacion
+    usuario {
+      id
+      alias
+    }
+    insignia {
+      id
+      nombreVisible
+    }
+  }
+}
+
+            
+            archivos estudiants
+https://oercommons.org/search?search_source=advanced&f.search=Technology&f.primary_user=student&f.sublevel=upper-primary&f.grade=3&f.grade=4&f.grade=5
+
+
+Archivo estudiante:
+
+ CREACIÓN DE UN CORREO ELECTRÓNICO
+24/11/2023David Ruf Choza
+que es?
+Al igual que tu casa tiene una dirección para que te envíen cartas físicas a tu nombre, un correo electrónico es la dirección a la que tienen que enviarte cartas a tu nombre pero a través de internet. Esto se ha podido hacer gracias a los avances en tecnología y comunicación. De todas maneras, vamos a ver un video donde lo explican mucho mejor. 
+
+para que sirve?
+Seguramente ya te habrás dado cuento para qué nos sirve tener un correo electrónico. La respuesta más fácil y más rápida sería: para enviar y recibir mensajes de forma muy rápida. 
+
+por que lo necesito?
+
+    Registro en Redes Sociales: Al crear una cuenta en una red social como por ejemplo (YouTube, TikTok, Twitch, Facebook, Instagram...) os hace la aplicación la siguiente pregunta: ¿Quieres registrarte con tu correo electrónico?
+
+aemas de:
+    Enviar y Recibir información de manera casi instantánea ...
+
+
+{
+  "data": {
+    "archivos": [
+      {
+        "espacioId": null,
+        "nivelRequeridoId": "7b80db2606f04e45a2da56d0c092131f",
+        "tema": "Correo electrónico",
+        "fechaCreacion": "2026-04-05T15:56:00.000000Z",
+        "titulo": "Creación de un Correo Electrónico",
+        "imagenUrl": "gs://appcomplect-d11b1.firebasestorage.app/Ninos_Creando_Correo.jpg",
+        "id": "5f13e947dc4a47b0884920d0201998bd"
+        "usuarioId": "93d284870ede4c99835054852d5c7c05",
+        "descripcion": "Correo electrónico para uso personal y habitual"
+      },
+    ]
+  }
+}
+
+
+
+    type Tarjeta @table {
+      archivo: 5f13e947dc4a47b0884920d0201998bd
+      ordenSecuencia: 1
+      contenidoTexto: Es como la dirección de tu casa, pero para recibir mensajes por internet.
+      tipoFondo: COLOR_SOLIDO
+      dataFondo: #2196F3
+    }
+    
+    type Tarjeta @table {
+      archivo: 5f13e947dc4a47b0884920d0201998bd
+      ordenSecuencia: 2
+      contenidoTexto: Sirve para enviar y recibir mensajes de forma muy rápida y casi instantánea.
+      tipoFondo: COLOR_SOLIDO
+      dataFondo: #FF9800
+    }
+    
+    type Tarjeta @table {
+      archivo: 5f13e947dc4a47b0884920d0201998bd
+      ordenSecuencia: 3
+      contenidoTexto: Lo necesitas para poder registrarte en redes sociales como YouTube o TikTok.
+      tipoFondo: COLOR_SOLIDO
+      dataFondo: #4CAF50
+    }
+
+type Cuestionario @table {
+  id: 12c1a33b2ab745b19afcc9a734687fac
+  archivo: 5f13e947dc4a47b0884920d0201998bd
+  tituloQuiz: Cuestionario de Creación de Correo
+}
+
+type Pregunta @table {
+    3a980547c8a644609512121d26b79cfd 
+  cuestionario: 12c1a33b2ab745b19afcc9a734687fac
+  enunciado: ¿Cómo se puede definir un correo electrónico de forma sencilla?
+}
+
+type Pregunta @table {
+    ef97b125d2fa47e08aa1189eada516c3 
+  cuestionario: 12c1a33b2ab745b19afcc9a734687fac
+  enunciado: ¿Cuál es la respuesta más fácil y rápida sobre para qué sirve tener un correo electrónico?
+}
+
+type Pregunta @table {
+    3e20d3d520e4485fb2b57e41a6bd9762 
+  cuestionario: 12c1a33b2ab745b19afcc9a734687fac
+  enunciado: ¿Por qué es necesario tener un correo si deseas usar plataformas como YouTube o TikTok?
+}
+
+type Respuesta @table {
+  pregunta: 3a980547c8a644609512121d26b79cfd 
+  textoOpcion: Como una dirección a la que te envían mensajes a tu nombre, pero a través de internet.
+  esCorrecta: True
+}
+
+type Respuesta @table {
+  pregunta: 3a980547c8a644609512121d26b79cfd 
+  textoOpcion: Como la dirección física de tu casa donde el cartero entrega cartas de papel.
+  esCorrecta: False
+}
+
+type Respuesta @table {
+  pregunta: 3a980547c8a644609512121d26b79cfd 
+  textoOpcion: Como una nueva red social diseñada únicamente para subir fotografías y videos cortos.
+  esCorrecta: False
+}
+
+type Respuesta @table {
+  pregunta: ef97b125d2fa47e08aa1189eada516c3 
+  textoOpcion: Para enviar y recibir información o mensajes de manera casi instantánea.
+  esCorrecta: True
+}
+
+type Respuesta @table {
+  pregunta: ef97b125d2fa47e08aa1189eada516c3 
+  textoOpcion: Para poder comprar dispositivos tecnológicos de última generación en tiendas físicas.
+  esCorrecta: False
+}
+
+type Respuesta @table {
+  pregunta: ef97b125d2fa47e08aa1189eada516c3 
+  textoOpcion: Para reemplazar por completo las llamadas telefónicas tradicionales.
+  esCorrecta: False
+}
+
+type Respuesta @table {
+  pregunta: 3e20d3d520e4485fb2b57e41a6bd9762 
+  textoOpcion: Porque la mayoría de estas aplicaciones te piden registrarte con un correo para crear tu cuenta.
+  esCorrecta: True
+}
+
+type Respuesta @table {
+  pregunta: 3e20d3d520e4485fb2b57e41a6bd9762 
+  textoOpcion: Porque estas aplicaciones requieren un pago mensual que solo se procesa por correo postal.
+  esCorrecta: False
+}
+
+type Respuesta @table {
+  pregunta: 3e20d3d520e4485fb2b57e41a6bd9762 
+  textoOpcion: Porque es un requisito indispensable para enviar cartas en papel a los creadores de contenido.
+  esCorrecta: False
+}
+
+Debemos anadir los campos autorOriginal y licencia a la tabla archivo, has que puedan ser null. ademas se deben hacer los cambios necesarios en consecuencia, y se debe mostrar la licencia en cada uno de los archivos de la seccion de archivos.
+
+
