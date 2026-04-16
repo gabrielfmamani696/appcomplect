@@ -17,11 +17,11 @@ import kotlinx.coroutines.flow.filterNotNull as _flow_filterNotNull
 import kotlinx.coroutines.flow.map as _flow_map
 
 
-public interface ContarIntentosUsuarioQuery :
+public interface ListarInsigniasObtenidasUsuarioQuery :
     com.google.firebase.dataconnect.generated.GeneratedQuery<
       DefaultConnector,
-      ContarIntentosUsuarioQuery.Data,
-      ContarIntentosUsuarioQuery.Variables
+      ListarInsigniasObtenidasUsuarioQuery.Data,
+      ListarInsigniasObtenidasUsuarioQuery.Variables
     >
 {
   
@@ -39,17 +39,32 @@ public interface ContarIntentosUsuarioQuery :
     @kotlinx.serialization.Serializable
   public data class Data(
   
-    val intentos: List<IntentosItem>
+    val logroNotificados: List<LogroNotificadosItem>
   ) {
     
       
         @kotlinx.serialization.Serializable
-  public data class IntentosItem(
+  public data class LogroNotificadosItem(
   
     val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
-    val archivoId: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID?,
-    val completadoExitosamente: Boolean
+    val fechaNotificacion: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.TimestampSerializer::class) com.google.firebase.Timestamp,
+    val insignia: Insignia?
   ) {
+    
+      
+        @kotlinx.serialization.Serializable
+  public data class Insignia(
+  
+    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
+    val nombreVisible: String,
+    val descripcion: String,
+    val iconoRef: String,
+    val condicionDesbloqueo: String
+  ) {
+    
+    
+  }
+      
     
     
   }
@@ -60,7 +75,7 @@ public interface ContarIntentosUsuarioQuery :
   
 
   public companion object {
-    public val operationName: String = "ContarIntentosUsuario"
+    public val operationName: String = "ListarInsigniasObtenidasUsuario"
 
     public val dataDeserializer: kotlinx.serialization.DeserializationStrategy<Data> =
       kotlinx.serialization.serializer()
@@ -70,32 +85,32 @@ public interface ContarIntentosUsuarioQuery :
   }
 }
 
-public fun ContarIntentosUsuarioQuery.ref(
+public fun ListarInsigniasObtenidasUsuarioQuery.ref(
   
     usuarioId: java.util.UUID,
   
   
 ): com.google.firebase.dataconnect.QueryRef<
-    ContarIntentosUsuarioQuery.Data,
-    ContarIntentosUsuarioQuery.Variables
+    ListarInsigniasObtenidasUsuarioQuery.Data,
+    ListarInsigniasObtenidasUsuarioQuery.Variables
   > =
   ref(
     
-      ContarIntentosUsuarioQuery.Variables(
+      ListarInsigniasObtenidasUsuarioQuery.Variables(
         usuarioId=usuarioId,
   
       )
     
   )
 
-public suspend fun ContarIntentosUsuarioQuery.execute(
+public suspend fun ListarInsigniasObtenidasUsuarioQuery.execute(
   
     usuarioId: java.util.UUID,
   
   
   ): com.google.firebase.dataconnect.QueryResult<
-    ContarIntentosUsuarioQuery.Data,
-    ContarIntentosUsuarioQuery.Variables
+    ListarInsigniasObtenidasUsuarioQuery.Data,
+    ListarInsigniasObtenidasUsuarioQuery.Variables
   > =
   ref(
     
@@ -105,12 +120,12 @@ public suspend fun ContarIntentosUsuarioQuery.execute(
   ).execute()
 
 
-  public fun ContarIntentosUsuarioQuery.flow(
+  public fun ListarInsigniasObtenidasUsuarioQuery.flow(
     
       usuarioId: java.util.UUID,
   
     
-    ): kotlinx.coroutines.flow.Flow<ContarIntentosUsuarioQuery.Data> =
+    ): kotlinx.coroutines.flow.Flow<ListarInsigniasObtenidasUsuarioQuery.Data> =
     ref(
         
           usuarioId=usuarioId,

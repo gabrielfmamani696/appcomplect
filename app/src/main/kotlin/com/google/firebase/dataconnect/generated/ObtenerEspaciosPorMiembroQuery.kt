@@ -17,11 +17,11 @@ import kotlinx.coroutines.flow.filterNotNull as _flow_filterNotNull
 import kotlinx.coroutines.flow.map as _flow_map
 
 
-public interface ContarIntentosUsuarioQuery :
+public interface ObtenerEspaciosPorMiembroQuery :
     com.google.firebase.dataconnect.generated.GeneratedQuery<
       DefaultConnector,
-      ContarIntentosUsuarioQuery.Data,
-      ContarIntentosUsuarioQuery.Variables
+      ObtenerEspaciosPorMiembroQuery.Data,
+      ObtenerEspaciosPorMiembroQuery.Variables
     >
 {
   
@@ -39,17 +39,28 @@ public interface ContarIntentosUsuarioQuery :
     @kotlinx.serialization.Serializable
   public data class Data(
   
-    val intentos: List<IntentosItem>
+    val miembroEspacios: List<MiembroEspaciosItem>
   ) {
     
       
         @kotlinx.serialization.Serializable
-  public data class IntentosItem(
+  public data class MiembroEspaciosItem(
+  
+    val espacio: Espacio
+  ) {
+    
+      
+        @kotlinx.serialization.Serializable
+  public data class Espacio(
   
     val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
-    val archivoId: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID?,
-    val completadoExitosamente: Boolean
+    val nombreEspacio: String,
+    val codigoAcceso: String
   ) {
+    
+    
+  }
+      
     
     
   }
@@ -60,7 +71,7 @@ public interface ContarIntentosUsuarioQuery :
   
 
   public companion object {
-    public val operationName: String = "ContarIntentosUsuario"
+    public val operationName: String = "ObtenerEspaciosPorMiembro"
 
     public val dataDeserializer: kotlinx.serialization.DeserializationStrategy<Data> =
       kotlinx.serialization.serializer()
@@ -70,32 +81,32 @@ public interface ContarIntentosUsuarioQuery :
   }
 }
 
-public fun ContarIntentosUsuarioQuery.ref(
+public fun ObtenerEspaciosPorMiembroQuery.ref(
   
     usuarioId: java.util.UUID,
   
   
 ): com.google.firebase.dataconnect.QueryRef<
-    ContarIntentosUsuarioQuery.Data,
-    ContarIntentosUsuarioQuery.Variables
+    ObtenerEspaciosPorMiembroQuery.Data,
+    ObtenerEspaciosPorMiembroQuery.Variables
   > =
   ref(
     
-      ContarIntentosUsuarioQuery.Variables(
+      ObtenerEspaciosPorMiembroQuery.Variables(
         usuarioId=usuarioId,
   
       )
     
   )
 
-public suspend fun ContarIntentosUsuarioQuery.execute(
+public suspend fun ObtenerEspaciosPorMiembroQuery.execute(
   
     usuarioId: java.util.UUID,
   
   
   ): com.google.firebase.dataconnect.QueryResult<
-    ContarIntentosUsuarioQuery.Data,
-    ContarIntentosUsuarioQuery.Variables
+    ObtenerEspaciosPorMiembroQuery.Data,
+    ObtenerEspaciosPorMiembroQuery.Variables
   > =
   ref(
     
@@ -105,12 +116,12 @@ public suspend fun ContarIntentosUsuarioQuery.execute(
   ).execute()
 
 
-  public fun ContarIntentosUsuarioQuery.flow(
+  public fun ObtenerEspaciosPorMiembroQuery.flow(
     
       usuarioId: java.util.UUID,
   
     
-    ): kotlinx.coroutines.flow.Flow<ContarIntentosUsuarioQuery.Data> =
+    ): kotlinx.coroutines.flow.Flow<ObtenerEspaciosPorMiembroQuery.Data> =
     ref(
         
           usuarioId=usuarioId,

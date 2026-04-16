@@ -17,41 +17,39 @@ import kotlinx.coroutines.flow.filterNotNull as _flow_filterNotNull
 import kotlinx.coroutines.flow.map as _flow_map
 
 
-public interface ObtenerPanelSolicitudesQuery :
+public interface BuscarEspacioPorCodigoQuery :
     com.google.firebase.dataconnect.generated.GeneratedQuery<
       DefaultConnector,
-      ObtenerPanelSolicitudesQuery.Data,
-      Unit
+      BuscarEspacioPorCodigoQuery.Data,
+      BuscarEspacioPorCodigoQuery.Variables
     >
 {
+  
+    @kotlinx.serialization.Serializable
+  public data class Variables(
+  
+    val codigoAcceso: String
+  ) {
+    
+    
+  }
   
 
   
     @kotlinx.serialization.Serializable
   public data class Data(
   
-    val solicitudValidacions: List<SolicitudValidacionsItem>
+    val espacioAprendizajes: List<EspacioAprendizajesItem>
   ) {
     
       
         @kotlinx.serialization.Serializable
-  public data class SolicitudValidacionsItem(
+  public data class EspacioAprendizajesItem(
   
     val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
-    val usuario: Usuario
+    val nombreEspacio: String,
+    val codigoAcceso: String
   ) {
-    
-      
-        @kotlinx.serialization.Serializable
-  public data class Usuario(
-  
-    val nombre: String,
-    val apellidoPaterno: String
-  ) {
-    
-    
-  }
-      
     
     
   }
@@ -62,43 +60,61 @@ public interface ObtenerPanelSolicitudesQuery :
   
 
   public companion object {
-    public val operationName: String = "ObtenerPanelSolicitudes"
+    public val operationName: String = "BuscarEspacioPorCodigo"
 
     public val dataDeserializer: kotlinx.serialization.DeserializationStrategy<Data> =
       kotlinx.serialization.serializer()
 
-    public val variablesSerializer: kotlinx.serialization.SerializationStrategy<Unit> =
+    public val variablesSerializer: kotlinx.serialization.SerializationStrategy<Variables> =
       kotlinx.serialization.serializer()
   }
 }
 
-public fun ObtenerPanelSolicitudesQuery.ref(
+public fun BuscarEspacioPorCodigoQuery.ref(
+  
+    codigoAcceso: String,
+  
   
 ): com.google.firebase.dataconnect.QueryRef<
-    ObtenerPanelSolicitudesQuery.Data,
-    Unit
+    BuscarEspacioPorCodigoQuery.Data,
+    BuscarEspacioPorCodigoQuery.Variables
   > =
   ref(
     
-      Unit
+      BuscarEspacioPorCodigoQuery.Variables(
+        codigoAcceso=codigoAcceso,
+  
+      )
     
   )
 
-public suspend fun ObtenerPanelSolicitudesQuery.execute(
+public suspend fun BuscarEspacioPorCodigoQuery.execute(
+  
+    codigoAcceso: String,
+  
   
   ): com.google.firebase.dataconnect.QueryResult<
-    ObtenerPanelSolicitudesQuery.Data,
-    Unit
+    BuscarEspacioPorCodigoQuery.Data,
+    BuscarEspacioPorCodigoQuery.Variables
   > =
   ref(
+    
+      codigoAcceso=codigoAcceso,
+  
     
   ).execute()
 
 
-  public fun ObtenerPanelSolicitudesQuery.flow(
+  public fun BuscarEspacioPorCodigoQuery.flow(
     
-    ): kotlinx.coroutines.flow.Flow<ObtenerPanelSolicitudesQuery.Data> =
+      codigoAcceso: String,
+  
+    
+    ): kotlinx.coroutines.flow.Flow<BuscarEspacioPorCodigoQuery.Data> =
     ref(
+        
+          codigoAcceso=codigoAcceso,
+  
         
       ).subscribe()
       .flow

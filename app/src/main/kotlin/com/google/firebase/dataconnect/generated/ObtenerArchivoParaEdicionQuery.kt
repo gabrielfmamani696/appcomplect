@@ -1,10 +1,9 @@
 
-@file:Suppress(
+@file:kotlin.Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
-  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -54,9 +53,19 @@ public interface ObtenerArchivoParaEdicionQuery :
     val imagenUrl: String?,
     val autorOriginal: String?,
     val licencia: String?,
+    val nivelRequerido: NivelRequerido?,
     val usuario: Usuario?
   ) {
     
+      
+        @kotlinx.serialization.Serializable
+  public data class NivelRequerido(
+  
+    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID
+  ) {
+    
+    
+  }
       
         @kotlinx.serialization.Serializable
   public data class Usuario(

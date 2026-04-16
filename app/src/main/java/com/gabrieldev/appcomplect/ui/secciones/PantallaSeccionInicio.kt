@@ -2,10 +2,12 @@ package com.gabrieldev.appcomplect.ui.secciones
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -21,6 +23,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.EmojiEvents
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.School
@@ -29,10 +32,15 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -51,6 +59,8 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
@@ -60,6 +70,8 @@ import com.gabrieldev.appcomplect.model.Usuario
 import com.gabrieldev.appcomplect.model.UsuarioLeaderboard
 import com.gabrieldev.appcomplect.ui.MainViewModel
 import com.gabrieldev.appcomplect.ui.componentes.AlertaInsigniaHost
+import java.util.Locale
+import java.util.Locale.getDefault
 
 @Composable
 fun PantallaSeccionInicio(
@@ -71,7 +83,7 @@ fun PantallaSeccionInicio(
     val usuarioVivo by usuarioRepository.usuarioActivo.collectAsState()
     val usuarioActual = usuarioVivo ?: usuario
 
-    val tipoTexto = usuarioActual.nombreRol.ifBlank { "Investigador" }
+    val tipoTexto = (usuarioActual.nombreRol.ifBlank { "Investigador" }).uppercase(getDefault())
     val estrellasActuales = usuarioActual.estrellasPrestigio
     val nivelActual = usuarioActual.nivel
 
@@ -90,6 +102,8 @@ fun PantallaSeccionInicio(
     }
 
     val insigniasNuevas by mainViewModel.insigniasNuevas.collectAsState()
+    val insigniasObtenidas by mainViewModel.insigniasObtenidas.collectAsState()
+    var mostrarMisInsignias by remember { mutableStateOf(false) }
 
     var progresoAnimado by remember { mutableFloatStateOf(0f) }
     val progresoState by animateFloatAsState(
@@ -99,7 +113,17 @@ fun PantallaSeccionInicio(
     )
 
     var leaderboard by remember { mutableStateOf<List<UsuarioLeaderboard>>(emptyList()) }
-    var posicionActual by remember { mutableIntStateOf(0) }
+    var investigadoresOrdenados by remember { mutableStateOf<List<UsuarioLeaderboard>>(emptyList()) }
+
+    val usuarioActualId = usuarioActual.uuidSesion
+    val filaUsuarioActual = remember(investigadoresOrdenados, usuarioActualId) {
+        if (usuarioActualId.isNullOrBlank()) return@remember null
+        investigadoresOrdenados.firstOrNull { it.id == usuarioActualId }
+    }
+    val posicionActual = remember(investigadoresOrdenados, usuarioActualId) {
+        if (usuarioActualId.isNullOrBlank()) 0
+        else investigadoresOrdenados.indexOfFirst { it.id == usuarioActualId } + 1
+    }
 
     LaunchedEffect(progresoObjetivo) {
         progresoAnimado = progresoObjetivo
@@ -108,7 +132,7 @@ fun PantallaSeccionInicio(
     LaunchedEffect(Unit) {
         todosNiveles = usuarioRepository.obtenerTodosLosNiveles()
         leaderboard = usuarioRepository.obtenerLeaderboardTop5()
-        posicionActual = usuarioRepository.obtenerRankingPosicion(estrellasActuales)
+        investigadoresOrdenados = usuarioRepository.obtenerInvestigadoresOrdenadosPorEstrellas()
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -344,6 +368,16 @@ fun PantallaSeccionInicio(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
+                Button(
+                    onClick = { mostrarMisInsignias = true },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1B5E20))
+                ) {
+                    Text("Ver mis insignias", color = Color.White, fontWeight = FontWeight.Bold)
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
@@ -371,6 +405,9 @@ fun PantallaSeccionInicio(
                                 )
                             }
                         }
+
+                        Spacer(modifier = Modifier.height(12.dp))
+
                         if (leaderboard.isEmpty()) {
                             Spacer(modifier = Modifier.height(16.dp))
                             Text(
@@ -454,17 +491,206 @@ fun PantallaSeccionInicio(
                                     }
                                 }
                             }
+
+                            if (posicionActual > 5 && filaUsuarioActual != null) {
+                                HorizontalDivider(color = Color(0xFFBDBDBD), thickness = 1.dp)
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 8.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = "#$posicionActual",
+                                        style = MaterialTheme.typography.titleMedium,
+                                        color = Color(0xFF4CAF50),
+                                        modifier = Modifier.width(32.dp),
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                    Box(
+                                        modifier = Modifier
+                                            .size(40.dp)
+                                            .clip(CircleShape)
+                                            .background(Color(0xFFE8F5E9)),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        SubcomposeAsyncImage(
+                                            model = filaUsuarioActual.avatarUrl,
+                                            contentDescription = null,
+                                            contentScale = ContentScale.Crop,
+                                            modifier = Modifier.fillMaxSize(),
+                                            loading = { Icon(Icons.Default.Person, contentDescription = null, tint = Color.Gray) },
+                                            error = { Icon(Icons.Default.Person, contentDescription = null, tint = Color.Gray) }
+                                        )
+                                    }
+                                    Spacer(modifier = Modifier.width(12.dp))
+                                    Column(modifier = Modifier.weight(1f)) {
+                                        Text(
+                                            text = filaUsuarioActual.alias,
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            fontWeight = FontWeight.Bold,
+                                            color = Color(0xFF2E7D32)
+                                        )
+                                        Text(
+                                            text = "Tu posición",
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = Color(0xFF757575)
+                                        )
+                                    }
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Text(
+                                            text = "${filaUsuarioActual.estrellasPrestigio}",
+                                            style = MaterialTheme.typography.titleMedium,
+                                            fontWeight = FontWeight.Bold,
+                                            color = Color(0xFF388E3C)
+                                        )
+                                        Spacer(modifier = Modifier.width(4.dp))
+                                        Icon(
+                                            Icons.Default.Star,
+                                            contentDescription = null,
+                                            tint = Color(0xFFFFD54F),
+                                            modifier = Modifier.size(16.dp)
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
         }
 
-        AlertaInsigniaHost(
-            insignias = insigniasNuevas,
-            onTodasMostradas = { mainViewModel.limpiarInsignias() }
-        )
+        if (mostrarMisInsignias) {
+            AlertDialog(
+                onDismissRequest = { mostrarMisInsignias = false },
+                confirmButton = {
+                    TextButton(onClick = { mostrarMisInsignias = false }) {
+                        Text(
+                            text = "Cerrar",
+                            color = Color(0xFF2E7D32),
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                },
+                containerColor = Color.White, // Fondo general del modal más limpio
+                title = {
+                    Text(
+                        text = "Mis insignias",
+                        style = MaterialTheme.typography.titleLarge,
+                        color = Color(0xFF1B5E20),
+                        fontWeight = FontWeight.Bold
+                    )
+                },
+                text = {
+                    if (insigniasObtenidas.isEmpty()) {
+                        Text("Aún no tienes insignias desbloqueadas.", color = Color.Gray)
+                    } else {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .verticalScroll(rememberScrollState())
+                        ) {
+                            insigniasObtenidas.chunked(2).forEach { fila ->
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(bottom = 12.dp)
+                                        .height(IntrinsicSize.Max),
+                                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                                ) {
+                                    fila.forEach { insignia ->
+                                        Card(
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .fillMaxHeight(),
+                                            shape = RoundedCornerShape(16.dp),
+                                            colors = CardDefaults.cardColors(containerColor = Color(0xFFF1F8E9)),
+                                            border = BorderStroke(1.dp, Color(0xFFC8E6C9))
+                                        ) {
+                                            Column(
+                                                modifier = Modifier
+                                                    .fillMaxSize()
+                                                    .padding(12.dp),
+                                                horizontalAlignment = Alignment.CenterHorizontally
+                                            ) {
+                                                Box(
+                                                    modifier = Modifier
+                                                        .size(48.dp)
+                                                        .clip(CircleShape)
+                                                        .background(Color(0xFFE8F5E9)),
+                                                    contentAlignment = Alignment.Center
+                                                ) {
+                                                    Icon(
+                                                        imageVector = mapearIconoInsignia(insignia.iconoRef),
+                                                        contentDescription = insignia.nombreVisible,
+                                                        tint = Color(0xFF2E7D32),
+                                                        modifier = Modifier.size(28.dp)
+                                                    )
+                                                }
+
+                                                Spacer(modifier = Modifier.height(8.dp))
+
+                                                Text(
+                                                    text = insignia.nombreVisible,
+                                                    style = MaterialTheme.typography.titleSmall,
+                                                    fontWeight = FontWeight.Bold,
+                                                    color = Color(0xFF1B5E20),
+                                                    textAlign = TextAlign.Center
+                                                )
+
+                                                Spacer(modifier = Modifier.height(6.dp))
+
+                                                Text(
+                                                    text = insignia.descripcion,
+                                                    style = MaterialTheme.typography.bodySmall,
+                                                    color = Color(0xFF424242),
+                                                    textAlign = TextAlign.Center
+                                                )
+
+                                                Spacer(modifier = Modifier.weight(1f))
+                                                Spacer(modifier = Modifier.height(10.dp))
+
+                                                Row(
+                                                    verticalAlignment = Alignment.CenterVertically,
+                                                    horizontalArrangement = Arrangement.Center
+                                                ) {
+                                                    Icon(
+                                                        imageVector = Icons.Default.Info,
+                                                        contentDescription = null,
+                                                        tint = Color(0xFF81C784),
+                                                        modifier = Modifier.size(14.dp)
+                                                    )
+                                                    Spacer(modifier = Modifier.width(4.dp))
+                                                    Text(
+                                                        text = "Obtenida:\n${insignia.fechaNotificacion}", // Salto de línea para que no se apriete
+                                                        style = MaterialTheme.typography.labelSmall,
+                                                        color = Color(0xFF616161),
+                                                        textAlign = TextAlign.Center,
+                                                        lineHeight = 14.sp
+                                                    )
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    // Relleno si la fila tiene un número impar de insignias
+                                    if (fila.size == 1) {
+                                        Spacer(modifier = Modifier.weight(1f))
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            )
+        }
     }
+
+    AlertaInsigniaHost(
+        insignias = insigniasNuevas,
+        onTodasMostradas = { mainViewModel.limpiarInsignias() }
+    )
 }
 
 private fun mapearIconoInsignia(ref: String): ImageVector {

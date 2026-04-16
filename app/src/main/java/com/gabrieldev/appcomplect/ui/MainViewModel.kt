@@ -21,6 +21,9 @@ class MainViewModel(
     private val _insigniasNuevas = MutableStateFlow<List<InsigniaObtenida>>(emptyList())
     val insigniasNuevas = _insigniasNuevas.asStateFlow()
 
+    private val _insigniasObtenidas = MutableStateFlow<List<InsigniaObtenida>>(emptyList())
+    val insigniasObtenidas = _insigniasObtenidas.asStateFlow()
+
     init {
         verificarSesion()
     }
@@ -28,6 +31,16 @@ class MainViewModel(
     private fun verificarSesion() {
         viewModelScope.launch {
             usuarioRepository.verificarSesion()
+            usuarioRepository.usuarioActivo.value?.uuidSesion?.let { usuarioId ->
+                cargarInsigniasObtenidas(usuarioId)
+            }
+        }
+    }
+
+    private fun cargarInsigniasObtenidas(usuarioId: String) {
+        viewModelScope.launch {
+            val obtenidas = insigniaRepository.obtenerInsigniasObtenidas(usuarioId)
+            _insigniasObtenidas.value = obtenidas
         }
     }
 

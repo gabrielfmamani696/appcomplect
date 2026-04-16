@@ -7,6 +7,9 @@ import com.gabrieldev.appcomplect.model.BorradorPreguntaDivulgacion
 import com.gabrieldev.appcomplect.model.BorradorTarjetaDivulgacion
 import com.gabrieldev.appcomplect.model.ContenidoArchivo
 import com.gabrieldev.appcomplect.model.Cuestionario
+import com.gabrieldev.appcomplect.model.EspacioAprendizaje
+import com.gabrieldev.appcomplect.model.EstadisticasArchivo
+import com.gabrieldev.appcomplect.model.IntentoEstudiante
 import com.gabrieldev.appcomplect.model.PreguntaConRespuestas
 import com.gabrieldev.appcomplect.model.RespuestaOpcion
 import com.gabrieldev.appcomplect.model.Tarjeta
@@ -48,7 +51,11 @@ class ArchivoRepository(private val connector: DefaultConnector) {
             fechaCreacion = a.fechaCreacion.seconds * 1000L,
             autor = a.usuario?.alias ?: "Desconocido",
             nivelRequerido = a.nivelRequerido?.jerarquia ?: 1,
-            idAutor = a.usuario?.id?.toString()
+            idUsuarioAutor = a.usuario?.id?.toString(),
+            autorOriginal = a.autorOriginal,
+            licencia = a.licencia,
+            espacioId = a.espacio?.id?.toString(),
+            espacioNombre = a.espacio?.nombreEspacio
         )
     }
 
@@ -58,8 +65,8 @@ class ArchivoRepository(private val connector: DefaultConnector) {
             result.data.archivos.filter { a ->
                 val rol = a.usuario?.rol?.nombreRol?.trim()
                 rol.equals("Docente", ignoreCase = true) ||
-                    rol.equals("Administrador", ignoreCase = true) ||
-                    rol.equals("Admin", ignoreCase = true)
+                rol.equals("Administrador", ignoreCase = true) ||
+                rol.equals("Admin", ignoreCase = true)
             }.map { mapItem(it) }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -101,7 +108,10 @@ class ArchivoRepository(private val connector: DefaultConnector) {
                 tema = a.tema,
                 descripcion = a.descripcion,
                 urlPortada = a.imagenUrl,
-                idAutor = a.usuario?.id?.toString()
+                idAutor = a.usuario?.id?.toString(),
+                autorOriginal = a.autorOriginal,
+                licencia = a.licencia,
+                nivelRequeridoId = a.nivelRequerido?.id?.toString()
             )
         } catch (e: Exception) {
             System.err.println("ArchivoRepository: Error al obtener archivo para edición: ${e.message}")
@@ -132,6 +142,8 @@ class ArchivoRepository(private val connector: DefaultConnector) {
                 descripcion = a.descripcion,
                 fechaCreacion = a.fechaCreacion.seconds * 1000L,
                 imagenUrl = a.imagenUrl,
+                autorOriginal = a.autorOriginal,
+                licencia = a.licencia,
                 tarjetas = a.tarjetas_on_archivo.map { t ->
                     Tarjeta(
                         id = t.id,
@@ -242,6 +254,8 @@ class ArchivoRepository(private val connector: DefaultConnector) {
         imagenPortada: String?,
         usuarioId: UUID,
         nivelRequeridoUuid: UUID?,
+        autorOriginal: String?,
+        licencia: String?,
         tarjetas: List<BorradorTarjetaDivulgacion>,
         tituloQuiz: String?,
         preguntas: List<BorradorPreguntaDivulgacion>
@@ -256,6 +270,8 @@ class ArchivoRepository(private val connector: DefaultConnector) {
             ) {
                 if (imagenPortada != null) imagenUrl = imagenPortada
                 if (nivelRequeridoUuid != null) nivelRequeridoId = nivelRequeridoUuid
+                this.autorOriginal = autorOriginal
+                this.licencia = licencia
             }.data.archivo_insert.id
             insertarTarjetasYCuestionario(nuevoId, tarjetas, tituloQuiz, preguntas)
             nuevoId.toString()
@@ -271,6 +287,9 @@ class ArchivoRepository(private val connector: DefaultConnector) {
         tema: String,
         descripcion: String,
         imagenPortada: String?,
+        nivelRequeridoUuid: UUID?,
+        autorOriginal: String?,
+        licencia: String?,
         tarjetas: List<BorradorTarjetaDivulgacion>,
         tituloQuiz: String?,
         preguntas: List<BorradorPreguntaDivulgacion>
@@ -285,8 +304,27 @@ class ArchivoRepository(private val connector: DefaultConnector) {
                 descripcion = descripcion
             ) {
                 if (imagenPortada != null) imagenUrl = imagenPortada
+                if (nivelRequeridoUuid != null) nivelRequeridoId = nivelRequeridoUuid
+                this.autorOriginal = autorOriginal
+                this.licencia = licencia
             }
             insertarTarjetasYCuestionario(uuid, tarjetas, tituloQuiz, preguntas)
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+    suspend fun actualizarEspacioArchivo(archivoId: String, espacioId: String?): Boolean = withContext(Dispatchers.IO) {
+        try {
+            val uuid = UUID.fromString(archivoId)
+            val espacioUuid = espacioId?.let { UUID.fromString(it) }
+            connector.actualizarArchivoEspacio.execute(
+                id = uuid
+            ) {
+                this.espacioId = espacioUuid
+            }
             true
         } catch (e: Exception) {
             e.printStackTrace()
@@ -312,6 +350,116 @@ class ArchivoRepository(private val connector: DefaultConnector) {
                 .filter { it.jerarquia != null }
                 .minByOrNull { it.jerarquia ?: Int.MAX_VALUE }?.id
         } catch (e: Exception) {
+            null
+        }
+    }
+
+    suspend fun crearEspacioAprendizaje(usuarioId: UUID, nombre: String): String? = withContext(Dispatchers.IO) {
+        var intentos = 0
+        val maxIntentos = 5
+        var exito = false
+        var codigoFinal: String? = null
+
+        while (intentos < maxIntentos && !exito) {
+            val codigoPrueba = UUID.randomUUID().toString()
+                .replace("-", "")
+                .take(6)
+                .uppercase()
+            
+            try {
+                connector.crearEspacioAprendizaje.execute(
+                    usuarioId = usuarioId,
+                    nombreEspacio = nombre,
+                    codigoAcceso = codigoPrueba
+                )
+                exito = true
+                codigoFinal = codigoPrueba
+            } catch (e: Exception) {
+                intentos++
+                if (intentos >= maxIntentos) {
+                    e.printStackTrace()
+                }
+            }
+        }
+        codigoFinal
+    }
+
+    suspend fun buscarEspacioPorCodigo(codigoAcceso: String): EspacioAprendizaje? = withContext(Dispatchers.IO) {
+        try {
+            val result = connector.buscarEspacioPorCodigo.execute(codigoAcceso = codigoAcceso)
+            result.data.espacioAprendizajes.firstOrNull()?.let {
+                EspacioAprendizaje(
+                    id = it.id.toString(),
+                    nombre = it.nombreEspacio,
+                    codigoAcceso = it.codigoAcceso
+                )
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    suspend fun unirseAEspacio(usuarioId: UUID, espacioId: UUID): Boolean = withContext(Dispatchers.IO) {
+        try {
+            connector.unirseAEspacio.execute(
+                usuarioId = usuarioId,
+                espacioId = espacioId
+            )
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+    suspend fun obtenerMisEspacios(usuarioId: UUID): List<EspacioAprendizaje> = withContext(Dispatchers.IO) {
+        try {
+            val espaciosCreados = connector.obtenerMisEspacios.execute(usuarioId = usuarioId).data.espacioAprendizajes.map {
+                EspacioAprendizaje(
+                    id = it.id.toString(),
+                    nombre = it.nombreEspacio,
+                    codigoAcceso = it.codigoAcceso
+                )
+            }
+            val espaciosMiembro = connector.obtenerEspaciosPorMiembro.execute(usuarioId = usuarioId).data.miembroEspacios.mapNotNull {
+                it.espacio?.let { espacio ->
+                    EspacioAprendizaje(
+                        id = espacio.id.toString(),
+                        nombre = espacio.nombreEspacio,
+                        codigoAcceso = espacio.codigoAcceso
+                    )
+                }
+            }
+            (espaciosCreados + espaciosMiembro).distinctBy { it.id }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emptyList()
+        }
+    }
+
+    suspend fun obtenerEstadisticasArchivo(archivoId: UUID): EstadisticasArchivo? = withContext(Dispatchers.IO) {
+        try {
+            val intentos = connector.obtenerEstadisticasArchivo.execute(archivoId = archivoId).data.intentos
+            if (intentos.isEmpty()) {
+                return@withContext EstadisticasArchivo(0, 0, emptyList())
+            }
+
+            val detalles = intentos.map {
+                IntentoEstudiante(
+                    nombreEstudiante = "${it.usuario?.nombre} ${it.usuario?.apellidoPaterno}",
+                    calificacion = it.calificacionObtenida
+                )
+            }
+            val promedio = detalles.map { it.calificacion }.average().toInt()
+
+            EstadisticasArchivo(
+                promedioGeneral = promedio,
+                totalIntentos = detalles.size,
+                detallesEstudiantes = detalles
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
             null
         }
     }

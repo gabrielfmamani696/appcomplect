@@ -31,6 +31,7 @@ query ListarArchivosPublicos @auth(level: PUBLIC, insecureReason: "This operatio
       id
     }
     espacio {
+      id
       nombreEspacio
     }
     usuario {
@@ -52,13 +53,16 @@ query ObtenerArchivoParaEdicion($id: UUID!) @auth(level: PUBLIC, insecureReason:
     imagenUrl
     autorOriginal
     licencia
+    nivelRequerido {
+      id
+    }
     usuario {
       id
     }
   }
 }
 
-mutation CrearArchivoDivulgacion($titulo: String!, $tema: String!, $descripcion: String!, $fechaCreacion: Timestamp!, $imagenUrl: String, $usuarioId: UUID!, $nivelRequeridoId: UUID, $autorOriginal: String @retired, $licencia: String @retired) @auth(level: PUBLIC, insecureReason: "Student publication create") {
+mutation CrearArchivoDivulgacion($titulo: String!, $tema: String!, $descripcion: String!, $fechaCreacion: Timestamp!, $imagenUrl: String, $usuarioId: UUID!, $nivelRequeridoId: UUID, $autorOriginal: String, $licencia: String) @auth(level: PUBLIC, insecureReason: "Student publication create") {
   archivo_insert(data: {
     titulo: $titulo
     tema: $tema
@@ -67,11 +71,17 @@ mutation CrearArchivoDivulgacion($titulo: String!, $tema: String!, $descripcion:
     imagenUrl: $imagenUrl
     usuarioId: $usuarioId
     nivelRequeridoId: $nivelRequeridoId
+    autorOriginal: $autorOriginal
+    licencia: $licencia
   })
 }
 
-mutation ActualizarArchivoDivulgacion($id: UUID!, $titulo: String!, $tema: String!, $descripcion: String!, $imagenUrl: String, $autorOriginal: String @retired, $licencia: String @retired) @auth(level: PUBLIC, insecureReason: "Student publication update") {
-  archivo_update(id: $id, data: { titulo: $titulo, tema: $tema, descripcion: $descripcion, imagenUrl: $imagenUrl })
+mutation ActualizarArchivoDivulgacion($id: UUID!, $titulo: String!, $tema: String!, $descripcion: String!, $imagenUrl: String, $nivelRequeridoId: UUID, $autorOriginal: String, $licencia: String) @auth(level: PUBLIC, insecureReason: "Student publication update") {
+  archivo_update(id: $id, data: { titulo: $titulo, tema: $tema, descripcion: $descripcion, imagenUrl: $imagenUrl, nivelRequeridoId: $nivelRequeridoId, autorOriginal: $autorOriginal, licencia: $licencia })
+}
+
+mutation ActualizarArchivoEspacio($id: UUID!, $espacioId: UUID) @auth(level: PUBLIC, insecureReason: "Teacher publication space assignment") {
+  archivo_update(id: $id, data: { espacioId: $espacioId })
 }
 
 mutation EliminarArchivo($id: UUID!) @auth(level: PUBLIC, insecureReason: "Student publication delete") {
@@ -245,6 +255,18 @@ query ObtenerRankingUsuario($misEstrellas: Int!) @auth(level: PUBLIC, insecureRe
   }
 }
 
+query ListarInvestigadoresOrdenadosPorEstrellas @auth(level: PUBLIC, insecureReason: "Leaderboard ordering and ranking are public data.") {
+  usuarios(orderBy: [{estrellasPrestigio: DESC}, {rachaActualDias: DESC}]) {
+    id
+    alias
+    estrellasPrestigio
+    rachaActualDias
+    avatar {
+      imagenUrl
+    }
+  }
+}
+
 query ObtenerUsuarioPorCredenciales($numeroCelular: String!, $nombre: String!, $apellidoPaterno: String!) @auth(level: PUBLIC, insecureReason: "Auth implementation for login via fixed credentials.") {
   usuarios(where: {
     numeroCelular: {eq: $numeroCelular},
@@ -336,9 +358,28 @@ query ListarTodasInsignias @auth(level: PUBLIC, insecureReason: "Badge catalog i
 }
 
 query ObtenerInsigniasNotificadas($usuarioId: UUID!) @auth(level: PUBLIC, insecureReason: "Safe for badge tracking") {
-  logroNotificados(where: { usuarioId: { eq: $usuarioId } }) {
+  logroNotificados(where: { usuarioId: { eq: $usuarioId } }, orderBy: [{fechaNotificacion: DESC}]) {
+    id
+    fechaNotificacion
     insignia {
       id
+      nombreVisible
+      descripcion
+      iconoRef
+      condicionDesbloqueo
+    }
+  }
+}
+
+query ListarInsigniasObtenidasUsuario($usuarioId: UUID!) @auth(level: PUBLIC, insecureReason: "Safe for badge tracking") {
+  logroNotificados(where: { usuarioId: { eq: $usuarioId } }, orderBy: [{fechaNotificacion: DESC}]) {
+    id
+    fechaNotificacion
+    insignia {
+      id
+      nombreVisible
+      descripcion
+      iconoRef
       condicionDesbloqueo
     }
   }
@@ -361,10 +402,58 @@ query ContarArchivosCompletadosDistintos($usuarioId: UUID!) @auth(level: PUBLIC,
   }
 }
 
-mutation RegistrarLogroNotificado($usuarioId: UUID!, $insigniaId: UUID!, $fecha: Timestamp!) @auth(level: PUBLIC, insecureReason: "Safe badge notification tracking") {
+mutation RegistrarLogroNotificado($usuarioId: UUID!, $insigniaId: UUID!) @auth(level: PUBLIC, insecureReason: "Safe badge notification tracking") {
   logroNotificado_insert(data: {
     usuarioId: $usuarioId,
     insigniaId: $insigniaId,
-    fechaNotificacion: $fecha
+    fechaNotificacion_time: { now: true }
   })
+}
+
+mutation CrearEspacioAprendizaje($usuarioId: UUID!, $nombreEspacio: String!, $codigoAcceso: String!) @auth(level: PUBLIC, insecureReason: "Teacher space creation") {
+  espacioAprendizaje_insert(data: {
+    usuarioId: $usuarioId
+    nombreEspacio: $nombreEspacio
+    codigoAcceso: $codigoAcceso
+  })
+}
+
+query ObtenerMisEspacios($usuarioId: UUID!) @auth(level: PUBLIC, insecureReason: "Teacher space retrieval") {
+  espacioAprendizajes(where: { usuarioId: { eq: $usuarioId } }) {
+    id
+    nombreEspacio
+    codigoAcceso
+  }
+}
+
+query ObtenerEspaciosPorMiembro($usuarioId: UUID!) @auth(level: PUBLIC, insecureReason: "User space membership retrieval") {
+  miembroEspacios(where: { usuario: { id: { eq: $usuarioId } } }) {
+    espacio {
+      id
+      nombreEspacio
+      codigoAcceso
+    }
+  }
+}
+
+query BuscarEspacioPorCodigo($codigoAcceso: String!) @auth(level: PUBLIC, insecureReason: "User join space by code") {
+  espacioAprendizajes(where: { codigoAcceso: { eq: $codigoAcceso } }) {
+    id
+    nombreEspacio
+    codigoAcceso
+  }
+}
+
+mutation UnirseAEspacio($usuarioId: UUID!, $espacioId: UUID!) @auth(level: PUBLIC, insecureReason: "User join space by access code") {
+  miembroEspacio_upsert(data: { usuarioId: $usuarioId, espacioId: $espacioId })
+}
+
+query ObtenerEstadisticasArchivo($archivoId: UUID!) @auth(level: PUBLIC, insecureReason: "Teacher file stats") {
+  intentos(where: { archivoId: { eq: $archivoId } }) {
+    calificacionObtenida
+    usuario {
+      nombre
+      apellidoPaterno
+    }
+  }
 }

@@ -35,6 +35,8 @@ data class ContenidoArchivo(
     val descripcion: String? = null,
     val fechaCreacion: Long? = null,
     val imagenUrl: String? = null,
+    val autorOriginal: String? = null,
+    val licencia: String? = null,
     val tarjetas: List<Tarjeta>,
     val cuestionario: Cuestionario?
 )

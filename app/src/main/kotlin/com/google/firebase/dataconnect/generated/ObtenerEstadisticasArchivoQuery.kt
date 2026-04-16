@@ -17,28 +17,37 @@ import kotlinx.coroutines.flow.filterNotNull as _flow_filterNotNull
 import kotlinx.coroutines.flow.map as _flow_map
 
 
-public interface ObtenerPanelSolicitudesQuery :
+public interface ObtenerEstadisticasArchivoQuery :
     com.google.firebase.dataconnect.generated.GeneratedQuery<
       DefaultConnector,
-      ObtenerPanelSolicitudesQuery.Data,
-      Unit
+      ObtenerEstadisticasArchivoQuery.Data,
+      ObtenerEstadisticasArchivoQuery.Variables
     >
 {
+  
+    @kotlinx.serialization.Serializable
+  public data class Variables(
+  
+    val archivoId: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID
+  ) {
+    
+    
+  }
   
 
   
     @kotlinx.serialization.Serializable
   public data class Data(
   
-    val solicitudValidacions: List<SolicitudValidacionsItem>
+    val intentos: List<IntentosItem>
   ) {
     
       
         @kotlinx.serialization.Serializable
-  public data class SolicitudValidacionsItem(
+  public data class IntentosItem(
   
-    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
-    val usuario: Usuario
+    val calificacionObtenida: Int,
+    val usuario: Usuario?
   ) {
     
       
@@ -62,43 +71,61 @@ public interface ObtenerPanelSolicitudesQuery :
   
 
   public companion object {
-    public val operationName: String = "ObtenerPanelSolicitudes"
+    public val operationName: String = "ObtenerEstadisticasArchivo"
 
     public val dataDeserializer: kotlinx.serialization.DeserializationStrategy<Data> =
       kotlinx.serialization.serializer()
 
-    public val variablesSerializer: kotlinx.serialization.SerializationStrategy<Unit> =
+    public val variablesSerializer: kotlinx.serialization.SerializationStrategy<Variables> =
       kotlinx.serialization.serializer()
   }
 }
 
-public fun ObtenerPanelSolicitudesQuery.ref(
+public fun ObtenerEstadisticasArchivoQuery.ref(
+  
+    archivoId: java.util.UUID,
+  
   
 ): com.google.firebase.dataconnect.QueryRef<
-    ObtenerPanelSolicitudesQuery.Data,
-    Unit
+    ObtenerEstadisticasArchivoQuery.Data,
+    ObtenerEstadisticasArchivoQuery.Variables
   > =
   ref(
     
-      Unit
+      ObtenerEstadisticasArchivoQuery.Variables(
+        archivoId=archivoId,
+  
+      )
     
   )
 
-public suspend fun ObtenerPanelSolicitudesQuery.execute(
+public suspend fun ObtenerEstadisticasArchivoQuery.execute(
+  
+    archivoId: java.util.UUID,
+  
   
   ): com.google.firebase.dataconnect.QueryResult<
-    ObtenerPanelSolicitudesQuery.Data,
-    Unit
+    ObtenerEstadisticasArchivoQuery.Data,
+    ObtenerEstadisticasArchivoQuery.Variables
   > =
   ref(
+    
+      archivoId=archivoId,
+  
     
   ).execute()
 
 
-  public fun ObtenerPanelSolicitudesQuery.flow(
+  public fun ObtenerEstadisticasArchivoQuery.flow(
     
-    ): kotlinx.coroutines.flow.Flow<ObtenerPanelSolicitudesQuery.Data> =
+      archivoId: java.util.UUID,
+  
+    
+    ): kotlinx.coroutines.flow.Flow<ObtenerEstadisticasArchivoQuery.Data> =
     ref(
+        
+          archivoId=archivoId,
+  
         
       ).subscribe()
       .flow

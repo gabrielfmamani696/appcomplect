@@ -8,6 +8,7 @@ import com.gabrieldev.appcomplect.data.repository.UsuarioRepository
 import com.gabrieldev.appcomplect.model.BorradorPreguntaDivulgacion
 import com.gabrieldev.appcomplect.model.BorradorRespuestaDivulgacion
 import com.gabrieldev.appcomplect.model.BorradorTarjetaDivulgacion
+import com.gabrieldev.appcomplect.model.Nivel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -40,6 +41,18 @@ class CrearArchivoViewModel(
     private val _descripcion = MutableStateFlow("")
     val descripcion: StateFlow<String> = _descripcion.asStateFlow()
 
+    private val _autorOriginal = MutableStateFlow<String?>(null)
+    val autorOriginal: StateFlow<String?> = _autorOriginal.asStateFlow()
+
+    private val _licencia = MutableStateFlow<String?>(null)
+    val licencia: StateFlow<String?> = _licencia.asStateFlow()
+
+    private val _niveles = MutableStateFlow<List<Nivel>>(emptyList())
+    val niveles: StateFlow<List<Nivel>> = _niveles.asStateFlow()
+
+    private val _nivelSeleccionadoId = MutableStateFlow<String?>(null)
+    val nivelSeleccionadoId: StateFlow<String?> = _nivelSeleccionadoId.asStateFlow()
+
     private val _imagenPortada = MutableStateFlow<String?>(null)
     val imagenPortada: StateFlow<String?> = _imagenPortada.asStateFlow()
 
@@ -64,10 +77,25 @@ class CrearArchivoViewModel(
     private val _cargando = MutableStateFlow(false)
     val cargando: StateFlow<Boolean> = _cargando.asStateFlow()
 
+    private val nivelSeleccionado: Nivel?
+        get() = _niveles.value.find { it.id == _nivelSeleccionadoId.value }
+
+    private val maxPalabrasPorTarjeta: Int
+        get() = nivelSeleccionado?.limitePalabrasTarjeta
+            ?: usuarioRepository.usuarioActivo.value?.nivel?.limitePalabrasTarjeta
+            ?: 50
+
     val esEstudiante: Boolean
         get() = usuarioRepository.usuarioActivo.value?.nombreRol?.contains("estudiante", true) ?: false
 
+    val esDocente: Boolean
+        get() = usuarioRepository.usuarioActivo.value?.nombreRol?.lowercase()?.contains("docente") == true ||
+                usuarioRepository.usuarioActivo.value?.nombreRol?.lowercase()?.contains("admin") == true
+
     init {
+        viewModelScope.launch {
+            _niveles.value = usuarioRepository.obtenerTodosLosNiveles().sortedBy { it.jerarquia }
+        }
         if (!idArchivoEditar.isNullOrBlank()) {
             cargarParaEdicion(idArchivoEditar)
         }
@@ -87,6 +115,9 @@ class CrearArchivoViewModel(
             _tema.value = meta.tema
             _descripcion.value = meta.descripcion
             _imagenPortada.value = meta.urlPortada
+            _autorOriginal.value = meta.autorOriginal
+            _licencia.value = meta.licencia
+            _nivelSeleccionadoId.value = meta.nivelRequeridoId ?: usuarioRepository.usuarioActivo.value?.nivel?.id
             val contenido = archivoRepository.obtenerContenidoArchivo(id)
             if (contenido != null) {
                 _tarjetas.value = contenido.tarjetas.map { t ->
@@ -121,6 +152,9 @@ class CrearArchivoViewModel(
     fun actualizarTitulo(v: String) { _titulo.value = v }
     fun actualizarTema(v: String) { _tema.value = v }
     fun actualizarDescripcion(v: String) { _descripcion.value = v }
+    fun actualizarAutorOriginal(v: String) { _autorOriginal.value = v }
+    fun actualizarLicencia(v: String) { _licencia.value = v }
+    fun seleccionarNivel(id: String?) { _nivelSeleccionadoId.value = id }
     fun actualizarImagenPortada(v: String?) { _imagenPortada.value = v }
     fun setQuiereCuestionario(v: Boolean) { 
         _quiereCuestionario.value = v 
@@ -129,6 +163,15 @@ class CrearArchivoViewModel(
 
     fun agregarTarjeta(contenido: String, tipoFondo: String, dataFondo: String) {
         if (contenido.isBlank()) return
+        if (esDocente && _nivelSeleccionadoId.value.isNullOrBlank()) {
+            _mensajeUsuario.value = "Selecciona un nivel antes de añadir tarjetas."
+            return
+        }
+        val palabras = contenido.trim().split("\\s+".toRegex()).filter { it.isNotBlank() }.size
+        if (palabras > maxPalabrasPorTarjeta) {
+            _mensajeUsuario.value = "Cada tarjeta admite máximo $maxPalabrasPorTarjeta palabras."
+            return
+        }
         _tarjetas.value = _tarjetas.value + BorradorTarjetaDivulgacion(contenido, tipoFondo, dataFondo)
     }
 
@@ -270,11 +313,20 @@ class CrearArchivoViewModel(
             val tituloQuiz = _listaCuestionarios.value.firstOrNull()?.titulo
             val usuarioId = UUID.fromString(uidStr)
             val usuarioActual = usuarioRepository.usuarioActivo.value
-            val nivelId = if (esEstudiante) {
-                archivoRepository.primerNivelId()
-            } else {
-                usuarioActual?.nivel?.id?.let { UUID.fromString(it) } ?: archivoRepository.primerNivelId()
+
+            if (esDocente && _nivelSeleccionadoId.value.isNullOrBlank()) {
+                _mensajeUsuario.value = "Debes seleccionar un nivel para esta publicación."
+                _cargando.value = false
+                return@launch
             }
+
+            val nivelId = _nivelSeleccionadoId.value?.let { UUID.fromString(it) }
+                ?: usuarioActual?.nivel?.id?.let { UUID.fromString(it) }
+                ?: archivoRepository.primerNivelId()
+
+            val autorOriginalFinal = _autorOriginal.value?.trim()?.takeIf { it.isNotEmpty() }
+            val licenciaFinal = _licencia.value?.trim()?.takeIf { it.isNotEmpty() }
+
             val ok = if (idArchivoEditar.isNullOrBlank()) {
                 archivoRepository.crearArchivoDivulgacionCompleto(
                     titulo = _titulo.value,
@@ -283,6 +335,8 @@ class CrearArchivoViewModel(
                     imagenPortada = _imagenPortada.value,
                     usuarioId = usuarioId,
                     nivelRequeridoUuid = nivelId,
+                    autorOriginal = autorOriginalFinal,
+                    licencia = licenciaFinal,
                     tarjetas = _tarjetas.value,
                     tituloQuiz = tituloQuiz,
                     preguntas = preguntasModelo
@@ -300,6 +354,9 @@ class CrearArchivoViewModel(
                     tema = _tema.value.ifBlank { "General" },
                     descripcion = _descripcion.value.ifBlank { " " },
                     imagenPortada = _imagenPortada.value,
+                    nivelRequeridoUuid = nivelId,
+                    autorOriginal = autorOriginalFinal,
+                    licencia = licenciaFinal,
                     tarjetas = _tarjetas.value,
                     tituloQuiz = tituloQuiz,
                     preguntas = preguntasModelo

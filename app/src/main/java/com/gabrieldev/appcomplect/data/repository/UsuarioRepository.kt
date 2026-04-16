@@ -420,6 +420,25 @@ class UsuarioRepository(
         }
     }
 
+    suspend fun obtenerInvestigadoresOrdenadosPorEstrellas(): List<UsuarioLeaderboard> {
+        return try {
+            val response = connector.listarInvestigadoresOrdenadosPorEstrellas.execute()
+            response.data.usuarios.map { u ->
+                UsuarioLeaderboard(
+                    id = u.id.toString(),
+                    alias = u.alias,
+                    estrellasPrestigio = u.estrellasPrestigio,
+                    rachaActualDias = u.rachaActualDias,
+                    avatarUrl = u.avatar?.imagenUrl ?: "",
+                    insignias = emptyList()
+                )
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emptyList()
+        }
+    }
+
     suspend fun obtenerRankingPosicion(estrellas: Int): Int {
         return try {
             val response = connector.obtenerRankingUsuario.execute(misEstrellas = estrellas)

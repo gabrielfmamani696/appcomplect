@@ -45,12 +45,24 @@ class RegistroViewModel(
 
     private fun cargarDatosIniciales() {
         viewModelScope.launch {
-            val avatares = avatarRepository.obtenerAvatares()
-            val roles = usuarioRepository.obtenerRoles().filter { !it.nombreRol.contains("admin", true) }
-            _uiState.value = _uiState.value.copy(
-                listaAvatares = avatares,
-                listaRoles = roles
-            )
+            try {
+                _uiState.value = _uiState.value.copy(cargando = true)
+
+                val avatares = avatarRepository.obtenerAvatares()
+                val roles = usuarioRepository.obtenerRoles().filter { !it.nombreRol.contains("admin", true) }
+
+                _uiState.value = _uiState.value.copy(
+                    listaAvatares = avatares,
+                    listaRoles = roles,
+                    cargando = false
+                )
+            } catch (e: Exception) {
+                _uiState.value = _uiState.value.copy(
+                    cargando = false,
+                    mensajeError = "No se pudieron cargar los avatares. Verifica tu conexión a internet."
+                )
+                e.printStackTrace()
+            }
         }
     }
 

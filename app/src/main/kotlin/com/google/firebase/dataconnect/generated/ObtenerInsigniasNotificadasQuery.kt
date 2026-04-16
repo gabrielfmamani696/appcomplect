@@ -1,10 +1,9 @@
 
-@file:Suppress(
+@file:kotlin.Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
-  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -47,6 +46,8 @@ public interface ObtenerInsigniasNotificadasQuery :
         @kotlinx.serialization.Serializable
   public data class LogroNotificadosItem(
   
+    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
+    val fechaNotificacion: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.TimestampSerializer::class) com.google.firebase.Timestamp,
     val insignia: Insignia?
   ) {
     
@@ -55,6 +56,9 @@ public interface ObtenerInsigniasNotificadasQuery :
   public data class Insignia(
   
     val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
+    val nombreVisible: String,
+    val descripcion: String,
+    val iconoRef: String,
     val condicionDesbloqueo: String
   ) {
     

@@ -5,7 +5,10 @@ import com.gabrieldev.appcomplect.model.InsigniaSlug
 import com.google.firebase.Timestamp
 import com.google.firebase.dataconnect.generated.DefaultConnector
 import com.google.firebase.dataconnect.generated.execute
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 import java.util.UUID
 
 sealed class ContextoInsignia {
@@ -74,8 +77,7 @@ class InsigniaRepository(private val connector: DefaultConnector) {
                 try {
                     connector.registrarLogroNotificado.execute(
                         usuarioId = uuid,
-                        insigniaId = ins.id,
-                        fecha = ahora
+                        insigniaId = ins.id
                     )
                     insigniasRegistradas.add(ins.id)
                 } catch (e: Exception) {
@@ -93,7 +95,8 @@ class InsigniaRepository(private val connector: DefaultConnector) {
                         nombreVisible = ins.nombreVisible,
                         descripcion = ins.descripcion,
                         iconoRef = ins.iconoRef,
-                        condicionDesbloqueo = ins.condicionDesbloqueo
+                        condicionDesbloqueo = ins.condicionDesbloqueo,
+                        fechaNotificacion = formatearFechaNotificacion(ahora)
                     )
                 }
 
@@ -101,6 +104,45 @@ class InsigniaRepository(private val connector: DefaultConnector) {
         } catch (e: Exception) {
             e.printStackTrace()
             emptyList()
+        }
+    }
+
+    suspend fun obtenerInsigniasObtenidas(usuarioId: String): List<InsigniaObtenida> {
+        return try {
+            val uuid = UUID.fromString(usuarioId)
+            connector.listarInsigniasObtenidasUsuario
+                .execute(usuarioId = uuid)
+                .data
+                .logroNotificados
+                .mapNotNull { logro ->
+                    logro.insignia?.let { insignia ->
+                        InsigniaObtenida(
+                            id = insignia.id.toString(),
+                            nombreVisible = insignia.nombreVisible,
+                            descripcion = insignia.descripcion,
+                            iconoRef = insignia.iconoRef,
+                            condicionDesbloqueo = insignia.condicionDesbloqueo,
+                            fechaNotificacion = formatearFechaNotificacion(logro.fechaNotificacion)
+                        )
+                    }
+                }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emptyList()
+        }
+    }
+
+    private fun formatearFechaNotificacion(fecha: Timestamp?): String {
+        return try {
+            if (fecha == null) return "Fecha desconocida"
+            val millis = fecha.seconds * 1000 + fecha.nanoseconds / 1_000_000
+            val date = Date(millis)
+            val formatter = SimpleDateFormat("HH:mm dd-MM-yyyy", Locale.getDefault())
+            formatter.timeZone = TimeZone.getDefault()
+            formatter.format(date)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            "Fecha desconocida"
         }
     }
 

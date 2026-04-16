@@ -9,7 +9,11 @@ data class Archivo(
     val fechaCreacion: Long,
     val autor: String,
     val nivelRequerido: Int,
-    val idAutor: String? = null
+    val idUsuarioAutor: String? = null,
+    val autorOriginal: String? = null,
+    val licencia: String? = null,
+    val espacioId: String? = null,
+    val espacioNombre: String? = null
 )
 
 data class ArchivoMetaEdicion(
@@ -18,7 +22,10 @@ data class ArchivoMetaEdicion(
     val tema: String,
     val descripcion: String,
     val urlPortada: String?,
-    val idAutor: String?
+    val idAutor: String?,
+    val autorOriginal: String? = null,
+    val licencia: String? = null,
+    val nivelRequeridoId: String? = null
 )
 
 data class BorradorTarjetaDivulgacion(

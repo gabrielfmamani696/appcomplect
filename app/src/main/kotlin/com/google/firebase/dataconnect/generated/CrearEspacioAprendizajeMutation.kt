@@ -14,11 +14,11 @@ package com.google.firebase.dataconnect.generated
 
 
 
-public interface RegistrarLogroNotificadoMutation :
+public interface CrearEspacioAprendizajeMutation :
     com.google.firebase.dataconnect.generated.GeneratedMutation<
       DefaultConnector,
-      RegistrarLogroNotificadoMutation.Data,
-      RegistrarLogroNotificadoMutation.Variables
+      CrearEspacioAprendizajeMutation.Data,
+      CrearEspacioAprendizajeMutation.Variables
     >
 {
   
@@ -26,7 +26,8 @@ public interface RegistrarLogroNotificadoMutation :
   public data class Variables(
   
     val usuarioId: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
-    val insigniaId: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID
+    val nombreEspacio: String,
+    val codigoAcceso: String
   ) {
     
     
@@ -37,7 +38,7 @@ public interface RegistrarLogroNotificadoMutation :
     @kotlinx.serialization.Serializable
   public data class Data(
   
-    val logroNotificado_insert: LogroNotificadoKey
+    val espacioAprendizaje_insert: EspacioAprendizajeKey
   ) {
     
     
@@ -45,7 +46,7 @@ public interface RegistrarLogroNotificadoMutation :
   
 
   public companion object {
-    public val operationName: String = "RegistrarLogroNotificado"
+    public val operationName: String = "CrearEspacioAprendizaje"
 
     public val dataDeserializer: kotlinx.serialization.DeserializationStrategy<Data> =
       kotlinx.serialization.serializer()
@@ -55,36 +56,36 @@ public interface RegistrarLogroNotificadoMutation :
   }
 }
 
-public fun RegistrarLogroNotificadoMutation.ref(
+public fun CrearEspacioAprendizajeMutation.ref(
   
-    usuarioId: java.util.UUID,insigniaId: java.util.UUID,
+    usuarioId: java.util.UUID,nombreEspacio: String,codigoAcceso: String,
   
   
 ): com.google.firebase.dataconnect.MutationRef<
-    RegistrarLogroNotificadoMutation.Data,
-    RegistrarLogroNotificadoMutation.Variables
+    CrearEspacioAprendizajeMutation.Data,
+    CrearEspacioAprendizajeMutation.Variables
   > =
   ref(
     
-      RegistrarLogroNotificadoMutation.Variables(
-        usuarioId=usuarioId,insigniaId=insigniaId,
+      CrearEspacioAprendizajeMutation.Variables(
+        usuarioId=usuarioId,nombreEspacio=nombreEspacio,codigoAcceso=codigoAcceso,
   
       )
     
   )
 
-public suspend fun RegistrarLogroNotificadoMutation.execute(
+public suspend fun CrearEspacioAprendizajeMutation.execute(
   
-    usuarioId: java.util.UUID,insigniaId: java.util.UUID,
+    usuarioId: java.util.UUID,nombreEspacio: String,codigoAcceso: String,
   
   
   ): com.google.firebase.dataconnect.MutationResult<
-    RegistrarLogroNotificadoMutation.Data,
-    RegistrarLogroNotificadoMutation.Variables
+    CrearEspacioAprendizajeMutation.Data,
+    CrearEspacioAprendizajeMutation.Variables
   > =
   ref(
     
-      usuarioId=usuarioId,insigniaId=insigniaId,
+      usuarioId=usuarioId,nombreEspacio=nombreEspacio,codigoAcceso=codigoAcceso,
   
     
   ).execute()

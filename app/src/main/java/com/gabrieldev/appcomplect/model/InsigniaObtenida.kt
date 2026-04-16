@@ -5,7 +5,8 @@ data class InsigniaObtenida(
     val nombreVisible: String,
     val descripcion: String,
     val iconoRef: String,
-    val condicionDesbloqueo: String
+    val condicionDesbloqueo: String,
+    val fechaNotificacion: String
 )
 
 object InsigniaSlug {

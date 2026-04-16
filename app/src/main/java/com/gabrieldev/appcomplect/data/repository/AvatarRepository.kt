@@ -1,5 +1,6 @@
 package com.gabrieldev.appcomplect.data.repository
 
+import android.util.Log
 import com.gabrieldev.appcomplect.model.OpcionAvatar
 import com.google.firebase.dataconnect.generated.DefaultConnector
 import com.google.firebase.dataconnect.generated.execute
@@ -17,7 +18,8 @@ class AvatarRepository(private val connector: DefaultConnector) {
                 )
             }
         } catch (e: Exception) {
-            emptyList()
+            Log.e("AvatarRepository", "🔥 Error de Firebase al descargar avatares: ${e.message}", e)
+            throw e
         }
     }
 }

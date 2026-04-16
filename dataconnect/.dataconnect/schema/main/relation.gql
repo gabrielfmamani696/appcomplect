@@ -110,6 +110,15 @@ extend type Archivo {
   """
   _count: Int! @fdc_generated(from: "Archivo.", purpose: QUERY_COUNT)
   """
+  ✨ Count the number of rows in the `Archivo` table where the `autorOriginal` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  autorOriginal_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Archivo.autorOriginal", purpose: QUERY_COUNT)
+  """
   ✨ Count the number of rows in the `Archivo` table where the `descripcion` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
   descripcion_count(
@@ -154,6 +163,15 @@ extend type Archivo {
     """
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Archivo.imagenUrl", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Archivo` table where the `licencia` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  licencia_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Archivo.licencia", purpose: QUERY_COUNT)
   """
   ✨ Count the number of rows in the `Archivo` table where the `nivelRequeridoId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
@@ -390,6 +408,15 @@ extend type EspacioAprendizaje {
   """
   _count: Int! @fdc_generated(from: "EspacioAprendizaje.", purpose: QUERY_COUNT)
   """
+  ✨ Count the number of rows in the `EspacioAprendizaje` table where the `codigoAcceso` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  codigoAcceso_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "EspacioAprendizaje.codigoAcceso", purpose: QUERY_COUNT)
+  """
   ✨ Count the number of rows in the `EspacioAprendizaje` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
   id_count(
@@ -407,15 +434,6 @@ extend type EspacioAprendizaje {
     """
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "EspacioAprendizaje.nombreEspacio", purpose: QUERY_COUNT)
-  """
-  ✨ Count the number of rows in the `EspacioAprendizaje` table where the `tokenAcceso` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
-  """
-  tokenAcceso_count(
-    """
-    Set to true to count the number of distinct values.
-    """
-    distinct: Boolean = false
-  ): Int! @fdc_generated(from: "EspacioAprendizaje.tokenAcceso", purpose: QUERY_COUNT)
   """
   ✨ Count the number of rows in the `EspacioAprendizaje` table where the `usuarioId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
@@ -702,6 +720,15 @@ extend type MiembroEspacio {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "MiembroEspacio.espacioId", purpose: QUERY_COUNT)
   """
+  ✨ Count the number of rows in the `MiembroEspacio` table where the `estrellasPrestigioE` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  estrellasPrestigioE_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "MiembroEspacio.estrellasPrestigioE", purpose: QUERY_COUNT)
+  """
   ✨ Count the number of rows in the `MiembroEspacio` table where the `usuarioId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
   usuarioId_count(
@@ -710,6 +737,32 @@ extend type MiembroEspacio {
     """
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "MiembroEspacio.usuarioId", purpose: QUERY_COUNT)
+  """
+  ✨ Sum the `estrellasPrestigioE` field in the `MiembroEspacio` table.
+  """
+  estrellasPrestigioE_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Int @fdc_generated(from: "MiembroEspacio.estrellasPrestigioE", purpose: QUERY_SUM)
+  """
+  ✨ Average the `estrellasPrestigioE` field in the `MiembroEspacio` table.
+  """
+  estrellasPrestigioE_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "MiembroEspacio.estrellasPrestigioE", purpose: QUERY_AVG)
+  """
+  ✨ Minimum of the `estrellasPrestigioE` field in the `MiembroEspacio` table.
+  """
+  estrellasPrestigioE_min: Int @fdc_generated(from: "MiembroEspacio.estrellasPrestigioE", purpose: QUERY_MIN)
+  """
+  ✨ Maximum of the `estrellasPrestigioE` field in the `MiembroEspacio` table.
+  """
+  estrellasPrestigioE_max: Int @fdc_generated(from: "MiembroEspacio.estrellasPrestigioE", purpose: QUERY_MAX)
   """
   A generated field that is used for caching results in SDKs.
   """
@@ -1656,15 +1709,6 @@ extend type Usuario {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Usuario.apellidoPaterno", purpose: QUERY_COUNT)
   """
-  ✨ Count the number of rows in the `Usuario` table where the `autorOriginal` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
-  """
-  autorOriginal_count(
-    """
-    Set to true to count the number of distinct values.
-    """
-    distinct: Boolean = false
-  ): Int! @fdc_generated(from: "Usuario.autorOriginal", purpose: QUERY_COUNT)
-  """
   ✨ Count the number of rows in the `Usuario` table where the `avatarId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
   avatarId_count(
@@ -1718,15 +1762,6 @@ extend type Usuario {
     """
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Usuario.id", purpose: QUERY_COUNT)
-  """
-  ✨ Count the number of rows in the `Usuario` table where the `licencia` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
-  """
-  licencia_count(
-    """
-    Set to true to count the number of distinct values.
-    """
-    distinct: Boolean = false
-  ): Int! @fdc_generated(from: "Usuario.licencia", purpose: QUERY_COUNT)
   """
   ✨ Count the number of rows in the `Usuario` table where the `nivelId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """

@@ -1,10 +1,9 @@
 
-@file:Suppress(
+@file:kotlin.Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
-  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -33,6 +32,15 @@ package com.google.firebase.dataconnect.generated
   }
 
   @kotlinx.serialization.Serializable
+  public data class EspacioAprendizajeKey(
+  
+    val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID
+  ) {
+    
+    
+  }
+
+  @kotlinx.serialization.Serializable
   public data class IntentoKey(
   
     val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID
@@ -45,6 +53,16 @@ package com.google.firebase.dataconnect.generated
   public data class LogroNotificadoKey(
   
     val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID
+  ) {
+    
+    
+  }
+
+  @kotlinx.serialization.Serializable
+  public data class MiembroEspacioKey(
+  
+    val espacioId: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
+    val usuarioId: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID
   ) {
     
     

@@ -19,8 +19,6 @@ type Usuario @table {
   apellidoMaterno: String!
   nivel: Nivel
   avatar: OpcionAvatar
-  autorOriginal: String
-  licencia: String
 }
 
 type Nivel @table {
@@ -38,7 +36,7 @@ type OpcionAvatar @table {
 type EspacioAprendizaje @table {
   usuario: Usuario
   nombreEspacio: String!
-  tokenAcceso: String!
+  codigoAcceso: String! @unique
 }
 
 type MiembroEspacio @table(key: ["espacio", "usuario"]) {

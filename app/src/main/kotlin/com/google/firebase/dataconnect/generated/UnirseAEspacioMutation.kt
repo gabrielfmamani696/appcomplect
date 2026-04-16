@@ -14,19 +14,19 @@ package com.google.firebase.dataconnect.generated
 
 
 
-public interface AgregarPreguntaCuestionarioMutation :
+public interface UnirseAEspacioMutation :
     com.google.firebase.dataconnect.generated.GeneratedMutation<
       DefaultConnector,
-      AgregarPreguntaCuestionarioMutation.Data,
-      AgregarPreguntaCuestionarioMutation.Variables
+      UnirseAEspacioMutation.Data,
+      UnirseAEspacioMutation.Variables
     >
 {
   
     @kotlinx.serialization.Serializable
   public data class Variables(
   
-    val cuestionarioId: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
-    val enunciado: String
+    val usuarioId: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
+    val espacioId: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID
   ) {
     
     
@@ -37,7 +37,7 @@ public interface AgregarPreguntaCuestionarioMutation :
     @kotlinx.serialization.Serializable
   public data class Data(
   
-    val pregunta_insert: PreguntaKey
+    val miembroEspacio_upsert: MiembroEspacioKey
   ) {
     
     
@@ -45,7 +45,7 @@ public interface AgregarPreguntaCuestionarioMutation :
   
 
   public companion object {
-    public val operationName: String = "AgregarPreguntaCuestionario"
+    public val operationName: String = "UnirseAEspacio"
 
     public val dataDeserializer: kotlinx.serialization.DeserializationStrategy<Data> =
       kotlinx.serialization.serializer()
@@ -55,36 +55,36 @@ public interface AgregarPreguntaCuestionarioMutation :
   }
 }
 
-public fun AgregarPreguntaCuestionarioMutation.ref(
+public fun UnirseAEspacioMutation.ref(
   
-    cuestionarioId: java.util.UUID,enunciado: String,
+    usuarioId: java.util.UUID,espacioId: java.util.UUID,
   
   
 ): com.google.firebase.dataconnect.MutationRef<
-    AgregarPreguntaCuestionarioMutation.Data,
-    AgregarPreguntaCuestionarioMutation.Variables
+    UnirseAEspacioMutation.Data,
+    UnirseAEspacioMutation.Variables
   > =
   ref(
     
-      AgregarPreguntaCuestionarioMutation.Variables(
-        cuestionarioId=cuestionarioId,enunciado=enunciado,
+      UnirseAEspacioMutation.Variables(
+        usuarioId=usuarioId,espacioId=espacioId,
   
       )
     
   )
 
-public suspend fun AgregarPreguntaCuestionarioMutation.execute(
+public suspend fun UnirseAEspacioMutation.execute(
   
-    cuestionarioId: java.util.UUID,enunciado: String,
+    usuarioId: java.util.UUID,espacioId: java.util.UUID,
   
   
   ): com.google.firebase.dataconnect.MutationResult<
-    AgregarPreguntaCuestionarioMutation.Data,
-    AgregarPreguntaCuestionarioMutation.Variables
+    UnirseAEspacioMutation.Data,
+    UnirseAEspacioMutation.Variables
   > =
   ref(
     
-      cuestionarioId=cuestionarioId,enunciado=enunciado,
+      usuarioId=usuarioId,espacioId=espacioId,
   
     
   ).execute()

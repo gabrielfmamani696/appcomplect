@@ -1,10 +1,9 @@
 
-@file:Suppress(
+@file:kotlin.Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
-  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -14,13 +13,14 @@
 package com.google.firebase.dataconnect.generated
 
 import com.google.firebase.dataconnect.getInstance as _fdcGetInstance
-import kotlin.time.Duration.Companion.milliseconds as _milliseconds
 
 public interface DefaultConnector : com.google.firebase.dataconnect.generated.GeneratedConnector<DefaultConnector> {
   override val dataConnect: com.google.firebase.dataconnect.FirebaseDataConnect
 
   
     public val actualizarArchivoDivulgacion: ActualizarArchivoDivulgacionMutation
+  
+    public val actualizarArchivoEspacio: ActualizarArchivoEspacioMutation
   
     public val actualizarEstrellasUsuario: ActualizarEstrellasUsuarioMutation
   
@@ -38,11 +38,15 @@ public interface DefaultConnector : com.google.firebase.dataconnect.generated.Ge
   
     public val agregarTarjetaArchivo: AgregarTarjetaArchivoMutation
   
+    public val buscarEspacioPorCodigo: BuscarEspacioPorCodigoQuery
+  
     public val contarArchivosCompletadosDistintos: ContarArchivosCompletadosDistintosQuery
   
     public val contarIntentosUsuario: ContarIntentosUsuarioQuery
   
     public val crearArchivoDivulgacion: CrearArchivoDivulgacionMutation
+  
+    public val crearEspacioAprendizaje: CrearEspacioAprendizajeMutation
   
     public val crearSolicitudValidacion: CrearSolicitudValidacionMutation
   
@@ -62,6 +66,10 @@ public interface DefaultConnector : com.google.firebase.dataconnect.generated.Ge
   
     public val listarAvatares: ListarAvataresQuery
   
+    public val listarInsigniasObtenidasUsuario: ListarInsigniasObtenidasUsuarioQuery
+  
+    public val listarInvestigadoresOrdenadosPorEstrellas: ListarInvestigadoresOrdenadosPorEstrellasQuery
+  
     public val listarNiveles: ListarNivelesQuery
   
     public val listarRoles: ListarRolesQuery
@@ -72,11 +80,17 @@ public interface DefaultConnector : com.google.firebase.dataconnect.generated.Ge
   
     public val obtenerContenidoArchivo: ObtenerContenidoArchivoQuery
   
+    public val obtenerEspaciosPorMiembro: ObtenerEspaciosPorMiembroQuery
+  
+    public val obtenerEstadisticasArchivo: ObtenerEstadisticasArchivoQuery
+  
     public val obtenerEstructuraLimpiezaArchivo: ObtenerEstructuraLimpiezaArchivoQuery
   
     public val obtenerInsigniasNotificadas: ObtenerInsigniasNotificadasQuery
   
     public val obtenerLeaderboard: ObtenerLeaderboardQuery
+  
+    public val obtenerMisEspacios: ObtenerMisEspaciosQuery
   
     public val obtenerPanelSolicitudes: ObtenerPanelSolicitudesQuery
   
@@ -96,6 +110,8 @@ public interface DefaultConnector : com.google.firebase.dataconnect.generated.Ge
   
     public val seedRolesData: SeedRolesDataMutation
   
+    public val unirseAEspacio: UnirseAEspacioMutation
+  
 
   public companion object {
     @Suppress("MemberVisibilityCanBePrivate")
@@ -114,15 +130,11 @@ public interface DefaultConnector : com.google.firebase.dataconnect.generated.Ge
     }
 
     private val instances = java.util.WeakHashMap<com.google.firebase.dataconnect.FirebaseDataConnect, DefaultConnectorImpl>()
-
-    
   }
 }
 
 public val DefaultConnector.Companion.instance:DefaultConnector
-  get() = getInstance(com.google.firebase.dataconnect.FirebaseDataConnect._fdcGetInstance(
-    config
-  ))
+  get() = getInstance(com.google.firebase.dataconnect.FirebaseDataConnect._fdcGetInstance(config))
 
 public fun DefaultConnector.Companion.getInstance(
   settings: com.google.firebase.dataconnect.DataConnectSettings = com.google.firebase.dataconnect.DataConnectSettings()
@@ -141,6 +153,10 @@ private class DefaultConnectorImpl(
   
     override val actualizarArchivoDivulgacion by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ActualizarArchivoDivulgacionMutationImpl(this)
+    }
+  
+    override val actualizarArchivoEspacio by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ActualizarArchivoEspacioMutationImpl(this)
     }
   
     override val actualizarEstrellasUsuario by lazy(LazyThreadSafetyMode.PUBLICATION) {
@@ -175,6 +191,10 @@ private class DefaultConnectorImpl(
       AgregarTarjetaArchivoMutationImpl(this)
     }
   
+    override val buscarEspacioPorCodigo by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      BuscarEspacioPorCodigoQueryImpl(this)
+    }
+  
     override val contarArchivosCompletadosDistintos by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ContarArchivosCompletadosDistintosQueryImpl(this)
     }
@@ -185,6 +205,10 @@ private class DefaultConnectorImpl(
   
     override val crearArchivoDivulgacion by lazy(LazyThreadSafetyMode.PUBLICATION) {
       CrearArchivoDivulgacionMutationImpl(this)
+    }
+  
+    override val crearEspacioAprendizaje by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      CrearEspacioAprendizajeMutationImpl(this)
     }
   
     override val crearSolicitudValidacion by lazy(LazyThreadSafetyMode.PUBLICATION) {
@@ -223,6 +247,14 @@ private class DefaultConnectorImpl(
       ListarAvataresQueryImpl(this)
     }
   
+    override val listarInsigniasObtenidasUsuario by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ListarInsigniasObtenidasUsuarioQueryImpl(this)
+    }
+  
+    override val listarInvestigadoresOrdenadosPorEstrellas by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ListarInvestigadoresOrdenadosPorEstrellasQueryImpl(this)
+    }
+  
     override val listarNiveles by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ListarNivelesQueryImpl(this)
     }
@@ -243,6 +275,14 @@ private class DefaultConnectorImpl(
       ObtenerContenidoArchivoQueryImpl(this)
     }
   
+    override val obtenerEspaciosPorMiembro by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ObtenerEspaciosPorMiembroQueryImpl(this)
+    }
+  
+    override val obtenerEstadisticasArchivo by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ObtenerEstadisticasArchivoQueryImpl(this)
+    }
+  
     override val obtenerEstructuraLimpiezaArchivo by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ObtenerEstructuraLimpiezaArchivoQueryImpl(this)
     }
@@ -253,6 +293,10 @@ private class DefaultConnectorImpl(
   
     override val obtenerLeaderboard by lazy(LazyThreadSafetyMode.PUBLICATION) {
       ObtenerLeaderboardQueryImpl(this)
+    }
+  
+    override val obtenerMisEspacios by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      ObtenerMisEspaciosQueryImpl(this)
     }
   
     override val obtenerPanelSolicitudes by lazy(LazyThreadSafetyMode.PUBLICATION) {
@@ -291,6 +335,10 @@ private class DefaultConnectorImpl(
       SeedRolesDataMutationImpl(this)
     }
   
+    override val unirseAEspacio by lazy(LazyThreadSafetyMode.PUBLICATION) {
+      UnirseAEspacioMutationImpl(this)
+    }
+  
 
   @com.google.firebase.dataconnect.ExperimentalFirebaseDataConnect
   override fun operations(): List<com.google.firebase.dataconnect.generated.GeneratedOperation<DefaultConnector, *, *>> =
@@ -300,6 +348,7 @@ private class DefaultConnectorImpl(
   override fun mutations(): List<com.google.firebase.dataconnect.generated.GeneratedMutation<DefaultConnector, *, *>> =
     listOf(
       actualizarArchivoDivulgacion,
+        actualizarArchivoEspacio,
         actualizarEstrellasUsuario,
         actualizarNivelUsuario,
         actualizarRachaUsuario,
@@ -309,6 +358,7 @@ private class DefaultConnectorImpl(
         agregarRespuestaPregunta,
         agregarTarjetaArchivo,
         crearArchivoDivulgacion,
+        crearEspacioAprendizaje,
         crearSolicitudValidacion,
         crearUsuarioNuevo,
         eliminarArchivo,
@@ -320,24 +370,31 @@ private class DefaultConnectorImpl(
         registrarLogroNotificado,
         seedOpcionAvatarData,
         seedRolesData,
+        unirseAEspacio,
         
     )
 
   @com.google.firebase.dataconnect.ExperimentalFirebaseDataConnect
   override fun queries(): List<com.google.firebase.dataconnect.generated.GeneratedQuery<DefaultConnector, *, *>> =
     listOf(
-      contarArchivosCompletadosDistintos,
+      buscarEspacioPorCodigo,
+        contarArchivosCompletadosDistintos,
         contarIntentosUsuario,
         listarArchivosPublicos,
         listarAvatares,
+        listarInsigniasObtenidasUsuario,
+        listarInvestigadoresOrdenadosPorEstrellas,
         listarNiveles,
         listarRoles,
         listarTodasInsignias,
         obtenerArchivoParaEdicion,
         obtenerContenidoArchivo,
+        obtenerEspaciosPorMiembro,
+        obtenerEstadisticasArchivo,
         obtenerEstructuraLimpiezaArchivo,
         obtenerInsigniasNotificadas,
         obtenerLeaderboard,
+        obtenerMisEspacios,
         obtenerPanelSolicitudes,
         obtenerPerfilCompleto,
         obtenerRankingUsuario,
@@ -493,6 +550,21 @@ private class ActualizarArchivoDivulgacionMutationImpl(
   )
 
 
+private class ActualizarArchivoEspacioMutationImpl(
+  connector: DefaultConnector
+):
+  ActualizarArchivoEspacioMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      ActualizarArchivoEspacioMutation.Data,
+      ActualizarArchivoEspacioMutation.Variables
+  >(
+    connector,
+    ActualizarArchivoEspacioMutation.Companion.operationName,
+    ActualizarArchivoEspacioMutation.Companion.dataDeserializer,
+    ActualizarArchivoEspacioMutation.Companion.variablesSerializer,
+  )
+
+
 private class ActualizarEstrellasUsuarioMutationImpl(
   connector: DefaultConnector
 ):
@@ -613,6 +685,21 @@ private class AgregarTarjetaArchivoMutationImpl(
   )
 
 
+private class BuscarEspacioPorCodigoQueryImpl(
+  connector: DefaultConnector
+):
+  BuscarEspacioPorCodigoQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      BuscarEspacioPorCodigoQuery.Data,
+      BuscarEspacioPorCodigoQuery.Variables
+  >(
+    connector,
+    BuscarEspacioPorCodigoQuery.Companion.operationName,
+    BuscarEspacioPorCodigoQuery.Companion.dataDeserializer,
+    BuscarEspacioPorCodigoQuery.Companion.variablesSerializer,
+  )
+
+
 private class ContarArchivosCompletadosDistintosQueryImpl(
   connector: DefaultConnector
 ):
@@ -655,6 +742,21 @@ private class CrearArchivoDivulgacionMutationImpl(
     CrearArchivoDivulgacionMutation.Companion.operationName,
     CrearArchivoDivulgacionMutation.Companion.dataDeserializer,
     CrearArchivoDivulgacionMutation.Companion.variablesSerializer,
+  )
+
+
+private class CrearEspacioAprendizajeMutationImpl(
+  connector: DefaultConnector
+):
+  CrearEspacioAprendizajeMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      CrearEspacioAprendizajeMutation.Data,
+      CrearEspacioAprendizajeMutation.Variables
+  >(
+    connector,
+    CrearEspacioAprendizajeMutation.Companion.operationName,
+    CrearEspacioAprendizajeMutation.Companion.dataDeserializer,
+    CrearEspacioAprendizajeMutation.Companion.variablesSerializer,
   )
 
 
@@ -793,6 +895,36 @@ private class ListarAvataresQueryImpl(
   )
 
 
+private class ListarInsigniasObtenidasUsuarioQueryImpl(
+  connector: DefaultConnector
+):
+  ListarInsigniasObtenidasUsuarioQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ListarInsigniasObtenidasUsuarioQuery.Data,
+      ListarInsigniasObtenidasUsuarioQuery.Variables
+  >(
+    connector,
+    ListarInsigniasObtenidasUsuarioQuery.Companion.operationName,
+    ListarInsigniasObtenidasUsuarioQuery.Companion.dataDeserializer,
+    ListarInsigniasObtenidasUsuarioQuery.Companion.variablesSerializer,
+  )
+
+
+private class ListarInvestigadoresOrdenadosPorEstrellasQueryImpl(
+  connector: DefaultConnector
+):
+  ListarInvestigadoresOrdenadosPorEstrellasQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ListarInvestigadoresOrdenadosPorEstrellasQuery.Data,
+      Unit
+  >(
+    connector,
+    ListarInvestigadoresOrdenadosPorEstrellasQuery.Companion.operationName,
+    ListarInvestigadoresOrdenadosPorEstrellasQuery.Companion.dataDeserializer,
+    ListarInvestigadoresOrdenadosPorEstrellasQuery.Companion.variablesSerializer,
+  )
+
+
 private class ListarNivelesQueryImpl(
   connector: DefaultConnector
 ):
@@ -868,6 +1000,36 @@ private class ObtenerContenidoArchivoQueryImpl(
   )
 
 
+private class ObtenerEspaciosPorMiembroQueryImpl(
+  connector: DefaultConnector
+):
+  ObtenerEspaciosPorMiembroQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ObtenerEspaciosPorMiembroQuery.Data,
+      ObtenerEspaciosPorMiembroQuery.Variables
+  >(
+    connector,
+    ObtenerEspaciosPorMiembroQuery.Companion.operationName,
+    ObtenerEspaciosPorMiembroQuery.Companion.dataDeserializer,
+    ObtenerEspaciosPorMiembroQuery.Companion.variablesSerializer,
+  )
+
+
+private class ObtenerEstadisticasArchivoQueryImpl(
+  connector: DefaultConnector
+):
+  ObtenerEstadisticasArchivoQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ObtenerEstadisticasArchivoQuery.Data,
+      ObtenerEstadisticasArchivoQuery.Variables
+  >(
+    connector,
+    ObtenerEstadisticasArchivoQuery.Companion.operationName,
+    ObtenerEstadisticasArchivoQuery.Companion.dataDeserializer,
+    ObtenerEstadisticasArchivoQuery.Companion.variablesSerializer,
+  )
+
+
 private class ObtenerEstructuraLimpiezaArchivoQueryImpl(
   connector: DefaultConnector
 ):
@@ -910,6 +1072,21 @@ private class ObtenerLeaderboardQueryImpl(
     ObtenerLeaderboardQuery.Companion.operationName,
     ObtenerLeaderboardQuery.Companion.dataDeserializer,
     ObtenerLeaderboardQuery.Companion.variablesSerializer,
+  )
+
+
+private class ObtenerMisEspaciosQueryImpl(
+  connector: DefaultConnector
+):
+  ObtenerMisEspaciosQuery,
+  DefaultConnectorGeneratedQueryImpl<
+      ObtenerMisEspaciosQuery.Data,
+      ObtenerMisEspaciosQuery.Variables
+  >(
+    connector,
+    ObtenerMisEspaciosQuery.Companion.operationName,
+    ObtenerMisEspaciosQuery.Companion.dataDeserializer,
+    ObtenerMisEspaciosQuery.Companion.variablesSerializer,
   )
 
 
@@ -1045,6 +1222,21 @@ private class SeedRolesDataMutationImpl(
     SeedRolesDataMutation.Companion.operationName,
     SeedRolesDataMutation.Companion.dataDeserializer,
     SeedRolesDataMutation.Companion.variablesSerializer,
+  )
+
+
+private class UnirseAEspacioMutationImpl(
+  connector: DefaultConnector
+):
+  UnirseAEspacioMutation,
+  DefaultConnectorGeneratedMutationImpl<
+      UnirseAEspacioMutation.Data,
+      UnirseAEspacioMutation.Variables
+  >(
+    connector,
+    UnirseAEspacioMutation.Companion.operationName,
+    UnirseAEspacioMutation.Companion.dataDeserializer,
+    UnirseAEspacioMutation.Companion.variablesSerializer,
   )
 
 

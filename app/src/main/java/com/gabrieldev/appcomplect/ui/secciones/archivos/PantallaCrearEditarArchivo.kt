@@ -36,6 +36,7 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.RadioButtonUnchecked
@@ -46,6 +47,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -74,16 +77,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.gabrieldev.appcomplect.model.BorradorRespuestaDivulgacion
 import com.gabrieldev.appcomplect.model.BorradorTarjetaDivulgacion
+import com.gabrieldev.appcomplect.model.Nivel
 import com.gabrieldev.appcomplect.ui.theme.ColorFondo
 import com.gabrieldev.appcomplect.ui.theme.ColorVerde
 import com.gabrieldev.appcomplect.ui.theme.ColorVerdeClaro
 import com.gabrieldev.appcomplect.ui.theme.ColorVerdeMedio
+import android.graphics.Color as AndroidColor
 
 @Composable
 fun OutlinedTextFieldConAudio(
@@ -142,6 +146,10 @@ fun PantallaCrearEditarArchivo(
     val tema by viewModel.tema.collectAsState()
     val descripcion by viewModel.descripcion.collectAsState()
     val imagenPortada by viewModel.imagenPortada.collectAsState()
+    val autorOriginal by viewModel.autorOriginal.collectAsState()
+    val licencia by viewModel.licencia.collectAsState()
+    val niveles by viewModel.niveles.collectAsState()
+    val nivelSeleccionadoId by viewModel.nivelSeleccionadoId.collectAsState()
     val listaCuestionarios by viewModel.listaCuestionarios.collectAsState()
     val cuestionarioActivoId by viewModel.cuestionarioActivoId.collectAsState()
     val quiereCuestionario by viewModel.quiereCuestionario.collectAsState()
@@ -149,8 +157,18 @@ fun PantallaCrearEditarArchivo(
     val mensajeUsuario by viewModel.mensajeUsuario.collectAsState()
     val navegarAtras by viewModel.navegarAtras.collectAsState()
     val cargando by viewModel.cargando.collectAsState()
+    val esDocente = viewModel.esDocente
+
+    val tituloValido = titulo.length >= 4
+    val temaValido = tema.length >= 4
+    val descripcionValida = descripcion.length >= 4
+    val autorOriginalValido = !esDocente || (autorOriginal?.trim()?.length ?: 0) >= 5
+    val licenciaValida = !esDocente || (licencia?.trim()?.length ?: 0) >= 5
+    val nivelValido = !esDocente || !nivelSeleccionadoId.isNullOrBlank()
+    val puedeAvanzarPaso1 = tituloValido && temaValido && descripcionValida && autorOriginalValido && licenciaValida && nivelValido
 
     var pasoActual by remember { mutableIntStateOf(1) }
+    var mostrarErroresPaso1 by remember { mutableStateOf(false) }
     val totalPasos = 3
     val snackbarHostState = remember { SnackbarHostState() }
     val esEdicion = viewModel.idArchivoEditar != null
@@ -249,21 +267,41 @@ fun PantallaCrearEditarArchivo(
                 if (pasoActual < totalPasos) {
                     Button(
                         onClick = {
-                            if (pasoActual == 2 && tarjetas.isEmpty()) {
+                            if (pasoActual == 1) {
+                                mostrarErroresPaso1 = true
+                                when {
+                                    !tituloValido -> viewModel.actualizarMensaje("El título debe tener al menos 4 caracteres.")
+                                    !temaValido -> viewModel.actualizarMensaje("El tema debe tener al menos 4 caracteres.")
+                                    !descripcionValida -> viewModel.actualizarMensaje("La descripción debe tener al menos 4 caracteres.")
+                                    esDocente && !nivelValido -> viewModel.actualizarMensaje("Selecciona un nivel para esta publicación.")
+                                    esDocente && !autorOriginalValido -> viewModel.actualizarMensaje("El autor original debe tener al menos 5 caracteres.")
+                                    esDocente && !licenciaValida -> viewModel.actualizarMensaje("La licencia debe tener al menos 5 caracteres.")
+                                    else -> {
+                                        mostrarErroresPaso1 = false
+                                        pasoActual++
+                                    }
+                                }
+                            } else if (pasoActual == 2 && tarjetas.isEmpty()) {
                                 viewModel.actualizarMensaje("Debes añadir al menos una tarjeta.")
                             } else {
                                 pasoActual++
                             }
                         },
-                        enabled = if (pasoActual == 1) titulo.isNotBlank() else true,
+                        enabled = !cargando,
                         colors = ButtonDefaults.buttonColors(containerColor = ColorVerdeMedio)
                     ) {
                         Text("Siguiente", color = Color.White)
                     }
                 } else {
                     Button(
-                        onClick = { viewModel.guardarTodo() },
-                        enabled = !cargando,
+                        onClick = {
+                            if (esDocente && listaCuestionarios.isEmpty()) {
+                                viewModel.actualizarMensaje("Como docente, debes añadir un cuestionario.")
+                            } else {
+                                viewModel.guardarTodo()
+                            }
+                        },
+                        enabled = !cargando && !(esDocente && listaCuestionarios.isEmpty()),
                         colors = ButtonDefaults.buttonColors(containerColor = ColorVerde)
                     ) {
                         if (cargando) {
@@ -295,10 +333,21 @@ fun PantallaCrearEditarArchivo(
                     descripcion = descripcion,
                     onDescripcionChange = viewModel::actualizarDescripcion,
                     imagenPortada = imagenPortada,
-                    onImagenPortadaChange = viewModel::actualizarImagenPortada
+                    onImagenPortadaChange = viewModel::actualizarImagenPortada,
+                    autorOriginal = autorOriginal,
+                    onAutorOriginalChange = viewModel::actualizarAutorOriginal,
+                    licencia = licencia,
+                    onLicenciaChange = viewModel::actualizarLicencia,
+                    niveles = niveles,
+                    nivelSeleccionadoId = nivelSeleccionadoId,
+                    onNivelSeleccionadoChange = viewModel::seleccionarNivel,
+                    esDocente = esDocente,
+                    mostrarErrores = mostrarErroresPaso1
                 )
                 2 -> PasoTarjetasDivulgacion(
                     listaTarjetas = tarjetas,
+                    maxPalabras = niveles.find { it.id == nivelSeleccionadoId }?.limitePalabrasTarjeta,
+                    esDocente = esDocente,
                     onAgregar = { c, tipo, data -> 
                         if (tarjetaSiendoEditada != null) {
                             viewModel.eliminarTarjeta(tarjetaSiendoEditada!!)
@@ -318,6 +367,7 @@ fun PantallaCrearEditarArchivo(
                     cuestionarioActivoId = cuestionarioActivoId,
                     quiereCuestionario = quiereCuestionario,
                     esEstudiante = viewModel.esEstudiante,
+                    esDocente = esDocente,
                     onSetQuiereCuestionario = viewModel::setQuiereCuestionario,
                     onCrearCuestionario = viewModel::crearNuevoCuestionario,
                     onSeleccionarCuestionario = viewModel::seleccionarCuestionario,
@@ -350,8 +400,20 @@ private fun PasoDatosDivulgacion(
     descripcion: String,
     onDescripcionChange: (String) -> Unit,
     imagenPortada: String?,
-    onImagenPortadaChange: (String?) -> Unit
+    onImagenPortadaChange: (String?) -> Unit,
+    autorOriginal: String?,
+    onAutorOriginalChange: (String) -> Unit,
+    licencia: String?,
+    onLicenciaChange: (String) -> Unit,
+    niveles: List<Nivel>,
+    nivelSeleccionadoId: String?,
+    onNivelSeleccionadoChange: (String?) -> Unit,
+    esDocente: Boolean,
+    mostrarErrores: Boolean
 ) {
+    var expandedNivel by remember { mutableStateOf(false) }
+    val nivelSeleccionado = niveles.find { it.id == nivelSeleccionadoId }
+    val limitePalabras = nivelSeleccionado?.limitePalabrasTarjeta
     val launcherPortada = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia()
     ) { uri ->
@@ -413,6 +475,14 @@ private fun PasoDatosDivulgacion(
             label = "Título",
             modifier = Modifier.fillMaxWidth()
         )
+        if (mostrarErrores && titulo.length < 4) {
+            Text(
+                text = "El título debe tener al menos 4 caracteres.",
+                color = Color(0xFFD32F2F),
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(start = 12.dp, top = 4.dp)
+            )
+        }
         Spacer(Modifier.height(8.dp))
         OutlinedTextFieldConAudio(
             value = tema,
@@ -420,7 +490,90 @@ private fun PasoDatosDivulgacion(
             label = "Tema",
             modifier = Modifier.fillMaxWidth()
         )
+        if (mostrarErrores && tema.length < 4) {
+            Text(
+                text = "El tema debe tener al menos 4 caracteres.",
+                color = Color(0xFFD32F2F),
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(start = 12.dp, top = 4.dp)
+            )
+        }
         Spacer(Modifier.height(8.dp))
+        if (esDocente) {
+            Box {
+                OutlinedTextField(
+                    value = nivelSeleccionado?.let { "Nivel ${it.jerarquia} - Máx ${it.limitePalabrasTarjeta} Palabras" } ?: "Selecciona un nivel",
+                    onValueChange = {},
+                    label = { Text("Nivel requerido") },
+                    modifier = Modifier.fillMaxWidth(),
+                    readOnly = true,
+                    trailingIcon = {
+                        IconButton(onClick = { expandedNivel = !expandedNivel }) {
+                            Icon(Icons.Default.ArrowDropDown, contentDescription = null)
+                        }
+                    }
+                )
+                DropdownMenu(
+                    expanded = expandedNivel,
+                    onDismissRequest = { expandedNivel = false },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    niveles.forEach { nivel ->
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    "Nivel ${nivel.jerarquia} - Máx ${nivel.limitePalabrasTarjeta} Palabras"
+                                )
+                            },
+                            onClick = {
+                                onNivelSeleccionadoChange(nivel.id)
+                                expandedNivel = false
+                            }
+                        )
+                    }
+                }
+            }
+            Spacer(Modifier.height(8.dp))
+            if (mostrarErrores && nivelSeleccionadoId.isNullOrBlank()) {
+                Text(
+                    text = "Selecciona un nivel para esta publicación.",
+                    color = Color(0xFFD32F2F),
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(start = 12.dp, top = 4.dp)
+                )
+                Spacer(Modifier.height(8.dp))
+            }
+            OutlinedTextField(
+                value = autorOriginal ?: "",
+                onValueChange = onAutorOriginalChange,
+                label = { Text("Autor original") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            if (mostrarErrores && (autorOriginal?.trim()?.length ?: 0) < 5) {
+                Text(
+                    text = "El autor original debe tener al menos 5 caracteres.",
+                    color = Color(0xFFD32F2F),
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(start = 12.dp, top = 4.dp)
+                )
+            }
+            Spacer(Modifier.height(8.dp))
+            OutlinedTextField(
+                value = licencia ?: "",
+                onValueChange = onLicenciaChange,
+                label = { Text("Licencia") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            if (mostrarErrores && (licencia?.trim()?.length ?: 0) < 5) {
+                Text(
+                    text = "La licencia debe tener al menos 5 caracteres.",
+                    color = Color(0xFFD32F2F),
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(start = 12.dp, top = 4.dp)
+                )
+            }
+            Spacer(Modifier.height(8.dp))
+        }
         OutlinedTextFieldConAudio(
             value = descripcion,
             onValueChange = onDescripcionChange,
@@ -428,12 +581,31 @@ private fun PasoDatosDivulgacion(
             modifier = Modifier.fillMaxWidth(),
             minLines = 2
         )
+        if (mostrarErrores && descripcion.length < 4) {
+            Text(
+                text = "La descripción debe tener al menos 4 caracteres.",
+                color = Color(0xFFD32F2F),
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(start = 12.dp, top = 4.dp)
+            )
+        }
+        if (esDocente) {
+            Spacer(Modifier.height(8.dp))
+            Text(
+                text = limitePalabras?.let { "Máximo $it palabras por tarjeta." }
+                    ?: "Selecciona un nivel para ver el límite de palabras por tarjeta.",
+                style = MaterialTheme.typography.bodySmall,
+                color = ColorVerde
+            )
+        }
     }
 }
 
 @Composable
 private fun PasoTarjetasDivulgacion(
     listaTarjetas: List<BorradorTarjetaDivulgacion>,
+    maxPalabras: Int?,
+    esDocente: Boolean,
     onAgregar: (String, String, String) -> Unit,
     onEliminar: (Int) -> Unit,
     onEditar: (Int) -> Unit,
@@ -441,7 +613,7 @@ private fun PasoTarjetasDivulgacion(
     tarjetaSiendoEditada: Int?
 ) {
     var contenido by remember { mutableStateOf("") }
-    var imagenUri by remember { mutableStateOf<android.net.Uri?>(null) }
+    var imagenUri by remember { mutableStateOf<Uri?>(null) }
 
     val colores = listOf(
         "#FFB3BA" to Color(0xFFFFB3BA),
@@ -475,6 +647,15 @@ private fun PasoTarjetasDivulgacion(
     ) {
         item {
             Text("Tarjetas", style = MaterialTheme.typography.headlineSmall, color = ColorVerde)
+            if (esDocente) {
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = maxPalabras?.let { "Máximo $it palabras por tarjeta." }
+                        ?: "Selecciona un nivel para ver el límite de palabras por tarjeta.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = ColorVerde
+                )
+            }
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -614,7 +795,7 @@ private fun PasoTarjetasDivulgacion(
                         )
                     } else {
                         val c = try {
-                            Color(android.graphics.Color.parseColor(tarjeta.dataFondo))
+                            Color(AndroidColor.parseColor(tarjeta.dataFondo))
                         } catch (_: Exception) {
                             ColorVerdeClaro
                         }
@@ -645,6 +826,7 @@ private fun PasoCuestionariosDivulgacion(
     cuestionarioActivoId: String?,
     quiereCuestionario: Boolean?,
     esEstudiante: Boolean,
+    esDocente: Boolean,
     onSetQuiereCuestionario: (Boolean) -> Unit,
     onCrearCuestionario: (String) -> Unit,
     onSeleccionarCuestionario: (String?) -> Unit,
@@ -657,7 +839,7 @@ private fun PasoCuestionariosDivulgacion(
     onCancelarEdicionPregunta: () -> Unit,
     preguntaSiendoEditada: Int?
 ) {
-    if (esEstudiante && quiereCuestionario == null) {
+    if (!esDocente && esEstudiante && quiereCuestionario == null) {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
@@ -691,6 +873,7 @@ private fun PasoCuestionariosDivulgacion(
     if (cuestionarioActivoId == null) {
         VistaListaCuestionariosDivulgacion(
             lista = listaCuestionarios,
+            esDocente = esDocente,
             onCrear = onCrearCuestionario,
             onSeleccionar = onSeleccionarCuestionario,
             onEliminar = onEliminarCuestionario,
@@ -718,6 +901,7 @@ private fun PasoCuestionariosDivulgacion(
 @Composable
 private fun VistaListaCuestionariosDivulgacion(
     lista: List<CuestionarioBorradorDivulgacion>,
+    esDocente: Boolean,
     onCrear: (String) -> Unit,
     onSeleccionar: (String) -> Unit,
     onEliminar: (String) -> Unit,
@@ -732,7 +916,11 @@ private fun VistaListaCuestionariosDivulgacion(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Cuestionario (opcional)", style = MaterialTheme.typography.headlineSmall, color = ColorVerde)
+            Text(
+                if (esDocente) "Cuestionario (Obligatorio)" else "Cuestionario (opcional)",
+                style = MaterialTheme.typography.headlineSmall,
+                color = ColorVerde
+            )
             Button(
                 onClick = { mostrarDialogo = true },
                 colors = ButtonDefaults.buttonColors(containerColor = ColorVerdeMedio)
@@ -751,16 +939,19 @@ private fun VistaListaCuestionariosDivulgacion(
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        "Sin cuestionario. Los lectores solo verán las tarjetas.",
-                        color = Color(0xFF757575),
+                        if (esDocente) "Como docente, debes crear un cuestionario para esta publicación."
+                        else "Sin cuestionario los lectores solo verán las tarjetas. Presiona GUARDAR",
+                        color = if (esDocente) Color(0xFFC62828) else Color(0xFF757575),
                         textAlign = TextAlign.Center
                     )
                     Spacer(Modifier.height(16.dp))
-                    Button(
-                        onClick = { },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
-                    ) {
-                        Text("Cerrar", color = Color.White)
+                    if (!esDocente) {
+                        Button(
+                            onClick = { },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
+                        ) {
+                            Text("Cerrar", color = Color.White)
+                        }
                     }
                 }
             }

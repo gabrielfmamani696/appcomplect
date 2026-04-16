@@ -17,10 +17,10 @@ import kotlinx.coroutines.flow.filterNotNull as _flow_filterNotNull
 import kotlinx.coroutines.flow.map as _flow_map
 
 
-public interface ObtenerPanelSolicitudesQuery :
+public interface ListarInvestigadoresOrdenadosPorEstrellasQuery :
     com.google.firebase.dataconnect.generated.GeneratedQuery<
       DefaultConnector,
-      ObtenerPanelSolicitudesQuery.Data,
+      ListarInvestigadoresOrdenadosPorEstrellasQuery.Data,
       Unit
     >
 {
@@ -30,23 +30,25 @@ public interface ObtenerPanelSolicitudesQuery :
     @kotlinx.serialization.Serializable
   public data class Data(
   
-    val solicitudValidacions: List<SolicitudValidacionsItem>
+    val usuarios: List<UsuariosItem>
   ) {
     
       
         @kotlinx.serialization.Serializable
-  public data class SolicitudValidacionsItem(
+  public data class UsuariosItem(
   
     val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
-    val usuario: Usuario
+    val alias: String,
+    val estrellasPrestigio: Int,
+    val rachaActualDias: Int,
+    val avatar: Avatar?
   ) {
     
       
         @kotlinx.serialization.Serializable
-  public data class Usuario(
+  public data class Avatar(
   
-    val nombre: String,
-    val apellidoPaterno: String
+    val imagenUrl: String
   ) {
     
     
@@ -62,7 +64,7 @@ public interface ObtenerPanelSolicitudesQuery :
   
 
   public companion object {
-    public val operationName: String = "ObtenerPanelSolicitudes"
+    public val operationName: String = "ListarInvestigadoresOrdenadosPorEstrellas"
 
     public val dataDeserializer: kotlinx.serialization.DeserializationStrategy<Data> =
       kotlinx.serialization.serializer()
@@ -72,10 +74,10 @@ public interface ObtenerPanelSolicitudesQuery :
   }
 }
 
-public fun ObtenerPanelSolicitudesQuery.ref(
+public fun ListarInvestigadoresOrdenadosPorEstrellasQuery.ref(
   
 ): com.google.firebase.dataconnect.QueryRef<
-    ObtenerPanelSolicitudesQuery.Data,
+    ListarInvestigadoresOrdenadosPorEstrellasQuery.Data,
     Unit
   > =
   ref(
@@ -84,10 +86,10 @@ public fun ObtenerPanelSolicitudesQuery.ref(
     
   )
 
-public suspend fun ObtenerPanelSolicitudesQuery.execute(
+public suspend fun ListarInvestigadoresOrdenadosPorEstrellasQuery.execute(
   
   ): com.google.firebase.dataconnect.QueryResult<
-    ObtenerPanelSolicitudesQuery.Data,
+    ListarInvestigadoresOrdenadosPorEstrellasQuery.Data,
     Unit
   > =
   ref(
@@ -95,9 +97,9 @@ public suspend fun ObtenerPanelSolicitudesQuery.execute(
   ).execute()
 
 
-  public fun ObtenerPanelSolicitudesQuery.flow(
+  public fun ListarInvestigadoresOrdenadosPorEstrellasQuery.flow(
     
-    ): kotlinx.coroutines.flow.Flow<ObtenerPanelSolicitudesQuery.Data> =
+    ): kotlinx.coroutines.flow.Flow<ListarInvestigadoresOrdenadosPorEstrellasQuery.Data> =
     ref(
         
       ).subscribe()

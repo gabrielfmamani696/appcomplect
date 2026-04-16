@@ -1,10 +1,9 @@
 
-@file:Suppress(
+@file:kotlin.Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
-  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -32,7 +31,9 @@ public interface CrearArchivoDivulgacionMutation :
     val fechaCreacion: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.TimestampSerializer::class) com.google.firebase.Timestamp,
     val imagenUrl: com.google.firebase.dataconnect.OptionalVariable<String?>,
     val usuarioId: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
-    val nivelRequeridoId: com.google.firebase.dataconnect.OptionalVariable<@kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID?>
+    val nivelRequeridoId: com.google.firebase.dataconnect.OptionalVariable<@kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID?>,
+    val autorOriginal: com.google.firebase.dataconnect.OptionalVariable<String?>,
+    val licencia: com.google.firebase.dataconnect.OptionalVariable<String?>
   ) {
     
     
@@ -48,6 +49,8 @@ public interface CrearArchivoDivulgacionMutation :
         public var imagenUrl: String?
         public var usuarioId: java.util.UUID
         public var nivelRequeridoId: java.util.UUID?
+        public var autorOriginal: String?
+        public var licencia: String?
         
       }
 
@@ -65,6 +68,10 @@ public interface CrearArchivoDivulgacionMutation :
                 com.google.firebase.dataconnect.OptionalVariable.Undefined
             var usuarioId= usuarioId
             var nivelRequeridoId: com.google.firebase.dataconnect.OptionalVariable<java.util.UUID?> =
+                com.google.firebase.dataconnect.OptionalVariable.Undefined
+            var autorOriginal: com.google.firebase.dataconnect.OptionalVariable<String?> =
+                com.google.firebase.dataconnect.OptionalVariable.Undefined
+            var licencia: com.google.firebase.dataconnect.OptionalVariable<String?> =
                 com.google.firebase.dataconnect.OptionalVariable.Undefined
             
 
@@ -97,11 +104,19 @@ public interface CrearArchivoDivulgacionMutation :
               get() = throw UnsupportedOperationException("getting builder values is not supported")
               set(value_) { nivelRequeridoId = com.google.firebase.dataconnect.OptionalVariable.Value(value_) }
               
+            override var autorOriginal: String?
+              get() = throw UnsupportedOperationException("getting builder values is not supported")
+              set(value_) { autorOriginal = com.google.firebase.dataconnect.OptionalVariable.Value(value_) }
+              
+            override var licencia: String?
+              get() = throw UnsupportedOperationException("getting builder values is not supported")
+              set(value_) { licencia = com.google.firebase.dataconnect.OptionalVariable.Value(value_) }
+              
             
           }.apply(block_)
           .let {
             Variables(
-              titulo=titulo,tema=tema,descripcion=descripcion,fechaCreacion=fechaCreacion,imagenUrl=imagenUrl,usuarioId=usuarioId,nivelRequeridoId=nivelRequeridoId,
+              titulo=titulo,tema=tema,descripcion=descripcion,fechaCreacion=fechaCreacion,imagenUrl=imagenUrl,usuarioId=usuarioId,nivelRequeridoId=nivelRequeridoId,autorOriginal=autorOriginal,licencia=licencia,
             )
           }
         }

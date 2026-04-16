@@ -17,41 +17,39 @@ import kotlinx.coroutines.flow.filterNotNull as _flow_filterNotNull
 import kotlinx.coroutines.flow.map as _flow_map
 
 
-public interface ObtenerPanelSolicitudesQuery :
+public interface ObtenerMisEspaciosQuery :
     com.google.firebase.dataconnect.generated.GeneratedQuery<
       DefaultConnector,
-      ObtenerPanelSolicitudesQuery.Data,
-      Unit
+      ObtenerMisEspaciosQuery.Data,
+      ObtenerMisEspaciosQuery.Variables
     >
 {
+  
+    @kotlinx.serialization.Serializable
+  public data class Variables(
+  
+    val usuarioId: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID
+  ) {
+    
+    
+  }
   
 
   
     @kotlinx.serialization.Serializable
   public data class Data(
   
-    val solicitudValidacions: List<SolicitudValidacionsItem>
+    val espacioAprendizajes: List<EspacioAprendizajesItem>
   ) {
     
       
         @kotlinx.serialization.Serializable
-  public data class SolicitudValidacionsItem(
+  public data class EspacioAprendizajesItem(
   
     val id: @kotlinx.serialization.Serializable(with = com.google.firebase.dataconnect.serializers.UUIDSerializer::class) java.util.UUID,
-    val usuario: Usuario
+    val nombreEspacio: String,
+    val codigoAcceso: String
   ) {
-    
-      
-        @kotlinx.serialization.Serializable
-  public data class Usuario(
-  
-    val nombre: String,
-    val apellidoPaterno: String
-  ) {
-    
-    
-  }
-      
     
     
   }
@@ -62,43 +60,61 @@ public interface ObtenerPanelSolicitudesQuery :
   
 
   public companion object {
-    public val operationName: String = "ObtenerPanelSolicitudes"
+    public val operationName: String = "ObtenerMisEspacios"
 
     public val dataDeserializer: kotlinx.serialization.DeserializationStrategy<Data> =
       kotlinx.serialization.serializer()
 
-    public val variablesSerializer: kotlinx.serialization.SerializationStrategy<Unit> =
+    public val variablesSerializer: kotlinx.serialization.SerializationStrategy<Variables> =
       kotlinx.serialization.serializer()
   }
 }
 
-public fun ObtenerPanelSolicitudesQuery.ref(
+public fun ObtenerMisEspaciosQuery.ref(
+  
+    usuarioId: java.util.UUID,
+  
   
 ): com.google.firebase.dataconnect.QueryRef<
-    ObtenerPanelSolicitudesQuery.Data,
-    Unit
+    ObtenerMisEspaciosQuery.Data,
+    ObtenerMisEspaciosQuery.Variables
   > =
   ref(
     
-      Unit
+      ObtenerMisEspaciosQuery.Variables(
+        usuarioId=usuarioId,
+  
+      )
     
   )
 
-public suspend fun ObtenerPanelSolicitudesQuery.execute(
+public suspend fun ObtenerMisEspaciosQuery.execute(
+  
+    usuarioId: java.util.UUID,
+  
   
   ): com.google.firebase.dataconnect.QueryResult<
-    ObtenerPanelSolicitudesQuery.Data,
-    Unit
+    ObtenerMisEspaciosQuery.Data,
+    ObtenerMisEspaciosQuery.Variables
   > =
   ref(
+    
+      usuarioId=usuarioId,
+  
     
   ).execute()
 
 
-  public fun ObtenerPanelSolicitudesQuery.flow(
+  public fun ObtenerMisEspaciosQuery.flow(
     
-    ): kotlinx.coroutines.flow.Flow<ObtenerPanelSolicitudesQuery.Data> =
+      usuarioId: java.util.UUID,
+  
+    
+    ): kotlinx.coroutines.flow.Flow<ObtenerMisEspaciosQuery.Data> =
     ref(
+        
+          usuarioId=usuarioId,
+  
         
       ).subscribe()
       .flow
