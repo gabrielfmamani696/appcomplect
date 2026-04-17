@@ -363,8 +363,12 @@ class CrearArchivoViewModel(
                 )
             }
             _cargando.value = false
-            if (ok) _navegarAtras.value = true
-            else _mensajeUsuario.value = "No se pudo guardar. Intenta de nuevo."
+            if (ok) {
+                runCatching { usuarioRepository.registrarAccionDiaria() }
+                _navegarAtras.value = true
+            } else {
+                _mensajeUsuario.value = "No se pudo guardar. Intenta de nuevo."
+            }
         }
     }
 }

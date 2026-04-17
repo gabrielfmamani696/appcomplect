@@ -34,8 +34,8 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 import java.util.UUID
-import java.sql.Date as SqlDate
 
 private val Context.dataStore by preferencesDataStore(name = "user_prefs")
 
@@ -112,29 +112,30 @@ class UsuarioRepository(
                 connector.obtenerPerfilCompleto
                     .flow(id = UUID.fromString(userId))
                     .collect { data ->
+                        //us remoto
                         val u = data.usuario ?: return@collect
-                        
+                        //lectura local
                         val key = stringPreferencesKey("streak_data_$userId")
                         val prefs = context.dataStore.data.first()
                         val jsonStr = prefs[key] ?: "{}"
                         val obj = try { JSONObject(jsonStr) } catch(e: Exception) { JSONObject() }
-                        
-                        val pendiente = obj.optBoolean("pendienteSincronizar", false)
-                        var rachaVisual = u.rachaActualDias
 
+                        //si pendiente == false => true
+                        val pendiente = obj.optBoolean("pendienteSincronizar", false)
+                        var rachaVisual = obj.optInt("rachaLocal", u.rachaActualDias).coerceAtLeast(1)
                         if (pendiente) {
-                            rachaVisual = obj.optInt("rachaLocal", u.rachaActualDias)
+                            if (rachaVisual <= 0) rachaVisual = u.rachaActualDias.coerceAtLeast(1)
                             scope.launch { sincronizarRachaConBackend() }
                         } else {
+                            val fechaRemota = u.ultimaActividad?.toDate()?.let { fechaLocalDesdeDate(it) }
                             context.dataStore.edit { editPrefs ->
                                 val editObj = try { JSONObject(editPrefs[key] ?: "{}") } catch(e: Exception) { JSONObject() }
                                 editObj.put("rachaLocal", u.rachaActualDias)
-                                val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                                val dateStr = format.format(u.ultimaActividad.toDate())
-                                editObj.put("ultimaFechaAccion", dateStr)
+                                fechaRemota?.let { editObj.put("ultimaFechaAccion", it) }
                                 editObj.put("pendienteSincronizar", false)
                                 editPrefs[key] = editObj.toString()
                             }
+                            rachaVisual = u.rachaActualDias.coerceAtLeast(1)
                         }
 
                         _usuarioActivo.value = Usuario(
@@ -171,6 +172,33 @@ class UsuarioRepository(
                 e.printStackTrace()
             }
         }
+    }
+
+    private val fechaLocalFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.US).apply {
+        timeZone = TimeZone.getDefault()
+    }
+
+    private fun fechaLocalHoy(): String {
+        val calendario = Calendar.getInstance(TimeZone.getDefault())
+        return fechaLocalFormatter.format(calendario.time)
+    }
+
+    private fun fechaLocalDesdeDate(fecha: Date): String = fechaLocalFormatter.format(fecha)
+
+    private fun parseFechaLocal(fecha: String): Date? = try {
+        fechaLocalFormatter.parse(fecha)
+    } catch (e: Exception) {
+        null
+    }
+
+    private fun obtenerInicioDelDia(fecha: Date): Date {
+        val calendario = Calendar.getInstance(TimeZone.getDefault())
+        calendario.time = fecha
+        calendario.set(Calendar.HOUR_OF_DAY, 0)
+        calendario.set(Calendar.MINUTE, 0)
+        calendario.set(Calendar.SECOND, 0)
+        calendario.set(Calendar.MILLISECOND, 0)
+        return calendario.time
     }
 
     suspend fun obtenerRoles(): List<RolUsuario> {
@@ -455,47 +483,27 @@ class UsuarioRepository(
         context.dataStore.edit { prefs ->
             val jsonStr = prefs[key] ?: "{}"
             val obj = try { JSONObject(jsonStr) } catch(e: Exception) { JSONObject() }
-            
-            val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val hoy = format.format(Date())
-            val ultima = obj.optString("ultimaFechaAccion", "")
-            var rachaLocal = obj.optInt("rachaLocal", _usuarioActivo.value?.rachaActualDias ?: 1)
-            
-            if (ultima != hoy) {
-                val formatFull = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                val hoyDate = Date()
-                val hoyStr = formatFull.format(hoyDate)
-                
-                if (ultima.isNotEmpty()) {
-                    val ultimaDate = try { formatFull.parse(ultima) } catch(e: Exception) { null }
-                    if (ultimaDate != null) {
-                        val calAyer = Calendar.getInstance()
-                        calAyer.time = hoyDate
-                        calAyer.add(Calendar.DAY_OF_YEAR, -1)
-                        val ayerStr = formatFull.format(calAyer.time)
-                        
-                        val calAntier = Calendar.getInstance()
-                        calAntier.time = hoyDate
-                        calAntier.add(Calendar.DAY_OF_YEAR, -2)
-                        val antierStr = formatFull.format(calAntier.time)
 
-                        if (ultima == ayerStr || ultima == antierStr) {
-                            rachaLocal += 1
-                        } else {
-                            rachaLocal = 1
-                        }
-                    } else {
-                        rachaLocal = 1
-                    }
-                } else {
-                     rachaLocal = 1
-                }
-                obj.put("ultimaFechaAccion", hoyStr)
-                obj.put("rachaLocal", rachaLocal)
+                val hoy = fechaLocalHoy()
+            val ultimaFecha = obj.optString("ultimaFechaAccion", "")
+            val actualRacha = obj.optInt("rachaLocal", _usuarioActivo.value?.rachaActualDias ?: 1).coerceAtLeast(1)
+            val ayer = Calendar.getInstance(TimeZone.getDefault()).apply {
+                add(Calendar.DAY_OF_YEAR, -1)
+            }
+            val ayerStr = fechaLocalFormatter.format(ayer.time)
+            val nuevaRacha = when {
+                ultimaFecha == hoy -> actualRacha
+                ultimaFecha == ayerStr -> actualRacha + 1
+                else -> 1
+            }
+
+            if (ultimaFecha != hoy) {
+                obj.put("ultimaFechaAccion", hoy)
+                obj.put("rachaLocal", nuevaRacha)
                 obj.put("pendienteSincronizar", true)
                 prefs[key] = obj.toString()
-                
-                _usuarioActivo.value = _usuarioActivo.value?.copy(rachaActualDias = rachaLocal)
+
+                _usuarioActivo.value = _usuarioActivo.value?.copy(rachaActualDias = nuevaRacha)
             }
         }
         scope.launch {
@@ -508,11 +516,12 @@ class UsuarioRepository(
         val key = stringPreferencesKey("streak_data_$uuId")
         val jsonStr = context.dataStore.data.first()[key] ?: return
         val obj = try { JSONObject(jsonStr) } catch(e: Exception) { return }
-        
+
         if (obj.optBoolean("pendienteSincronizar", false)) {
-            val racha = obj.optInt("rachaLocal")
+            val racha = obj.optInt("rachaLocal").coerceAtLeast(1)
             val ultimaActividadStr = obj.optString("ultimaFechaAccion")
-            val actDate = try { SqlDate.valueOf(ultimaActividadStr) } catch(e: Exception) { Date() }
+            val fechaLocal = parseFechaLocal(ultimaActividadStr) ?: Date()
+            val actDate = obtenerInicioDelDia(fechaLocal)
             try {
                 connector.actualizarRachaUsuario.execute(
                     id = UUID.fromString(uuId),
