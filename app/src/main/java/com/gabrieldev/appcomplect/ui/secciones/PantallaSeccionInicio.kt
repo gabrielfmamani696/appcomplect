@@ -573,7 +573,7 @@ fun PantallaSeccionInicio(
                         )
                     }
                 },
-                containerColor = Color.White, // Fondo general del modal más limpio
+                containerColor = Color.White,
                 title = {
                     Text(
                         text = "Mis insignias",
@@ -663,7 +663,7 @@ fun PantallaSeccionInicio(
                                                     )
                                                     Spacer(modifier = Modifier.width(4.dp))
                                                     Text(
-                                                        text = "Obtenida:\n${insignia.fechaNotificacion}", // Salto de línea para que no se apriete
+                                                        text = "Obtenida:\n${insignia.fechaNotificacion}",
                                                         style = MaterialTheme.typography.labelSmall,
                                                         color = Color(0xFF616161),
                                                         textAlign = TextAlign.Center,
@@ -673,8 +673,6 @@ fun PantallaSeccionInicio(
                                             }
                                         }
                                     }
-
-                                    // Relleno si la fila tiene un número impar de insignias
                                     if (fila.size == 1) {
                                         Spacer(modifier = Modifier.weight(1f))
                                     }

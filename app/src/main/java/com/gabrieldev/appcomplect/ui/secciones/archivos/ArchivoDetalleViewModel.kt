@@ -144,7 +144,10 @@ class ArchivoDetalleViewModel(
                 calificacion = nota,
                 estrellasGanadas = estrellasGanadas
             )
-            runCatching { usuarioRepository.registrarAccionDiaria() }
+            try {
+                usuarioRepository.registrarAccionDiaria()
+            } catch (_: Exception) {
+            }
             _estado.value = EstadoCuestionario.Finalizado(nota, aprobado, estrellasGanadas)
 
             val nuevas = insigniaRepository.verificarInsignias(

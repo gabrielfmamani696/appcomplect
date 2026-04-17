@@ -122,9 +122,9 @@ class UsuarioRepository(
 
                         //si pendiente == false => true
                         val pendiente = obj.optBoolean("pendienteSincronizar", false)
-                        var rachaVisual = obj.optInt("rachaLocal", u.rachaActualDias).coerceAtLeast(1)
+                        var rachaVisual = obj.optInt("rachaLocal", u.rachaActualDias).coerceAtLeast(0)
                         if (pendiente) {
-                            if (rachaVisual <= 0) rachaVisual = u.rachaActualDias.coerceAtLeast(1)
+                            if (rachaVisual < 0) rachaVisual = u.rachaActualDias.coerceAtLeast(0)
                             scope.launch { sincronizarRachaConBackend() }
                         } else {
                             val fechaRemota = u.ultimaActividad?.toDate()?.let { fechaLocalDesdeDate(it) }
@@ -135,7 +135,7 @@ class UsuarioRepository(
                                 editObj.put("pendienteSincronizar", false)
                                 editPrefs[key] = editObj.toString()
                             }
-                            rachaVisual = u.rachaActualDias.coerceAtLeast(1)
+                            rachaVisual = u.rachaActualDias.coerceAtLeast(0)
                         }
 
                         _usuarioActivo.value = Usuario(
@@ -486,18 +486,19 @@ class UsuarioRepository(
 
                 val hoy = fechaLocalHoy()
             val ultimaFecha = obj.optString("ultimaFechaAccion", "")
-            val actualRacha = obj.optInt("rachaLocal", _usuarioActivo.value?.rachaActualDias ?: 1).coerceAtLeast(1)
+            val actualRacha = obj.optInt("rachaLocal", _usuarioActivo.value?.rachaActualDias ?: 0).coerceAtLeast(0)
             val ayer = Calendar.getInstance(TimeZone.getDefault()).apply {
                 add(Calendar.DAY_OF_YEAR, -1)
             }
             val ayerStr = fechaLocalFormatter.format(ayer.time)
             val nuevaRacha = when {
+                ultimaFecha == hoy && actualRacha <= 0 -> 1
                 ultimaFecha == hoy -> actualRacha
                 ultimaFecha == ayerStr -> actualRacha + 1
                 else -> 1
             }
 
-            if (ultimaFecha != hoy) {
+            if (ultimaFecha != hoy || nuevaRacha > actualRacha) {
                 obj.put("ultimaFechaAccion", hoy)
                 obj.put("rachaLocal", nuevaRacha)
                 obj.put("pendienteSincronizar", true)
@@ -518,7 +519,7 @@ class UsuarioRepository(
         val obj = try { JSONObject(jsonStr) } catch(e: Exception) { return }
 
         if (obj.optBoolean("pendienteSincronizar", false)) {
-            val racha = obj.optInt("rachaLocal").coerceAtLeast(1)
+            val racha = obj.optInt("rachaLocal").coerceAtLeast(0)
             val ultimaActividadStr = obj.optString("ultimaFechaAccion")
             val fechaLocal = parseFechaLocal(ultimaActividadStr) ?: Date()
             val actDate = obtenerInicioDelDia(fechaLocal)

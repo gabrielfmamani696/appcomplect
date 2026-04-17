@@ -364,7 +364,10 @@ class CrearArchivoViewModel(
             }
             _cargando.value = false
             if (ok) {
-                runCatching { usuarioRepository.registrarAccionDiaria() }
+                try {
+                    usuarioRepository.registrarAccionDiaria()
+                } catch (_: Exception) {
+                }
                 _navegarAtras.value = true
             } else {
                 _mensajeUsuario.value = "No se pudo guardar. Intenta de nuevo."

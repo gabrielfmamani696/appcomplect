@@ -34,40 +34,46 @@ class InsigniaRepository(private val connector: DefaultConnector) {
 
             val todasInsignias = connector.listarTodasInsignias.execute().data.insignias
 
-            val yaNotificadas = connector.obtenerInsigniasNotificadas
+            val insigniasNotificadas = connector.obtenerInsigniasNotificadas
                 .execute(usuarioId = uuid)
                 .data
                 .logroNotificados
+
+            val yaNotificadasSlugs = insigniasNotificadas
                 .mapNotNull { it.insignia?.condicionDesbloqueo }
+                .toSet()
+
+            val yaNotificadasIds = insigniasNotificadas
+                .mapNotNull { it.insignia?.id }
                 .toSet()
 
             val slugsCandidatos = mutableSetOf<String>()
 
             when (contexto) {
                 is ContextoInsignia.ArticuloCompletado -> {
-                    if (InsigniaSlug.PRIMER_ARTICULO !in yaNotificadas) {
+                    if (InsigniaSlug.PRIMER_ARTICULO !in yaNotificadasSlugs) {
                         slugsCandidatos.add(InsigniaSlug.PRIMER_ARTICULO)
                     }
                 }
                 is ContextoInsignia.Examen -> {
 
-                    if (InsigniaSlug.PRIMER_CUESTIONARIO !in yaNotificadas) {
+                    if (InsigniaSlug.PRIMER_CUESTIONARIO !in yaNotificadasSlugs) {
                         slugsCandidatos.add(InsigniaSlug.PRIMER_CUESTIONARIO)
                     }
 
-                    if (contexto.calificacion == 100 && InsigniaSlug.PERFECCIONISTA !in yaNotificadas) {
+                    if (contexto.calificacion == 100 && InsigniaSlug.PERFECCIONISTA !in yaNotificadasSlugs) {
                         slugsCandidatos.add(InsigniaSlug.PERFECCIONISTA)
                     }
                 }
                 is ContextoInsignia.Racha -> {
-                    evaluarRacha(contexto.rachaActualDias, yaNotificadas, slugsCandidatos)
+                    evaluarRacha(contexto.rachaActualDias, yaNotificadasSlugs, slugsCandidatos)
                 }
             }
 
             if (slugsCandidatos.isEmpty()) return emptyList()
 
             val insigniasElegibles = todasInsignias
-                .filter { it.condicionDesbloqueo in slugsCandidatos }
+                .filter { it.condicionDesbloqueo in slugsCandidatos && it.id !in yaNotificadasIds }
 
             if (insigniasElegibles.isEmpty()) return emptyList()
 

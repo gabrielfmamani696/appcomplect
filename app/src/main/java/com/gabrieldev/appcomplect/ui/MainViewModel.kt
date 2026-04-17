@@ -8,6 +8,7 @@ import com.gabrieldev.appcomplect.data.repository.ContextoInsignia
 import com.gabrieldev.appcomplect.model.InsigniaObtenida
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -25,22 +26,23 @@ class MainViewModel(
     val insigniasObtenidas = _insigniasObtenidas.asStateFlow()
 
     init {
+        viewModelScope.launch {
+            usuarioActivo.collectLatest { usuario ->
+                val usuarioId = usuario?.uuidSesion
+                if (usuarioId.isNullOrBlank()) {
+                    _insigniasObtenidas.value = emptyList()
+                } else {
+                    val obtenidas = insigniaRepository.obtenerInsigniasObtenidas(usuarioId)
+                    _insigniasObtenidas.value = obtenidas
+                }
+            }
+        }
         verificarSesion()
     }
 
     private fun verificarSesion() {
         viewModelScope.launch {
             usuarioRepository.verificarSesion()
-            usuarioRepository.usuarioActivo.value?.uuidSesion?.let { usuarioId ->
-                cargarInsigniasObtenidas(usuarioId)
-            }
-        }
-    }
-
-    private fun cargarInsigniasObtenidas(usuarioId: String) {
-        viewModelScope.launch {
-            val obtenidas = insigniaRepository.obtenerInsigniasObtenidas(usuarioId)
-            _insigniasObtenidas.value = obtenidas
         }
     }
 
