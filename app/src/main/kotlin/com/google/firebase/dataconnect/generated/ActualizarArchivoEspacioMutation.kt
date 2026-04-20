@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -98,6 +99,7 @@ public interface ActualizarArchivoEspacioMutation :
 public fun ActualizarArchivoEspacioMutation.ref(
   
     id: java.util.UUID,
+
   
     block_: ActualizarArchivoEspacioMutation.Variables.Builder.() -> Unit = {}
   
@@ -116,11 +118,14 @@ public fun ActualizarArchivoEspacioMutation.ref(
   )
 
 public suspend fun ActualizarArchivoEspacioMutation.execute(
+
   
-    id: java.util.UUID,
+    
+      id: java.util.UUID,
+
   
     block_: ActualizarArchivoEspacioMutation.Variables.Builder.() -> Unit = {}
-  
+
   ): com.google.firebase.dataconnect.MutationResult<
     ActualizarArchivoEspacioMutation.Data,
     ActualizarArchivoEspacioMutation.Variables

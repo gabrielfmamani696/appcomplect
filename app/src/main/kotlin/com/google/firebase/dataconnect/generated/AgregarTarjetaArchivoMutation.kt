@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -61,6 +62,7 @@ public interface AgregarTarjetaArchivoMutation :
 public fun AgregarTarjetaArchivoMutation.ref(
   
     archivoId: java.util.UUID,ordenSecuencia: Int,contenidoTexto: String,tipoFondo: String,dataFondo: String,
+
   
   
 ): com.google.firebase.dataconnect.MutationRef<
@@ -77,10 +79,13 @@ public fun AgregarTarjetaArchivoMutation.ref(
   )
 
 public suspend fun AgregarTarjetaArchivoMutation.execute(
+
   
-    archivoId: java.util.UUID,ordenSecuencia: Int,contenidoTexto: String,tipoFondo: String,dataFondo: String,
+    
+      archivoId: java.util.UUID,ordenSecuencia: Int,contenidoTexto: String,tipoFondo: String,dataFondo: String,
+
   
-  
+
   ): com.google.firebase.dataconnect.MutationResult<
     AgregarTarjetaArchivoMutation.Data,
     AgregarTarjetaArchivoMutation.Variables

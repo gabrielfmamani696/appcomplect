@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.gabrieldev.appcomplect.data.local.AppComplectDatabase
 import com.gabrieldev.appcomplect.data.repository.AvatarRepository
 import com.gabrieldev.appcomplect.data.repository.ArchivoRepository
 import com.gabrieldev.appcomplect.data.repository.UsuarioRepository
@@ -39,9 +40,11 @@ class MainActivity : ComponentActivity() {
     private val connector by lazy {
         DefaultConnector.instance
     }
-    private val repositorioUsuario by lazy { UsuarioRepository(connector, applicationContext) }
+
+    private val db by lazy { AppComplectDatabase.getInstance(applicationContext) }
+    private val repositorioUsuario by lazy { UsuarioRepository(connector, applicationContext, db.usuarioDao(), db.intentoDao()) }
     private val repositorioAvatar by lazy { AvatarRepository(connector) }
-    private val repositorioArchivo by lazy { ArchivoRepository(connector) }
+    private val repositorioArchivo by lazy { ArchivoRepository(connector, applicationContext, db.archivoDao(), db.descargaDao()) }
     private val repositorioInsignia by lazy { InsigniaRepository(connector) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +59,8 @@ class MainActivity : ComponentActivity() {
                     repositorioUsuario,
                     repositorioAvatar,
                     repositorioArchivo,
-                    repositorioInsignia
+                    repositorioInsignia,
+                    applicationContext
                 )
             }
 

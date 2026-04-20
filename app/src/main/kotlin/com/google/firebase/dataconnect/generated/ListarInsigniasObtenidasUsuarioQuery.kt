@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -88,6 +89,7 @@ public interface ListarInsigniasObtenidasUsuarioQuery :
 public fun ListarInsigniasObtenidasUsuarioQuery.ref(
   
     usuarioId: java.util.UUID,
+
   
   
 ): com.google.firebase.dataconnect.QueryRef<
@@ -104,10 +106,13 @@ public fun ListarInsigniasObtenidasUsuarioQuery.ref(
   )
 
 public suspend fun ListarInsigniasObtenidasUsuarioQuery.execute(
+
   
-    usuarioId: java.util.UUID,
+    
+      usuarioId: java.util.UUID,
+
   
-  
+
   ): com.google.firebase.dataconnect.QueryResult<
     ListarInsigniasObtenidasUsuarioQuery.Data,
     ListarInsigniasObtenidasUsuarioQuery.Variables
@@ -123,6 +128,7 @@ public suspend fun ListarInsigniasObtenidasUsuarioQuery.execute(
   public fun ListarInsigniasObtenidasUsuarioQuery.flow(
     
       usuarioId: java.util.UUID,
+
   
     
     ): kotlinx.coroutines.flow.Flow<ListarInsigniasObtenidasUsuarioQuery.Data> =

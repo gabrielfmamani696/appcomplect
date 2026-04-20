@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -59,6 +60,7 @@ public interface CrearEspacioAprendizajeMutation :
 public fun CrearEspacioAprendizajeMutation.ref(
   
     usuarioId: java.util.UUID,nombreEspacio: String,codigoAcceso: String,
+
   
   
 ): com.google.firebase.dataconnect.MutationRef<
@@ -75,10 +77,13 @@ public fun CrearEspacioAprendizajeMutation.ref(
   )
 
 public suspend fun CrearEspacioAprendizajeMutation.execute(
+
   
-    usuarioId: java.util.UUID,nombreEspacio: String,codigoAcceso: String,
+    
+      usuarioId: java.util.UUID,nombreEspacio: String,codigoAcceso: String,
+
   
-  
+
   ): com.google.firebase.dataconnect.MutationResult<
     CrearEspacioAprendizajeMutation.Data,
     CrearEspacioAprendizajeMutation.Variables

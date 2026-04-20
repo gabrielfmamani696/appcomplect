@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -172,6 +173,7 @@ public interface ActualizarUsuarioPerfilMutation :
 public fun ActualizarUsuarioPerfilMutation.ref(
   
     id: java.util.UUID,alias: String,nombre: String,apellidoPaterno: String,apellidoMaterno: String,numeroCelular: String,rolId: java.util.UUID,
+
   
     block_: ActualizarUsuarioPerfilMutation.Variables.Builder.() -> Unit = {}
   
@@ -190,11 +192,14 @@ public fun ActualizarUsuarioPerfilMutation.ref(
   )
 
 public suspend fun ActualizarUsuarioPerfilMutation.execute(
+
   
-    id: java.util.UUID,alias: String,nombre: String,apellidoPaterno: String,apellidoMaterno: String,numeroCelular: String,rolId: java.util.UUID,
+    
+      id: java.util.UUID,alias: String,nombre: String,apellidoPaterno: String,apellidoMaterno: String,numeroCelular: String,rolId: java.util.UUID,
+
   
     block_: ActualizarUsuarioPerfilMutation.Variables.Builder.() -> Unit = {}
-  
+
   ): com.google.firebase.dataconnect.MutationResult<
     ActualizarUsuarioPerfilMutation.Data,
     ActualizarUsuarioPerfilMutation.Variables

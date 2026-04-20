@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -73,6 +74,7 @@ public interface ContarIntentosUsuarioQuery :
 public fun ContarIntentosUsuarioQuery.ref(
   
     usuarioId: java.util.UUID,
+
   
   
 ): com.google.firebase.dataconnect.QueryRef<
@@ -89,10 +91,13 @@ public fun ContarIntentosUsuarioQuery.ref(
   )
 
 public suspend fun ContarIntentosUsuarioQuery.execute(
+
   
-    usuarioId: java.util.UUID,
+    
+      usuarioId: java.util.UUID,
+
   
-  
+
   ): com.google.firebase.dataconnect.QueryResult<
     ContarIntentosUsuarioQuery.Data,
     ContarIntentosUsuarioQuery.Variables
@@ -108,6 +113,7 @@ public suspend fun ContarIntentosUsuarioQuery.execute(
   public fun ContarIntentosUsuarioQuery.flow(
     
       usuarioId: java.util.UUID,
+
   
     
     ): kotlinx.coroutines.flow.Flow<ContarIntentosUsuarioQuery.Data> =

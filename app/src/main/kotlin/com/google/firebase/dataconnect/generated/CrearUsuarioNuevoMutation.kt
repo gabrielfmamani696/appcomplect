@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -201,6 +202,7 @@ public interface CrearUsuarioNuevoMutation :
 public fun CrearUsuarioNuevoMutation.ref(
   
     alias: String,nombre: String,apellidoPaterno: String,apellidoMaterno: String,estadoValidacion: Boolean,estrellasPrestigio: Int,rachaActualDias: Int,numeroCelular: String,rolId: java.util.UUID,ultimaActividad: com.google.firebase.Timestamp,
+
   
     block_: CrearUsuarioNuevoMutation.Variables.Builder.() -> Unit = {}
   
@@ -219,11 +221,14 @@ public fun CrearUsuarioNuevoMutation.ref(
   )
 
 public suspend fun CrearUsuarioNuevoMutation.execute(
+
   
-    alias: String,nombre: String,apellidoPaterno: String,apellidoMaterno: String,estadoValidacion: Boolean,estrellasPrestigio: Int,rachaActualDias: Int,numeroCelular: String,rolId: java.util.UUID,ultimaActividad: com.google.firebase.Timestamp,
+    
+      alias: String,nombre: String,apellidoPaterno: String,apellidoMaterno: String,estadoValidacion: Boolean,estrellasPrestigio: Int,rachaActualDias: Int,numeroCelular: String,rolId: java.util.UUID,ultimaActividad: com.google.firebase.Timestamp,
+
   
     block_: CrearUsuarioNuevoMutation.Variables.Builder.() -> Unit = {}
-  
+
   ): com.google.firebase.dataconnect.MutationResult<
     CrearUsuarioNuevoMutation.Data,
     CrearUsuarioNuevoMutation.Variables

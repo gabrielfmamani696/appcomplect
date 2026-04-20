@@ -32,6 +32,9 @@ class ArchivosViewModel(
     private val _archivosDivulgacion = MutableStateFlow<List<Archivo>>(emptyList())
     val archivosDivulgacion: StateFlow<List<Archivo>> = _archivosDivulgacion
 
+    private val _archivosDescargados = MutableStateFlow<List<Archivo>>(emptyList())
+    val archivosDescargados: StateFlow<List<Archivo>> = _archivosDescargados
+
     private val _misEspacios = MutableStateFlow<List<EspacioAprendizaje>>(emptyList())
     val misEspacios: StateFlow<List<EspacioAprendizaje>> = _misEspacios
 
@@ -56,8 +59,10 @@ class ArchivosViewModel(
             usuarioActivo.collectLatest { usuario ->
                 if (usuario != null) {
                     cargarEspacios(usuario.uuidSesion)
+                    cargarArchivosDescargados()
                 } else {
                     _misEspacios.value = emptyList()
+                    _archivosDescargados.value = emptyList()
                 }
             }
         }
@@ -68,15 +73,24 @@ class ArchivosViewModel(
             _cargando.value = true
             _archivos.value = archivoRepository.obtenerArchivosDocentesAdmin()
             _archivosDivulgacion.value = archivoRepository.obtenerArchivosEstudiantesDivulgacion()
+            cargarArchivosDescargados()
             cargarEspacios(usuarioActivo.value?.uuidSesion)
             _cargando.value = false
         }
     }
 
-    private fun cargarEspacios(userId: String?) {
-        if (userId.isNullOrBlank()) return
+    private fun cargarArchivosDescargados() {
+        val idUsuario = usuarioActivo.value?.uuidSesion ?: return
         viewModelScope.launch(Dispatchers.IO) {
-            _misEspacios.value = archivoRepository.obtenerMisEspacios(UUID.fromString(userId))
+            val dbArchivos = archivoRepository.obtenerArchivosLocaleslUsuario(idUsuario)
+            _archivosDescargados.value = dbArchivos
+        }
+    }
+
+    private fun cargarEspacios(usuarioId: String?) {
+        if (usuarioId.isNullOrBlank()) return
+        viewModelScope.launch(Dispatchers.IO) {
+            _misEspacios.value = archivoRepository.obtenerMisEspacios(UUID.fromString(usuarioId))
         }
     }
 
@@ -148,7 +162,16 @@ class ArchivosViewModel(
         }
     }
 
-    fun limpiarMensaje() {
-        _mensaje.value = null
+    fun descargarArchivo(idArchivo: String, onResult: (Boolean) -> Unit) {
+        val idUsuario = usuarioActivo.value?.uuidSesion ?: return
+        viewModelScope.launch(Dispatchers.IO) {
+            _cargando.value = true
+            val descargaExitosaFlag = archivoRepository.descargarArchivoLocal(idUsuario, idArchivo)
+            if (descargaExitosaFlag) cargarArchivosDescargados()
+            _cargando.value = false
+            withContext(Dispatchers.Main) {
+                onResult(descargaExitosaFlag)
+            }
+        }
     }
 }

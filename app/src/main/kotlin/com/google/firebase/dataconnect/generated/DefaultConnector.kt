@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -13,6 +14,7 @@
 package com.google.firebase.dataconnect.generated
 
 import com.google.firebase.dataconnect.getInstance as _fdcGetInstance
+import kotlin.time.Duration.Companion.milliseconds as _milliseconds
 
 public interface DefaultConnector : com.google.firebase.dataconnect.generated.GeneratedConnector<DefaultConnector> {
   override val dataConnect: com.google.firebase.dataconnect.FirebaseDataConnect
@@ -130,11 +132,15 @@ public interface DefaultConnector : com.google.firebase.dataconnect.generated.Ge
     }
 
     private val instances = java.util.WeakHashMap<com.google.firebase.dataconnect.FirebaseDataConnect, DefaultConnectorImpl>()
+
+    
   }
 }
 
 public val DefaultConnector.Companion.instance:DefaultConnector
-  get() = getInstance(com.google.firebase.dataconnect.FirebaseDataConnect._fdcGetInstance(config))
+  get() = getInstance(com.google.firebase.dataconnect.FirebaseDataConnect._fdcGetInstance(
+    config
+  ))
 
 public fun DefaultConnector.Companion.getInstance(
   settings: com.google.firebase.dataconnect.DataConnectSettings = com.google.firebase.dataconnect.DataConnectSettings()

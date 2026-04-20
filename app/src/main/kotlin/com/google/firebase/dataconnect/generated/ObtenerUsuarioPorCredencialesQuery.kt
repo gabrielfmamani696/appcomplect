@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -86,6 +87,7 @@ public interface ObtenerUsuarioPorCredencialesQuery :
 public fun ObtenerUsuarioPorCredencialesQuery.ref(
   
     numeroCelular: String,nombre: String,apellidoPaterno: String,
+
   
   
 ): com.google.firebase.dataconnect.QueryRef<
@@ -102,10 +104,13 @@ public fun ObtenerUsuarioPorCredencialesQuery.ref(
   )
 
 public suspend fun ObtenerUsuarioPorCredencialesQuery.execute(
+
   
-    numeroCelular: String,nombre: String,apellidoPaterno: String,
+    
+      numeroCelular: String,nombre: String,apellidoPaterno: String,
+
   
-  
+
   ): com.google.firebase.dataconnect.QueryResult<
     ObtenerUsuarioPorCredencialesQuery.Data,
     ObtenerUsuarioPorCredencialesQuery.Variables
@@ -121,6 +126,7 @@ public suspend fun ObtenerUsuarioPorCredencialesQuery.execute(
   public fun ObtenerUsuarioPorCredencialesQuery.flow(
     
       numeroCelular: String,nombre: String,apellidoPaterno: String,
+
   
     
     ): kotlinx.coroutines.flow.Flow<ObtenerUsuarioPorCredencialesQuery.Data> =

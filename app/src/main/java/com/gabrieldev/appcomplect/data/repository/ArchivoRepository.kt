@@ -23,12 +23,30 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.util.Date
 import java.util.UUID
+import android.content.Context
+import com.gabrieldev.appcomplect.data.local.daos.ArchivoDao
+import com.gabrieldev.appcomplect.data.local.daos.DescargaDao
+import com.gabrieldev.appcomplect.data.local.entidades.ArchivoEntity
+import com.gabrieldev.appcomplect.data.local.entidades.CuestionarioEntity
+import com.gabrieldev.appcomplect.data.local.entidades.DescargaEntity
+import com.gabrieldev.appcomplect.data.local.entidades.PreguntaEntity
+import com.gabrieldev.appcomplect.data.local.entidades.RespuestaEntity
+import com.gabrieldev.appcomplect.data.local.entidades.TarjetaEntity
+import com.gabrieldev.appcomplect.util.FileDownloadManager
 
-class ArchivoRepository(private val connector: DefaultConnector) {
+class ArchivoRepository(
+    private val connector: DefaultConnector,
+    private val context: Context,
+    private val archivoDao: ArchivoDao,
+    private val descargaDao: DescargaDao
+) {
 
     private val storage = FirebaseStorage.getInstance()
 
-    suspend fun subirImagen(uriStr: String, folder: String): String? = withContext(Dispatchers.IO) {
+    suspend fun subirImagen(
+        uriStr: String,
+        folder: String
+    ): String? = withContext(Dispatchers.IO) {
         try {
             val uri = Uri.parse(uriStr)
             val fileName = "img_${UUID.randomUUID()}.jpg"
@@ -174,8 +192,48 @@ class ArchivoRepository(private val connector: DefaultConnector) {
                 }
             )
         } catch (e: Exception) {
-            e.printStackTrace()
-            null
+            val archivoInfoRelacional = archivoDao.obtenerContenidoArchivoCompletoLocal(idArchivo) ?: return@withContext null
+
+            val cuestionarioMapeado = archivoInfoRelacional.cuestionarios.firstOrNull()?.let { c ->
+                Cuestionario(
+                    id = UUID.fromString(c.cuestionario.id),
+                    tituloQuiz = c.cuestionario.tituloQuiz,
+                    preguntas = c.respuestas.map { p ->
+                        PreguntaConRespuestas(
+                            id = UUID.fromString(p.pregunta.id),
+                            enunciado = p.pregunta.enunciado,
+                            respuestas = p.respuestas.map { r ->
+                                RespuestaOpcion(
+                                    id = UUID.fromString(r.id),
+                                    textoOpcion = r.textoOpcion,
+                                    esCorrecta = r.esCorrecta
+                                )
+                            }
+                        )
+                    }
+                )
+            }
+
+            ContenidoArchivo(
+                idArchivo = UUID.fromString(archivoInfoRelacional.archivo.id),
+                titulo = archivoInfoRelacional.archivo.titulo,
+                tema = archivoInfoRelacional.archivo.tema,
+                descripcion = archivoInfoRelacional.archivo.descripcion,
+                fechaCreacion = 0L,
+                imagenUrl = archivoInfoRelacional.archivo.imagenUrl,
+                autorOriginal = archivoInfoRelacional.archivo.autorOriginal,
+                licencia = archivoInfoRelacional.archivo.licencia,
+                tarjetas = archivoInfoRelacional.tarjetas.map { t ->
+                    Tarjeta(
+                        id = UUID.fromString(t.id),
+                        ordenSecuencia = t.ordenSecuencia,
+                        contenidoTexto = t.contenidoTexto,
+                        tipoFondo = t.tipoFondo,
+                        dataFondo = t.dataFondo
+                    )
+                },
+                cuestionario = cuestionarioMapeado
+            )
         }
     }
 
@@ -461,6 +519,123 @@ class ArchivoRepository(private val connector: DefaultConnector) {
         } catch (e: Exception) {
             e.printStackTrace()
             null
+        }
+    }
+
+    suspend fun obtenerArchivosLocaleslUsuario(usuarioId: String): List<Archivo> = withContext(Dispatchers.IO) {
+        try {
+            archivoDao.obtenerArchivosDelUsuario(usuarioId).map { a ->
+                Archivo(
+                    idArchivo = a.id,
+                    titulo = a.titulo,
+                    tema = a.tema,
+                    descripcion = a.descripcion,
+                    imagenUrl = a.imagenUrl,
+                    fechaCreacion = 0L,
+                    autor = a.autorOriginal,
+                    nivelRequerido = 1,
+                    idUsuarioAutor = "",
+                    autorOriginal = a.autorOriginal,
+                    licencia = a.licencia,
+                    espacioId = null,
+                    espacioNombre = null
+                )
+            }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun descargarArchivoLocal(usuarioId: String, idArchivo: String): Boolean = withContext(Dispatchers.IO) {
+        try {
+            if (archivoDao.existeArchivo(idArchivo)) {
+                descargaDao.guardarDescarga(DescargaEntity(usuarioId = usuarioId, archivoId = idArchivo))
+                return@withContext true
+            }
+
+            val contenido = obtenerContenidoArchivo(idArchivo) ?: return@withContext false
+
+            val uriLocal = FileDownloadManager.descargarImagen(context, contenido.imagenUrl ?: "")
+            
+            val archivo = ArchivoEntity(
+                id = contenido.idArchivo.toString(),
+                titulo = contenido.titulo,
+                tema = contenido.tema ?: "",
+                descripcion = contenido.descripcion ?: "",
+                imagenUrl = uriLocal ?: contenido.imagenUrl ?: "",
+                autorOriginal = contenido.autorOriginal ?: "",
+                licencia = contenido.licencia ?: ""
+            )
+
+            val tarjetas = contenido.tarjetas.map { t ->
+                val fondoTarjeta = if (t.tipoFondo == "imagen") {
+                    FileDownloadManager.descargarImagen(context, t.dataFondo) ?: t.dataFondo
+                } else t.dataFondo
+
+                TarjetaEntity(
+                    id = t.id.toString(),
+                    ordenSecuencia = t.ordenSecuencia,
+                    contenidoTexto = t.contenidoTexto,
+                    tipoFondo = t.tipoFondo,
+                    dataFondo = fondoTarjeta,
+                    archivoId = contenido.idArchivo.toString()
+                )
+            }
+
+            val cuestionarios = mutableListOf<CuestionarioEntity>()
+            val preguntas = mutableListOf<PreguntaEntity>()
+            val respuestas = mutableListOf<RespuestaEntity>()
+
+            contenido.cuestionario?.let { c ->
+                cuestionarios.add(
+                    CuestionarioEntity(
+                        id = c.id.toString(),
+                        tituloQuiz = c.tituloQuiz,
+                        archivoId = contenido.idArchivo.toString()
+                    )
+                )
+
+                c.preguntas.forEach { p ->
+                    preguntas.add(
+                        PreguntaEntity(
+                            id = p.id.toString(),
+                            enunciado = p.enunciado,
+                            cuestionarioId = c.id.toString()
+                        )
+                    )
+
+                    p.respuestas.forEach { r ->
+                        respuestas.add(
+                            RespuestaEntity(
+                                id = r.id.toString(),
+                                textoOpcion = r.textoOpcion,
+                                esCorrecta = r.esCorrecta,
+                                preguntaId = p.id.toString()
+                            )
+                        )
+                    }
+                }
+            }
+
+            archivoDao.guardarArchivoCompleto(
+                archivo = archivo,
+                tarjetas = tarjetas,
+                cuestionarios = cuestionarios,
+                preguntas = preguntas,
+                respuestas = respuestas
+            )
+
+            descargaDao.guardarDescarga(
+                DescargaEntity(
+                    usuarioId = usuarioId,
+                    archivoId = contenido.idArchivo.toString()
+                )
+            )
+
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
         }
     }
 }

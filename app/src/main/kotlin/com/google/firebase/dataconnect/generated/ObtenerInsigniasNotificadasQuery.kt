@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -88,6 +89,7 @@ public interface ObtenerInsigniasNotificadasQuery :
 public fun ObtenerInsigniasNotificadasQuery.ref(
   
     usuarioId: java.util.UUID,
+
   
   
 ): com.google.firebase.dataconnect.QueryRef<
@@ -104,10 +106,13 @@ public fun ObtenerInsigniasNotificadasQuery.ref(
   )
 
 public suspend fun ObtenerInsigniasNotificadasQuery.execute(
+
   
-    usuarioId: java.util.UUID,
+    
+      usuarioId: java.util.UUID,
+
   
-  
+
   ): com.google.firebase.dataconnect.QueryResult<
     ObtenerInsigniasNotificadasQuery.Data,
     ObtenerInsigniasNotificadasQuery.Variables
@@ -123,6 +128,7 @@ public suspend fun ObtenerInsigniasNotificadasQuery.execute(
   public fun ObtenerInsigniasNotificadasQuery.flow(
     
       usuarioId: java.util.UUID,
+
   
     
     ): kotlinx.coroutines.flow.Flow<ObtenerInsigniasNotificadasQuery.Data> =

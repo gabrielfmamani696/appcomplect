@@ -279,10 +279,12 @@ fun PantallaPrincipal(
                 modifier = Modifier.fillMaxSize()
             ) {
                 composable(Rutas.Inicio.ruta) {
+                    val enLinea by mainViewModel.enLinea.collectAsState()
                     PantallaSeccionInicio(
                         usuario = usuario,
                         usuarioRepository = usuarioRepository,
-                        mainViewModel = mainViewModel
+                        mainViewModel = mainViewModel,
+                        enLinea = enLinea
                     )
                 }
                 composable(Rutas.Archivos.ruta) {

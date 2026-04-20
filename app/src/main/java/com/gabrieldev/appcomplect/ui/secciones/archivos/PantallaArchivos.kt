@@ -86,6 +86,7 @@ fun PantallaArchivos(
 
     val archivos by viewModel.archivos.collectAsState()
     val archivosDivulgacion by viewModel.archivosDivulgacion.collectAsState()
+    val archivosDescargados by viewModel.archivosDescargados.collectAsState()
     val misEspacios by viewModel.misEspacios.collectAsState()
     val estadisticas by viewModel.estadisticasSeleccionadas.collectAsState()
     val cargando by viewModel.cargando.collectAsState()
@@ -117,7 +118,7 @@ fun PantallaArchivos(
     val listaUsadaActual = when (pestanaSeleccionada) {
         0 -> archivos
         1 -> if (esDocente) archivos.filter { it.idUsuarioAutor == usuarioActivo?.uuidSesion } else archivosDivulgacion
-        2 -> emptyList()
+        2 -> archivosDescargados
         else -> archivos
     }
 
@@ -374,22 +375,7 @@ fun PantallaArchivos(
             }
             Spacer(modifier = Modifier.height(16.dp))
         }
-
-        if (pestanaSeleccionada == 2) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(32.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "Aquí aparecerán los archivos descargados para uso offline.",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color(0xFF757575),
-                    textAlign = TextAlign.Center
-                )
-            }
-        } else if (cargando) {
+        if (cargando) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator(color = Color(0xFF4CAF50))
             }
@@ -413,6 +399,15 @@ fun PantallaArchivos(
                                     navController.navigate(Rutas.ArchivoDetalle.conId(archivo.idArchivo))
                                 }
                             },
+                            onDescargar = {
+                                viewModel.descargarArchivo(archivo.idArchivo) { exito ->
+                                    if (exito) {
+                                        Toast.makeText(context, "Archivo descargado", Toast.LENGTH_SHORT).show()
+                                    } else {
+                                        Toast.makeText(context, "Error al descargar", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            },
                             onEditar = if (esAutor) {
                                 {
                                     navController.navigate(Rutas.ArchivoEditarDivulgacion.conId(archivo.idArchivo))
@@ -426,7 +421,16 @@ fun PantallaArchivos(
                         ItemArchivoMockup(
                             archivo = archivo,
                             usuarioActual = usuarioActivo,
-                            espacioBloqueado = espacioBloqueado
+                            espacioBloqueado = espacioBloqueado,
+                            onDescargar = {
+                                viewModel.descargarArchivo(archivo.idArchivo) { exito ->
+                                    if (exito) {
+                                        Toast.makeText(context, "Archivo descargado", Toast.LENGTH_SHORT).show()
+                                    } else {
+                                        Toast.makeText(context, "Error al descargar", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }
                         ) {
                             navController.navigate(Rutas.ArchivoDetalle.conId(archivo.idArchivo))
                         }
@@ -837,6 +841,7 @@ fun ItemArchivoMockup(
     archivo: Archivo,
     usuarioActual: Usuario?,
     espacioBloqueado: Boolean,
+    onDescargar: () -> Unit,
     onClick: () -> Unit
 ) {
     val context = LocalContext.current
@@ -1015,6 +1020,7 @@ fun ItemArchivoMockup(
                 ) {
                     TextButton(onClick = {
                         Toast.makeText(context, "Descargando: ${archivo.titulo}", Toast.LENGTH_SHORT).show()
+                        onDescargar()
                     }) {
                         Icon(
                             Icons.Default.Download,
@@ -1037,6 +1043,7 @@ fun ItemArchivoDivulgacion(
     usuarioActual: Usuario?,
     espacioBloqueado: Boolean,
     onAbrir: () -> Unit,
+    onDescargar: () -> Unit,
     onEditar: (() -> Unit)?,
     onEliminar: (() -> Unit)?
 ) {
@@ -1168,6 +1175,7 @@ fun ItemArchivoDivulgacion(
                 if (!bloqueado) {
                     TextButton(onClick = {
                         Toast.makeText(context, "Descargando: ${archivo.titulo}", Toast.LENGTH_SHORT).show()
+                        onDescargar()
                     }) {
                         Icon(Icons.Default.Download, null, tint = Color(0xFF2E7D32), modifier = Modifier.size(20.dp))
                         Spacer(Modifier.width(4.dp))

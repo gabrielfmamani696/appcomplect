@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -73,6 +74,7 @@ public interface BuscarEspacioPorCodigoQuery :
 public fun BuscarEspacioPorCodigoQuery.ref(
   
     codigoAcceso: String,
+
   
   
 ): com.google.firebase.dataconnect.QueryRef<
@@ -89,10 +91,13 @@ public fun BuscarEspacioPorCodigoQuery.ref(
   )
 
 public suspend fun BuscarEspacioPorCodigoQuery.execute(
+
   
-    codigoAcceso: String,
+    
+      codigoAcceso: String,
+
   
-  
+
   ): com.google.firebase.dataconnect.QueryResult<
     BuscarEspacioPorCodigoQuery.Data,
     BuscarEspacioPorCodigoQuery.Variables
@@ -108,6 +113,7 @@ public suspend fun BuscarEspacioPorCodigoQuery.execute(
   public fun BuscarEspacioPorCodigoQuery.flow(
     
       codigoAcceso: String,
+
   
     
     ): kotlinx.coroutines.flow.Flow<BuscarEspacioPorCodigoQuery.Data> =

@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -85,7 +86,9 @@ public fun ObtenerPanelSolicitudesQuery.ref(
   )
 
 public suspend fun ObtenerPanelSolicitudesQuery.execute(
+
   
+
   ): com.google.firebase.dataconnect.QueryResult<
     ObtenerPanelSolicitudesQuery.Data,
     Unit

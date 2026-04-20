@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -59,6 +60,7 @@ public interface ActualizarRachaUsuarioMutation :
 public fun ActualizarRachaUsuarioMutation.ref(
   
     id: java.util.UUID,racha: Int,ultimaActividad: com.google.firebase.Timestamp,
+
   
   
 ): com.google.firebase.dataconnect.MutationRef<
@@ -75,10 +77,13 @@ public fun ActualizarRachaUsuarioMutation.ref(
   )
 
 public suspend fun ActualizarRachaUsuarioMutation.execute(
+
   
-    id: java.util.UUID,racha: Int,ultimaActividad: com.google.firebase.Timestamp,
+    
+      id: java.util.UUID,racha: Int,ultimaActividad: com.google.firebase.Timestamp,
+
   
-  
+
   ): com.google.firebase.dataconnect.MutationResult<
     ActualizarRachaUsuarioMutation.Data,
     ActualizarRachaUsuarioMutation.Variables

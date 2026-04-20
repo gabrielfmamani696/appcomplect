@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -58,6 +59,7 @@ public interface RegistrarLogroNotificadoMutation :
 public fun RegistrarLogroNotificadoMutation.ref(
   
     usuarioId: java.util.UUID,insigniaId: java.util.UUID,
+
   
   
 ): com.google.firebase.dataconnect.MutationRef<
@@ -74,10 +76,13 @@ public fun RegistrarLogroNotificadoMutation.ref(
   )
 
 public suspend fun RegistrarLogroNotificadoMutation.execute(
+
   
-    usuarioId: java.util.UUID,insigniaId: java.util.UUID,
+    
+      usuarioId: java.util.UUID,insigniaId: java.util.UUID,
+
   
-  
+
   ): com.google.firebase.dataconnect.MutationResult<
     RegistrarLogroNotificadoMutation.Data,
     RegistrarLogroNotificadoMutation.Variables

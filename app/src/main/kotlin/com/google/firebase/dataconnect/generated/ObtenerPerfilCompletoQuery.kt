@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -123,6 +124,7 @@ public interface ObtenerPerfilCompletoQuery :
 public fun ObtenerPerfilCompletoQuery.ref(
   
     id: java.util.UUID,
+
   
   
 ): com.google.firebase.dataconnect.QueryRef<
@@ -139,10 +141,13 @@ public fun ObtenerPerfilCompletoQuery.ref(
   )
 
 public suspend fun ObtenerPerfilCompletoQuery.execute(
+
   
-    id: java.util.UUID,
+    
+      id: java.util.UUID,
+
   
-  
+
   ): com.google.firebase.dataconnect.QueryResult<
     ObtenerPerfilCompletoQuery.Data,
     ObtenerPerfilCompletoQuery.Variables
@@ -158,6 +163,7 @@ public suspend fun ObtenerPerfilCompletoQuery.execute(
   public fun ObtenerPerfilCompletoQuery.flow(
     
       id: java.util.UUID,
+
   
     
     ): kotlinx.coroutines.flow.Flow<ObtenerPerfilCompletoQuery.Data> =

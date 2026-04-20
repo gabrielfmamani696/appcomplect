@@ -14,6 +14,7 @@ data class Usuario(
     val nombreRol: String = "",
     val horaNotificacion: String? = null,
     val uuidSesion: String? = null,
+    val ultimaActividad: String? = null,
     val estrellasPrestigio: Int = 0,
     val rachaActualDias: Int = 0,
     val avatarUrl: String = "",

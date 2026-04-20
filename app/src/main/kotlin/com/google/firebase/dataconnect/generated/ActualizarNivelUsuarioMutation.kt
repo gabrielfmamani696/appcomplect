@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -58,6 +59,7 @@ public interface ActualizarNivelUsuarioMutation :
 public fun ActualizarNivelUsuarioMutation.ref(
   
     id: java.util.UUID,nivelId: java.util.UUID,
+
   
   
 ): com.google.firebase.dataconnect.MutationRef<
@@ -74,10 +76,13 @@ public fun ActualizarNivelUsuarioMutation.ref(
   )
 
 public suspend fun ActualizarNivelUsuarioMutation.execute(
+
   
-    id: java.util.UUID,nivelId: java.util.UUID,
+    
+      id: java.util.UUID,nivelId: java.util.UUID,
+
   
-  
+
   ): com.google.firebase.dataconnect.MutationResult<
     ActualizarNivelUsuarioMutation.Data,
     ActualizarNivelUsuarioMutation.Variables

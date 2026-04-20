@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -58,6 +59,7 @@ public interface AgregarPreguntaCuestionarioMutation :
 public fun AgregarPreguntaCuestionarioMutation.ref(
   
     cuestionarioId: java.util.UUID,enunciado: String,
+
   
   
 ): com.google.firebase.dataconnect.MutationRef<
@@ -74,10 +76,13 @@ public fun AgregarPreguntaCuestionarioMutation.ref(
   )
 
 public suspend fun AgregarPreguntaCuestionarioMutation.execute(
+
   
-    cuestionarioId: java.util.UUID,enunciado: String,
+    
+      cuestionarioId: java.util.UUID,enunciado: String,
+
   
-  
+
   ): com.google.firebase.dataconnect.MutationResult<
     AgregarPreguntaCuestionarioMutation.Data,
     AgregarPreguntaCuestionarioMutation.Variables

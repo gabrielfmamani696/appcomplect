@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -87,7 +88,9 @@ public fun ListarInvestigadoresOrdenadosPorEstrellasQuery.ref(
   )
 
 public suspend fun ListarInvestigadoresOrdenadosPorEstrellasQuery.execute(
+
   
+
   ): com.google.firebase.dataconnect.QueryResult<
     ListarInvestigadoresOrdenadosPorEstrellasQuery.Data,
     Unit

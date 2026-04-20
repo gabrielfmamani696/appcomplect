@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -71,6 +72,7 @@ public interface ObtenerRankingUsuarioQuery :
 public fun ObtenerRankingUsuarioQuery.ref(
   
     misEstrellas: Int,
+
   
   
 ): com.google.firebase.dataconnect.QueryRef<
@@ -87,10 +89,13 @@ public fun ObtenerRankingUsuarioQuery.ref(
   )
 
 public suspend fun ObtenerRankingUsuarioQuery.execute(
+
   
-    misEstrellas: Int,
+    
+      misEstrellas: Int,
+
   
-  
+
   ): com.google.firebase.dataconnect.QueryResult<
     ObtenerRankingUsuarioQuery.Data,
     ObtenerRankingUsuarioQuery.Variables
@@ -106,6 +111,7 @@ public suspend fun ObtenerRankingUsuarioQuery.execute(
   public fun ObtenerRankingUsuarioQuery.flow(
     
       misEstrellas: Int,
+
   
     
     ): kotlinx.coroutines.flow.Flow<ObtenerRankingUsuarioQuery.Data> =

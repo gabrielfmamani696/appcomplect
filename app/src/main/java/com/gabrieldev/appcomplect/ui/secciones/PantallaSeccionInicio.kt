@@ -77,7 +77,8 @@ import java.util.Locale.getDefault
 fun PantallaSeccionInicio(
     usuario: Usuario,
     usuarioRepository: UsuarioRepository,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
+    enLinea: Boolean
 ) {
     val scrollState = rememberScrollState()
     val usuarioVivo by usuarioRepository.usuarioActivo.collectAsState()
@@ -223,66 +224,68 @@ fun PantallaSeccionInicio(
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color.White),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Icon(
-                                Icons.Default.Star,
-                                contentDescription = null,
-                                tint = Color(0xFF4CAF50),
-                                modifier = Modifier.size(20.dp)
+                if (enLinea) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color.White),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                    ) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    Icons.Default.Star,
+                                    contentDescription = null,
+                                    tint = Color(0xFF4CAF50),
+                                    modifier = Modifier.size(20.dp)
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = usuarioActual.nivel?.nombreRango?.takeIf { it.isNotBlank() } ?: "Sin nivel asignado",
+                                    style = MaterialTheme.typography.titleMedium,
+                                    color = Color(0xFF2E7D32),
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                                Spacer(modifier = Modifier.weight(1f))
+                                Text(
+                                    text = run {
+                                        val sorted = todosNiveles.sortedBy { it.jerarquia }
+                                        val idxActual = sorted.indexOfFirst { it.id == nivelActual?.id }
+                                        if (idxActual < 0) "$estrellasActuales / —"
+                                        else {
+                                            val reqActual = sorted[idxActual].estrellasRequeridas
+                                            val reqAnterior = if (idxActual > 0) sorted[idxActual - 1].estrellasRequeridas else 0
+                                            val conseguidas = (estrellasActuales - reqAnterior).coerceAtLeast(0)
+                                            val necesarias = reqActual - reqAnterior
+                                            "$conseguidas / $necesarias"
+                                        }
+                                    },
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = Color(0xFF757575)
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.height(10.dp))
+
+                            LinearProgressIndicator(
+                                progress = { progresoState },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(10.dp)
+                                    .clip(RoundedCornerShape(50)),
+                                color = Color(0xFF4CAF50),
+                                trackColor = Color(0xFFE8F5E9),
+                                strokeCap = StrokeCap.Round,
                             )
-                            Spacer(modifier = Modifier.width(8.dp))
+
+                            Spacer(modifier = Modifier.height(6.dp))
+
                             Text(
-                                text = usuarioActual.nivel?.nombreRango?.takeIf { it.isNotBlank() } ?: "Sin nivel asignado",
-                                style = MaterialTheme.typography.titleMedium,
-                                color = Color(0xFF2E7D32),
-                                fontWeight = FontWeight.SemiBold
-                            )
-                            Spacer(modifier = Modifier.weight(1f))
-                            Text(
-                                text = run {
-                                    val sorted = todosNiveles.sortedBy { it.jerarquia }
-                                    val idxActual = sorted.indexOfFirst { it.id == nivelActual?.id }
-                                    if (idxActual < 0) "$estrellasActuales / —"
-                                    else {
-                                        val reqActual = sorted[idxActual].estrellasRequeridas
-                                        val reqAnterior = if (idxActual > 0) sorted[idxActual - 1].estrellasRequeridas else 0
-                                        val conseguidas = (estrellasActuales - reqAnterior).coerceAtLeast(0)
-                                        val necesarias = reqActual - reqAnterior
-                                        "$conseguidas / $necesarias"
-                                    }
-                                },
-                                style = MaterialTheme.typography.labelMedium,
-                                color = Color(0xFF757575)
+                                text = "${(progresoState * 100).toInt()}% completado",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = Color(0xFF9E9E9E)
                             )
                         }
-
-                        Spacer(modifier = Modifier.height(10.dp))
-
-                        LinearProgressIndicator(
-                            progress = { progresoState },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(10.dp)
-                                .clip(RoundedCornerShape(50)),
-                            color = Color(0xFF4CAF50),
-                            trackColor = Color(0xFFE8F5E9),
-                            strokeCap = StrokeCap.Round,
-                        )
-
-                        Spacer(modifier = Modifier.height(6.dp))
-
-                        Text(
-                            text = "${(progresoState * 100).toInt()}% completado",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = Color(0xFF9E9E9E)
-                        )
                     }
                 }
 
@@ -368,193 +371,222 @@ fun PantallaSeccionInicio(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Button(
-                    onClick = { mostrarMisInsignias = true },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1B5E20))
-                ) {
-                    Text("Ver mis insignias", color = Color.White, fontWeight = FontWeight.Bold)
+                if (enLinea) {
+                    Button(
+                        onClick = { mostrarMisInsignias = true },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1B5E20))
+                    ) {
+                        Text("Ver mis insignias", color = Color.White, fontWeight = FontWeight.Bold)
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
                 }
 
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color.White),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = "Top Investigadores",
-                                style = MaterialTheme.typography.titleMedium,
-                                color = Color(0xFF1B5E20),
-                                fontWeight = FontWeight.Bold
-                            )
-                            if (posicionActual > 0) {
+                if (enLinea) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color.White),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                    ) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
                                 Text(
-                                    text = "Tu posición: #$posicionActual",
-                                    style = MaterialTheme.typography.labelLarge,
-                                    color = Color(0xFF4CAF50),
+                                    text = "Top Investigadores",
+                                    style = MaterialTheme.typography.titleMedium,
+                                    color = Color(0xFF1B5E20),
                                     fontWeight = FontWeight.Bold
                                 )
-                            }
-                        }
-
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        if (leaderboard.isEmpty()) {
-                            Spacer(modifier = Modifier.height(16.dp))
-                            Text(
-                                text = "Aún no hay usuarios en la cima. ¡Sé el primero!",
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = Color.Gray
-                            )
-                        } else {
-                            Spacer(modifier = Modifier.height(16.dp))
-                            for ((index, usuarioTop) in leaderboard.withIndex()) {
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(vertical = 8.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
+                                if (posicionActual > 0) {
                                     Text(
-                                        text = "#${index + 1}",
-                                        style = MaterialTheme.typography.titleMedium,
-                                        color = if (index == 0) Color(0xFFFFD700) else if (index == 1) Color.Gray else if (index == 2) Color(0xFFCD7F32) else Color(0xFF9E9E9E),
-                                        modifier = Modifier.width(32.dp),
+                                        text = "Tu posición: #$posicionActual",
+                                        style = MaterialTheme.typography.labelLarge,
+                                        color = Color(0xFF4CAF50),
                                         fontWeight = FontWeight.Bold
                                     )
-                                    Box(
+                                }
+                            }
+
+                            Spacer(modifier = Modifier.height(12.dp))
+
+                            if (leaderboard.isEmpty()) {
+                                Spacer(modifier = Modifier.height(16.dp))
+                                Text(
+                                    text = "Aún no hay usuarios en la cima. ¡Sé el primero!",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = Color.Gray
+                                )
+                            } else {
+                                Spacer(modifier = Modifier.height(16.dp))
+                                for ((index, usuarioTop) in leaderboard.withIndex()) {
+                                    Row(
                                         modifier = Modifier
-                                            .size(40.dp)
-                                            .clip(CircleShape)
-                                            .background(Color(0xFFE8F5E9)),
-                                        contentAlignment = Alignment.Center
+                                            .fillMaxWidth()
+                                            .padding(vertical = 8.dp),
+                                        verticalAlignment = Alignment.CenterVertically
                                     ) {
-                                        SubcomposeAsyncImage(
-                                            model = usuarioTop.avatarUrl,
-                                            contentDescription = null,
-                                            contentScale = ContentScale.Crop,
-                                            modifier = Modifier.fillMaxSize(),
-                                            loading = { Icon(Icons.Default.Person, contentDescription = null, tint = Color.Gray) },
-                                            error = { Icon(Icons.Default.Person, contentDescription = null, tint = Color.Gray) }
-                                        )
-                                    }
-                                    Spacer(modifier = Modifier.width(12.dp))
-                                    Column(modifier = Modifier.weight(1f)) {
                                         Text(
-                                            text = usuarioTop.alias,
-                                            style = MaterialTheme.typography.bodyMedium,
-                                            fontWeight = FontWeight.Bold,
-                                            color = Color(0xFF2E7D32)
+                                            text = "#${index + 1}",
+                                            style = MaterialTheme.typography.titleMedium,
+                                            color = if (index == 0) Color(0xFFFFD700) else if (index == 1) Color.Gray else if (index == 2) Color(0xFFCD7F32) else Color(0xFF9E9E9E),
+                                            modifier = Modifier.width(32.dp),
+                                            fontWeight = FontWeight.Bold
                                         )
-                                        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                                            for (insignia in usuarioTop.insignias.take(3)) {
-                                                Box(
-                                                    modifier = Modifier
-                                                        .size(22.dp)
-                                                        .clip(CircleShape)
-                                                        .background(Color(0xFFFFF9DB)),
-                                                    contentAlignment = Alignment.Center
-                                                ) {
-                                                    Icon(
-                                                        imageVector = mapearIconoInsignia(insignia.iconoRef),
-                                                        contentDescription = insignia.nombreVisible,
-                                                        tint = Color(0xFFFFD54F),
-                                                        modifier = Modifier.size(14.dp)
-                                                    )
+                                        Box(
+                                            modifier = Modifier
+                                                .size(40.dp)
+                                                .clip(CircleShape)
+                                                .background(Color(0xFFE8F5E9)),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            SubcomposeAsyncImage(
+                                                model = usuarioTop.avatarUrl,
+                                                contentDescription = null,
+                                                contentScale = ContentScale.Crop,
+                                                modifier = Modifier.fillMaxSize(),
+                                                loading = { Icon(Icons.Default.Person, contentDescription = null, tint = Color.Gray) },
+                                                error = { Icon(Icons.Default.Person, contentDescription = null, tint = Color.Gray) }
+                                            )
+                                        }
+                                        Spacer(modifier = Modifier.width(12.dp))
+                                        Column(modifier = Modifier.weight(1f)) {
+                                            Text(
+                                                text = usuarioTop.alias,
+                                                style = MaterialTheme.typography.bodyMedium,
+                                                fontWeight = FontWeight.Bold,
+                                                color = Color(0xFF2E7D32)
+                                            )
+                                            Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                                                for (insignia in usuarioTop.insignias.take(3)) {
+                                                    Box(
+                                                        modifier = Modifier
+                                                            .size(22.dp)
+                                                            .clip(CircleShape)
+                                                            .background(Color(0xFFFFF9DB)),
+                                                        contentAlignment = Alignment.Center
+                                                    ) {
+                                                        Icon(
+                                                            imageVector = mapearIconoInsignia(insignia.iconoRef),
+                                                            contentDescription = insignia.nombreVisible,
+                                                            tint = Color(0xFFFFD54F),
+                                                            modifier = Modifier.size(14.dp)
+                                                        )
+                                                    }
                                                 }
                                             }
                                         }
-                                    }
-                                    Row(verticalAlignment = Alignment.CenterVertically) {
-                                        Text(
-                                            text = "${usuarioTop.estrellasPrestigio}",
-                                            style = MaterialTheme.typography.titleMedium,
-                                            fontWeight = FontWeight.Bold,
-                                            color = Color(0xFF388E3C)
-                                        )
-                                        Spacer(modifier = Modifier.width(4.dp))
-                                        Icon(
-                                            Icons.Default.Star,
-                                            contentDescription = null,
-                                            tint = Color(0xFFFFD54F),
-                                            modifier = Modifier.size(16.dp)
-                                        )
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
+                                            Text(
+                                                text = "${usuarioTop.estrellasPrestigio}",
+                                                style = MaterialTheme.typography.titleMedium,
+                                                fontWeight = FontWeight.Bold,
+                                                color = Color(0xFF388E3C)
+                                            )
+                                            Spacer(modifier = Modifier.width(4.dp))
+                                            Icon(
+                                                Icons.Default.Star,
+                                                contentDescription = null,
+                                                tint = Color(0xFFFFD54F),
+                                                modifier = Modifier.size(16.dp)
+                                            )
+                                        }
                                     }
                                 }
-                            }
 
-                            if (posicionActual > 5 && filaUsuarioActual != null) {
-                                HorizontalDivider(color = Color(0xFFBDBDBD), thickness = 1.dp)
-                                Spacer(modifier = Modifier.height(8.dp))
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(vertical = 8.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Text(
-                                        text = "#$posicionActual",
-                                        style = MaterialTheme.typography.titleMedium,
-                                        color = Color(0xFF4CAF50),
-                                        modifier = Modifier.width(32.dp),
-                                        fontWeight = FontWeight.Bold
-                                    )
-                                    Box(
+                                if (posicionActual > 5 && filaUsuarioActual != null) {
+                                    HorizontalDivider(color = Color(0xFFBDBDBD), thickness = 1.dp)
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                    Row(
                                         modifier = Modifier
-                                            .size(40.dp)
-                                            .clip(CircleShape)
-                                            .background(Color(0xFFE8F5E9)),
-                                        contentAlignment = Alignment.Center
+                                            .fillMaxWidth()
+                                            .padding(vertical = 8.dp),
+                                        verticalAlignment = Alignment.CenterVertically
                                     ) {
-                                        SubcomposeAsyncImage(
-                                            model = filaUsuarioActual.avatarUrl,
-                                            contentDescription = null,
-                                            contentScale = ContentScale.Crop,
-                                            modifier = Modifier.fillMaxSize(),
-                                            loading = { Icon(Icons.Default.Person, contentDescription = null, tint = Color.Gray) },
-                                            error = { Icon(Icons.Default.Person, contentDescription = null, tint = Color.Gray) }
-                                        )
-                                    }
-                                    Spacer(modifier = Modifier.width(12.dp))
-                                    Column(modifier = Modifier.weight(1f)) {
                                         Text(
-                                            text = filaUsuarioActual.alias,
-                                            style = MaterialTheme.typography.bodyMedium,
-                                            fontWeight = FontWeight.Bold,
-                                            color = Color(0xFF2E7D32)
-                                        )
-                                        Text(
-                                            text = "Tu posición",
-                                            style = MaterialTheme.typography.labelSmall,
-                                            color = Color(0xFF757575)
-                                        )
-                                    }
-                                    Row(verticalAlignment = Alignment.CenterVertically) {
-                                        Text(
-                                            text = "${filaUsuarioActual.estrellasPrestigio}",
+                                            text = "#$posicionActual",
                                             style = MaterialTheme.typography.titleMedium,
-                                            fontWeight = FontWeight.Bold,
-                                            color = Color(0xFF388E3C)
+                                            color = Color(0xFF4CAF50),
+                                            modifier = Modifier.width(32.dp),
+                                            fontWeight = FontWeight.Bold
                                         )
-                                        Spacer(modifier = Modifier.width(4.dp))
-                                        Icon(
-                                            Icons.Default.Star,
-                                            contentDescription = null,
-                                            tint = Color(0xFFFFD54F),
-                                            modifier = Modifier.size(16.dp)
-                                        )
+                                        Box(
+                                            modifier = Modifier
+                                                .size(40.dp)
+                                                .clip(CircleShape)
+                                                .background(Color(0xFFE8F5E9)),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            SubcomposeAsyncImage(
+                                                model = filaUsuarioActual.avatarUrl,
+                                                contentDescription = null,
+                                                contentScale = ContentScale.Crop,
+                                                modifier = Modifier.fillMaxSize(),
+                                                loading = { Icon(Icons.Default.Person, contentDescription = null, tint = Color.Gray) },
+                                                error = { Icon(Icons.Default.Person, contentDescription = null, tint = Color.Gray) }
+                                            )
+                                        }
+                                        Spacer(modifier = Modifier.width(12.dp))
+                                        Column(modifier = Modifier.weight(1f)) {
+                                            Text(
+                                                text = filaUsuarioActual.alias,
+                                                style = MaterialTheme.typography.bodyMedium,
+                                                fontWeight = FontWeight.Bold,
+                                                color = Color(0xFF2E7D32)
+                                            )
+                                            Text(
+                                                text = "Tu posición",
+                                                style = MaterialTheme.typography.labelSmall,
+                                                color = Color(0xFF757575)
+                                            )
+                                        }
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
+                                            Text(
+                                                text = "${filaUsuarioActual.estrellasPrestigio}",
+                                                style = MaterialTheme.typography.titleMedium,
+                                                fontWeight = FontWeight.Bold,
+                                                color = Color(0xFF388E3C)
+                                            )
+                                            Spacer(modifier = Modifier.width(4.dp))
+                                            Icon(
+                                                Icons.Default.Star,
+                                                contentDescription = null,
+                                                tint = Color(0xFFFFD54F),
+                                                modifier = Modifier.size(16.dp)
+                                            )
+                                        }
                                     }
                                 }
                             }
+                        }
+                    }
+                } else {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFF9C4)),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(16.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                Icons.Default.Info,
+                                contentDescription = null,
+                                tint = Color(0xFF4CAF50),
+                                modifier = Modifier.size(24.dp)
+                            )
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Text(
+                                text = "Modo offline: Puedes completar lecturas de Archivos, los datos se sincronizarán cuando recuperes la conexión.",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = Color(0xFF2E7D32)
+                            )
                         }
                     }
                 }

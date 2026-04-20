@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -59,6 +60,7 @@ public interface CrearSolicitudValidacionMutation :
 public fun CrearSolicitudValidacionMutation.ref(
   
     usuarioId: java.util.UUID,rolSolicitadoId: java.util.UUID,fechaEnvio: com.google.firebase.Timestamp,
+
   
   
 ): com.google.firebase.dataconnect.MutationRef<
@@ -75,10 +77,13 @@ public fun CrearSolicitudValidacionMutation.ref(
   )
 
 public suspend fun CrearSolicitudValidacionMutation.execute(
+
   
-    usuarioId: java.util.UUID,rolSolicitadoId: java.util.UUID,fechaEnvio: com.google.firebase.Timestamp,
+    
+      usuarioId: java.util.UUID,rolSolicitadoId: java.util.UUID,fechaEnvio: com.google.firebase.Timestamp,
+
   
-  
+
   ): com.google.firebase.dataconnect.MutationResult<
     CrearSolicitudValidacionMutation.Data,
     CrearSolicitudValidacionMutation.Variables

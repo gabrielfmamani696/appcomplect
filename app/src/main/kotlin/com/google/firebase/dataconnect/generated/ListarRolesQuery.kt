@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -73,7 +74,9 @@ public fun ListarRolesQuery.ref(
   )
 
 public suspend fun ListarRolesQuery.execute(
+
   
+
   ): com.google.firebase.dataconnect.QueryResult<
     ListarRolesQuery.Data,
     Unit

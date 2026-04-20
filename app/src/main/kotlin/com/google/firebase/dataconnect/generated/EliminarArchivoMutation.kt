@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -57,6 +58,7 @@ public interface EliminarArchivoMutation :
 public fun EliminarArchivoMutation.ref(
   
     id: java.util.UUID,
+
   
   
 ): com.google.firebase.dataconnect.MutationRef<
@@ -73,10 +75,13 @@ public fun EliminarArchivoMutation.ref(
   )
 
 public suspend fun EliminarArchivoMutation.execute(
+
   
-    id: java.util.UUID,
+    
+      id: java.util.UUID,
+
   
-  
+
   ): com.google.firebase.dataconnect.MutationResult<
     EliminarArchivoMutation.Data,
     EliminarArchivoMutation.Variables

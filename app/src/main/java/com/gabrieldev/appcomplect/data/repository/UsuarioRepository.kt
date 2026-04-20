@@ -4,10 +4,16 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.util.Log
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.gabrieldev.appcomplect.data.local.daos.IntentoDao
+import com.gabrieldev.appcomplect.data.local.daos.UsuarioDao
+import com.gabrieldev.appcomplect.data.local.entidades.IntentoEntity
+import com.gabrieldev.appcomplect.data.local.entidades.UsuarioEntity
 import com.gabrieldev.appcomplect.model.InsigniaMini
 import com.gabrieldev.appcomplect.model.Nivel
 import com.gabrieldev.appcomplect.model.RolUsuario
@@ -17,6 +23,7 @@ import com.gabrieldev.appcomplect.model.UsuarioLeaderboard
 import com.gabrieldev.appcomplect.workers.RecordatorioReceiver
 import com.google.firebase.Timestamp
 import com.google.firebase.dataconnect.generated.DefaultConnector
+import com.google.firebase.dataconnect.generated.ObtenerPerfilCompletoQuery
 import com.google.firebase.dataconnect.generated.execute
 import com.google.firebase.dataconnect.generated.flow
 import kotlinx.coroutines.CoroutineScope
@@ -41,7 +48,9 @@ private val Context.dataStore by preferencesDataStore(name = "user_prefs")
 
 class UsuarioRepository(
     private val connector: DefaultConnector,
-    private val context: Context
+    private val context: Context,
+    private val usuarioDao: UsuarioDao,
+    private val intentoDao: IntentoDao
 ) {
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
@@ -53,6 +62,8 @@ class UsuarioRepository(
 
     private val USER_ID_KEY = stringPreferencesKey("session_user_id")
     private val HISTORICAL_SESSIONS_KEY = stringPreferencesKey("historical_sessions")
+
+    private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     private val _sesionesGuardadas = MutableStateFlow<List<SesionGuardada>>(emptyList())
     val sesionesGuardadas: StateFlow<List<SesionGuardada>> = _sesionesGuardadas
@@ -95,7 +106,11 @@ class UsuarioRepository(
                     idNivel = "",
                     nivel = null
                 )
-                iniciarSuscripcionPerfil(userId)
+                if (tieneConexion()) {
+                    iniciarSuscripcionPerfil(userId)
+                } else {
+                    cargarUsuarioLocal(userId)
+                }
             } else {
                 _usuarioActivo.value = null
             }
@@ -108,6 +123,11 @@ class UsuarioRepository(
 
     private fun iniciarSuscripcionPerfil(userId: String) {
         scope.launch {
+            if (!tieneConexion()) {
+                cargarUsuarioLocal(userId)
+                return@launch
+            }
+
             try {
                 connector.obtenerPerfilCompleto
                     .flow(id = UUID.fromString(userId))
@@ -145,6 +165,7 @@ class UsuarioRepository(
                             alias = u.alias,
                             idAvatar = u.avatar?.id?.toString() ?: "",
                             uuidSesion = userId,
+                            ultimaActividad = u.ultimaActividad?.toDate()?.let { fechaLocalDesdeDate(it) } ?: "",
                             estrellasPrestigio = u.estrellasPrestigio,
                             rachaActualDias = rachaVisual,
                             avatarUrl = u.avatar?.imagenUrl ?: "",
@@ -167,9 +188,13 @@ class UsuarioRepository(
                             nombreRol = u.rol.nombreRol
                         )
                         registrarSesionHistorica(userId, u.alias, u.avatar?.imagenUrl ?: "")
+
+                        // guardado Local
+                        guardarUsuarioLocal(u)
                     }
             } catch (e: Exception) {
                 e.printStackTrace()
+                cargarUsuarioLocal(userId)
             }
         }
     }
@@ -189,6 +214,56 @@ class UsuarioRepository(
         fechaLocalFormatter.parse(fecha)
     } catch (e: Exception) {
         null
+    }
+
+    private fun usuarioToEntity(usuario: Usuario, sincronizado: Boolean = true): UsuarioEntity {
+        return UsuarioEntity(
+            id = usuario.uuidSesion ?: "",
+            alias = usuario.alias,
+            estrellasPrestigio = usuario.estrellasPrestigio,
+            rachaActualDias = usuario.rachaActualDias,
+            ultimaActividad = usuario.ultimaActividad ?: "",
+            rol = usuario.nombreRol,
+            horaNotificacion = usuario.horaNotificacion ?: "",
+            nombre = usuario.nombre,
+            sincronizado = sincronizado
+        )
+    }
+
+    private suspend fun cargarUsuarioLocal(userId: String) {
+        val usuarioEntity = usuarioDao.getUsuarioPorId(userId)
+        if (usuarioEntity != null) {
+            _usuarioActivo.value = usuarioEntity.toUsuario()
+        }
+    }
+
+    private fun UsuarioEntity.toUsuario(): Usuario {
+        return Usuario(
+            nombre = this.nombre,
+            apellidoPaterno = "",
+            apellidoMaterno = "",
+            alias = this.alias,
+            idAvatar = "",
+            uuidSesion = this.id,
+            ultimaActividad = this.ultimaActividad.ifBlank { null },
+            estrellasPrestigio = this.estrellasPrestigio,
+            rachaActualDias = this.rachaActualDias,
+            avatarUrl = "",
+            nombreRol = this.rol,
+            horaNotificacion = this.horaNotificacion,
+            idNivel = "",
+            nivel = null
+        )
+    }
+
+    private fun tieneConexion(): Boolean {
+        val network = connectivityManager.activeNetwork
+        val capabilities = connectivityManager.getNetworkCapabilities(network)
+        return capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+    }
+
+    private suspend fun guardarUsuarioActivoLocal(sincronizado: Boolean = true) {
+        _usuarioActivo.value?.let { usuarioDao.guardarUsuario(usuarioToEntity(it, sincronizado)) }
     }
 
     private fun obtenerInicioDelDia(fecha: Date): Date {
@@ -307,10 +382,13 @@ class UsuarioRepository(
                 horaNotificacion = usuario.horaNotificacion
                 avatarId = if(usuario.idAvatar.isNotEmpty()) UUID.fromString(usuario.idAvatar) else null
             }
-            
-            _usuarioActivo.value = usuario
+
+            val ultimaActividad = usuario.ultimaActividad ?: _usuarioActivo.value?.ultimaActividad ?: ""
+            _usuarioActivo.value = usuario.copy(ultimaActividad = ultimaActividad)
             reprogramarNotificaciones(usuario.horaNotificacion ?: "18:00")
-            
+
+            usuarioDao.guardarUsuario(usuarioToEntity(_usuarioActivo.value!!))
+
             true
         } catch (e: Exception) {
             e.printStackTrace()
@@ -480,11 +558,13 @@ class UsuarioRepository(
     suspend fun registrarAccionDiaria() {
         val uuId = _usuarioActivo.value?.uuidSesion ?: return
         val key = stringPreferencesKey("streak_data_$uuId")
+        var actualizarLocal = false
+
         context.dataStore.edit { prefs ->
             val jsonStr = prefs[key] ?: "{}"
             val obj = try { JSONObject(jsonStr) } catch(e: Exception) { JSONObject() }
 
-                val hoy = fechaLocalHoy()
+            val hoy = fechaLocalHoy()
             val ultimaFecha = obj.optString("ultimaFechaAccion", "")
             val actualRacha = obj.optInt("rachaLocal", _usuarioActivo.value?.rachaActualDias ?: 0).coerceAtLeast(0)
             val ayer = Calendar.getInstance(TimeZone.getDefault()).apply {
@@ -505,8 +585,14 @@ class UsuarioRepository(
                 prefs[key] = obj.toString()
 
                 _usuarioActivo.value = _usuarioActivo.value?.copy(rachaActualDias = nuevaRacha)
+                actualizarLocal = true
             }
         }
+
+        if (actualizarLocal) {
+            guardarUsuarioActivoLocal()
+        }
+
         scope.launch {
             sincronizarRachaConBackend()
         }
@@ -534,6 +620,7 @@ class UsuarioRepository(
                      eObj.put("pendienteSincronizar", false)
                      prefs[key] = eObj.toString()
                 }
+                guardarUsuarioActivoLocal()
             } catch (e: Exception) {
                e.printStackTrace()
             }
@@ -565,28 +652,63 @@ class UsuarioRepository(
         calificacion: Int,
         estrellasGanadas: Int
     ) {
+        val aprobado = calificacion >= 60
+        var guardadoConExitoRemoto = false
+        val uuid = UUID.fromString(usuarioId)
+
         try {
-            val aprobado = calificacion >= 60
-            val uuid = UUID.fromString(usuarioId)
-            connector.registrarIntentoExamen.execute(
-                usuarioId = uuid,
-                archivoId = UUID.fromString(archivoId),
+            if (tieneConexion()) {
+                connector.registrarIntentoExamen.execute(
+                    usuarioId = uuid,
+                    archivoId = UUID.fromString(archivoId),
+                    calificacionObtenida = calificacion,
+                    fechaIntento = Timestamp(Date()),
+                    completadoExitosamente = aprobado
+                )
+                guardadoConExitoRemoto = true
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        try {
+            val nuevoIntento = IntentoEntity(
                 calificacionObtenida = calificacion,
-                fechaIntento = Timestamp(Date()),
-                completadoExitosamente = aprobado
+                fechaIntento = System.currentTimeMillis(),
+                completadoExitosamente = aprobado,
+                sincronizado = guardadoConExitoRemoto,
+                archivoId = archivoId,
+                usuarioId = usuarioId
             )
+            intentoDao.guardarIntento(nuevoIntento)
+
             if (estrellasGanadas > 0) {
                 val usuarioActual = _usuarioActivo.value ?: return
                 val nuevasEstrellas = usuarioActual.estrellasPrestigio + estrellasGanadas
-                connector.actualizarEstrellasUsuario.execute(
-                    id = uuid,
-                    nuevasEstrellas = nuevasEstrellas
-                )
-                val nivelActualizado = verificarSubidaNivel(uuid, nuevasEstrellas, usuarioActual.nivel?.id ?: "")
-                _usuarioActivo.value = usuarioActual.copy(
-                    estrellasPrestigio = nuevasEstrellas,
-                    nivel = nivelActualizado ?: usuarioActual.nivel
-                )
+
+                try {
+                    if (tieneConexion()) {
+                        connector.actualizarEstrellasUsuario.execute(
+                            id = uuid,
+                            nuevasEstrellas = nuevasEstrellas
+                        )
+                        val nivelActualizado = verificarSubidaNivel(uuid, nuevasEstrellas, usuarioActual.nivel?.id ?: "")
+                        _usuarioActivo.value = usuarioActual.copy(
+                            estrellasPrestigio = nuevasEstrellas,
+                            nivel = nivelActualizado ?: usuarioActual.nivel
+                        )
+                    } else {
+                        _usuarioActivo.value = usuarioActual.copy(
+                            estrellasPrestigio = nuevasEstrellas
+                        )
+                    }
+                } catch (e: Exception) {
+                    _usuarioActivo.value = usuarioActual.copy(
+                        estrellasPrestigio = nuevasEstrellas
+                    )
+                }
+
+                guardarUsuarioActivoLocal(sincronizado = guardadoConExitoRemoto)
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -652,5 +774,23 @@ class UsuarioRepository(
             Log.e("NivelCheck", "Error: ${e.message}", e)
             null
         }
+    }
+
+
+    suspend fun guardarUsuarioLocal(usuario: ObtenerPerfilCompletoQuery.Data.Usuario) {
+
+        val nuevoUsuario = UsuarioEntity(
+            id = usuario.id.toString(),
+            alias = usuario.alias,
+            estrellasPrestigio = usuario.estrellasPrestigio,
+            rachaActualDias = usuario.rachaActualDias,
+            ultimaActividad = usuario.ultimaActividad?.toDate()?.let { fechaLocalDesdeDate(it) } ?: "",
+            rol = usuario.rol.nombreRol,
+            horaNotificacion = usuario.horaNotificacion ?: "",
+            nombre = usuario.nombre,
+            sincronizado = true
+        )
+
+        usuarioDao.guardarUsuario(nuevoUsuario)
     }
 }

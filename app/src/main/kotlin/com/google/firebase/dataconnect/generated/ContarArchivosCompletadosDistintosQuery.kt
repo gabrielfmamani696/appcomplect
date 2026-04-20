@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -71,6 +72,7 @@ public interface ContarArchivosCompletadosDistintosQuery :
 public fun ContarArchivosCompletadosDistintosQuery.ref(
   
     usuarioId: java.util.UUID,
+
   
   
 ): com.google.firebase.dataconnect.QueryRef<
@@ -87,10 +89,13 @@ public fun ContarArchivosCompletadosDistintosQuery.ref(
   )
 
 public suspend fun ContarArchivosCompletadosDistintosQuery.execute(
+
   
-    usuarioId: java.util.UUID,
+    
+      usuarioId: java.util.UUID,
+
   
-  
+
   ): com.google.firebase.dataconnect.QueryResult<
     ContarArchivosCompletadosDistintosQuery.Data,
     ContarArchivosCompletadosDistintosQuery.Variables
@@ -106,6 +111,7 @@ public suspend fun ContarArchivosCompletadosDistintosQuery.execute(
   public fun ContarArchivosCompletadosDistintosQuery.flow(
     
       usuarioId: java.util.UUID,
+
   
     
     ): kotlinx.coroutines.flow.Flow<ContarArchivosCompletadosDistintosQuery.Data> =

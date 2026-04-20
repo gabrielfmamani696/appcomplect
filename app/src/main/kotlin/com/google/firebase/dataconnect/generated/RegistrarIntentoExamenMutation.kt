@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -61,6 +62,7 @@ public interface RegistrarIntentoExamenMutation :
 public fun RegistrarIntentoExamenMutation.ref(
   
     usuarioId: java.util.UUID,archivoId: java.util.UUID,calificacionObtenida: Int,fechaIntento: com.google.firebase.Timestamp,completadoExitosamente: Boolean,
+
   
   
 ): com.google.firebase.dataconnect.MutationRef<
@@ -77,10 +79,13 @@ public fun RegistrarIntentoExamenMutation.ref(
   )
 
 public suspend fun RegistrarIntentoExamenMutation.execute(
+
   
-    usuarioId: java.util.UUID,archivoId: java.util.UUID,calificacionObtenida: Int,fechaIntento: com.google.firebase.Timestamp,completadoExitosamente: Boolean,
+    
+      usuarioId: java.util.UUID,archivoId: java.util.UUID,calificacionObtenida: Int,fechaIntento: com.google.firebase.Timestamp,completadoExitosamente: Boolean,
+
   
-  
+
   ): com.google.firebase.dataconnect.MutationResult<
     RegistrarIntentoExamenMutation.Data,
     RegistrarIntentoExamenMutation.Variables

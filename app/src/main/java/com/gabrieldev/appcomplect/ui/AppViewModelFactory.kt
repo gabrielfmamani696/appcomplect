@@ -1,5 +1,6 @@
 package com.gabrieldev.appcomplect.ui
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.gabrieldev.appcomplect.data.repository.ArchivoRepository
@@ -13,14 +14,16 @@ class AppViewModelFactory(
     private val usuarioRepository: UsuarioRepository,
     private val avatarRepository: AvatarRepository,
     private val archivoRepository: ArchivoRepository,
-    private val insigniaRepository: InsigniaRepository
+    private val insigniaRepository: InsigniaRepository,
+    private val context: Context? = null
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
-                MainViewModel(usuarioRepository, insigniaRepository) as T
+                if (context == null) throw IllegalArgumentException("Context requerido para MainViewModel")
+                MainViewModel(usuarioRepository, insigniaRepository, context) as T
             }
             modelClass.isAssignableFrom(PerfilViewModel::class.java) -> {
                 PerfilViewModel(usuarioRepository, avatarRepository) as T

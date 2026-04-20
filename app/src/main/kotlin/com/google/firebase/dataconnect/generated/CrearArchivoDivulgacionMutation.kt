@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -150,6 +151,7 @@ public interface CrearArchivoDivulgacionMutation :
 public fun CrearArchivoDivulgacionMutation.ref(
   
     titulo: String,tema: String,descripcion: String,fechaCreacion: com.google.firebase.Timestamp,usuarioId: java.util.UUID,
+
   
     block_: CrearArchivoDivulgacionMutation.Variables.Builder.() -> Unit = {}
   
@@ -168,11 +170,14 @@ public fun CrearArchivoDivulgacionMutation.ref(
   )
 
 public suspend fun CrearArchivoDivulgacionMutation.execute(
+
   
-    titulo: String,tema: String,descripcion: String,fechaCreacion: com.google.firebase.Timestamp,usuarioId: java.util.UUID,
+    
+      titulo: String,tema: String,descripcion: String,fechaCreacion: com.google.firebase.Timestamp,usuarioId: java.util.UUID,
+
   
     block_: CrearArchivoDivulgacionMutation.Variables.Builder.() -> Unit = {}
-  
+
   ): com.google.firebase.dataconnect.MutationResult<
     CrearArchivoDivulgacionMutation.Data,
     CrearArchivoDivulgacionMutation.Variables

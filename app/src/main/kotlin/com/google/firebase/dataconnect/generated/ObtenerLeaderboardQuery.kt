@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -109,7 +110,9 @@ public fun ObtenerLeaderboardQuery.ref(
   )
 
 public suspend fun ObtenerLeaderboardQuery.execute(
+
   
+
   ): com.google.firebase.dataconnect.QueryResult<
     ObtenerLeaderboardQuery.Data,
     Unit

@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -58,7 +59,9 @@ public fun SeedOpcionAvatarDataMutation.ref(
   )
 
 public suspend fun SeedOpcionAvatarDataMutation.execute(
+
   
+
   ): com.google.firebase.dataconnect.MutationResult<
     SeedOpcionAvatarDataMutation.Data,
     Unit

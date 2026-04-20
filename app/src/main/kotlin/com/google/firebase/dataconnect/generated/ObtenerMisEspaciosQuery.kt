@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -73,6 +74,7 @@ public interface ObtenerMisEspaciosQuery :
 public fun ObtenerMisEspaciosQuery.ref(
   
     usuarioId: java.util.UUID,
+
   
   
 ): com.google.firebase.dataconnect.QueryRef<
@@ -89,10 +91,13 @@ public fun ObtenerMisEspaciosQuery.ref(
   )
 
 public suspend fun ObtenerMisEspaciosQuery.execute(
+
   
-    usuarioId: java.util.UUID,
+    
+      usuarioId: java.util.UUID,
+
   
-  
+
   ): com.google.firebase.dataconnect.QueryResult<
     ObtenerMisEspaciosQuery.Data,
     ObtenerMisEspaciosQuery.Variables
@@ -108,6 +113,7 @@ public suspend fun ObtenerMisEspaciosQuery.execute(
   public fun ObtenerMisEspaciosQuery.flow(
     
       usuarioId: java.util.UUID,
+
   
     
     ): kotlinx.coroutines.flow.Flow<ObtenerMisEspaciosQuery.Data> =

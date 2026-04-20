@@ -1,9 +1,10 @@
 
-@file:kotlin.Suppress(
+@file:Suppress(
   "KotlinRedundantDiagnosticSuppress",
   "LocalVariableName",
   "MayBeConstant",
   "RedundantVisibilityModifier",
+  "RedundantCompanionReference",
   "RemoveEmptyClassBody",
   "SpellCheckingInspection",
   "LocalVariableName",
@@ -132,6 +133,7 @@ public interface ObtenerContenidoArchivoQuery :
 public fun ObtenerContenidoArchivoQuery.ref(
   
     idArchivo: java.util.UUID,
+
   
   
 ): com.google.firebase.dataconnect.QueryRef<
@@ -148,10 +150,13 @@ public fun ObtenerContenidoArchivoQuery.ref(
   )
 
 public suspend fun ObtenerContenidoArchivoQuery.execute(
+
   
-    idArchivo: java.util.UUID,
+    
+      idArchivo: java.util.UUID,
+
   
-  
+
   ): com.google.firebase.dataconnect.QueryResult<
     ObtenerContenidoArchivoQuery.Data,
     ObtenerContenidoArchivoQuery.Variables
@@ -167,6 +172,7 @@ public suspend fun ObtenerContenidoArchivoQuery.execute(
   public fun ObtenerContenidoArchivoQuery.flow(
     
       idArchivo: java.util.UUID,
+
   
     
     ): kotlinx.coroutines.flow.Flow<ObtenerContenidoArchivoQuery.Data> =
