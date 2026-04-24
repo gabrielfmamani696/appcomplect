@@ -33,3 +33,6 @@ app/google-services.json
 local.properties
 
 /appcomplect/app/build/outputs/apk/debug
+
+# Gen
+/app/src/main/kotlin/com/google/firebase/dataconnect/generated

@@ -132,7 +132,9 @@ class UsuarioRepository(
                 connector.obtenerPerfilCompleto
                     .flow(id = UUID.fromString(userId))
                     .collect { data ->
-                        //us remoto
+                        /**
+                         * usuario remoto
+                          */
                         val u = data.usuario ?: return@collect
                         //lectura local
                         val key = stringPreferencesKey("streak_data_$userId")
@@ -140,7 +142,9 @@ class UsuarioRepository(
                         val jsonStr = prefs[key] ?: "{}"
                         val obj = try { JSONObject(jsonStr) } catch(e: Exception) { JSONObject() }
 
-                        //si pendiente == false => true
+                        /**
+                         * si pendiente == false => true
+                         */
                         val pendiente = obj.optBoolean("pendienteSincronizar", false)
                         var rachaVisual = obj.optInt("rachaLocal", u.rachaActualDias).coerceAtLeast(0)
                         if (pendiente) {
@@ -792,5 +796,15 @@ class UsuarioRepository(
         )
 
         usuarioDao.guardarUsuario(nuevoUsuario)
+    }
+
+    suspend fun actualizarNivelLocal(usuarioId: String, nivel: Nivel) {
+        val usuarioActual = _usuarioActivo.value ?: return
+        if (usuarioActual.uuidSesion != usuarioId) return
+        _usuarioActivo.value = usuarioActual.copy(
+            idNivel = nivel.id,
+            nivel = nivel
+        )
+        guardarUsuarioActivoLocal()
     }
 }

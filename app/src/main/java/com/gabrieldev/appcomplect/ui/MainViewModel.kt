@@ -7,9 +7,10 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gabrieldev.appcomplect.data.repository.UsuarioRepository
-import com.gabrieldev.appcomplect.data.repository.InsigniaRepository
 import com.gabrieldev.appcomplect.data.repository.ContextoInsignia
+import com.gabrieldev.appcomplect.data.repository.InsigniaRepository
+import com.gabrieldev.appcomplect.data.repository.SyncRepository
+import com.gabrieldev.appcomplect.data.repository.UsuarioRepository
 import com.gabrieldev.appcomplect.model.InsigniaObtenida
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,6 +20,7 @@ import kotlinx.coroutines.launch
 class MainViewModel(
     private val usuarioRepository: UsuarioRepository,
     private val insigniaRepository: InsigniaRepository,
+    private val syncRepository: SyncRepository,
     private val context: Context
 ) : ViewModel() {
 
@@ -35,6 +37,8 @@ class MainViewModel(
     val enLinea = _enLinea.asStateFlow()
 
     private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+    private var estabaOffline = false
 
     init {
         viewModelScope.launch {
@@ -63,20 +67,61 @@ class MainViewModel(
             .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             .build()
 
-        connectivityManager.registerNetworkCallback(networkRequest, object: ConnectivityManager.NetworkCallback() {
+        val network = connectivityManager.activeNetwork
+        val capabilities = connectivityManager.getNetworkCapabilities(network)
+        val hayConexionInicial = capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+        _enLinea.value = hayConexionInicial
+        estabaOffline = !hayConexionInicial
+
+        connectivityManager.registerNetworkCallback(networkRequest, object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
+                val reconectado = estabaOffline
                 _enLinea.value = true
+                estabaOffline = false
+                if (reconectado) {
+                    sincronizarTrasReconexion()
+                }
             }
 
             override fun onLost(network: Network) {
                 _enLinea.value = false
+                estabaOffline = true
             }
         })
+    }
 
-        // Verificar estado inicial
-        val network = connectivityManager.activeNetwork
-        val capabilities = connectivityManager.getNetworkCapabilities(network)
-        _enLinea.value = capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+    private fun sincronizarTrasReconexion() {
+        viewModelScope.launch {
+            val nivelSubidoPorSync = syncRepository.syncAll()
+
+            val usuario = usuarioActivo.value ?: return@launch
+            val uid = usuario.uuidSesion ?: return@launch
+
+            usuarioRepository.sincronizarRachaConBackend()
+
+            val estrellasActuales = usuario.estrellasPrestigio
+            val rachaActual = usuario.rachaActualDias
+            val nivelActualId = usuario.idNivel ?: ""
+
+            val (insigniasNuevas, nivelSubidoPorLogros) = syncRepository.syncLogrosYNivel(
+                usuarioId = uid,
+                estrellasActuales = estrellasActuales,
+                rachaActual = rachaActual,
+                nivelActualId = nivelActualId
+            )
+
+            val nivelFinal = nivelSubidoPorLogros ?: nivelSubidoPorSync
+            if (nivelFinal != null) {
+                usuarioRepository.actualizarNivelLocal(uid, nivelFinal)
+            }
+
+            if (insigniasNuevas.isNotEmpty()) {
+                _insigniasNuevas.value = insigniasNuevas
+            }
+
+            val obtenidas = insigniaRepository.obtenerInsigniasObtenidas(uid)
+            _insigniasObtenidas.value = obtenidas
+        }
     }
 
     fun registrarAccionDiaria() {

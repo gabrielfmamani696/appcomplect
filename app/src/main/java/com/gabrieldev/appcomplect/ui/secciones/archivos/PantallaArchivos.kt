@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -49,6 +48,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -75,7 +75,6 @@ import com.gabrieldev.appcomplect.ui.navegacion.Rutas
 import com.gabrieldev.appcomplect.ui.theme.ColorVerde
 import com.gabrieldev.appcomplect.ui.theme.ColorVerdeClaro
 import com.gabrieldev.appcomplect.ui.theme.ColorVerdeMedio
-import java.util.UUID
 
 @Composable
 fun PantallaArchivos(
@@ -93,7 +92,7 @@ fun PantallaArchivos(
     val usuarioActivo by viewModel.usuarioActivo.collectAsState()
 
     var textoBusqueda by remember { mutableStateOf("") }
-    var pestanaSeleccionada by remember { mutableStateOf(0) }
+    var pestanaSeleccionada by remember { mutableIntStateOf(0) }
     var codigoAcceso by remember { mutableStateOf("") }
     var mostrarModalEspacios by remember { mutableStateOf(false) }
     var archivoParaEstadisticas by remember { mutableStateOf<Archivo?>(null) }
@@ -195,73 +194,44 @@ fun PantallaArchivos(
         )
 
         Spacer(modifier = Modifier.height(16.dp))
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .height(70.dp)
                 .background(Color.White, RoundedCornerShape(24.dp))
                 .border(1.dp, Color(0xFFE0E0E0), RoundedCornerShape(24.dp))
-                .padding(4.dp)
+                .padding(4.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .clip(RoundedCornerShape(20.dp))
-                    .background(if (pestanaSeleccionada == 0) Color(0xFF4CAF50) else Color.Transparent)
-                    .clickable { pestanaSeleccionada = 0 }
-                    .padding(vertical = 10.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "Archivos Confidenciales",
-                    color = if (pestanaSeleccionada == 0) Color.White else Color(0xFF757575),
-                    fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.bodySmall,
-                    textAlign = TextAlign.Center
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .clip(RoundedCornerShape(20.dp))
-                    .background(if (pestanaSeleccionada == 1) Color(0xFF4CAF50) else Color.Transparent)
-                    .clickable { pestanaSeleccionada = 1 }
-                    .padding(vertical = 10.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = if (esDocente) "Mis Archivos" else "Archivos de Divulgación",
-                    color = if (pestanaSeleccionada == 1) Color.White else Color(0xFF757575),
-                    fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        //fontSize = 11.sp,
-                        lineHeight = 20.sp
-                    ),
-                    textAlign = TextAlign.Center,
-                    softWrap = true,
-                    maxLines = 2
-                )
-            }
-            Box(
-                modifier = Modifier
-                .weight(1f)
-                .clip(RoundedCornerShape(20.dp))
-                .background(if (pestanaSeleccionada == 2) Color(0xFF4CAF50) else Color.Transparent)
-                .clickable { pestanaSeleccionada = 2 }
-                .padding(vertical = 10.dp, horizontal = 4.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "Archivos de Descarga",
-                    color = if (pestanaSeleccionada == 2) Color.White else Color(0xFF757575),
-                    fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontSize = 13.sp,
-                        lineHeight = 12.sp
-                    ),
-                    textAlign = TextAlign.Center,
-                    softWrap = true
-                )
+            val opciones = listOf(
+                "Archivos\nConfidenciales",
+                if (esDocente) "Mis\nArchivos" else "Archivos de\nDivulgación",
+                "Archivos de\nDescarga"
+            )
+
+            opciones.forEachIndexed { index, titulo ->
+                val seleccionado = pestanaSeleccionada == index
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(if (seleccionado) Color(0xFF4CAF50) else Color.Transparent)
+                        .clickable { pestanaSeleccionada = index }
+                        .padding(horizontal = 4.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = titulo,
+                        color = if (seleccionado) Color.White else Color(0xFF757575),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 11.sp,
+                        lineHeight = 13.sp,
+                        textAlign = TextAlign.Center,
+                        maxLines = 2,
+                        softWrap = true
+                    )
+                }
             }
         }
 
@@ -269,16 +239,19 @@ fun PantallaArchivos(
 
         if (!esDocente && pestanaSeleccionada == 0) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 OutlinedTextField(
                     value = codigoAcceso,
                     onValueChange = { codigoAcceso = it },
-                    modifier = Modifier.weight(1f),
-                    label = { Text("Código de acceso") },
-                    placeholder = { Text("Ingresa el código") },
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight(),
+                    placeholder = { Text("Código de acceso", color = Color(0xFF757575)) },
                     singleLine = true,
                     shape = RoundedCornerShape(24.dp),
                     colors = OutlinedTextFieldDefaults.colors(
@@ -288,6 +261,7 @@ fun PantallaArchivos(
                         focusedContainerColor = Color.White
                     )
                 )
+
                 Button(
                     onClick = {
                         if (codigoAcceso.isNotBlank()) {
@@ -298,14 +272,22 @@ fun PantallaArchivos(
                                 }
                             }
                         } else {
-                            Toast.makeText(context, "Ingresa un código de acceso.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context,
+                                "Ingresa un código de acceso.",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     },
-                    modifier = Modifier.height(48.dp),
+                    modifier = Modifier.fillMaxHeight(),
                     shape = RoundedCornerShape(24.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = ColorVerdeMedio)
                 ) {
-                    Text("Unirse", color = Color.White)
+                    Text(
+                        "Unirse",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -422,6 +404,7 @@ fun PantallaArchivos(
                             archivo = archivo,
                             usuarioActual = usuarioActivo,
                             espacioBloqueado = espacioBloqueado,
+                            mostrarAcciones = pestanaSeleccionada != 2,
                             onDescargar = {
                                 viewModel.descargarArchivo(archivo.idArchivo) { exito ->
                                     if (exito) {
@@ -841,6 +824,7 @@ fun ItemArchivoMockup(
     archivo: Archivo,
     usuarioActual: Usuario?,
     espacioBloqueado: Boolean,
+    mostrarAcciones: Boolean = true,
     onDescargar: () -> Unit,
     onClick: () -> Unit
 ) {
@@ -1009,7 +993,7 @@ fun ItemArchivoMockup(
                 }
             }
 
-            if (!bloqueado) {
+            if (mostrarAcciones && !bloqueado) {
                 HorizontalDivider(color = Color(0xFFEEEEEE))
                 Row(
                     modifier = Modifier

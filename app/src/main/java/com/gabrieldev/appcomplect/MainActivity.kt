@@ -22,10 +22,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.gabrieldev.appcomplect.data.local.AppComplectDatabase
-import com.gabrieldev.appcomplect.data.repository.AvatarRepository
 import com.gabrieldev.appcomplect.data.repository.ArchivoRepository
-import com.gabrieldev.appcomplect.data.repository.UsuarioRepository
+import com.gabrieldev.appcomplect.data.repository.AvatarRepository
 import com.gabrieldev.appcomplect.data.repository.InsigniaRepository
+import com.gabrieldev.appcomplect.data.repository.SyncRepository
+import com.gabrieldev.appcomplect.data.repository.UsuarioRepository
 import com.gabrieldev.appcomplect.ui.AppViewModelFactory
 import com.gabrieldev.appcomplect.ui.MainViewModel
 import com.gabrieldev.appcomplect.ui.RegistroUsuario
@@ -46,6 +47,7 @@ class MainActivity : ComponentActivity() {
     private val repositorioAvatar by lazy { AvatarRepository(connector) }
     private val repositorioArchivo by lazy { ArchivoRepository(connector, applicationContext, db.archivoDao(), db.descargaDao()) }
     private val repositorioInsignia by lazy { InsigniaRepository(connector) }
+    private val repositorioSync by lazy { SyncRepository(db.usuarioDao(), db.intentoDao(), connector, repositorioInsignia) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +62,7 @@ class MainActivity : ComponentActivity() {
                     repositorioAvatar,
                     repositorioArchivo,
                     repositorioInsignia,
+                    repositorioSync,
                     applicationContext
                 )
             }
@@ -104,6 +107,7 @@ class MainActivity : ComponentActivity() {
                                     avatarRepository = repositorioAvatar,
                                     archivoRepository = repositorioArchivo,
                                     insigniaRepository = repositorioInsignia,
+                                    syncRepository = repositorioSync,
                                     mainViewModel = mainViewModel
                                 )
                             }

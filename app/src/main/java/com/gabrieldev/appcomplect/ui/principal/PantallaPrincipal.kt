@@ -54,6 +54,7 @@ import coil.compose.SubcomposeAsyncImage
 import com.gabrieldev.appcomplect.data.repository.ArchivoRepository
 import com.gabrieldev.appcomplect.data.repository.AvatarRepository
 import com.gabrieldev.appcomplect.data.repository.InsigniaRepository
+import com.gabrieldev.appcomplect.data.repository.SyncRepository
 import com.gabrieldev.appcomplect.data.repository.UsuarioRepository
 import com.gabrieldev.appcomplect.model.Usuario
 import com.gabrieldev.appcomplect.ui.AppViewModelFactory
@@ -80,6 +81,7 @@ fun PantallaPrincipal(
     avatarRepository: AvatarRepository,
     archivoRepository: ArchivoRepository,
     insigniaRepository: InsigniaRepository,
+    syncRepository: SyncRepository,
     mainViewModel: MainViewModel
 ) {
     val navController = rememberNavController()
@@ -288,7 +290,13 @@ fun PantallaPrincipal(
                     )
                 }
                 composable(Rutas.Archivos.ruta) {
-                    val factory = remember { AppViewModelFactory(usuarioRepository, avatarRepository, archivoRepository, insigniaRepository) }
+                    val factory = remember { AppViewModelFactory(
+                        usuarioRepository,
+                        avatarRepository,
+                        archivoRepository,
+                        insigniaRepository,
+                        syncRepository
+                    ) }
                     val archivosViewModel: ArchivosViewModel = viewModel(factory = factory)
                     PantallaArchivos(
                         navController = navController,
@@ -296,7 +304,13 @@ fun PantallaPrincipal(
                     )
                 }
                 composable(Rutas.Perfil.ruta) {
-                    val factory = remember { AppViewModelFactory(usuarioRepository, avatarRepository, archivoRepository, insigniaRepository) }
+                    val factory = remember { AppViewModelFactory(
+                        usuarioRepository,
+                        avatarRepository,
+                        archivoRepository,
+                        insigniaRepository,
+                        syncRepository
+                    ) }
                     val perfilViewModel: PerfilViewModel = viewModel(factory = factory)
                     PantallaPerfil(
                         usuario = usuario,

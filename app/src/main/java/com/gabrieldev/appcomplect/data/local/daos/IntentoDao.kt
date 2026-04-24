@@ -21,4 +21,7 @@ interface IntentoDao {
 
     @Query("UPDATE intentos SET sincronizado = 1 WHERE id = :id")
     suspend fun marcarComoSincronizado(id: Int)
+
+    @Query("DELETE FROM intentos WHERE id = :id")
+    suspend fun eliminarIntentoPorId(id: Int)
 }

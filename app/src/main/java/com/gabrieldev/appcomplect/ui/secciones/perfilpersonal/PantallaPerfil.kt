@@ -36,8 +36,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -79,17 +77,6 @@ fun PantallaPerfil(
     }
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { 
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Spacer(modifier = Modifier.width(48.dp))
-                        Text("Mi Perfil", color = Color.White) 
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFF2E7D32))
-            )
-        },
         containerColor = Color(0xFFF1F8F1)
     ) { padding ->
         Column(
@@ -102,7 +89,7 @@ fun PantallaPerfil(
             verticalArrangement = Arrangement.Top
         ) {
             Spacer(modifier = Modifier.height(16.dp))
-            
+
             Text("Tu avatar:", style = MaterialTheme.typography.titleMedium)
             LazyRow(
                 modifier = Modifier
@@ -120,12 +107,19 @@ fun PantallaPerfil(
                             .clip(CircleShape)
                             .border(
                                 width = if (state.avatarSeleccionado?.idAvatar == avatar.idAvatar) 4.dp else 1.dp,
-                                color = if (state.avatarSeleccionado?.idAvatar == avatar.idAvatar) MaterialTheme.colorScheme.primary else Color.Gray,
+                                color = if (state.avatarSeleccionado?.idAvatar == avatar.idAvatar) MaterialTheme.colorScheme.primary
+                                else Color.Gray,
                                 shape = CircleShape
                             )
                             .clickable { viewModel.seleccionarAvatar(avatar) },
                         loading = { CircularProgressIndicator(modifier = Modifier.size(32.dp)) },
-                        error = { Icon(Icons.Default.Person, contentDescription = null, tint = Color.Gray, modifier = Modifier.size(40.dp)) }
+                        error = {
+                            Icon (
+                                imageVector = Icons.Default.Person,
+                                contentDescription = null, tint = Color.Gray,
+                                modifier = Modifier.size(40.dp)
+                            )
+                        }
                     )
                 }
             }
@@ -165,7 +159,7 @@ fun PantallaPerfil(
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )
-            
+
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 ExposedDropdownMenuBox(
                     expanded = state.expandedCurso,
@@ -241,9 +235,12 @@ fun PantallaPerfil(
             )
 
             Spacer(modifier = Modifier.height(16.dp))
-            
+
             Text("Preferencia Notificación Diaria:", style = MaterialTheme.typography.titleMedium)
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
                 OutlinedTextField(
                     value = state.horaH,
                     onValueChange = { if(it.length <= 2) viewModel.actualizarCampo("horaH", it.filter { c -> c.isDigit() }) },
@@ -263,8 +260,15 @@ fun PantallaPerfil(
             }
 
             if (state.listaRoles.isNotEmpty()) {
-                Text("Soy un:", style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(top = 16.dp))
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+                Text(
+                    text = "Soy un:",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(top = 16.dp)
+                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
                     state.listaRoles.forEach { rol ->
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
